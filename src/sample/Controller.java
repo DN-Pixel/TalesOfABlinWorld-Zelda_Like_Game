@@ -2,8 +2,6 @@ package sample;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
@@ -21,12 +19,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        testImage.setImage(new Image(""));
-        tilePane  = new TilePane(Orientation.VERTICAL);
-        tilePane.setTileAlignment(Pos.CENTER_LEFT);
-        tilePane.setPrefRows(10);
-        for (int i = 0; i < 50; i++) {
-            tilePane.getChildren().add(new ImageView(new Image("")));
-        }}
+        testImage.setImage(new Image("/sample/Shadow.png"));
+    }
 
 }
