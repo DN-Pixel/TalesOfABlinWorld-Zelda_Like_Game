@@ -19,7 +19,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        testImage.setImage(new Image("/sample/ressources/Shadow.png"));
+        testImage.setImage(new Image("/ressources/Shadow.png"));
     }
 
 }
