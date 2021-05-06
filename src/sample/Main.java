@@ -16,9 +16,8 @@ public class Main extends Application {
         Scene scene = new Scene(root, 300, 275);
         scene.setOnKeyPressed(e -> Controller.manageMovement(e));
         scene.setOnKeyReleased(e -> Controller.releaseManageMovement(e));
-        primaryStage.setTitle("");
+        primaryStage.setTitle("Tales of a Blind World");
         primaryStage.setScene(scene);
-
         primaryStage.show();
     }
 

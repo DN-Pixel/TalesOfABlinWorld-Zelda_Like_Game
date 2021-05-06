@@ -29,6 +29,8 @@ public class Controller implements Initializable {
     private ImageView player;
     @FXML
     private Pane gamePane;
+    @FXML
+    private TilePane tilePaneSolid;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -89,8 +91,40 @@ public class Controller implements Initializable {
     Chargement des textures
      */
     public void affichageDeMap(){
+
+        int [] map = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,996,996,996,996,996,996,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,996,990,990,990,990,996,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,996,0,0,0,0,996,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,996,0,0,0,0,996,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,996,990,990,990,990,996,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,996,996,996,996,996,996,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
         for(int i = 0; i<400 ; i++){
             tilePane.getChildren().add(new ImageView(new Image("sample/ressources/floor.png")));
         }
+
+        for(int i = 0; i<400 ; i++){
+            if (map[i]==0)
+                tilePaneSolid.getChildren().add(new ImageView(new Image("sample/ressources/empty.png")));
+            else if(map[i]==990)
+                tilePaneSolid.getChildren().add(new ImageView(new Image("sample/ressources/fleurJ.png")));
+            else if(map[i]==996)
+                tilePaneSolid.getChildren().add(new ImageView(new Image("sample/ressources/bambouzel.png")));
+        }
+
     }
 }
