@@ -23,6 +23,8 @@ public class Controller implements Initializable {
     private static IntegerProperty dx = new SimpleIntegerProperty(0);
     private static IntegerProperty dy = new SimpleIntegerProperty(0);
 
+    imageMap imageMap = new imageMap();
+
     @FXML
     private TilePane tilePane;
     @FXML
@@ -36,6 +38,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         affichageDeMap();
         initAnimation();
         gameLoop.play();
@@ -62,33 +65,24 @@ public class Controller implements Initializable {
     }
 
     public static void manageMovement(KeyEvent e){
-        if(e.getCode() == KeyCode.Z) {
+        if(e.getCode() == KeyCode.Z)
             dy.setValue(-1);
-
-        }
-        if(e.getCode() == KeyCode.S) {
+        if(e.getCode() == KeyCode.S)
             dy.setValue(1);
-        }
-        if(e.getCode() == KeyCode.Q) {
+        if(e.getCode() == KeyCode.Q)
             dx.setValue(-1);
-        }
-        if(e.getCode() == KeyCode.D) {
+        if(e.getCode() == KeyCode.D)
             dx.setValue(1);
-        }
     }
     public static void releaseManageMovement(KeyEvent e) {
-        if(e.getCode() == KeyCode.Z) {
+        if(e.getCode() == KeyCode.Z)
             dy.setValue(0);
-        }
-        if(e.getCode() == KeyCode.S) {
+        if(e.getCode() == KeyCode.S)
             dy.setValue(0);
-        }
-        if(e.getCode() == KeyCode.Q) {
+        if(e.getCode() == KeyCode.Q)
             dx.setValue(0);
-        }
-        if(e.getCode() == KeyCode.D) {
+        if(e.getCode() == KeyCode.D)
             dx.setValue(0);
-        }
     }
     /*
     Chargement des textures
@@ -116,17 +110,13 @@ public class Controller implements Initializable {
                 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
+        // affiche la couche du sol de la map
         for(int i = 0; i<400 ; i++){
-            tilePane.getChildren().add(new ImageView(new Image("sample/ressources/floor.png")));
+            tilePane.getChildren().add(new ImageView(imageMap.getImage(244)));
         }
-        //map img view /// getimg
+        // affiche la couche solide de la map
         for(int i = 0; i<400 ; i++){
-            if (map[i]==0)
-                tilePaneSolid.getChildren().add(new ImageView(new Image("sample/ressources/empty.png")));
-            else if(map[i]==990)
-                tilePaneSolid.getChildren().add(new ImageView(new Image("sample/ressources/fleurJ.png")));
-            else if(map[i]==996)
-                tilePaneSolid.getChildren().add(new ImageView(new Image("sample/ressources/bambouzel.png")));
+            tilePaneSolid.getChildren().add(new ImageView(imageMap.getImage(map[i])));
         }
 
     }
