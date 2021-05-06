@@ -9,16 +9,18 @@ import java.io.IOException;
 //><
 
 public class MapLoadder {
+
+
     public MapLoadder() {
     }
 
-    public int[][] LoadTileMap() throws IOException {
+    public int[][] LoadTileMap(String mapName) throws IOException {
         int TileValue;
         int numeroLigne = 0;
         int nombreDeLigne = 1;
         int nombreDeColonne = 1;
         try {
-            FileReader fr = new FileReader("/home/clone/IdeaProjects/DAS-LinkGame/src/sample/tilemaps/HerbeDeFond.csv");
+            FileReader fr = new FileReader("C:\\Users\\antho\\IdeaProjects\\DAS-LinkGame\\src\\sample\\tilemaps\\"+mapName+".csv");
             //FileReader fr = new FileReader("/sample/tilemaps/" + folderName);
 
             BufferedReader csvReader = new BufferedReader(fr);

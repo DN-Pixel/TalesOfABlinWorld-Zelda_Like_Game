@@ -6,12 +6,12 @@ public class Terrain {
     private String nomDeCarte;
     private int [][] map;
 
-    public Terrain (String nomDeCarte, Joueur player) {
+    public Terrain (String nomDeCarte, Joueur j) {
         this.nomDeCarte = nomDeCarte;
-        this.player = player;
+        this.player = j;
     }
 
-    public void ajouterJoueur (Joueur newPlayer) {
+    public void setJoueur (Joueur newPlayer) {
         this.player = newPlayer;
     }
 

@@ -8,7 +8,7 @@ public class Joueur {
     private DoubleProperty xProperty = new SimpleDoubleProperty(0);
     private DoubleProperty yProperty = new SimpleDoubleProperty(0);
 
-    public Joueur (Double x, Double y) {
+    public Joueur(Double x, Double y) {
         this.xProperty.setValue(x);
         this.yProperty.setValue(y);
     }
@@ -38,21 +38,20 @@ public class Joueur {
     }
 
     public void moveUp () {
-        this.yProperty.setValue(this.yProperty.getValue()+1);
+        this.yProperty.setValue(this.yProperty.getValue()-2);
     }
 
     public void moveDown () {
-        this.yProperty.setValue(this.yProperty.getValue()-1);
+        this.yProperty.setValue(this.yProperty.getValue()+2);
     }
 
     public void moveRight () {
-        this.xProperty.setValue(this.xProperty.getValue()+1);
+        this.xProperty.setValue(this.xProperty.getValue()+2);
     }
 
     public void moveLeft () {
-        this.xProperty.setValue(this.xProperty.getValue()-1);
+        this.xProperty.setValue(this.xProperty.getValue()-2);
     }
-
 
 
 
