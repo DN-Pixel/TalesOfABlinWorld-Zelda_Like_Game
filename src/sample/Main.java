@@ -14,8 +14,12 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         AnchorPane root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         Scene scene = new Scene(root, 300, 275);
-        scene.setOnKeyPressed(e -> Controller.manageMovement(e));
+        scene.setOnKeyPressed(e ->{
+                    Controller.manageMovement(e);
+
+        });
         scene.setOnKeyReleased(e -> Controller.releaseManageMovement(e));
+
         primaryStage.setTitle("Tales of a Blind World");
         primaryStage.setScene(scene);
         primaryStage.show();

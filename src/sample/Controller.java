@@ -32,6 +32,8 @@ public class Controller implements Initializable {
     @FXML
     private TilePane tilePaneSolid;
 
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         affichageDeMap();
@@ -62,6 +64,7 @@ public class Controller implements Initializable {
     public static void manageMovement(KeyEvent e){
         if(e.getCode() == KeyCode.Z) {
             dy.setValue(-1);
+
         }
         if(e.getCode() == KeyCode.S) {
             dy.setValue(1);
@@ -116,7 +119,7 @@ public class Controller implements Initializable {
         for(int i = 0; i<400 ; i++){
             tilePane.getChildren().add(new ImageView(new Image("sample/ressources/floor.png")));
         }
-
+        //map img view /// getimg
         for(int i = 0; i<400 ; i++){
             if (map[i]==0)
                 tilePaneSolid.getChildren().add(new ImageView(new Image("sample/ressources/empty.png")));
