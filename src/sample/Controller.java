@@ -69,43 +69,50 @@ public class Controller implements Initializable {
         );
         gameLoop.getKeyFrames().add(kf);
     }
-    /*
-    Déplacement du joueur
-     */
-    /*
-    public void movePlayer(){
-        player.setTranslateX(player.getTranslateX()+2*dx.getValue());
-        player.setTranslateY(player.getTranslateY()+2*dy.getValue());
-    }
-    */
 
-    public static void manageMovement(KeyEvent e){
-        if(e.getCode() == KeyCode.Z && joueur.getY()-2>0)
-            joueur.moveUp();
-        if(e.getCode() == KeyCode.S && joueur.getY()+2<zoneActuelle.limiteVertiMap()*15) // *15 car l'axe central du joueur est en haut a gauche du sprite
-            joueur.moveDown();
-        if(e.getCode() == KeyCode.Q && joueur.getX()+2>0)
-            joueur.moveLeft();
-        if(e.getCode() == KeyCode.D && joueur.getX()+2<zoneActuelle.limiteHorizMap()*15 && zoneActuelle.getMap()[(int)(joueur.getX()+2/16)][(int)(joueur.getY()+2/16)]==-1)
-            joueur.moveRight();
+    public static void keyManager(KeyEvent e){
+        if(zoneActuelle.manageCollisions(e)){
+            if(e.getCode()==KeyCode.Z)
+                joueur.moveUp();
+            else if(e.getCode()==KeyCode.D)
+                joueur.moveRight();
+            else if(e.getCode()==KeyCode.S)
+                joueur.moveDown();
+            else if(e.getCode()==KeyCode.Q)
+                joueur.moveLeft();
+        }
     }
+        /*
+        if(e.getCode() == KeyCode.Z && joueur.getY()>0
+                && zoneActuelle.getMap()[(int)((getCentreJoueurY()-8)/16)][(int)((getCentreJoueurX())/16)]==-1)
+            joueur.moveUp();
+        if(e.getCode() == KeyCode.S && joueur.getY()<zoneActuelle.limiteVertiMap()*15
+                && zoneActuelle.getMap()[(int)((getCentreJoueurY()+8)/16)][(int)((getCentreJoueurX())/16)]==-1) // *15 car l'axe central du joueur est en haut a gauche du sprite
+            joueur.moveDown();
+        if(e.getCode() == KeyCode.Q && joueur.getX()>0
+                && zoneActuelle.getMap()[(int)((getCentreJoueurY())/16)][(int)((getCentreJoueurX()-8)/16)]==-1)
+            joueur.moveLeft();
+        if(e.getCode() == KeyCode.D && joueur.getX()<zoneActuelle.limiteHorizMap()*15
+            && zoneActuelle.getMap()[(int)((getCentreJoueurY())/16)][(int)((getCentreJoueurX()+8)/16)]==-1)
+            joueur.moveRight();
+         */
+
 
     /*
     Chargement des textures
      */
     public void affichageDeMap(){
-
         // affiche la couche du sol de la map
         for(int i = 0; i< zoneActuelle.getLongueurMap(); i++){
             tilePane.getChildren().add(new ImageView(imageMap.getImage(244)));
         }
         // affiche la couche solide de la map
-
         for(int i = 0; i<zoneActuelle.getMap().length ; i++){
             for(int j = 0; j<zoneActuelle.getMap()[i].length ; j++){
                 tilePaneSolid.getChildren().add(new ImageView(imageMap.getImage(zoneActuelle.getMap()[i][j])));
             }
         }
-
     }
+
+
 }

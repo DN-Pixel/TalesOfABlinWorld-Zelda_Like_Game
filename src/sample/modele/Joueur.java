@@ -53,6 +53,18 @@ public class Joueur {
         this.xProperty.setValue(this.xProperty.getValue()-2);
     }
 
+    /*
+    retourne le centre X du sprite du joueur
+     */
+    public double getCentreJoueurX(){
+        return this.getX()+8;
+    }
+    /*
+    retourne le centre Y du sprite du joueur
+     */
+    public double getCentreJoueurY(){
+        return this.getY()+8;
+    }
 
 
 }

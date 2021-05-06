@@ -11,12 +11,12 @@
       <Pane fx:id="gamePane" layoutX="240.0" layoutY="240.0" scaleX="2.0" scaleY="2.0">
          <children>
             <TilePane fx:id="tilePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="320.0" />
-            <TilePane fx:id="tilePaneSolid" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="320.0" />
             <ImageView fx:id="player" fitHeight="150.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@ressources/player.png" />
                </image>
             </ImageView>
+            <TilePane fx:id="tilePaneSolid" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="320.0" />
          </children>
       </Pane>
    </children>
