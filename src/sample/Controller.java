@@ -96,7 +96,7 @@ public class Controller implements Initializable {
     public void affichageDeMap(){
 
         // affiche la couche du sol de la map
-        for(int i = 0; i<tilePane.getChildren().size() ; i++){
+        for(int i = 0; i< zoneActuelle.getLongueurMap(); i++){
             tilePane.getChildren().add(new ImageView(imageMap.getImage(244)));
         }
         // affiche la couche solide de la map

@@ -17,7 +17,7 @@ public class MapLoadder {
     public int[][] LoadTileMap(String mapName) throws IOException {
         int TileValue;
         int numeroLigne = 0;
-        int nombreDeLigne = 1;
+        int nombreDeLigne = 0;
         int nombreDeColonne = 1;
         try {
             FileReader fr = new FileReader("C:\\Users\\antho\\IdeaProjects\\DAS-LinkGame\\src\\sample\\tilemaps\\"+mapName+".csv");
@@ -25,7 +25,10 @@ public class MapLoadder {
 
             BufferedReader csvReader = new BufferedReader(fr);
 
-            String lignelue = csvReader.readLine();
+            FileReader fr2 = new FileReader("C:\\Users\\antho\\IdeaProjects\\DAS-LinkGame\\src\\sample\\tilemaps\\"+mapName+".csv");
+
+            BufferedReader csvReader2 = new BufferedReader(fr2);
+
 
             // compteur de lignes dans le fichier lu.
             while (csvReader.readLine() != null) {
@@ -34,11 +37,15 @@ public class MapLoadder {
             //test si nombre de ligne marche
             //System.out.println(nombreDeLigne);
 
+            csvReader.close();
+
+            String lignelue = csvReader2.readLine();
 
             for (int i = 0; i < lignelue.length(); i++) {
                 if (lignelue.charAt(i) == ',')
                     nombreDeColonne++;
             }
+            
             //test si nombre de colonne marche
             //System.out.println(nombreDeColonne);
 
@@ -51,18 +58,20 @@ public class MapLoadder {
                     TileValue = Integer.parseInt(values[i]);
                     map[numeroLigne][i] = TileValue;
                 }
-                lignelue = csvReader.readLine();
+                lignelue = csvReader2.readLine();
                 numeroLigne++;
             }
 
 
             //test d'affichage de l'array.
-            /*for (int i = 0; i < map.length;i++){
-                for (int j = 0; j < map[0].length;j++){
+            /*
+            for (int i = 0; i < map.length;i++){
+                for (int j = 0; j < map[i].length;j++){
                     System.out.print(map[i][j]+ " ");
                 }
                 System.out.println();
-            }*/
+            }
+            */
             return map;
         } catch (Exception e) {
             System.out.println("fichier introuvable");

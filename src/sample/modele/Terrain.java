@@ -51,5 +51,15 @@ public class Terrain {
         return limiteH;
     }
 
+    public int getLongueurMap () {
+        int longueur = 0;
+        for (int i = 0; i < this.map.length; i++) {
+            for (int j = 0; j < this.map[i].length; j++) {
+                longueur++;
+            }
+        }
+        return longueur;
+    }
+
 
 }
