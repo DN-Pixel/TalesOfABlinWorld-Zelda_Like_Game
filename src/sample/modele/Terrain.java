@@ -68,32 +68,26 @@ public class Terrain {
     /*
     Gère les collisions du joueur dans le terrain retourne vrai si tout vas bien et faux si il y a un conflit
      */
+    //><
     public boolean manageCollisions(KeyEvent e){
-        /*
         switch (e.getCode()){
             case Z:
-                if(player.getY()>0 && mapObstacles[]){
-
-                }
+                if(!(player.getY()>0 && mapObstacles[(int)((player.getCentreJoueurY()-8)/16)][(int)((player.getCentreJoueurX())/16)]==-1))
+                    return false;
                 break;
             case S:
-                if(){
-
-                }
-                break;
-            case D:
-                if(){
-
-                }
+                if(!(player.getY()<limiteVertiMap()*15 && mapObstacles[(int)((player.getCentreJoueurY()+8)/16)][(int)((player.getCentreJoueurX())/16)]==-1))
+                    return false;
                 break;
             case Q:
-                if(){
-
-                }
+                if(!(player.getX()>0 && mapObstacles[(int)((player.getCentreJoueurY())/16)][(int)((player.getCentreJoueurX()-8)/16)]==-1))
+                    return false;
+                break;
+            case D:
+                if(!(player.getX()<limiteHorizMap()*15 && mapObstacles[(int)((player.getCentreJoueurY())/16)][(int)((player.getCentreJoueurX()+8)/16)]==-1))
+                    return false;
                 break;
         }
-        return false;*/
         return true;
     }
-
 }

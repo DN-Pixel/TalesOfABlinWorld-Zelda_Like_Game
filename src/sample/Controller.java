@@ -71,15 +71,14 @@ public class Controller implements Initializable {
     }
 
     public static void keyManager(KeyEvent e){
-        if(zoneActuelle.manageCollisions(e)){
-            if(e.getCode()==KeyCode.Z)
-                joueur.moveUp();
-            else if(e.getCode()==KeyCode.D)
-                joueur.moveRight();
-            else if(e.getCode()==KeyCode.S)
-                joueur.moveDown();
-            else if(e.getCode()==KeyCode.Q)
-                joueur.moveLeft();
+        if (zoneActuelle.manageCollisions(e)){
+            switch (e.getCode()){
+                //mouvement
+                case Z : joueur.moveUp();break;
+                case D : joueur.moveRight();break;
+                case S : joueur.moveDown();break;
+                case Q : joueur.moveLeft();break;
+            }
         }
     }
         /*
