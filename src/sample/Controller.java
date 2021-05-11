@@ -19,12 +19,16 @@ import sample.modele.Terrain;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.Key;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
     imageMap imageMap = new imageMap();
     MapLoadder mapLoadder = new MapLoadder();
+
+    private static int dx = 0;
+    private static int dy = 0;
 
     private static Joueur joueur = new Joueur(10.0, 10.0);
     private static Terrain zoneActuelle = new Terrain("zone1", joueur);
@@ -56,7 +60,8 @@ public class Controller implements Initializable {
         initAnimation();
         gameLoop.play();
     }
-
+    // key initialisé aléatoirement pour éviter une erreur
+    private static KeyEvent keyPressed = new KeyEvent(KeyEvent.KEY_PRESSED, "d", "D", KeyCode.Z,false, false, false, false);
     private Timeline gameLoop;
     private void initAnimation() {
         gameLoop = new Timeline();
@@ -64,7 +69,7 @@ public class Controller implements Initializable {
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.017),
                 (ev ->{
-
+                    movePlayer(); // gère le déplacement à chaque tour de la boucle temporelle
                 })
         );
         gameLoop.getKeyFrames().add(kf);
@@ -72,30 +77,39 @@ public class Controller implements Initializable {
 
     public static void keyManager(KeyEvent e){
         if (zoneActuelle.manageCollisions(e)){
+            keyPressed = e;
             switch (e.getCode()){
                 //mouvement
-                case Z : joueur.moveUp();break;
-                case D : joueur.moveRight();break;
-                case S : joueur.moveDown();break;
-                case Q : joueur.moveLeft();break;
+                case Z : dy=-1;dx=0;break;
+                case D : dx=1;dy=0;break;
+                case S : dy=1;dx=0;break;
+                case Q : dx=-1;dy=0;break;
             }
         }
+        else {
+            dx = 0;
+            dy = 0;
+        }
     }
-        /*
-        if(e.getCode() == KeyCode.Z && joueur.getY()>0
-                && zoneActuelle.getMap()[(int)((getCentreJoueurY()-8)/16)][(int)((getCentreJoueurX())/16)]==-1)
-            joueur.moveUp();
-        if(e.getCode() == KeyCode.S && joueur.getY()<zoneActuelle.limiteVertiMap()*15
-                && zoneActuelle.getMap()[(int)((getCentreJoueurY()+8)/16)][(int)((getCentreJoueurX())/16)]==-1) // *15 car l'axe central du joueur est en haut a gauche du sprite
-            joueur.moveDown();
-        if(e.getCode() == KeyCode.Q && joueur.getX()>0
-                && zoneActuelle.getMap()[(int)((getCentreJoueurY())/16)][(int)((getCentreJoueurX()-8)/16)]==-1)
-            joueur.moveLeft();
-        if(e.getCode() == KeyCode.D && joueur.getX()<zoneActuelle.limiteHorizMap()*15
-            && zoneActuelle.getMap()[(int)((getCentreJoueurY())/16)][(int)((getCentreJoueurX()+8)/16)]==-1)
-            joueur.moveRight();
-         */
 
+    public static void keyReleaseManager(KeyEvent e){
+        switch (e.getCode()){
+            //mouvement
+            case Z : dy=0;break;
+            case D : dx=0;break;
+            case S : dy=0;break;
+            case Q : dx=0;break;
+        }
+    }
+
+    public void movePlayer(){
+        if(zoneActuelle.manageCollisions(keyPressed)){
+            if(dx==1) joueur.moveRight();
+            if(dx==-1) joueur.moveLeft();
+            if(dy==1) joueur.moveDown();
+            if(dy==-1) joueur.moveUp();
+        }
+    }
 
     /*
     Chargement des textures

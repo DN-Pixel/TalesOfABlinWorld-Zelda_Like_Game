@@ -20,12 +20,12 @@ public class MapLoadder {
         int nombreDeLigne = 0;
         int nombreDeColonne = 1;
         try {
-            FileReader fr = new FileReader("C:\\Users\\antho\\IdeaProjects\\DAS-LinkGame\\src\\sample\\tilemaps\\"+mapName+".csv");
+            FileReader fr = new FileReader("src/sample/tilemaps/"+mapName+".csv");
             //FileReader fr = new FileReader("/sample/tilemaps/" + folderName);
 
             BufferedReader csvReader = new BufferedReader(fr);
 
-            FileReader fr2 = new FileReader("C:\\Users\\antho\\IdeaProjects\\DAS-LinkGame\\src\\sample\\tilemaps\\"+mapName+".csv");
+            FileReader fr2 = new FileReader("src/sample/tilemaps/"+mapName+".csv");
 
             BufferedReader csvReader2 = new BufferedReader(fr2);
 

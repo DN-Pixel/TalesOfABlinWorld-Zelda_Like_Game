@@ -15,7 +15,7 @@ public class Main extends Application {
         AnchorPane root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         Scene scene = new Scene(root, 800, 800);
         scene.setOnKeyPressed(e ->Controller.keyManager(e));
-
+        scene.setOnKeyReleased(e ->Controller.keyReleaseManager(e));
         primaryStage.setTitle("Tales of a Blind World");
         primaryStage.setScene(scene);
         primaryStage.show();
