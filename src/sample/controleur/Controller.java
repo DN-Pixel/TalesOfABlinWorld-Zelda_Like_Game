@@ -1,4 +1,4 @@
-package sample;
+package sample.controleur;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,6 +13,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
+import sample.MapLoadder;
+import sample.imageMap;
 import sample.modele.Joueur;
 import sample.modele.Terrain;
 
@@ -24,7 +26,7 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
-    imageMap imageMap = new imageMap();
+    sample.imageMap imageMap = new imageMap();
     MapLoadder mapLoadder = new MapLoadder();
 
     private static int dx = 0;
