@@ -6,6 +6,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -128,10 +129,22 @@ public class Controller implements Initializable {
         for(int i = 0; i< zoneActuelle.getLongueurMap(); i++){
             tilePane.getChildren().add(new ImageView(imageMap.getImage(244)));
         }
+
         // affiche la couche solide de la map
+        Image tileSet = new Image("sample/tilemaps/TilesetNature.png");
         for(int i = 0; i<zoneActuelle.getMap().length ; i++){
             for(int j = 0; j<zoneActuelle.getMap()[i].length ; j++){
-                tilePaneSolid.getChildren().add(new ImageView(imageMap.getImage(zoneActuelle.getMap()[i][j])));
+                //tilePaneSolid.getChildren().add(new ImageView(imageMap.getImage(zoneActuelle.getMap()[i][j])));
+                if(zoneActuelle.getMap()[i][j]!=-1) {
+                    ImageView tile = new ImageView(tileSet);
+                    Rectangle2D cut = new Rectangle2D((int)(zoneActuelle.getMap()[i][j]%(tileSet.getWidth()/16))*16-0.2,
+                            (int) (zoneActuelle.getMap()[i][j]/(tileSet.getWidth()/16))*16-0.2, 16, 16);
+                    tile.setViewport(cut);
+                    tilePaneSolid.getChildren().add(tile);
+                }
+                else{
+                    tilePaneSolid.getChildren().add(new ImageView(imageMap.getImage(-1)));
+                }
             }
         }
     }
