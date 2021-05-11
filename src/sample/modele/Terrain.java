@@ -78,25 +78,25 @@ public class Terrain {
             case Z:
                 if(!(player.getY()>0 &&
                         mapObstacles[((player.getY())/16)][((player.getX())/16)]==-1 &&
-                        mapObstacles[((player.getY())/16)][((player.getX()+15)/16)]==-1))
+                        mapObstacles[((player.getY())/16)][((player.getX()+14)/16)]==-1))
                     return false;
                 break;
             case S:
                 if(!(player.getY()<limiteVertiMap()*15 &&
-                        mapObstacles[((player.getY()+15)/16)][((player.getX())/16)]==-1 &&
-                        mapObstacles[((player.getY()+15)/16)][((player.getX()+15)/16)]==-1))
+                        mapObstacles[((player.getY()+14)/16)][((player.getX())/16)]==-1 &&
+                        mapObstacles[((player.getY()+14)/16)][((player.getX()+14)/16)]==-1))
                     return false;
                 break;
             case Q:
                 if(!(player.getX()>0 &&
-                        mapObstacles[((player.getY())/16)][((player.getX())/16)]==-1 &&
-                        mapObstacles[((player.getY()+15)/16)][((player.getX())/16)]==-1))
+                        mapObstacles[((player.getY()+2)/16)][((player.getX())/16)]==-1 &&
+                        mapObstacles[((player.getY()+14)/16)][((player.getX())/16)]==-1))
                     return false;
                 break;
             case D:
                 if(!(player.getX()<limiteHorizMap()*15 &&
-                        mapObstacles[((player.getY())/16)][((player.getX()+15)/16)]==-1 &&
-                        mapObstacles[((player.getY()+15)/16)][((player.getX()+15)/16)]==-1))
+                        mapObstacles[((player.getY()+2)/16)][((player.getX()+14)/16)]==-1 &&
+                        mapObstacles[((player.getY()+14)/16)][((player.getX()+14)/16)]==-1))
                     return false;
                 break;
         }
