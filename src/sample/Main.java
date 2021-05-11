@@ -2,17 +2,21 @@ package sample;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import sample.controleur.Controller;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        AnchorPane root = FXMLLoader.load(getClass().getResource("vue/sample.fxml"));
+        Scene scene = new Scene(root, 800, 800);
+        scene.setOnKeyPressed(Controller::keyManager);
+        scene.setOnKeyReleased(Controller::keyReleaseManager);
+        primaryStage.setTitle("Tales of a Blind World");
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
