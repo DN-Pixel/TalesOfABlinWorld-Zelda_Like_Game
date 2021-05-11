@@ -13,8 +13,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         AnchorPane root = FXMLLoader.load(getClass().getResource("vue/sample.fxml"));
         Scene scene = new Scene(root, 800, 800);
-        scene.setOnKeyPressed(e -> Controller.keyManager(e));
-        scene.setOnKeyReleased(e ->Controller.keyReleaseManager(e));
+        scene.setOnKeyPressed(Controller::keyManager);
+        scene.setOnKeyReleased(Controller::keyReleaseManager);
         primaryStage.setTitle("Tales of a Blind World");
         primaryStage.setScene(scene);
         primaryStage.show();

@@ -35,7 +35,6 @@ public class Controller implements Initializable {
     private static Joueur joueur = new Joueur(10, 10);
     private static Terrain zoneActuelle = new Terrain("zone1", joueur);
 
-
     @FXML
     private TilePane tilePane;
     @FXML
@@ -45,23 +44,26 @@ public class Controller implements Initializable {
     @FXML
     private TilePane tilePaneSolid;
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            zoneActuelle.setMap(mapLoadder.LoadTileMap("testBuissons"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        loadFirstMap();
         zoneActuelle.setJoueur(joueur);
-        player.translateXProperty().bind(joueur.getxProperty());
-        player.translateYProperty().bind(joueur.getyProperty());
-
+        initListeners();
         affichageDeMap();
         initAnimation();
         gameLoop.play();
     }
+    //initialise tous les listeners
+    public void initListeners(){
+       initPlayerListener();
+    }
+    public void initPlayerListener(){
+        player.translateXProperty().bind(joueur.getxProperty());
+        player.translateYProperty().bind(joueur.getyProperty());
+    }
+
+
+
     // key initialisé aléatoirement pour éviter une erreur
     private static KeyEvent keyPressed = new KeyEvent(KeyEvent.KEY_PRESSED, "d", "D", KeyCode.Z,false, false, false, false);
     private Timeline gameLoop;
@@ -88,10 +90,8 @@ public class Controller implements Initializable {
                 case Q : dx=-1;dy=0;break;
             }
         }
-        else {
-            dx = 0;
-            dy = 0;
-        }
+        else
+            dx = dy = 0 ;
     }
 
     public static void keyReleaseManager(KeyEvent e){
@@ -112,7 +112,14 @@ public class Controller implements Initializable {
             if(dy==-1) joueur.moveUp();
         }
     }
-
+    //charge le fichier de la premiere map.
+    public void loadFirstMap(){
+        try {
+            zoneActuelle.setMap(mapLoadder.LoadTileMap("testBuissons"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     /*
     Chargement des textures
      */
@@ -128,6 +135,7 @@ public class Controller implements Initializable {
             }
         }
     }
+
 
 
 }
