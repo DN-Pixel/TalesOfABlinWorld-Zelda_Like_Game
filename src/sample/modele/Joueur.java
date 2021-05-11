@@ -1,39 +1,41 @@
 package sample.modele;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 public class Joueur {
 
-    private DoubleProperty xProperty = new SimpleDoubleProperty(0);
-    private DoubleProperty yProperty = new SimpleDoubleProperty(0);
+    private IntegerProperty xProperty = new SimpleIntegerProperty(0);
+    private IntegerProperty yProperty = new SimpleIntegerProperty(0);
 
-    public Joueur(Double x, Double y) {
+    public Joueur(int x, int y) {
         this.xProperty.setValue(x);
         this.yProperty.setValue(y);
     }
 
-    public DoubleProperty getxProperty() {
+    public IntegerProperty getxProperty() {
         return this.xProperty;
     }
 
-    public DoubleProperty getyProperty() {
+    public IntegerProperty getyProperty() {
         return this.yProperty;
     }
 
-    public Double getX () {
+    public int getX () {
         return this.xProperty.getValue();
     }
 
-    public Double getY () {
+    public int getY () {
         return this.yProperty.getValue();
     }
 
-    public void setXProperty(Double newX) {
+    public void setXProperty(int newX) {
         this.xProperty.setValue(newX);
     }
 
-    public void setYProperty(Double newY) {
+    public void setYProperty(int newY) {
         this.yProperty.setValue(newY);
     }
 

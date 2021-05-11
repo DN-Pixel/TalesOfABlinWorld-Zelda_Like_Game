@@ -69,22 +69,34 @@ public class Terrain {
     Gère les collisions du joueur dans le terrain retourne vrai si tout vas bien et faux si il y a un conflit
      */
     //><
+
+
     public boolean manageCollisions(KeyEvent e){
         switch (e.getCode()){
+
+
             case Z:
-                if(!(player.getY()>0 && mapObstacles[(int)((player.getCentreJoueurY()-8)/16)][(int)((player.getCentreJoueurX())/16)]==-1))
+                if(!(player.getY()>0 &&
+                        mapObstacles[((player.getY())/16)][((player.getX())/16)]==-1 &&
+                        mapObstacles[((player.getY())/16)][((player.getX()+15)/16)]==-1))
                     return false;
                 break;
             case S:
-                if(!(player.getY()<limiteVertiMap()*15 && mapObstacles[(int)((player.getCentreJoueurY()+8)/16)][(int)((player.getCentreJoueurX())/16)]==-1))
+                if(!(player.getY()<limiteVertiMap()*15 &&
+                        mapObstacles[((player.getY()+15)/16)][((player.getX())/16)]==-1 &&
+                        mapObstacles[((player.getY()+15)/16)][((player.getX()+15)/16)]==-1))
                     return false;
                 break;
             case Q:
-                if(!(player.getX()>0 && mapObstacles[(int)((player.getCentreJoueurY())/16)][(int)((player.getCentreJoueurX()-8)/16)]==-1))
+                if(!(player.getX()>0 &&
+                        mapObstacles[((player.getY())/16)][((player.getX())/16)]==-1 &&
+                        mapObstacles[((player.getY()+15)/16)][((player.getX())/16)]==-1))
                     return false;
                 break;
             case D:
-                if(!(player.getX()<limiteHorizMap()*15 && mapObstacles[(int)((player.getCentreJoueurY())/16)][(int)((player.getCentreJoueurX()+8)/16)]==-1))
+                if(!(player.getX()<limiteHorizMap()*15 &&
+                        mapObstacles[((player.getY())/16)][((player.getX()+15)/16)]==-1 &&
+                        mapObstacles[((player.getY()+15)/16)][((player.getX()+15)/16)]==-1))
                     return false;
                 break;
         }

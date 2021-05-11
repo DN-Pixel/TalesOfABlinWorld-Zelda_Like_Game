@@ -32,7 +32,7 @@ public class Controller implements Initializable {
     private static int dx = 0;
     private static int dy = 0;
 
-    private static Joueur joueur = new Joueur(10.0, 10.0);
+    private static Joueur joueur = new Joueur(10, 10);
     private static Terrain zoneActuelle = new Terrain("zone1", joueur);
 
 
