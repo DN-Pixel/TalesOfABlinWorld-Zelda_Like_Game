@@ -9,11 +9,12 @@ public class Joueur {
 
     private IntegerProperty xProperty = new SimpleIntegerProperty(0);
     private IntegerProperty yProperty = new SimpleIntegerProperty(0);
-
+    public static int vitesseDeDeplacement = 2 ;
     public Joueur(int x, int y) {
         this.xProperty.setValue(x);
         this.yProperty.setValue(y);
     }
+
 
     public IntegerProperty getxProperty() {
         return this.xProperty;
@@ -39,21 +40,22 @@ public class Joueur {
         this.yProperty.setValue(newY);
     }
 
+    public int getVitesseDeDeplacement() { return vitesseDeDeplacement; }
+    public void setVitesseDeDeplacement(int vitesseDeDeplacement) { Joueur.vitesseDeDeplacement = vitesseDeDeplacement; }
+
     public void moveUp () {
-        this.yProperty.setValue(this.yProperty.getValue()-2);
+        this.yProperty.setValue(this.yProperty.getValue()-vitesseDeDeplacement);
     }
 
     public void moveDown () {
-        this.yProperty.setValue(this.yProperty.getValue()+2);
+        this.yProperty.setValue(this.yProperty.getValue()+vitesseDeDeplacement);
     }
 
     public void moveRight () {
-        this.xProperty.setValue(this.xProperty.getValue()+2);
+        this.xProperty.setValue(this.xProperty.getValue()+vitesseDeDeplacement);
     }
 
-    public void moveLeft () {
-        this.xProperty.setValue(this.xProperty.getValue()-2);
-    }
+    public void moveLeft () { this.xProperty.setValue(this.xProperty.getValue()-vitesseDeDeplacement); }
 
     /*
     retourne le centre X du sprite du joueur
