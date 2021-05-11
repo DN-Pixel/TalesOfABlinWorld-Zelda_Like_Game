@@ -42,7 +42,7 @@ public class Terrain {
 
     public int limiteVertiMap () {
         int limiteV = 0;
-        for (int j = 0; j < this.mapObstacles[0].length; j++) {
+        for (int j = 0; j < this.mapObstacles.length; j++) {
             limiteV++;
         }
         return limiteV;
@@ -50,7 +50,7 @@ public class Terrain {
 
     public int limiteHorizMap () {
         int limiteH = 0;
-        for (int i = 0; i < this.mapObstacles.length; i++) {
+        for (int i = 0; i < this.mapObstacles[0].length; i++) {
             limiteH++;
         }
         return limiteH;

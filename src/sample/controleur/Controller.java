@@ -33,7 +33,7 @@ public class Controller implements Initializable {
     private static int dx = 0;
     private static int dy = 0;
 
-    private static Joueur joueur = new Joueur(10, 10);
+    private static Joueur joueur = new Joueur(0, 0);
     private static Terrain zoneActuelle = new Terrain("zone1", joueur);
 
     @FXML
@@ -44,13 +44,15 @@ public class Controller implements Initializable {
     private Pane gamePane;
     @FXML
     private TilePane tilePaneSolid;
+    @FXML
+    private TilePane tilePaneDeco;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadFirstMap();
         zoneActuelle.setJoueur(joueur);
         initListeners();
-        affichageDeMap();
+        try { affichageDeMap(); } catch (IOException e) { e.printStackTrace(); }
         initAnimation();
         gameLoop.play();
     }
@@ -62,8 +64,6 @@ public class Controller implements Initializable {
         player.translateXProperty().bind(joueur.getxProperty());
         player.translateYProperty().bind(joueur.getyProperty());
     }
-
-
 
     // key initialisé aléatoirement pour éviter une erreur
     private static KeyEvent keyPressed = new KeyEvent(KeyEvent.KEY_PRESSED, "d", "D", KeyCode.Z,false, false, false, false);
@@ -116,39 +116,54 @@ public class Controller implements Initializable {
     //charge le fichier de la premiere map.
     public void loadFirstMap(){
         try {
-            zoneActuelle.setMap(mapLoadder.LoadTileMap("testBuissons"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            joueur.setXProperty(300);
+            joueur.setYProperty(100);
+            zoneActuelle.setMap(mapLoadder.LoadTileMap("map1/Map1_Map1Obstacles"));
+        } catch (IOException e) { e.printStackTrace(); }
     }
     /*
     Chargement des textures
      */
-    public void affichageDeMap(){
-        // affiche la couche du sol de la map
-        for(int i = 0; i< zoneActuelle.getLongueurMap(); i++){
-            tilePane.getChildren().add(new ImageView(imageMap.getImage(244)));
-        }
+    Image tileSet = new Image("sample/tilemaps/allTiles.png");
+    public void affichageDeMap() throws IOException {
+        int floor[][] = mapLoadder.LoadTileMap("map1/Map1_Map1Floor");
+        int deco[][] = mapLoadder.LoadTileMap("map1/Map1_Map1Décoration");
 
-        // affiche la couche solide de la map
-        Image tileSet = new Image("sample/tilemaps/TilesetNature.png");
-        for(int i = 0; i<zoneActuelle.getMap().length ; i++){
-            for(int j = 0; j<zoneActuelle.getMap()[i].length ; j++){
+        gamePane.setPrefWidth(zoneActuelle.limiteHorizMap()*16);
+        gamePane.setPrefHeight(zoneActuelle.limiteVertiMap()*16);
+
+        tilePane.setPrefWidth(zoneActuelle.limiteHorizMap()*16);
+        tilePane.setPrefHeight(zoneActuelle.limiteVertiMap()*16);
+
+        tilePaneDeco.setPrefWidth(zoneActuelle.limiteHorizMap()*16);
+        tilePaneDeco.setPrefHeight(zoneActuelle.limiteVertiMap()*16);
+
+        tilePaneSolid.setPrefWidth(zoneActuelle.limiteHorizMap()*16);
+        tilePaneSolid.setPrefHeight(zoneActuelle.limiteVertiMap()*16);
+
+        // affiche chacune des couches
+        chargerTextures(floor,tilePane);
+        chargerTextures(deco,tilePaneDeco);
+        chargerTextures(zoneActuelle.getMap(),tilePaneSolid);
+    }
+
+    public void chargerTextures (int [][] tab,TilePane tilepane){
+        for(int i = 0; i<tab.length ; i++){
+            for(int j = 0; j<tab[i].length ; j++){
                 //tilePaneSolid.getChildren().add(new ImageView(imageMap.getImage(zoneActuelle.getMap()[i][j])));
-                if(zoneActuelle.getMap()[i][j]!=-1) {
+                if(tab[i][j]!=-1) {
                     ImageView tile = new ImageView(tileSet);
-                    Rectangle2D cut = new Rectangle2D((int)(zoneActuelle.getMap()[i][j]%(tileSet.getWidth()/16))*16-0.2,
-                            (int) (zoneActuelle.getMap()[i][j]/(tileSet.getWidth()/16))*16-0.2, 16, 16);
+                    Rectangle2D cut = new Rectangle2D((int)(tab[i][j]%(tileSet.getWidth()/16))*16,
+                            (int) (tab[i][j]/(tileSet.getWidth()/16))*16, 16, 16);
                     tile.setViewport(cut);
-                    tilePaneSolid.getChildren().add(tile);
+                    tilepane.getChildren().add(tile);
                 }
                 else{
-                    tilePaneSolid.getChildren().add(new ImageView(imageMap.getImage(-1)));
+                    tilepane.getChildren().add(new ImageView(imageMap.getImage(-1)));
                 }
             }
         }
     }
-
 
 
 }
