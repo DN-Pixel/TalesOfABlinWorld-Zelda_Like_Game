@@ -13,7 +13,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Pane root = FXMLLoader.load(getClass().getResource("vue/sample.fxml"));
-        Scene scene = new Scene(root, 800, 800);
+        Scene scene = new Scene(root,300,168);
         scene.setOnKeyPressed(Controller::keyManager);
         scene.setOnKeyReleased(Controller::keyReleaseManager);
         primaryStage.setTitle("Tales of a Blind World");

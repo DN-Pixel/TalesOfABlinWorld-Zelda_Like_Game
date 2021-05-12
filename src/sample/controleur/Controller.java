@@ -46,6 +46,8 @@ public class Controller implements Initializable {
     private TilePane tilePaneSolid;
     @FXML
     private TilePane tilePaneDeco;
+    @FXML
+    private Pane camera;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,12 +61,19 @@ public class Controller implements Initializable {
     //initialise tous les listeners
     public void initListeners(){
        initPlayerListener();
+       initCameraListener();
     }
     public void initPlayerListener(){
         player.translateXProperty().bind(joueur.getxProperty());
         player.translateYProperty().bind(joueur.getyProperty());
     }
-
+    public void initCameraListener(){
+        //cast en int necessaire sinon ca gène le CUT des textures. (idk man... )
+        camera.layoutXProperty().bind(joueur.getxProperty().multiply(-1).add((int)camera.getPrefWidth()/2));
+        camera.layoutYProperty().bind(joueur.getyProperty().multiply(-1).add((int)camera.getPrefHeight()/2));
+        //faire un listener a la place des binds pour verifier si le heros est dans
+        //la bonne position pour bouger la map (sinon le héros se deplace seul sur le pane)
+    }
     // key initialisé aléatoirement pour éviter une erreur
     private static KeyEvent keyPressed = new KeyEvent(KeyEvent.KEY_PRESSED, "d", "D", KeyCode.Z,false, false, false, false);
     private Timeline gameLoop;
