@@ -2,6 +2,8 @@ package sample.modele;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 
 
 public class Terrain {
@@ -73,8 +75,6 @@ public class Terrain {
 
     public boolean manageCollisions(KeyEvent e){
         switch (e.getCode()){
-
-
             case Z:
                 if(!(player.getY()>0 &&
                         mapObstacles[((player.getY())/16)][((player.getX())/16)]==-1 &&
@@ -82,7 +82,7 @@ public class Terrain {
                     return false;
                 break;
             case S:
-                if(!(player.getY()<limiteVertiMap()*15 &&
+                if(!(player.getY()<limiteVertiMap()*16-19 &&
                         mapObstacles[((player.getY()+16)/16)][((player.getX())/16)]==-1 &&
                         mapObstacles[((player.getY()+16)/16)][((player.getX()+16)/16)]==-1))
                     return false;
@@ -94,7 +94,7 @@ public class Terrain {
                     return false;
                 break;
             case D:
-                if(!(player.getX()<limiteHorizMap()*15 &&
+                if(!(player.getX()<limiteHorizMap()*16-19 &&
                         mapObstacles[((player.getY())/16)][((player.getX()+16)/16)]==-1 &&
                         mapObstacles[((player.getY()+16)/16)][((player.getX()+16)/16)]==-1))
                     return false;
@@ -103,4 +103,15 @@ public class Terrain {
         return true;
     }
 
+    // ADAPTE LA TAILLE DES TILES PANES DE LA VUE EN FONCTION DE LA MAP
+    public void updateTilePaneSize(TilePane floor, TilePane deco, TilePane solid, Pane pane){
+        floor.setPrefWidth(limiteHorizMap()*16);
+        floor.setPrefHeight(limiteVertiMap()*16);
+        deco.setPrefWidth(limiteHorizMap()*16);
+        deco.setPrefHeight(limiteVertiMap()*16);
+        solid.setPrefWidth(limiteHorizMap()*16);
+        solid.setPrefHeight(limiteVertiMap()*16);
+        pane.setPrefWidth(limiteHorizMap()*16);
+        pane.setPrefHeight(limiteVertiMap()*16);
+    }
 }

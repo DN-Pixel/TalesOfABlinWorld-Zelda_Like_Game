@@ -2,8 +2,6 @@ package sample.controleur;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
@@ -14,27 +12,25 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import sample.MapLoadder;
-import sample.imageMap;
+import sample.vue.imageMap;
 import sample.modele.Joueur;
 import sample.modele.Terrain;
 
 
 import java.io.IOException;
 import java.net.URL;
-import java.security.Key;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
-    sample.imageMap imageMap = new imageMap();
-    MapLoadder mapLoadder = new MapLoadder();
+    sample.vue.imageMap imageMap = new imageMap();
+    MapLoader mapLoader = new MapLoader();
 
     private static int dx = 0;
     private static int dy = 0;
 
     private static Joueur joueur = new Joueur(0, 0);
-    private static Terrain zoneActuelle = new Terrain("zone1", joueur);
+    private static Terrain zoneActuelle ;
 
     @FXML
     private TilePane tilePane;
@@ -51,17 +47,15 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadFirstMap();
-        zoneActuelle.setJoueur(joueur);
+        loadMap("1", 300, 100);
         initListeners();
-        try { affichageDeMap(); } catch (IOException e) { e.printStackTrace(); }
         initAnimation();
         gameLoop.play();
     }
     //initialise tous les listeners
     public void initListeners(){
        initPlayerListener();
-       initCameraListener();
+       //initCameraListener();
     }
     public void initPlayerListener(){
         player.translateXProperty().bind(joueur.getxProperty());
@@ -122,33 +116,27 @@ public class Controller implements Initializable {
             if(dy==-1) joueur.moveUp();
         }
     }
+
     //charge le fichier de la premiere map.
-    public void loadFirstMap(){
+    public void loadMap(String numero, int spawnX, int spawnY){
         try {
-            joueur.setXProperty(300);
-            joueur.setYProperty(100);
-            zoneActuelle.setMap(mapLoadder.LoadTileMap("map1/Map1_Map1Obstacles"));
+            zoneActuelle =  new Terrain("zone"+numero, joueur);
+            zoneActuelle.setMap(mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Obstacles"));
+            zoneActuelle.setJoueur(joueur);
+            joueur.setXProperty(spawnX);
+            joueur.setYProperty(spawnY);
+            affichageDeMap(numero);
         } catch (IOException e) { e.printStackTrace(); }
     }
     /*
     Chargement des textures
      */
-    Image tileSet = new Image("sample/tilemaps/allTiles.png");
-    public void affichageDeMap() throws IOException {
-        int floor[][] = mapLoadder.LoadTileMap("map1/Map1_Map1Floor");
-        int deco[][] = mapLoadder.LoadTileMap("map1/Map1_Map1Décoration");
+    Image tileSet = new Image("sample/ressources/tilemaps/allTiles.png");
+    public void affichageDeMap(String numero) throws IOException {
+        int floor[][] = mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Floor");
+        int deco[][] = mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Décoration");
 
-        gamePane.setPrefWidth(zoneActuelle.limiteHorizMap()*16);
-        gamePane.setPrefHeight(zoneActuelle.limiteVertiMap()*16);
-
-        tilePane.setPrefWidth(zoneActuelle.limiteHorizMap()*16);
-        tilePane.setPrefHeight(zoneActuelle.limiteVertiMap()*16);
-
-        tilePaneDeco.setPrefWidth(zoneActuelle.limiteHorizMap()*16);
-        tilePaneDeco.setPrefHeight(zoneActuelle.limiteVertiMap()*16);
-
-        tilePaneSolid.setPrefWidth(zoneActuelle.limiteHorizMap()*16);
-        tilePaneSolid.setPrefHeight(zoneActuelle.limiteVertiMap()*16);
+        zoneActuelle.updateTilePaneSize(tilePane, tilePaneDeco, tilePaneSolid, gamePane);
 
         // affiche chacune des couches
         chargerTextures(floor,tilePane);
@@ -159,7 +147,6 @@ public class Controller implements Initializable {
     public void chargerTextures (int [][] tab,TilePane tilepane){
         for(int i = 0; i<tab.length ; i++){
             for(int j = 0; j<tab[i].length ; j++){
-                //tilePaneSolid.getChildren().add(new ImageView(imageMap.getImage(zoneActuelle.getMap()[i][j])));
                 if(tab[i][j]!=-1) {
                     ImageView tile = new ImageView(tileSet);
                     Rectangle2D cut = new Rectangle2D((int)(tab[i][j]%(tileSet.getWidth()/16))*16,

@@ -1,4 +1,4 @@
-package sample;
+package sample.vue;
 
 import javafx.scene.image.Image;
 
