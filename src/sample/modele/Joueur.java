@@ -82,6 +82,16 @@ public class Joueur {
         return this.getY()+8;
     }
 
+    public String getNumeroZone(){
+        return getZone().getNomDeCarte().substring(getZone().getNomDeCarte().length()-1);
+    }
+
+    public boolean isCollinding(double x, double y){
+        if (this.getX()>=x-16 && this.getX()<=x+16 && this.getY()>=y-16 && this.getY()<=y+16)
+            return true;
+        else
+            return false;
+    }
 
     /*
     Gère les collisions du joueur dans le terrain retourne vrai si tout vas bien et faux si il y a un conflit

@@ -2,6 +2,8 @@ package sample.controleur;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
@@ -55,6 +57,7 @@ public class Controller implements Initializable {
     //initialise tous les listeners
     public void initListeners(){
        initPlayerListener();
+       initPlayerTransitionsListener();
        //initCameraListener();
     }
     public void initPlayerListener(){
@@ -145,6 +148,7 @@ public class Controller implements Initializable {
     }
 
     public void chargerTextures (int [][] tab,TilePane tilepane){
+        tilepane.getChildren().clear();
         for(int i = 0; i<tab.length ; i++){
             for(int j = 0; j<tab[i].length ; j++){
                 if(tab[i][j]!=-1) {
@@ -159,6 +163,20 @@ public class Controller implements Initializable {
                 }
             }
         }
+    }
+
+    // permettra de changer de map si le joueur arrive dans une zone de transition
+    public void initPlayerTransitionsListener(){
+        ChangeListener c = new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if(joueur.getNumeroZone().equals("1")){
+                    if(joueur.isCollinding(622, 228)) loadMap("1", 300, 30);
+                }
+            }
+        };
+        player.translateXProperty().addListener(c);
+        player.translateYProperty().addListener(c);
     }
 
 
