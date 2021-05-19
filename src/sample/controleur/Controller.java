@@ -170,8 +170,15 @@ public class Controller implements Initializable {
         ChangeListener c = new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                if(joueur.getNumeroZone().equals("1")){
-                    if(joueur.isCollinding(622, 228)) loadMap("1", 300, 30);
+                switch (joueur.getNumeroZone()){
+                    case "1":
+                        if(joueur.isCollinding(622, 228)) loadMap("2", 50, 100);
+                        break;
+                    case "2":
+                        if(joueur.isCollinding(0, 100)) loadMap("1", 600, 228);
+                        break;
+                    default:
+                        break;
                 }
             }
         };
