@@ -58,7 +58,7 @@ public class Controller implements Initializable {
     public void initListeners(){
        initPlayerListener();
        initPlayerTransitionsListener();
-       //initCameraListener();
+       initCameraListener();
     }
     public void initPlayerListener(){
         player.translateXProperty().bind(joueur.getxProperty());
@@ -66,8 +66,8 @@ public class Controller implements Initializable {
     }
     public void initCameraListener(){
         //cast en int necessaire sinon ca gène le CUT des textures. (idk man... )
-        camera.layoutXProperty().bind(joueur.getxProperty().multiply(-1).add((int)camera.getPrefWidth()/2));
-        camera.layoutYProperty().bind(joueur.getyProperty().multiply(-1).add((int)camera.getPrefHeight()/2));
+        gamePane.layoutXProperty().bind(joueur.getxProperty().multiply(-1).add(640));
+        gamePane.layoutYProperty().bind(joueur.getyProperty().multiply(-1).add(360));
         //faire un listener a la place des binds pour verifier si le heros est dans
         //la bonne position pour bouger la map (sinon le héros se deplace seul sur le pane)
     }
