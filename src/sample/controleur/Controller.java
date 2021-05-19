@@ -11,6 +11,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import sample.vue.imageMap;
 import sample.modele.Joueur;
@@ -43,7 +44,7 @@ public class Controller implements Initializable {
     @FXML
     private TilePane tilePaneDeco;
     @FXML
-    private Pane camera;
+    private Rectangle cameraR;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -55,16 +56,27 @@ public class Controller implements Initializable {
     //initialise tous les listeners
     public void initListeners(){
        initPlayerListener();
-       //initCameraListener();
+       initCameraListener();
     }
     public void initPlayerListener(){
         player.translateXProperty().bind(joueur.getxProperty());
         player.translateYProperty().bind(joueur.getyProperty());
     }
     public void initCameraListener(){
-        //cast en int necessaire sinon ca gène le CUT des textures. (idk man... )
-        camera.layoutXProperty().bind(joueur.getxProperty().multiply(-1).add((int)camera.getPrefWidth()/2));
-        camera.layoutYProperty().bind(joueur.getyProperty().multiply(-1).add((int)camera.getPrefHeight()/2));
+        //cast en int necessaire sinon ca gène le CUT des textures. (idk man... )//<>
+        gamePane.layoutXProperty().bind(joueur.getxProperty().multiply(-1).add(640));
+        gamePane.layoutYProperty().bind(joueur.getyProperty().multiply(-1).add(360));
+
+        /*joueur.getxProperty().addListener((observable, oldValue, newValue) -> {
+            gamePane.layoutXProperty().setValue((newValue.doubleValue()*-1)+100);
+
+            
+        });
+        joueur.getyProperty().addListener((observable, oldValue, newValue) -> {
+           gamePane.layoutYProperty().setValue((newValue.doubleValue()*-1)+200);
+
+
+        });*/
         //faire un listener a la place des binds pour verifier si le heros est dans
         //la bonne position pour bouger la map (sinon le héros se deplace seul sur le pane)
     }
