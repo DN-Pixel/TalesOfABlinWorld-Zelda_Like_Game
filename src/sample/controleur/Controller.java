@@ -29,8 +29,8 @@ public class Controller implements Initializable {
     private static int dx = 0;
     private static int dy = 0;
 
-    private static Joueur joueur = new Joueur(0, 0);
     private static Terrain zoneActuelle ;
+    private static Joueur joueur = new Joueur(0, 0, zoneActuelle);
 
     @FXML
     private TilePane tilePane;
@@ -84,7 +84,7 @@ public class Controller implements Initializable {
     }
 
     public static void keyManager(KeyEvent e){
-        if (zoneActuelle.manageCollisions(e)){
+        if (joueur.manageCollisions(e)){
             keyPressed = e;
             switch (e.getCode()){
                 //mouvement
@@ -109,7 +109,7 @@ public class Controller implements Initializable {
     }
 
     public void movePlayer(){
-        if(zoneActuelle.manageCollisions(keyPressed)){
+        if(joueur.manageCollisions(keyPressed)){
             if(dx==1) joueur.moveRight();
             if(dx==-1) joueur.moveLeft();
             if(dy==1) joueur.moveDown();
@@ -120,9 +120,9 @@ public class Controller implements Initializable {
     //charge le fichier de la premiere map.
     public void loadMap(String numero, int spawnX, int spawnY){
         try {
-            zoneActuelle =  new Terrain("zone"+numero, joueur);
+            zoneActuelle =  new Terrain("zone"+numero);
             zoneActuelle.setMap(mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Obstacles"));
-            zoneActuelle.setJoueur(joueur);
+            joueur.setZone(zoneActuelle);
             joueur.setXProperty(spawnX);
             joueur.setYProperty(spawnY);
             affichageDeMap(numero);

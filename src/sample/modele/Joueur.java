@@ -4,18 +4,30 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.input.KeyEvent;
 
 public class Joueur {
 
     private IntegerProperty xProperty = new SimpleIntegerProperty(0);
     private IntegerProperty yProperty = new SimpleIntegerProperty(0);
-    public static int vitesseDeDeplacement = 2 ;
-    public Joueur(int x, int y) {
+    private static int vitesseDeDeplacement = 2 ;
+
+    private Terrain zone;
+    
+    public Joueur(int x, int y, Terrain zone) {
         this.xProperty.setValue(x);
         this.yProperty.setValue(y);
+        this.zone = zone;
     }
 
 
+    public Terrain getZone() {
+        return zone;
+    }
+
+    public void setZone(Terrain zone) {
+        this.zone = zone;
+    }
     public IntegerProperty getxProperty() {
         return this.xProperty;
     }
@@ -70,5 +82,39 @@ public class Joueur {
         return this.getY()+8;
     }
 
+
+    /*
+    Gère les collisions du joueur dans le terrain retourne vrai si tout vas bien et faux si il y a un conflit
+     */
+    //><
+    public boolean manageCollisions(KeyEvent e){
+        switch (e.getCode()){
+            case Z:
+                if(!(getY()>0 &&
+                        zone.getMap()[((getY())/16)][((getX())/16)]==-1 &&
+                        zone.getMap()[((getY())/16)][((getX()+16)/16)]==-1))
+                    return false;
+                break;
+            case S:
+                if(!(getY()<zone.limiteVertiMap()*16-19 &&
+                        zone.getMap()[((getY()+16)/16)][((getX())/16)]==-1 &&
+                        zone.getMap()[((getY()+16)/16)][((getX()+16)/16)]==-1))
+                    return false;
+                break;
+            case Q:
+                if(!(getX()>0 &&
+                        zone.getMap()[((getY())/16)][((getX())/16)]==-1 &&
+                        zone.getMap()[((getY()+16)/16)][((getX())/16)]==-1))
+                    return false;
+                break;
+            case D:
+                if(!(getX()< zone.limiteHorizMap()*16-19 &&
+                        zone.getMap()[((getY())/16)][((getX()+16)/16)]==-1 &&
+                        zone.getMap()[((getY()+16)/16)][((getX()+16)/16)]==-1))
+                    return false;
+                break;
+        }
+        return true;
+    }
 
 }

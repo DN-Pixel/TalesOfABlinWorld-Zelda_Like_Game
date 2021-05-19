@@ -8,22 +8,12 @@ import javafx.scene.layout.TilePane;
 
 public class Terrain {
 
-    private Joueur player;
     private String nomDeCarte;
     private int [][] mapObstacles;
 
 
-    public Terrain (String nomDeCarte, Joueur j) {
+    public Terrain (String nomDeCarte) {
         this.nomDeCarte = nomDeCarte;
-        this.player = j;
-    }
-
-    public void setJoueur (Joueur newPlayer) {
-        this.player = newPlayer;
-    }
-
-    public Joueur getJoueur () {
-        return this.player;
     }
 
     public void setNomDeCarte (String newNom) {
@@ -66,41 +56,6 @@ public class Terrain {
             }
         }
         return longueur;
-    }
-    /*
-    Gère les collisions du joueur dans le terrain retourne vrai si tout vas bien et faux si il y a un conflit
-     */
-    //><
-
-
-    public boolean manageCollisions(KeyEvent e){
-        switch (e.getCode()){
-            case Z:
-                if(!(player.getY()>0 &&
-                        mapObstacles[((player.getY())/16)][((player.getX())/16)]==-1 &&
-                        mapObstacles[((player.getY())/16)][((player.getX()+16)/16)]==-1))
-                    return false;
-                break;
-            case S:
-                if(!(player.getY()<limiteVertiMap()*16-19 &&
-                        mapObstacles[((player.getY()+16)/16)][((player.getX())/16)]==-1 &&
-                        mapObstacles[((player.getY()+16)/16)][((player.getX()+16)/16)]==-1))
-                    return false;
-                break;
-            case Q:
-                if(!(player.getX()>0 &&
-                        mapObstacles[((player.getY())/16)][((player.getX())/16)]==-1 &&
-                        mapObstacles[((player.getY()+16)/16)][((player.getX())/16)]==-1))
-                    return false;
-                break;
-            case D:
-                if(!(player.getX()<limiteHorizMap()*16-19 &&
-                        mapObstacles[((player.getY())/16)][((player.getX()+16)/16)]==-1 &&
-                        mapObstacles[((player.getY()+16)/16)][((player.getX()+16)/16)]==-1))
-                    return false;
-                break;
-        }
-        return true;
     }
 
     // ADAPTE LA TAILLE DES TILES PANES DE LA VUE EN FONCTION DE LA MAP
