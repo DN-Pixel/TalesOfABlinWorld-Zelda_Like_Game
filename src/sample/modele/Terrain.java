@@ -1,16 +1,23 @@
 package sample.modele;
 
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import sample.modele.acteurs.Acteur;
+import sample.modele.acteurs.SaveActeurs;
+import sample.modele.acteurs.ennemis.Ennemi;
+
+import java.util.ArrayList;
 
 
 public class Terrain {
 
     private String nomDeCarte;
-    private int [][] mapObstacles;
+    private int [][] mapObstacles; // MAP DES OBSTACLES ET COLLISIONS
+    private SaveActeurs saveActeurs = new SaveActeurs();
 
+    private int[][] mapSpawn; // ZONE DE SPAWN DES ENNEMIS
+
+    private ArrayList<Acteur> listeActeurs = new ArrayList<Acteur>();
 
     public Terrain (String nomDeCarte) {
         this.nomDeCarte = nomDeCarte;
@@ -24,13 +31,27 @@ public class Terrain {
         return this.nomDeCarte;
     }
 
-    public void setMap (int[][] newMap) {
+    public void setMapObstacles (int[][] newMap) {
         this.mapObstacles = newMap;
     }
 
-    public int[][] getMap () {
+    public int[][] getMapObstacles () {
         return this.mapObstacles;
     }
+
+    public void loadSaveActeurs(){
+        int numero = Integer.parseInt(nomDeCarte.substring((nomDeCarte.length()-1)));
+        Acteur a;
+        for(int i=0;i<saveActeurs.getSave(numero).size();i++){
+            a = saveActeurs.getSave(numero).get(i);
+            if(a instanceof Ennemi)
+                mapObstacles[a.getY()/16][a.getX()/16] = 6666; // 6666 -> ENNEMI
+            else
+                mapObstacles[a.getY()/16][a.getX()/16] = 7777; // 7777 -> PNJ
+        }
+    }
+
+
 
     public int limiteVertiMap () {
         int limiteV = 0;
@@ -57,6 +78,30 @@ public class Terrain {
         }
         return longueur;
     }
+
+    public ArrayList<Acteur> getListeActeurs() {
+        int numero = Integer.parseInt(nomDeCarte.substring((nomDeCarte.length()-1)));
+        return saveActeurs.getSave(numero);
+    }
+    /*
+    CHERCHE DANS LA LISTE DES ACTEURS SI IL EXSITE
+     */
+    public boolean findActeur(String id){
+        for(Acteur a: getListeActeurs()){
+            if(a.getId().equals(id))
+                return true;
+        }
+        return false;
+    }
+
+    public int[][] getMapSpawn() {
+        return mapSpawn;
+    }
+
+    public void setMapSpawn(int[][] mapSpawn) {
+        this.mapSpawn = mapSpawn;
+    }
+
 
     // ADAPTE LA TAILLE DES TILES PANES DE LA VUE EN FONCTION DE LA MAP
     public void updateTilePaneSize(TilePane floor, TilePane deco, TilePane solid, Pane pane){

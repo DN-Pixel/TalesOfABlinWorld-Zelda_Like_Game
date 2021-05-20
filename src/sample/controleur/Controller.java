@@ -7,13 +7,17 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+import sample.modele.acteurs.Acteur;
 import sample.vue.imageMap;
 import sample.modele.Joueur;
 import sample.modele.Terrain;
@@ -31,7 +35,7 @@ public class Controller implements Initializable {
     private static int dx = 0;
     private static int dy = 0;
 
-    private static Terrain zoneActuelle ;
+    private static Terrain zoneActuelle = new Terrain("zone");
     private static Joueur joueur = new Joueur(0, 0, zoneActuelle);
 
     @FXML
@@ -49,6 +53,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        player.setId("player");
         loadMap("1", 300, 100);
         initListeners();
         initAnimation();
@@ -80,6 +85,7 @@ public class Controller implements Initializable {
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.017),
                 (ev ->{
+                    updatePane(); // gère l'affichage des acteurs
                     movePlayer(); // gère le déplacement à chaque tour de la boucle temporelle
                 })
         );
@@ -120,15 +126,40 @@ public class Controller implements Initializable {
         }
     }
 
+    public void updatePane(){
+        Acteur a;
+        Node b;
+        for(int i = zoneActuelle.getListeActeurs().size()-1; i>=0;i--){
+            a = zoneActuelle.getListeActeurs().get(i);
+            a.setX(a.getX()+1);
+            if(gamePane.lookup("#"+a.getId())==null){
+                Circle test = new Circle(3);
+                test.setFill(Color.RED);
+                test.setId(a.getId());
+                test.translateXProperty().bind(a.getXProperty());
+                test.translateYProperty().bind(a.getYProperty());
+                gamePane.getChildren().add(test);
+            }
+        }
+        // GERE LA MORT OU LE CHANGEMENT DE ZONE
+        for(int j = gamePane.getChildren().size()-1;j>=0;j--){
+            b = gamePane.getChildren().get(j);
+            if(b.getId().startsWith("a") && !zoneActuelle.findActeur(b.getId()))
+                gamePane.getChildren().remove(b);
+        }
+    }
+
     //charge le fichier de la premiere map.
     public void loadMap(String numero, int spawnX, int spawnY){
         try {
-            zoneActuelle =  new Terrain("zone"+numero);
-            zoneActuelle.setMap(mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Obstacles"));
+            zoneActuelle.setNomDeCarte("zone"+numero);
+            zoneActuelle.setMapObstacles(mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Obstacles"));
+            zoneActuelle.setMapSpawn(mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Spawn"));
             joueur.setZone(zoneActuelle);
             joueur.setXProperty(spawnX);
             joueur.setYProperty(spawnY);
             affichageDeMap(numero);
+            zoneActuelle.loadSaveActeurs();
         } catch (IOException e) { e.printStackTrace(); }
     }
     /*
@@ -144,7 +175,7 @@ public class Controller implements Initializable {
         // affiche chacune des couches
         chargerTextures(floor,tilePane);
         chargerTextures(deco,tilePaneDeco);
-        chargerTextures(zoneActuelle.getMap(),tilePaneSolid);
+        chargerTextures(zoneActuelle.getMapObstacles(),tilePaneSolid);
     }
 
     public void chargerTextures (int [][] tab,TilePane tilepane){

@@ -101,26 +101,26 @@ public class Joueur {
         switch (e.getCode()){
             case Z:
                 if(!(getY()>0 &&
-                        zone.getMap()[((getY())/16)][((getX())/16)]==-1 &&
-                        zone.getMap()[((getY())/16)][((getX()+16)/16)]==-1))
+                        zone.getMapObstacles()[((getY())/16)][((getX())/16)]==-1 &&
+                        zone.getMapObstacles()[((getY())/16)][((getX()+16)/16)]==-1))
                     return false;
                 break;
             case S:
                 if(!(getY()<zone.limiteVertiMap()*16-19 &&
-                        zone.getMap()[((getY()+16)/16)][((getX())/16)]==-1 &&
-                        zone.getMap()[((getY()+16)/16)][((getX()+16)/16)]==-1))
+                        zone.getMapObstacles()[((getY()+16)/16)][((getX())/16)]==-1 &&
+                        zone.getMapObstacles()[((getY()+16)/16)][((getX()+16)/16)]==-1))
                     return false;
                 break;
             case Q:
                 if(!(getX()>0 &&
-                        zone.getMap()[((getY())/16)][((getX())/16)]==-1 &&
-                        zone.getMap()[((getY()+16)/16)][((getX())/16)]==-1))
+                        zone.getMapObstacles()[((getY())/16)][((getX())/16)]==-1 &&
+                        zone.getMapObstacles()[((getY()+16)/16)][((getX())/16)]==-1))
                     return false;
                 break;
             case D:
                 if(!(getX()< zone.limiteHorizMap()*16-19 &&
-                        zone.getMap()[((getY())/16)][((getX()+16)/16)]==-1 &&
-                        zone.getMap()[((getY()+16)/16)][((getX()+16)/16)]==-1))
+                        zone.getMapObstacles()[((getY())/16)][((getX()+16)/16)]==-1 &&
+                        zone.getMapObstacles()[((getY()+16)/16)][((getX()+16)/16)]==-1))
                     return false;
                 break;
         }

@@ -2,14 +2,14 @@ package sample.modele.acteurs.ennemis;
 
 import sample.modele.acteurs.Acteur;
 
-public abstract class Ennemis extends Acteur {
+public abstract class Ennemi extends Acteur {
 
 
     private int pv;
     private int pointDegat;
     private int niveau;
 
-    public Ennemis(int x, int y, int pv, int pointDegat, int niveau){
+    public Ennemi(int x, int y, int pv, int pointDegat, int niveau){
         super(x, y);
         this.pv = pv;
         this.pointDegat = pointDegat;
@@ -44,10 +44,14 @@ public abstract class Ennemis extends Acteur {
     }
 
     //gere les deplacements
-    public abstract void moveEnnemis();
+    public  void moveEnnemis(){
+
+    }
 
     //gere les attaques
-    public abstract void attaquerJoueur();
+    public void attaquerJoueur(){
+
+    }
 
     //tuer l'ennemis
     public void mourir() {
