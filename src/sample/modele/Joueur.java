@@ -69,6 +69,11 @@ public class Joueur {
 
     public void moveLeft () { this.xProperty.setValue(this.xProperty.getValue()-vitesseDeDeplacement); }
 
+    public void updatePosition(){
+    }
+
+
+
     /*
     retourne le centre X du sprite du joueur
      */

@@ -24,6 +24,7 @@ import sample.modele.Joueur;
 import sample.modele.Terrain;
 
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -51,7 +52,7 @@ public class Controller implements Initializable {
     private TilePane tilePaneDeco;
     @FXML
     private Pane camera;
-
+    private long temps = 0 ;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         player.setId("player");
@@ -81,12 +82,18 @@ public class Controller implements Initializable {
     private static KeyEvent keyPressed = new KeyEvent(KeyEvent.KEY_PRESSED, "d", "D", KeyCode.Z,false, false, false, false);
     private Timeline gameLoop;
     private void initAnimation() {
+
         gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.017),
                 (ev ->{
                     movePlayer(); // gère le déplacement à chaque tour de la boucle temporelle
+
+                    if (temps%59==0)
+                        zoneActuelle.EnemySpawn();
+
+                    timeManager();
                 })
         );
         gameLoop.getKeyFrames().add(kf);
@@ -105,6 +112,13 @@ public class Controller implements Initializable {
         }
         else
             dx = dy = 0 ;
+    }
+    //gestion du temps
+    public void timeManager(){
+        if (temps >= 1000000000)
+            temps = 0; // reset
+        else
+            temps++;
     }
 
     public static void keyReleaseManager(KeyEvent e){
