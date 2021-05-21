@@ -131,13 +131,19 @@ public class Terrain {
                             break;
                     }
                     mapObstacles[i][j]=6666; // -> apres qu'un ennemi ai spawn, on change le tableau 2D mapObstacle en y ajoutant le-dit ennemi.
-
-
                     return;
                 }
             }
         }
     }
+    // parcours la liste des acteurs pour faire bouger uniquement les ennemis
+    public void moveEnnemis(){
+        for(Acteur a : getListeActeurs()){
+            if(a instanceof Ennemi)
+                ((Ennemi) a).moveEnnemi(mapObstacles);
+        }
+    }
+
     // ADAPTE LA TAILLE DES TILES PANES DE LA VUE EN FONCTION DE LA MAP
     public void updateTilePaneSize(TilePane floor, TilePane deco, TilePane solid, Pane pane){
         floor.setPrefWidth(limiteHorizMap()*16);

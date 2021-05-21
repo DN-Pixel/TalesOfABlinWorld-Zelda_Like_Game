@@ -7,13 +7,4 @@ public class Bambou extends Ennemi {
         super(x, y, 50, 4, 2);
     }
 
-    @Override
-    public void moveEnnemi(int [][] mapObstacle) {
-
-    }
-
-    @Override
-    public void attaquerJoueur() {
-
-    }
 }

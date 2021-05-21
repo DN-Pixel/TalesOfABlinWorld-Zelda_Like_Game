@@ -88,6 +88,8 @@ public class Controller implements Initializable {
                     movePlayer(); // gère le déplacement à chaque tour de la boucle temporelle
                     if (temps%590==0) // spawn d'ennemi toutes les 10s
                         zoneActuelle.EnemySpawn();
+                    if(temps%5==0)
+                        zoneActuelle.moveEnnemis();
                     timeManager(); // gestion du temps
                 })
         );

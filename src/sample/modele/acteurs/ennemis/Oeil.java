@@ -7,13 +7,5 @@ public class Oeil extends Ennemi {
         super(x, y, 50, 6, 3);
     }
 
-    @Override
-    public void moveEnnemi(int [][] mapObstacle) {
 
-    }
-
-    @Override
-    public void attaquerJoueur() {
-
-    }
 }
