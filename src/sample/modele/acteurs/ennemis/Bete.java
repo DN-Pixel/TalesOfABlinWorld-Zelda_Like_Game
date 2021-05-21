@@ -8,7 +8,7 @@ public class Bete extends Ennemi {
     }
 
     @Override
-    public void moveEnnemi() {
+    public  void moveEnnemi(int [][] mapObstacle){
 
     }
 
