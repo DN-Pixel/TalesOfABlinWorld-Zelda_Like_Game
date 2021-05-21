@@ -3,6 +3,9 @@ package sample.modele.acteurs;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
+import sample.modele.acteurs.ennemis.Bete;
+import sample.modele.acteurs.ennemis.Hibou;
+import sample.modele.acteurs.ennemis.Reptile;
 import sample.modele.acteurs.ennemis.Slime;
 
 import java.util.ArrayList;
@@ -33,8 +36,10 @@ public class SaveActeurs {
 
     public void genererSaveZone2(){
         ObservableList<Acteur> save = FXCollections.observableArrayList();
-        Acteur ennemi1 = new Slime(100, 100);
+        Acteur ennemi1 = new Slime(16*8, 16*8);
         save.add(ennemi1);
+        Acteur ennemi2 = new Hibou(16*5, 16*15);
+        save.add(ennemi2);
         savesListesActeurs.put(2, save);
     }
 }

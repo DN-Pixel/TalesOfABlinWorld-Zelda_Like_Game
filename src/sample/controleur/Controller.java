@@ -132,12 +132,11 @@ public class Controller implements Initializable {
         for(int i = zoneActuelle.getListeActeurs().size()-1; i>=0;i--){
             a = zoneActuelle.getListeActeurs().get(i);
             if(gamePane.lookup("#"+a.getId())==null){
-                Circle test = new Circle(3);
-                test.setFill(Color.RED);
-                test.setId(a.getId());
-                test.translateXProperty().bind(a.getXProperty());
-                test.translateYProperty().bind(a.getYProperty());
-                gamePane.getChildren().add(test);
+                ImageView sprite = new ImageView(imageMap.getImage(a.getClass().getSimpleName())); // récupère l'image de l'ennemi correspondant
+                sprite.setId(a.getId());
+                sprite.translateXProperty().bind(a.getXProperty());
+                sprite.translateYProperty().bind(a.getYProperty());
+                gamePane.getChildren().add(sprite);
             }
         }
         // GERE LE CHANGEMENT DE ZONE
@@ -191,7 +190,7 @@ public class Controller implements Initializable {
                     tilepane.getChildren().add(tile);
                 }
                 else{
-                    tilepane.getChildren().add(new ImageView(imageMap.getImage(-1)));
+                    tilepane.getChildren().add(new ImageView(imageMap.getImage("empty")));
                 }
             }
         }

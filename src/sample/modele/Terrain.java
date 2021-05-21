@@ -42,7 +42,7 @@ public class Terrain {
     }
 
     public void loadSaveActeurs(){
-        int numero = Integer.parseInt(nomDeCarte.substring((nomDeCarte.length()-1)));
+        int numero = Integer.parseInt(nomDeCarte.substring((nomDeCarte.length()-1))); // récupère le numéro de la carte
         Acteur a;
         for(int i=0;i<saveActeurs.getSave(numero).size();i++){
             a = saveActeurs.getSave(numero).get(i);
