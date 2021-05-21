@@ -72,11 +72,8 @@ public class Controller implements Initializable {
         player.translateYProperty().bind(joueur.getyProperty());
     }
     public void initCameraListener(){
-        //cast en int necessaire sinon ca gène le CUT des textures. (idk man... )
         gamePane.layoutXProperty().bind(joueur.getxProperty().multiply(-1).add(640));
         gamePane.layoutYProperty().bind(joueur.getyProperty().multiply(-1).add(360));
-        //faire un listener a la place des binds pour verifier si le heros est dans
-        //la bonne position pour bouger la map (sinon le héros se deplace seul sur le pane)
     }
     // key initialisé aléatoirement pour éviter une erreur
     private static KeyEvent keyPressed = new KeyEvent(KeyEvent.KEY_PRESSED, "d", "D", KeyCode.Z,false, false, false, false);
@@ -89,11 +86,9 @@ public class Controller implements Initializable {
                 Duration.seconds(0.017),
                 (ev ->{
                     movePlayer(); // gère le déplacement à chaque tour de la boucle temporelle
-
-                    if (temps%59==0)
+                    if (temps%590==0) // spawn d'ennemi toutes les 10s
                         zoneActuelle.EnemySpawn();
-
-                    timeManager();
+                    timeManager(); // gestion du temps
                 })
         );
         gameLoop.getKeyFrames().add(kf);
@@ -113,6 +108,7 @@ public class Controller implements Initializable {
         else
             dx = dy = 0 ;
     }
+
     //gestion du temps
     public void timeManager(){
         if (temps >= 1000000000)
@@ -176,16 +172,13 @@ public class Controller implements Initializable {
             zoneActuelle.loadSaveActeurs();
         } catch (IOException e) { e.printStackTrace(); }
     }
-    /*
-    Chargement des textures
-     */
+
+    //Chargement des textures
     Image tileSet = new Image("sample/ressources/tilemaps/allTiles.png");
     public void affichageDeMap(String numero) throws IOException {
         int floor[][] = mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Floor");
         int deco[][] = mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Décoration");
-
         zoneActuelle.updateTilePaneSize(tilePane, tilePaneDeco, tilePaneSolid, gamePane);
-
         // affiche chacune des couches
         chargerTextures(floor,tilePane);
         chargerTextures(deco,tilePaneDeco);
