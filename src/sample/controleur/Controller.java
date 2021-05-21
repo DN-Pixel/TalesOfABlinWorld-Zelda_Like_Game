@@ -131,10 +131,13 @@ public class Controller implements Initializable {
 
     public void movePlayer(){
         if(joueur.manageCollisions(keyPressed)){
+            //permet de récuperer l'ancienne valeur de la Tile du tableau de Spawn.
+            //joueur.setOldTleValue(joueur.getZone().getMapSpawn()[(joueur.getCentreJoueurY()/16)][(joueur.getCentreJoueurX()/16)]);
             if(dx==1) joueur.moveRight();
             if(dx==-1) joueur.moveLeft();
             if(dy==1) joueur.moveDown();
             if(dy==-1) joueur.moveUp();
+            //joueur.updatePosition();
         }
     }
 
@@ -171,7 +174,8 @@ public class Controller implements Initializable {
             joueur.setXProperty(spawnX);
             joueur.setYProperty(spawnY);
             affichageDeMap(numero);
-            zoneActuelle.loadSaveActeurs();
+            //joueur.updatePosition();
+            //zoneActuelle.loadSaveActeurs();
         } catch (IOException e) { e.printStackTrace(); }
     }
 

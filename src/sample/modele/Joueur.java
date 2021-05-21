@@ -1,8 +1,6 @@
 package sample.modele;
 
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyEvent;
 
@@ -69,21 +67,37 @@ public class Joueur {
 
     public void moveLeft () { this.xProperty.setValue(this.xProperty.getValue()-vitesseDeDeplacement); }
 
-    public void updatePosition(){
+    /*private int oldTileValue;
+    private int oldPlayerX =getCentreJoueurX()/16;
+    private int oldPlayerY =getCentreJoueurY()/16;
+
+    public void setOldTleValue (int Value){
+        oldTileValue=Value;
     }
+
+    public void updatePosition(){
+        int newTile = this.zone.getMapSpawn()[getCentreJoueurY()/16][getCentreJoueurX()/16];
+        if(newTile!= oldTileValue){
+            this.zone.getMapSpawn()[oldPlayerY][oldPlayerX] = oldTileValue;
+            oldPlayerX =getCentreJoueurX()/16;
+            oldPlayerY =getCentreJoueurY()/16;
+            this.zone.getMapSpawn()[getCentreJoueurY()/16][getCentreJoueurX()/16]=99;
+        }
+
+    }*/
 
 
 
     /*
     retourne le centre X du sprite du joueur
      */
-    public double getCentreJoueurX(){
+    public int getCentreJoueurX(){
         return this.getX()+8;
     }
     /*
     retourne le centre Y du sprite du joueur
      */
-    public double getCentreJoueurY(){
+    public int getCentreJoueurY(){
         return this.getY()+8;
     }
 

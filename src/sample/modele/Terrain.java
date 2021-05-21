@@ -130,7 +130,7 @@ public class Terrain {
                         default:
                             break;
                     }
-                    mapObstacles[i][j]=6666; // -> apres qu'un ennemi ai spawn, on change le tableau 2D mapObstacle en y ajoutant le-dit ennemi.
+                    //mapObstacles[i][j]=6666; // -> apres qu'un ennemi ait spawn, on change le tableau 2D mapObstacle en y ajoutant le-dit ennemi.
                     return;
                 }
             }
