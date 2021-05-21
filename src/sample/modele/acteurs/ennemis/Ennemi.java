@@ -44,7 +44,7 @@ public abstract class Ennemi extends Acteur {
     }
 
     //gere les deplacements
-    public  void moveEnnemis(){
+    public  void moveEnnemi(){
 
     }
 

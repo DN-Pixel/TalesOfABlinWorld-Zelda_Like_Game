@@ -8,7 +8,7 @@ public class Hibou extends Ennemi {
     }
 
     @Override
-    public void moveEnnemis() {
+    public void moveEnnemi() {
 
     }
 

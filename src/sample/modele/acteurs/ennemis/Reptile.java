@@ -8,7 +8,7 @@ public class Reptile extends Ennemi {
     }
 
     @Override
-    public void moveEnnemis() {
+    public void moveEnnemi() {
 
     }
 

@@ -8,7 +8,7 @@ public class Oeil extends Ennemi {
     }
 
     @Override
-    public void moveEnnemis() {
+    public void moveEnnemi() {
 
     }
 
