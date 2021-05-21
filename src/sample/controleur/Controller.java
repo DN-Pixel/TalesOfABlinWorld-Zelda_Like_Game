@@ -18,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import sample.modele.acteurs.Acteur;
+import sample.modele.acteurs.ObsListActeurs;
 import sample.vue.imageMap;
 import sample.modele.Joueur;
 import sample.modele.Terrain;
@@ -85,7 +86,6 @@ public class Controller implements Initializable {
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.017),
                 (ev ->{
-                    updatePane(); // gère l'affichage des acteurs
                     movePlayer(); // gère le déplacement à chaque tour de la boucle temporelle
                 })
         );
@@ -126,12 +126,11 @@ public class Controller implements Initializable {
         }
     }
 
-    public void updatePane(){
+    public void updatePaneWhenLoadingMap(){
         Acteur a;
         Node b;
         for(int i = zoneActuelle.getListeActeurs().size()-1; i>=0;i--){
             a = zoneActuelle.getListeActeurs().get(i);
-            a.setX(a.getX()+1);
             if(gamePane.lookup("#"+a.getId())==null){
                 Circle test = new Circle(3);
                 test.setFill(Color.RED);
@@ -141,7 +140,7 @@ public class Controller implements Initializable {
                 gamePane.getChildren().add(test);
             }
         }
-        // GERE LA MORT OU LE CHANGEMENT DE ZONE
+        // GERE LE CHANGEMENT DE ZONE
         for(int j = gamePane.getChildren().size()-1;j>=0;j--){
             b = gamePane.getChildren().get(j);
             if(b.getId().startsWith("a") && !zoneActuelle.findActeur(b.getId()))
@@ -155,6 +154,8 @@ public class Controller implements Initializable {
             zoneActuelle.setNomDeCarte("zone"+numero);
             zoneActuelle.setMapObstacles(mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Obstacles"));
             zoneActuelle.setMapSpawn(mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Spawn"));
+            zoneActuelle.getListeActeurs().addListener(new ObsListActeurs(gamePane));
+            updatePaneWhenLoadingMap();
             joueur.setZone(zoneActuelle);
             joueur.setXProperty(spawnX);
             joueur.setYProperty(spawnY);

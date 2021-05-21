@@ -1,9 +1,11 @@
 package sample.modele;
 
+import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.SaveActeurs;
+import sample.modele.acteurs.ennemis.Bambou;
 import sample.modele.acteurs.ennemis.Ennemi;
 
 import java.util.ArrayList;
@@ -51,8 +53,6 @@ public class Terrain {
         }
     }
 
-
-
     public int limiteVertiMap () {
         int limiteV = 0;
         for (int j = 0; j < this.mapObstacles.length; j++) {
@@ -79,7 +79,7 @@ public class Terrain {
         return longueur;
     }
 
-    public ArrayList<Acteur> getListeActeurs() {
+    public ObservableList<Acteur> getListeActeurs() {
         int numero = Integer.parseInt(nomDeCarte.substring((nomDeCarte.length()-1)));
         return saveActeurs.getSave(numero);
     }
