@@ -5,8 +5,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.SaveActeurs;
-import sample.modele.acteurs.ennemis.Bambou;
-import sample.modele.acteurs.ennemis.Ennemi;
+import sample.modele.acteurs.ennemis.*;
 
 import java.util.ArrayList;
 
@@ -19,7 +18,7 @@ public class Terrain {
 
     private int[][] mapSpawn; // ZONE DE SPAWN DES ENNEMIS
 
-    private ArrayList<Acteur> listeActeurs = new ArrayList<Acteur>();
+
 
     public Terrain (String nomDeCarte) {
         this.nomDeCarte = nomDeCarte;
@@ -102,7 +101,43 @@ public class Terrain {
         this.mapSpawn = mapSpawn;
     }
 
+    public void EnemySpawn () {
+        //><
+        //Si la limite d'ennemis est atteinte on ne fait rien spawn, si on est dans une ville non plus.
+        if (saveActeurs.getSave(Integer.parseInt(nomDeCarte.substring((nomDeCarte.length() - 1)))).size() >= 10 ||
+                Integer.parseInt(nomDeCarte.substring((nomDeCarte.length() - 1)))==1)
+            return;
 
+        //gestion du spawn des ennemis en fonction de la zone.
+        double x = Math.random();
+        for (int i = 0; i < mapSpawn.length; i++) {
+            for (int j = 0; j < mapSpawn[0].length; j++) {
+                //l'ennemis spawn dans le map de spawn si l'emplacement est disponible dans la map obstacle.
+                if (mapSpawn[i][j] == 3415 && mapObstacles[i][j]==-1 &&  Math.random()<0.015 ) {
+                    switch (Integer.parseInt(nomDeCarte.substring((nomDeCarte.length() - 1)))) {
+                        case 2:
+                            if (x < .5) saveActeurs.getSave(2).add(new Hibou(j * 16, i * 16));
+                            else saveActeurs.getSave(2).add(new Slime(j * 16, (i+1) * 16));
+                            break;
+                        case 4:
+                            if (x < .5) saveActeurs.getSave(4).add(new Reptile(j  * 16, i * 16));
+                            else saveActeurs.getSave(4).add(new Bambou(j  * 16, i * 16));
+                            break;
+                        case 6:
+                            if (x < .5) saveActeurs.getSave(6).add(new Bete(j  * 16, i * 16));
+                            else saveActeurs.getSave(6).add(new Oeil(j * 16, i * 16));
+                            break;
+                        default:
+                            break;
+                    }
+                    mapObstacles[i][j]=6666; // -> apres qu'un ennemi ai spawn, on change le tableau 2D mapObstacle en y ajoutant le-dit ennemi.
+
+
+                    return;
+                }
+            }
+        }
+    }
     // ADAPTE LA TAILLE DES TILES PANES DE LA VUE EN FONCTION DE LA MAP
     public void updateTilePaneSize(TilePane floor, TilePane deco, TilePane solid, Pane pane){
         floor.setPrefWidth(limiteHorizMap()*16);
