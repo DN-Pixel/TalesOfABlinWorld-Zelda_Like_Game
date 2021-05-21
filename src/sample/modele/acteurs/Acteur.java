@@ -50,6 +50,14 @@ public class Acteur {
     public IntegerProperty getXProperty() {return this.x;}
     public IntegerProperty getYProperty() {return this.y;}
 
+    public int getCentreActeurX(){
+        return getX()+8;
+    }
+    public int getCentreActeurY(){
+        return getY()+8;
+    }
+
+
 }
 
 

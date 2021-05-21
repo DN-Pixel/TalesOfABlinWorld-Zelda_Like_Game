@@ -77,13 +77,13 @@ public class Joueur {
     /*
     retourne le centre X du sprite du joueur
      */
-    public double getCentreJoueurX(){
+    public int getCentreJoueurX(){
         return this.getX()+8;
     }
     /*
     retourne le centre Y du sprite du joueur
      */
-    public double getCentreJoueurY(){
+    public int getCentreJoueurY(){
         return this.getY()+8;
     }
 
@@ -105,27 +105,19 @@ public class Joueur {
     public boolean manageCollisions(KeyEvent e){
         switch (e.getCode()){
             case Z:
-                if(!(getY()>0 &&
-                        zone.getMapObstacles()[((getY())/16)][((getX())/16)]==-1 &&
-                        zone.getMapObstacles()[((getY())/16)][((getX()+16)/16)]==-1))
+                if(!(getY()>0 && zone.getMapObstacles()[((getCentreJoueurY()-8)/16)][((getCentreJoueurX())/16)]==-1))
                     return false;
                 break;
             case S:
-                if(!(getY()<zone.limiteVertiMap()*16-19 &&
-                        zone.getMapObstacles()[((getY()+16)/16)][((getX())/16)]==-1 &&
-                        zone.getMapObstacles()[((getY()+16)/16)][((getX()+16)/16)]==-1))
+                if(!(getY()<zone.limiteVertiMap()*16-19 && zone.getMapObstacles()[((getCentreJoueurY()+8)/16)][((getCentreJoueurX())/16)]==-1 ))
                     return false;
                 break;
             case Q:
-                if(!(getX()>0 &&
-                        zone.getMapObstacles()[((getY())/16)][((getX())/16)]==-1 &&
-                        zone.getMapObstacles()[((getY()+16)/16)][((getX())/16)]==-1))
+                if(!(getX()>0 &&  zone.getMapObstacles()[((getCentreJoueurY())/16)][((getCentreJoueurX()-8)/16)]==-1 ))
                     return false;
                 break;
             case D:
-                if(!(getX()< zone.limiteHorizMap()*16-19 &&
-                        zone.getMapObstacles()[((getY())/16)][((getX()+16)/16)]==-1 &&
-                        zone.getMapObstacles()[((getY()+16)/16)][((getX()+16)/16)]==-1))
+                if(!(getX()< zone.limiteHorizMap()*16-19 && zone.getMapObstacles()[((getCentreJoueurY())/16)][((getCentreJoueurX()+8)/16)]==-1))
                     return false;
                 break;
         }

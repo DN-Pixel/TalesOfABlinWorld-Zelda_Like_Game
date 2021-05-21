@@ -67,19 +67,19 @@ public abstract class Ennemi extends Acteur {
     //verifie si l'ennemi peut se deplacer
     public boolean verifieDeplacement(int [][] mapObstacle){
         if  (moveDirection == 1) {
-            if ((getY()/16<mapObstacle.length) && (mapObstacle[(getY()+1)/16][getX()/16]== -1) )
+            if (((getY()+16)/16<mapObstacle.length) && (mapObstacle[(getCentreActeurY()+8)/16][getCentreActeurX()/16]== -1) )
                 return true;
         }
         else if  (moveDirection == 2) {
-            if ((getY()/16>0) && (mapObstacle[(getY() - 1)/16][getX()/16] == -1))
+            if ((getY()/16>0) && (mapObstacle[(getCentreActeurY() - 8)/16][getCentreActeurX()/16] == -1))
                 return true;
         }
         else if (moveDirection == 3) {
-            if ((getX()/16<mapObstacle[0].length) && (mapObstacle[getY()/16][(getX() + 1)/16] == -1))
+            if (((getX()+16)/16<mapObstacle[0].length) && (mapObstacle[getCentreActeurY()/16][(getCentreActeurX() + 8)/16] == -1))
                 return true;
         }
         else if (moveDirection == 4){
-           if ((getX()/16>0) && (mapObstacle[getY()/16][(getX()-1)/16]== -1))
+           if ((getX()/16>0) && (mapObstacle[getCentreActeurY()/16][(getCentreActeurX()-8)/16]== -1))
             return true;
         }
         else if (moveDirection == 5){
