@@ -144,15 +144,4 @@ public class Terrain {
         }
     }
 
-    // ADAPTE LA TAILLE DES TILES PANES DE LA VUE EN FONCTION DE LA MAP
-    public void updateTilePaneSize(TilePane floor, TilePane deco, TilePane solid, Pane pane){
-        floor.setPrefWidth(limiteHorizMap()*16);
-        floor.setPrefHeight(limiteVertiMap()*16);
-        deco.setPrefWidth(limiteHorizMap()*16);
-        deco.setPrefHeight(limiteVertiMap()*16);
-        solid.setPrefWidth(limiteHorizMap()*16);
-        solid.setPrefHeight(limiteVertiMap()*16);
-        pane.setPrefWidth(limiteHorizMap()*16);
-        pane.setPrefHeight(limiteVertiMap()*16);
-    }
 }

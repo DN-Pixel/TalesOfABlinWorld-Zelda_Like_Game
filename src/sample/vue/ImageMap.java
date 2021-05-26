@@ -5,11 +5,11 @@ import javafx.scene.image.Image;
 import java.util.HashMap;
 import java.util.Map;
 
-public class imageMap {
+public class ImageMap {
 
     private Map<String, Image> map = new HashMap<>();
 
-    public imageMap(){
+    public ImageMap(){
         map.put("empty", new Image("sample/ressources/empty.png"));
         map.put("Slime", new Image("sample/ressources/ennemis/slime.png"));
         map.put("Bambou", new Image("sample/ressources/ennemis/Bambou.png"));
