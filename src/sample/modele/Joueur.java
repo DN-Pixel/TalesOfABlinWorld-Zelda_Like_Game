@@ -88,7 +88,7 @@ public class Joueur {
             manageAggro();
         }
     }
-
+*/
     public void manageAggro(){
         Acteur a;
         for(int i=getZone().getListeActeurs().size()-1; i>=0;i--){
@@ -98,7 +98,7 @@ public class Joueur {
                 ((Ennemi) a).launchBFS(getCentreJoueurX()/16, getCentreJoueurY()/16, getZone().getMapObstacles());
             }
         }
-    }*/
+    }
 
     /*
     retourne le centre X du sprite du joueur

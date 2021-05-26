@@ -13,7 +13,9 @@ public abstract class Ennemi extends Acteur {
     private int pointDegat;
     private int vitesse;
     private int niveau;
-    private int moveDirection; //1 pour up; 2 pour down; 3 pour right; 4 pour left; 5 pour none
+    private int moveDirection; //1 pour down; 2 pour up; 3 pour right; 4 pour left; 5 pour none
+
+    private BFS bfs = new BFS();
 
     private Stack<Integer> path = new Stack<Integer>(); // direction à prendre pour rejoindre le joueur (BFS PATHFINDING)
 
@@ -58,19 +60,18 @@ public abstract class Ennemi extends Acteur {
 
     //gere les deplacements
     //le 5 represente aucun movement
-    private int x = 0;
     public  void moveEnnemi(int [][] mapObstacle){
-        x++;
-        if(x%2==0){
-            launchBFS(0, 100/16, mapObstacle);
-        }
-        if(isAggroing())
+        if(isAggroing()){
             moveDirection = pathfinding();
-        else
+            setVitesse(3);
+        }
+        else{
+            setVitesse(2);
             if(Math.random()<0.2)
                 this.moveDirection = (int) (Math.random() * (5)+1);
             while (!verifieDeplacement(mapObstacle))
                 this.moveDirection = (int) (Math.random() * (5)+1);
+        }
         oldX = getCentreActeurX()/16;
         oldY = getCentreActeurY()/16;
 
@@ -93,7 +94,6 @@ public abstract class Ennemi extends Acteur {
     }
 
     public void launchBFS(int playerPosX, int playerPosY, int[][] mapObstacle){
-        BFS bfs = new BFS();
         path = bfs.start(getCentreActeurX()/16, getCentreActeurY()/16, playerPosX, playerPosY, mapObstacle);
     }
 

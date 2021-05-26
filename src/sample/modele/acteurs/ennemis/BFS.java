@@ -74,7 +74,7 @@ public class BFS {
         }
 
         found = false;
-        //1 pour up; 2 pour down; 3 pour right; 4 pour left; 5 pour none
+        //1 pour down; 2 pour up; 3 pour right; 4 pour left; 5 pour none
         while (!found){
             if(actualI-1>=0 && mapBFS[actualI-1][actualJ]==cpt-1){
                 path.add(1);
@@ -100,8 +100,10 @@ public class BFS {
                 if(mapBFS[actualI][actualJ+1]==1)
                     found = true;
             }
+            else{
+                found = true;
+            }
             cpt--;
-
         }
         return path;
     }

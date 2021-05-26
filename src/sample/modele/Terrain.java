@@ -110,6 +110,7 @@ public class Terrain {
 
         //gestion du spawn des ennemis en fonction de la zone.
         double x = Math.random();
+
         for (int i = 0; i < mapSpawn.length; i++) {
             for (int j = 0; j < mapSpawn[0].length; j++) {
                 //l'ennemis spawn dans le map de spawn si l'emplacement est disponible dans la map obstacle.

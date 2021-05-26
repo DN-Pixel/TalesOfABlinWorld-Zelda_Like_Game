@@ -133,6 +133,7 @@ public class Controller implements Initializable {
             if(dx==-1) joueur.moveLeft();
             if(dy==1) joueur.moveDown();
             if(dy==-1) joueur.moveUp();
+            joueur.manageAggro();
             //joueur.updatePosition();
         }
     }
