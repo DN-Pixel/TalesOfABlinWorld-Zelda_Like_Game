@@ -1,17 +1,19 @@
-package sample;
+package sample.controleur;
 
 import com.sun.xml.internal.ws.util.StringUtils;
+
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.xml.bind.JAXBException;
 //><
 
-public class MapLoadder {
+public class MapLoader {
 
 
-    public MapLoadder() {
+    public MapLoader() {
     }
 
     public int[][] LoadTileMap(String mapName) throws IOException {
@@ -20,12 +22,12 @@ public class MapLoadder {
         int nombreDeLigne = 0;
         int nombreDeColonne = 1;
         try {
-            FileReader fr = new FileReader("src/sample/tilemaps/"+mapName+".csv");
+            FileReader fr = new FileReader("src/sample/ressources/tilemaps/"+mapName+".csv");
             //FileReader fr = new FileReader("/sample/tilemaps/" + folderName);
 
             BufferedReader csvReader = new BufferedReader(fr);
 
-            FileReader fr2 = new FileReader("src/sample/tilemaps/"+mapName+".csv");
+            FileReader fr2 = new FileReader("src/sample/ressources/tilemaps/"+mapName+".csv");
 
             BufferedReader csvReader2 = new BufferedReader(fr2);
 

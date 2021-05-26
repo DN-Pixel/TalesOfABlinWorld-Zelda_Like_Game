@@ -1,27 +1,27 @@
 package sample.modele;
 
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.collections.ObservableList;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
+import sample.modele.acteurs.Acteur;
+import sample.modele.acteurs.SaveActeurs;
+import sample.modele.acteurs.ennemis.*;
+
+import java.util.ArrayList;
 
 
 public class Terrain {
 
-    private Joueur player;
     private String nomDeCarte;
-    private int [][] mapObstacles;
+    private int [][] mapObstacles; // MAP DES OBSTACLES ET COLLISIONS
+    private SaveActeurs saveActeurs = new SaveActeurs();
+
+    private int[][] mapSpawn; // ZONE DE SPAWN DES ENNEMIS
 
 
-    public Terrain (String nomDeCarte, Joueur j) {
+
+    public Terrain (String nomDeCarte) {
         this.nomDeCarte = nomDeCarte;
-        this.player = j;
-    }
-
-    public void setJoueur (Joueur newPlayer) {
-        this.player = newPlayer;
-    }
-
-    public Joueur getJoueur () {
-        return this.player;
     }
 
     public void setNomDeCarte (String newNom) {
@@ -32,17 +32,29 @@ public class Terrain {
         return this.nomDeCarte;
     }
 
-    public void setMap (int[][] newMap) {
+    public void setMapObstacles (int[][] newMap) {
         this.mapObstacles = newMap;
     }
 
-    public int[][] getMap () {
+    public int[][] getMapObstacles () {
         return this.mapObstacles;
+    }
+
+    public void loadSaveActeurs(){
+        int numero = Integer.parseInt(nomDeCarte.substring((nomDeCarte.length()-1))); // récupère le numéro de la carte
+        Acteur a;
+        for(int i=0;i<saveActeurs.getSave(numero).size();i++){
+            a = saveActeurs.getSave(numero).get(i);
+            if(a instanceof Ennemi)
+                mapObstacles[a.getY()/16][a.getX()/16] = 6666; // 6666 -> ENNEMI
+            else
+                mapObstacles[a.getY()/16][a.getX()/16] = 7777; // 7777 -> PNJ
+        }
     }
 
     public int limiteVertiMap () {
         int limiteV = 0;
-        for (int j = 0; j < this.mapObstacles[0].length; j++) {
+        for (int j = 0; j < this.mapObstacles.length; j++) {
             limiteV++;
         }
         return limiteV;
@@ -50,7 +62,7 @@ public class Terrain {
 
     public int limiteHorizMap () {
         int limiteH = 0;
-        for (int i = 0; i < this.mapObstacles.length; i++) {
+        for (int i = 0; i < this.mapObstacles[0].length; i++) {
             limiteH++;
         }
         return limiteH;
@@ -65,42 +77,82 @@ public class Terrain {
         }
         return longueur;
     }
+
+    public ObservableList<Acteur> getListeActeurs() {
+        int numero = Integer.parseInt(nomDeCarte.substring((nomDeCarte.length()-1)));
+        return saveActeurs.getSave(numero);
+    }
     /*
-    Gère les collisions du joueur dans le terrain retourne vrai si tout vas bien et faux si il y a un conflit
+    CHERCHE DANS LA LISTE DES ACTEURS SI IL EXSITE
      */
-    //><
-
-
-    public boolean manageCollisions(KeyEvent e){
-        switch (e.getCode()){
-
-
-            case Z:
-                if(!(player.getY()>0 &&
-                        mapObstacles[((player.getY())/16)][((player.getX())/16)]==-1 &&
-                        mapObstacles[((player.getY())/16)][((player.getX()+16)/16)]==-1))
-                    return false;
-                break;
-            case S:
-                if(!(player.getY()<limiteVertiMap()*15 &&
-                        mapObstacles[((player.getY()+16)/16)][((player.getX())/16)]==-1 &&
-                        mapObstacles[((player.getY()+16)/16)][((player.getX()+16)/16)]==-1))
-                    return false;
-                break;
-            case Q:
-                if(!(player.getX()>0 &&
-                        mapObstacles[((player.getY())/16)][((player.getX())/16)]==-1 &&
-                        mapObstacles[((player.getY()+16)/16)][((player.getX())/16)]==-1))
-                    return false;
-                break;
-            case D:
-                if(!(player.getX()<limiteHorizMap()*15 &&
-                        mapObstacles[((player.getY())/16)][((player.getX()+16)/16)]==-1 &&
-                        mapObstacles[((player.getY()+16)/16)][((player.getX()+16)/16)]==-1))
-                    return false;
-                break;
+    public boolean findActeur(String id){
+        for(Acteur a: getListeActeurs()){
+            if(a.getId().equals(id))
+                return true;
         }
-        return true;
+        return false;
     }
 
+    public int[][] getMapSpawn() {
+        return mapSpawn;
+    }
+
+    public void setMapSpawn(int[][] mapSpawn) {
+        this.mapSpawn = mapSpawn;
+    }
+
+    public void EnemySpawn () {
+        //><
+        //Si la limite d'ennemis est atteinte on ne fait rien spawn, si on est dans une ville non plus.
+        if (saveActeurs.getSave(Integer.parseInt(nomDeCarte.substring((nomDeCarte.length() - 1)))).size() >= 10 ||
+                Integer.parseInt(nomDeCarte.substring((nomDeCarte.length() - 1)))==1)
+            return;
+
+        //gestion du spawn des ennemis en fonction de la zone.
+        double x = Math.random();
+        for (int i = 0; i < mapSpawn.length; i++) {
+            for (int j = 0; j < mapSpawn[0].length; j++) {
+                //l'ennemis spawn dans le map de spawn si l'emplacement est disponible dans la map obstacle.
+                if (mapSpawn[i][j] == 3415 && mapObstacles[i][j]==-1 &&  Math.random()<0.015 ) {
+                    switch (Integer.parseInt(nomDeCarte.substring((nomDeCarte.length() - 1)))) {
+                        case 2:
+                            if (x < .5) saveActeurs.getSave(2).add(new Hibou(j * 16, i * 16));
+                            else saveActeurs.getSave(2).add(new Slime(j * 16, i * 16));
+                            break;
+                        case 4:
+                            if (x < .5) saveActeurs.getSave(4).add(new Reptile(j  * 16, i * 16));
+                            else saveActeurs.getSave(4).add(new Bambou(j  * 16, i * 16));
+                            break;
+                        case 6:
+                            if (x < .5) saveActeurs.getSave(6).add(new Bete(j  * 16, i * 16));
+                            else saveActeurs.getSave(6).add(new Oeil(j * 16, i * 16));
+                            break;
+                        default:
+                            break;
+                    }
+                    //mapObstacles[i][j]=6666; // -> apres qu'un ennemi ait spawn, on change le tableau 2D mapObstacle en y ajoutant le-dit ennemi.
+                    return;
+                }
+            }
+        }
+    }
+    // parcours la liste des acteurs pour faire bouger uniquement les ennemis
+    public void moveEnnemis(){
+        for(Acteur a : getListeActeurs()){
+            if(a instanceof Ennemi)
+                ((Ennemi) a).moveEnnemi(mapObstacles);
+        }
+    }
+
+    // ADAPTE LA TAILLE DES TILES PANES DE LA VUE EN FONCTION DE LA MAP
+    public void updateTilePaneSize(TilePane floor, TilePane deco, TilePane solid, Pane pane){
+        floor.setPrefWidth(limiteHorizMap()*16);
+        floor.setPrefHeight(limiteVertiMap()*16);
+        deco.setPrefWidth(limiteHorizMap()*16);
+        deco.setPrefHeight(limiteVertiMap()*16);
+        solid.setPrefWidth(limiteHorizMap()*16);
+        solid.setPrefHeight(limiteVertiMap()*16);
+        pane.setPrefWidth(limiteHorizMap()*16);
+        pane.setPrefHeight(limiteVertiMap()*16);
+    }
 }
