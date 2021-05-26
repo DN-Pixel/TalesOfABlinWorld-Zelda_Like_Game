@@ -2,6 +2,9 @@ package sample.modele.acteurs.ennemis;
 
 import sample.modele.acteurs.Acteur;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public abstract class Ennemi extends Acteur {
 
 
@@ -10,6 +13,7 @@ public abstract class Ennemi extends Acteur {
     private int vitesse;
     private int niveau;
     private int moveDirection; //1 pour up; 2 pour down; 3 pour right; 4 pour left; 5 pour none
+    private ArrayList<Integer> path; // direction à prendre pour rejoindre le joueur (BFS PATHFINDING)
 
     public Ennemi(int x, int y, int pv, int pointDegat, int niveau){
         super(x, y);
@@ -47,9 +51,13 @@ public abstract class Ennemi extends Acteur {
         }
     }
 
+    private int oldX =getCentreActeurX()/16;
+    private int oldY =getCentreActeurY()/16;
+
     //gere les deplacements
     //le 5 represente aucun movement
     public  void moveEnnemi(int [][] mapObstacle){
+
         if(Math.random()<0.2)
             this.moveDirection = (int) (Math.random() * (5)+1);
         while (!verifieDeplacement(mapObstacle))
