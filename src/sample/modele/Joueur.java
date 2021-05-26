@@ -3,6 +3,8 @@ package sample.modele;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyEvent;
+import sample.modele.acteurs.Acteur;
+import sample.modele.acteurs.ennemis.Ennemi;
 
 public class Joueur {
 
@@ -66,27 +68,37 @@ public class Joueur {
     }
 
     public void moveLeft () { this.xProperty.setValue(this.xProperty.getValue()-vitesseDeDeplacement); }
-
-    /*private int oldTileValue;
+    /*
+    private int oldTileValue;
     private int oldPlayerX =getCentreJoueurX()/16;
     private int oldPlayerY =getCentreJoueurY()/16;
 
-    public void setOldTleValue (int Value){
+    public void setOldTileValue (int Value){
         oldTileValue=Value;
     }
 
     public void updatePosition(){
         int newTile = this.zone.getMapSpawn()[getCentreJoueurY()/16][getCentreJoueurX()/16];
-        if(newTile!= oldTileValue){
+        System.out.println(newTile);
+        if(newTile != oldTileValue){
             this.zone.getMapSpawn()[oldPlayerY][oldPlayerX] = oldTileValue;
             oldPlayerX =getCentreJoueurX()/16;
             oldPlayerY =getCentreJoueurY()/16;
             this.zone.getMapSpawn()[getCentreJoueurY()/16][getCentreJoueurX()/16]=99;
+            manageAggro();
         }
+    }
 
+    public void manageAggro(){
+        Acteur a;
+        for(int i=getZone().getListeActeurs().size()-1; i>=0;i--){
+            a = getZone().getListeActeurs().get(i);
+            if(a instanceof Ennemi && (getCentreJoueurX()>=a.getCentreActeurX()-80 && getCentreJoueurX()<=a.getCentreActeurX()+80)
+                    && (getCentreJoueurY()>=a.getCentreActeurY()-80 && getCentreJoueurY()<=a.getCentreActeurY()+80)){
+                ((Ennemi) a).launchBFS(getCentreJoueurX()/16, getCentreJoueurY()/16, getZone().getMapObstacles());
+            }
+        }
     }*/
-
-
 
     /*
     retourne le centre X du sprite du joueur

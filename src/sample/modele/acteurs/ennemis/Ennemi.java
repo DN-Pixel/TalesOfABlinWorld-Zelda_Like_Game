@@ -15,12 +15,12 @@ public abstract class Ennemi extends Acteur {
     private int niveau;
     private int moveDirection; //1 pour up; 2 pour down; 3 pour right; 4 pour left; 5 pour none
 
-    private Stack<Integer> path; // direction à prendre pour rejoindre le joueur (BFS PATHFINDING)
+    private Stack<Integer> path = new Stack<Integer>(); // direction à prendre pour rejoindre le joueur (BFS PATHFINDING)
 
     public Ennemi(int x, int y, int pv, int pointDegat, int niveau){
         super(x, y);
         this.pv = pv;
-        this.vitesse = 1;
+        this.vitesse = 2;
         this.pointDegat = pointDegat;
         this.niveau = niveau;
         this.moveDirection = 5;
@@ -58,16 +58,22 @@ public abstract class Ennemi extends Acteur {
 
     //gere les deplacements
     //le 5 represente aucun movement
+    private int x = 0;
     public  void moveEnnemi(int [][] mapObstacle){
-        moveDirection = pathfinding();
-        oldX = getCentreActeurX()/16;
-        oldY = getCentreActeurY()/16;
-        if(moveDirection==-1){
+        x++;
+        if(x%2==0){
+            launchBFS(0, 100/16, mapObstacle);
+        }
+        if(isAggroing())
+            moveDirection = pathfinding();
+        else
             if(Math.random()<0.2)
                 this.moveDirection = (int) (Math.random() * (5)+1);
             while (!verifieDeplacement(mapObstacle))
                 this.moveDirection = (int) (Math.random() * (5)+1);
-        }
+        oldX = getCentreActeurX()/16;
+        oldY = getCentreActeurY()/16;
+
         if (moveDirection == 1)
             setY(getY()+vitesse);
         else if (moveDirection == 2)
@@ -77,20 +83,18 @@ public abstract class Ennemi extends Acteur {
         else if (moveDirection == 4)
             setX(getX()-vitesse);
     }
-    // retourne la prochaine direction, -1 si il n'y a pas de BFS en cours
+    // retourne la prochaine direction
     public int pathfinding(){
-        int direction = -1;
         // Si on est en BFS et qu'on a une nouvelle position
-        if(isAggroing()){
-            direction = path.lastElement();
-            if(getCentreActeurX()/16!=oldX || getCentreActeurY()/16!=oldY)
-                path.pop();
-        }
+        int direction = path.lastElement();
+        if(getCentreActeurX()/16!=oldX || getCentreActeurY()/16!=oldY)
+            path.pop();
         return direction;
     }
 
     public void launchBFS(int playerPosX, int playerPosY, int[][] mapObstacle){
-        path = BFS.start(getCentreActeurX(), getCentreActeurY(), playerPosX, playerPosY, mapObstacle);
+        BFS bfs = new BFS();
+        path = bfs.start(getCentreActeurX()/16, getCentreActeurY()/16, playerPosX, playerPosY, mapObstacle);
     }
 
     // si l'ennemi cherche a attaquer l'ennemi (BFS lancé)

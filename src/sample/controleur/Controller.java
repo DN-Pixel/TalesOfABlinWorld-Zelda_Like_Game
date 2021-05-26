@@ -81,8 +81,9 @@ public class Controller implements Initializable {
                 Duration.seconds(0.017),
                 (ev ->{
                     movePlayer(); // gère le déplacement à chaque tour de la boucle temporelle
-                    if (temps%590==0) // spawn d'ennemi toutes les 10s
-                        zoneActuelle.EnemySpawn();
+                    if (temps%590==0){
+                        zoneActuelle.EnemySpawn();// spawn d'ennemi toutes les 10s
+                    }
                     if(temps%5==0)
                         zoneActuelle.moveEnnemis();
                     timeManager(); // gestion du temps
@@ -127,7 +128,7 @@ public class Controller implements Initializable {
     public void movePlayer(){
         if(joueur.manageCollisions(keyPressed)){
             //permet de récuperer l'ancienne valeur de la Tile du tableau de Spawn.
-            //joueur.setOldTleValue(joueur.getZone().getMapSpawn()[(joueur.getCentreJoueurY()/16)][(joueur.getCentreJoueurX()/16)]);
+            //joueur.setOldTileValue(joueur.getZone().getMapSpawn()[(joueur.getCentreJoueurY()/16)][(joueur.getCentreJoueurX()/16)]);
             if(dx==1) joueur.moveRight();
             if(dx==-1) joueur.moveLeft();
             if(dy==1) joueur.moveDown();
@@ -144,7 +145,8 @@ public class Controller implements Initializable {
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 switch (joueur.getNumeroZone()){
                     case "1":
-                        if(joueur.isCollinding(622, 228)) terrainVue.loadMap("2", 50, 100);
+                        if(joueur.isCollinding(622, 228))  terrainVue.loadMap("2", 50, 100);
+
                         break;
                     case "2":
                         if(joueur.isCollinding(0, 100))  terrainVue.loadMap("1", 600, 228);
