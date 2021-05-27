@@ -18,8 +18,6 @@ public class Joueur {
     public Joueur(int x, int y, Terrain zone) {
         this.xProperty.setValue(x);
         this.yProperty.setValue(y);
-        this.pointAttaque=1;
-        this.direction= "down";
         this.zone = zone;
     }
 
@@ -60,24 +58,17 @@ public class Joueur {
 
     public void moveUp () {
         this.yProperty.setValue(this.yProperty.getValue()-vitesseDeDeplacement);
-        this.direction="up";
     }
 
     public void moveDown () {
         this.yProperty.setValue(this.yProperty.getValue()+vitesseDeDeplacement);
-        this.direction="down";
     }
 
     public void moveRight () {
         this.xProperty.setValue(this.xProperty.getValue()+vitesseDeDeplacement);
-        this.direction="right";
     }
 
-    public void moveLeft () {
-        this.xProperty.setValue(this.xProperty.getValue()-vitesseDeDeplacement);
-        this.direction="left";
-    }
-
+    public void moveLeft () { this.xProperty.setValue(this.xProperty.getValue()-vitesseDeDeplacement); }
     /*
     private int oldTileValue;
     private int oldPlayerX =getCentreJoueurX()/16;
@@ -204,6 +195,14 @@ public class Joueur {
 
             }
         }
+    }
+
+    private void mourrir() {
+
+    }
+
+    public void regenerer(int hp){ // ATTENTION CA PEUT ALLER AU DESSUS DES PVS MAX
+        hp += hp;
     }
 
 }

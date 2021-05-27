@@ -87,12 +87,13 @@ public class Controller implements Initializable {
                 Duration.seconds(0.017),
                 (ev ->{
                     movePlayer(); // gère le déplacement à chaque tour de la boucle temporelle
-                    if (temps%590==0){
-                        zoneActuelle.EnemySpawn();// spawn d'ennemi toutes les 10s
-                    }
-                    if(temps%5==0)
-                        zoneActuelle.moveEnnemis();
                     timeManager(); // gestion du temps
+                    if (temps%590==0)
+                        zoneActuelle.EnemySpawn();// spawn d'ennemi toutes les 10s
+                    if(temps%5==0)
+                        zoneActuelle.moveEnnemis(); // fais déplacer les ennemis
+                    if(temps%177==0)
+                        zoneActuelle.lesEnnemisAttaquent(joueur.getCentreJoueurX(), joueur.getCentreJoueurY(), joueur); // fais attaquer les ennemis toutes les 3s
                 })
         );
         gameLoop.getKeyFrames().add(kf);
@@ -156,7 +157,6 @@ public class Controller implements Initializable {
                 switch (joueur.getNumeroZone()){
                     case "1":
                         if(joueur.isCollinding(622, 228))  terrainVue.loadMap("2", 50, 100);
-
                         break;
                     case "2":
                         if(joueur.isCollinding(0, 100))  terrainVue.loadMap("1", 600, 228);
