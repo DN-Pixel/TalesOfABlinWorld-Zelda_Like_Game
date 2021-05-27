@@ -5,21 +5,54 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyEvent;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.ennemis.Ennemi;
+import sample.modele.items.Armes.Arme;
+import sample.modele.items.Armes.Gourdin;
+import sample.modele.items.Inventaire;
 
 public class Joueur {
 
+    private int hp;
+    private Arme arme;
     private IntegerProperty xProperty = new SimpleIntegerProperty(0);
     private IntegerProperty yProperty = new SimpleIntegerProperty(0);
     private static int vitesseDeDeplacement = 2 ;
-
+    private String direction;
     private Terrain zone;
-    
+    private Inventaire inventaire;
+
     public Joueur(int x, int y, Terrain zone) {
+        arme = new Gourdin(); // Le joueur commence avec un gourdin
         this.xProperty.setValue(x);
         this.yProperty.setValue(y);
         this.zone = zone;
+        direction = "down";
+        hp = 10;
+        this.inventaire = new Inventaire();
     }
 
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public int getPointAttaque() {
+        return arme.getDegatsArme();
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public void setArme(Arme arme) {
+        this.arme = arme;
+    }
 
     public Terrain getZone() {
         return zone;
@@ -57,17 +90,23 @@ public class Joueur {
 
     public void moveUp () {
         this.yProperty.setValue(this.yProperty.getValue()-vitesseDeDeplacement);
+        direction = "up";
     }
 
     public void moveDown () {
         this.yProperty.setValue(this.yProperty.getValue()+vitesseDeDeplacement);
+        direction = "down";
     }
 
     public void moveRight () {
         this.xProperty.setValue(this.xProperty.getValue()+vitesseDeDeplacement);
+        direction = "right";
     }
 
-    public void moveLeft () { this.xProperty.setValue(this.xProperty.getValue()-vitesseDeDeplacement); }
+    public void moveLeft () {
+        this.xProperty.setValue(this.xProperty.getValue()-vitesseDeDeplacement);
+        direction="left";
+    }
     /*
     private int oldTileValue;
     private int oldPlayerX =getCentreJoueurX()/16;
@@ -97,6 +136,13 @@ public class Joueur {
                     && (getCentreJoueurY()>=a.getCentreActeurY()-80 && getCentreJoueurY()<=a.getCentreActeurY()+80)){
                 ((Ennemi) a).launchBFS(getCentreJoueurX()/16, getCentreJoueurY()/16, getZone().getMapObstacles());
             }
+        }
+    }
+
+    public void subirDegats(int degats){
+        hp -= degats;
+        if(hp<=0){
+            mourrir();
         }
     }
 
@@ -150,4 +196,53 @@ public class Joueur {
         return true;
     }
 
+
+
+    public void attaquerEnnemis() {
+        for (int i = 0; i <this.zone.getListeActeurs().size() ; i++) {
+            Acteur a = this.zone.getListeActeurs().get(i);
+            if (a instanceof Ennemi) {
+                switch (direction){
+                    case "right" :
+                        if (a.getCentreActeurX()<=this.getCentreJoueurX()+arme.getRange() && a.getCentreActeurX()>=this.getCentreJoueurX()
+                        && a.getCentreActeurY()<=this.getCentreJoueurY()+24 && a.getCentreActeurY() >= this.getCentreJoueurY()-24 ) {
+                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
+                        }
+                        break;
+                    case "left" :
+                        if (a.getCentreActeurX()>=this.getCentreJoueurX()-arme.getRange() && a.getCentreActeurX()<=this.getCentreJoueurX()
+                                && a.getCentreActeurY()<=this.getCentreJoueurY()+24 && a.getCentreActeurY() >= this.getCentreJoueurY()-24 ) {
+                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
+                        }
+                        break;
+                    case "up" :
+                        if (a.getCentreActeurY()>=this.getCentreJoueurY()-arme.getRange() && a.getCentreActeurY() <= this.getCentreJoueurY()
+                                && a.getCentreActeurX()>=this.getCentreJoueurX()-24 && a.getCentreActeurX()<=this.getCentreJoueurX()+24 ) {
+                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
+                        }
+                        break;
+
+                    case "down" :
+                        if (a.getCentreActeurY()<=this.getCentreJoueurY()+arme.getRange() && a.getCentreActeurY() >= this.getCentreJoueurY()
+                                && a.getCentreActeurX()>=this.getCentreJoueurX()-24 && a.getCentreActeurX()<=this.getCentreJoueurX()+24) {
+                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
+                        }
+                        break;
+                }
+
+            }
+        }
+    }
+
+    private void mourrir() {
+
+    }
+
+    public void regenerer(int hp){ // ATTENTION CA PEUT ALLER AU DESSUS DES PVS MAX
+        hp += hp;
+    }
+
+    public Inventaire getInventaire() {
+        return inventaire;
+    }
 }

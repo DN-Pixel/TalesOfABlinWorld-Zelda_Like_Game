@@ -145,4 +145,18 @@ public class Terrain {
         }
     }
 
+    public void lesEnnemisAttaquent(int posJoueurX, int posJoueurY, Joueur joueur){
+        for(Acteur a : getListeActeurs()){
+            if(a instanceof Ennemi)
+                ((Ennemi) a).attaquerJoueur(posJoueurX, posJoueurY, joueur);
+        }
+    }
+    // supprime les morts de la liste
+    public void clean() {
+        for(int i = getListeActeurs().size()-1;i>=0;i--){
+            Acteur a = getListeActeurs().get(i);
+            if(a instanceof Ennemi && ((Ennemi) a).getPv()<=0)
+                getListeActeurs().remove(a);
+        }
+    }
 }

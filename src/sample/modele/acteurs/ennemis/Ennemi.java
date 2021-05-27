@@ -1,5 +1,6 @@
 package sample.modele.acteurs.ennemis;
 
+import sample.modele.Joueur;
 import sample.modele.acteurs.Acteur;
 
 import java.util.ArrayList;
@@ -49,10 +50,6 @@ public abstract class Ennemi extends Acteur {
 
     public void subirDegat(int pertePv) {
         this.pv -= pertePv;
-        if(pv<=0){
-            this.pv=0;
-            mourir();
-        }
     }
 
     private int oldX =getCentreActeurX()/16;
@@ -135,8 +132,11 @@ public abstract class Ennemi extends Acteur {
     }
 
     //gere les attaques
-    public void attaquerJoueur(){
-
+    public void attaquerJoueur(int posJoueurX, int posJoueurY, Joueur joueur){
+        if(posJoueurX<=getCentreActeurX()+24 && posJoueurX>=getCentreActeurX()-24
+                && posJoueurY<=getCentreActeurY()+24 && posJoueurY>=getCentreActeurY()-24){
+            joueur.subirDegats(getPointDegat());
+        }
     }
 
     //tuer l'ennemis
