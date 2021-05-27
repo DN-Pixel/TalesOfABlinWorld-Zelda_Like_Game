@@ -33,33 +33,70 @@
             <Rectangle fx:id="cameraR" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="280.0" layoutX="465.0" layoutY="220.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="300.0" width="350.0" />
             <Pane fx:id="LeftQuestPane" layoutX="212.0" layoutY="120.0" prefHeight="481.0" prefWidth="220.0">
                <children>
-                  <ImageView fitHeight="157.0" fitWidth="265.0" layoutX="-8.0" layoutY="164.0" pickOnBounds="true" rotate="90.0">
+                  <ImageView fitHeight="245.0" fitWidth="185.0" layoutX="35.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../ressources/HUD/DialogueBoxSimple.png" />
+                        <Image url="@../ressources/HUD/menu/CopperWindow.png" />
                      </image>
-                     <effect>
-                        <Reflection topOpacity="0.92" />
-                     </effect>
                   </ImageView>
-                  <Label fx:id="questLabel" alignment="TOP_CENTER" layoutX="61.0" layoutY="122.0" prefHeight="240.0" prefWidth="126.0" text="oui mon gate" />
+                  <Label fx:id="questLabel" alignment="TOP_CENTER" layoutX="54.0" layoutY="118.0" prefHeight="211.0" prefWidth="142.0" text="Once uppon a time..." textAlignment="CENTER" wrapText="true" />
                </children></Pane>
             <Pane fx:id="RightInventoryPane" layoutX="851.0" layoutY="120.0" prefHeight="481.0" prefWidth="216.0">
                <children>
-                  <ImageView fitHeight="167.0" fitWidth="174.0" layoutX="29.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="245.0" fitWidth="185.0" layoutX="20.0" layoutY="100.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../ressources/HUD/FacesetBox.png" />
+                        <Image url="@../ressources/HUD/menu/CopperWindow.png" />
                      </image>
                   </ImageView>
+                  <Button fx:id="mangerButton" layoutX="36.0" layoutY="303.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="150.0" style="-fx-background-color: NONE; -fx-border-width: 2PX; -fx-border-color: WHITE; -fx-border-radius: 5px;" text="MANGER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="221.0" prefHeight="126.0" prefWidth="207.0" spacing="25.0">
+                     <children>
+                        <RadioButton fx:id="mielRadio" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="Nourriture" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="meatRadio" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$Nourriture" />
+                        <RadioButton fx:id="noodleRadio" mnemonicParsing="false" prefHeight="22.0" prefWidth="11.0" toggleGroup="$Nourriture" />
+                     </children>
+                  </HBox>
                </children>
             </Pane>
-            <Pane fx:id="bottomPane" layoutX="432.0" layoutY="525.0" prefHeight="76.0" prefWidth="419.0">
+            <Pane fx:id="bottomKeyPane" layoutX="422.0" layoutY="490.0" prefHeight="102.0" prefWidth="475.0" scaleX="0.75" scaleY="0.75">
                <children>
-                  <ImageView fitHeight="75.0" fitWidth="419.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="115.0" fitWidth="569.0" layoutX="-66.0" layoutY="-2.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../ressources/HUD/menu/parchemin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="64.0" fitWidth="40.0" layoutX="50.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ressources/HUD/touches/down.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="64.0" fitWidth="40.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ressources/HUD/touches/LEFT.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="64.0" fitWidth="40.0" layoutX="50.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ressources/HUD/touches/up.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="64.0" fitWidth="40.0" layoutX="101.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ressources/HUD/touches/RIGHT.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
             <Pane fx:id="topHPPane" layoutX="431.0" layoutY="120.0" prefHeight="88.0" prefWidth="420.0">
                <children>
-                  <ImageView fitHeight="45.0" fitWidth="207.0" layoutX="82.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5">
+                  <ImageView fx:id="hpBar" fitHeight="45.0" fitWidth="207.0" layoutX="105.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5">
                      <image>
                         <Image url="@../ressources/HUD/HPBAR/8HP.png" />
                      </image>
