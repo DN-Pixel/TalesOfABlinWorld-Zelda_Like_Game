@@ -17,6 +17,7 @@ import sample.vue.TerrainVue;
 import sample.vue.ImageMap;
 import sample.modele.Joueur;
 import sample.modele.Terrain;
+import sample.vue.animations.PlayerHPAnimation;
 import sample.vue.animations.PlayerMovementAnimation;
 
 
@@ -46,6 +47,8 @@ public class Controller implements Initializable {
     private TilePane tilePaneDeco;
     @FXML
     private Label questLabel;
+    @FXML
+    private ImageView hpBar;
 
     private TerrainVue terrainVue; // classe permettant de load la map et charger les textures
 
@@ -56,9 +59,16 @@ public class Controller implements Initializable {
         terrainVue = new TerrainVue(zoneActuelle, joueur, gamePane, tilePane, tilePaneDeco, tilePaneSolid);
         terrainVue.loadMap("1", 300, 100);
         initListeners();
-        initAnimation();
+        initBoucleTemporelle();
+        initAnimations();
         gameLoop.play();
     }
+
+    private void initAnimations() {
+        PlayerMovementAnimation.initAnimation(player, joueur, imageMap); // INITIALISE LES ANIMATIONS DE DEPLACEMENTS DU JOUEUR
+        PlayerHPAnimation.initAnimation(joueur, hpBar, imageMap); // INTIALISE LES ANIMATIONS DE VIE (Coeurs)
+    }
+
     //initialise tous les listeners
     public void initListeners(){
        initPlayerListener();
@@ -84,8 +94,7 @@ public class Controller implements Initializable {
     // key initialisé aléatoirement pour éviter une erreur
     private static KeyEvent keyPressed = new KeyEvent(KeyEvent.KEY_PRESSED, "d", "D", KeyCode.Z,false, false, false, false);
     private Timeline gameLoop;
-    private void initAnimation() {
-        PlayerMovementAnimation.initAnimation(player, joueur, imageMap); // INITIALISE LES ANIMATIONS DE DEPLACEMENTS DU JOUEUR
+    private void initBoucleTemporelle() {
         gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         KeyFrame kf = new KeyFrame(

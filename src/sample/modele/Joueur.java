@@ -11,7 +11,7 @@ import sample.modele.items.Inventaire;
 
 public class Joueur {
 
-    private int hp;
+    private IntegerProperty hp = new SimpleIntegerProperty();
     private Arme arme;
     private IntegerProperty xProperty = new SimpleIntegerProperty(0);
     private IntegerProperty yProperty = new SimpleIntegerProperty(0);
@@ -19,6 +19,7 @@ public class Joueur {
     private String direction;
     private Terrain zone;
     private Inventaire inventaire;
+    private int maxHP;
 
     public Joueur(int x, int y, Terrain zone) {
         arme = new Gourdin(); // Le joueur commence avec un gourdin
@@ -26,16 +27,17 @@ public class Joueur {
         this.yProperty.setValue(y);
         this.zone = zone;
         direction = "down";
-        hp = 10;
+        hp.setValue(10);
+        maxHP = hp.getValue();
         this.inventaire = new Inventaire();
     }
 
-    public int getHp() {
+    public IntegerProperty getHp() {
         return hp;
     }
 
     public void setHp(int hp) {
-        this.hp = hp;
+        this.hp.setValue(hp);
     }
 
     public int getPointAttaque() {
@@ -87,6 +89,15 @@ public class Joueur {
 
     public int getVitesseDeDeplacement() { return vitesseDeDeplacement; }
     public void setVitesseDeDeplacement(int vitesseDeDeplacement) { Joueur.vitesseDeDeplacement = vitesseDeDeplacement; }
+
+    public int getMaxHP() {
+        return maxHP;
+    }
+
+    public void setMaxHP(int maxHP) {
+        this.maxHP = maxHP;
+    }
+
 
     public void moveUp () {
         this.yProperty.setValue(this.yProperty.getValue()-vitesseDeDeplacement);
@@ -140,8 +151,8 @@ public class Joueur {
     }
 
     public void subirDegats(int degats){
-        hp -= degats;
-        if(hp<=0){
+        hp.setValue(hp.getValue()-degats);
+        if(hp.getValue()<=0){
             mourrir();
         }
     }
@@ -241,7 +252,10 @@ public class Joueur {
     }
 
     public void regenerer(int hp){ // ATTENTION CA PEUT ALLER AU DESSUS DES PVS MAX
-        hp += hp;
+        this.hp.setValue(this.hp.getValue()+hp);
+        if(this.hp.getValue()>maxHP){
+            this.hp.setValue(maxHP);
+        }
     }
 
     public Inventaire getInventaire() {
