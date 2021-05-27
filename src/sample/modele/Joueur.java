@@ -192,6 +192,8 @@ public class Joueur {
                 if(!(getX()< zone.limiteHorizMap()*16-19 && zone.getMapObstacles()[((getCentreJoueurY())/16)][((getCentreJoueurX()+8)/16)]==-1))
                     return false;
                 break;
+            default:
+                return false;
         }
         return true;
     }

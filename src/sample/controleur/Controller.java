@@ -17,6 +17,7 @@ import sample.vue.TerrainVue;
 import sample.vue.ImageMap;
 import sample.modele.Joueur;
 import sample.modele.Terrain;
+import sample.vue.animations.PlayerMovementAnimation;
 
 
 import java.net.URL;
@@ -84,6 +85,7 @@ public class Controller implements Initializable {
     private static KeyEvent keyPressed = new KeyEvent(KeyEvent.KEY_PRESSED, "d", "D", KeyCode.Z,false, false, false, false);
     private Timeline gameLoop;
     private void initAnimation() {
+        PlayerMovementAnimation.initAnimation(player, joueur, imageMap); // INITIALISE LES ANIMATIONS DE DEPLACEMENTS DU JOUEUR
         gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         KeyFrame kf = new KeyFrame(
