@@ -5,23 +5,26 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyEvent;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.ennemis.Ennemi;
+import sample.modele.items.Armes.Arme;
+import sample.modele.items.Armes.Gourdin;
+import sample.modele.items.Armes.Lance;
 
 public class Joueur {
 
     private int hp;
+    private Arme arme;
     private IntegerProperty xProperty = new SimpleIntegerProperty(0);
     private IntegerProperty yProperty = new SimpleIntegerProperty(0);
     private static int vitesseDeDeplacement = 2 ;
-    private int pointAttaque;
     private String direction;
     private Terrain zone;
 
     public Joueur(int x, int y, Terrain zone) {
+        arme = new Gourdin(); // Le joueur commence avec un gourdin
         this.xProperty.setValue(x);
         this.yProperty.setValue(y);
         this.zone = zone;
         direction = "down";
-        pointAttaque = 25;
         hp = 10;
     }
 
@@ -34,11 +37,7 @@ public class Joueur {
     }
 
     public int getPointAttaque() {
-        return pointAttaque;
-    }
-
-    public void setPointAttaque(int pointAttaque) {
-        this.pointAttaque = pointAttaque;
+        return arme.getDegatsArme();
     }
 
     public String getDirection() {
@@ -49,6 +48,9 @@ public class Joueur {
         this.direction = direction;
     }
 
+    public void setArme(Arme arme) {
+        this.arme = arme;
+    }
 
     public Terrain getZone() {
         return zone;
@@ -200,28 +202,28 @@ public class Joueur {
             if (a instanceof Ennemi) {
                 switch (direction){
                     case "right" :
-                        if (a.getCentreActeurX()<=this.getCentreJoueurX()+24 && a.getCentreActeurX()>=this.getCentreJoueurX()
+                        if (a.getCentreActeurX()<=this.getCentreJoueurX()+arme.getRange() && a.getCentreActeurX()>=this.getCentreJoueurX()
                         && a.getCentreActeurY()<=this.getCentreJoueurY()+24 && a.getCentreActeurY() >= this.getCentreJoueurY()-24 ) {
-                            ((Ennemi) a).subirDegat(pointAttaque);
+                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
                         }
                         break;
                     case "left" :
-                        if (a.getCentreActeurX()>=this.getCentreJoueurX()-24 && a.getCentreActeurX()<=this.getCentreJoueurX()
+                        if (a.getCentreActeurX()>=this.getCentreJoueurX()-arme.getRange() && a.getCentreActeurX()<=this.getCentreJoueurX()
                                 && a.getCentreActeurY()<=this.getCentreJoueurY()+24 && a.getCentreActeurY() >= this.getCentreJoueurY()-24 ) {
-                            ((Ennemi) a).subirDegat(pointAttaque);
+                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
                         }
                         break;
                     case "up" :
-                        if (a.getCentreActeurY()>=this.getCentreJoueurY()-24 && a.getCentreActeurY() <= this.getCentreJoueurY()
+                        if (a.getCentreActeurY()>=this.getCentreJoueurY()-arme.getRange() && a.getCentreActeurY() <= this.getCentreJoueurY()
                                 && a.getCentreActeurX()>=this.getCentreJoueurX()-24 && a.getCentreActeurX()<=this.getCentreJoueurX()+24 ) {
-                            ((Ennemi) a).subirDegat(pointAttaque);
+                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
                         }
                         break;
 
                     case "down" :
-                        if (a.getCentreActeurY()<=this.getCentreJoueurY()+24 && a.getCentreActeurY() >= this.getCentreJoueurY()
+                        if (a.getCentreActeurY()<=this.getCentreJoueurY()+arme.getRange() && a.getCentreActeurY() >= this.getCentreJoueurY()
                                 && a.getCentreActeurX()>=this.getCentreJoueurX()-24 && a.getCentreActeurX()<=this.getCentreJoueurX()+24) {
-                            ((Ennemi) a).subirDegat(pointAttaque);
+                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
                         }
                         break;
                 }
