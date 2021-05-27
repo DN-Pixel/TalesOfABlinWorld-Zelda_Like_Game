@@ -42,8 +42,6 @@ public class Controller implements Initializable {
     private TilePane tilePaneSolid;
     @FXML
     private TilePane tilePaneDeco;
-    @FXML
-    private Pane camera;
 
     private TerrainVue terrainVue; // classe permettant de load la map et charger les textures
 
