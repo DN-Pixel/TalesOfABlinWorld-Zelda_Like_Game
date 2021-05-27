@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyEvent;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.ennemis.Ennemi;
+import sample.modele.items.Objets.Inventaire;
 
 public class Joueur {
 
@@ -15,6 +16,7 @@ public class Joueur {
     private int pointAttaque;
     private String direction;
     private Terrain zone;
+    private Inventaire inventaire;
 
     public Joueur(int x, int y, Terrain zone) {
         this.xProperty.setValue(x);
@@ -23,6 +25,7 @@ public class Joueur {
         direction = "down";
         pointAttaque = 25;
         hp = 10;
+        this.inventaire = new Inventaire();
     }
 
     public int getHp() {
