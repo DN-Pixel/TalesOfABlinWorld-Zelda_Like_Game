@@ -99,7 +99,10 @@ public class Controller implements Initializable {
     }
 
     public static void keyManager(KeyEvent e){
-        if (joueur.manageCollisions(e)){
+        if(e.getCode() == KeyCode.DIGIT1){
+            joueur.attaquerEnnemis();
+        }
+        else if (joueur.manageCollisions(e)){
             keyPressed = e;
             switch (e.getCode()){
                 //mouvement

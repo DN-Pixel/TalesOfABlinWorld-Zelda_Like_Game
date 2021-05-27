@@ -11,12 +11,15 @@ public class Joueur {
     private IntegerProperty xProperty = new SimpleIntegerProperty(0);
     private IntegerProperty yProperty = new SimpleIntegerProperty(0);
     private static int vitesseDeDeplacement = 2 ;
-
+    private int pointAttaque;
+    private String direction;
     private Terrain zone;
     
     public Joueur(int x, int y, Terrain zone) {
         this.xProperty.setValue(x);
         this.yProperty.setValue(y);
+        this.pointAttaque=1;
+        this.direction= "down";
         this.zone = zone;
     }
 
@@ -57,17 +60,24 @@ public class Joueur {
 
     public void moveUp () {
         this.yProperty.setValue(this.yProperty.getValue()-vitesseDeDeplacement);
+        this.direction="up";
     }
 
     public void moveDown () {
         this.yProperty.setValue(this.yProperty.getValue()+vitesseDeDeplacement);
+        this.direction="down";
     }
 
     public void moveRight () {
         this.xProperty.setValue(this.xProperty.getValue()+vitesseDeDeplacement);
+        this.direction="right";
     }
 
-    public void moveLeft () { this.xProperty.setValue(this.xProperty.getValue()-vitesseDeDeplacement); }
+    public void moveLeft () {
+        this.xProperty.setValue(this.xProperty.getValue()-vitesseDeDeplacement);
+        this.direction="left";
+    }
+
     /*
     private int oldTileValue;
     private int oldPlayerX =getCentreJoueurX()/16;
@@ -148,6 +158,52 @@ public class Joueur {
                 break;
         }
         return true;
+    }
+
+
+
+    public void attaquerEnnemis() {
+        for (int i = 0; i <this.zone.getListeActeurs().size() ; i++) {
+            Acteur a = this.zone.getListeActeurs().get(i);
+            if (a instanceof Ennemi) {
+                switch (direction){
+                    case "right" :
+                        System.out.println("right");
+                        if (a.getCentreActeurX()<=this.getCentreJoueurX()+24 && a.getCentreActeurX()>=this.getCentreJoueurX()
+                        && a.getCentreActeurY()<=this.getCentreJoueurY()+24 && a.getCentreActeurY() >= this.getCentreJoueurY()-24 ) {
+                            ((Ennemi) a).subirDegat(pointAttaque);
+                            System.out.println("rightClick");
+                        }
+                        break;
+                    case "left" :
+                        System.out.println("left");
+                        if (a.getCentreActeurX()<=this.getCentreJoueurX()-24 && a.getCentreActeurX()<=this.getCentreJoueurX()
+                                && a.getCentreActeurY()<=this.getCentreJoueurY()+24 && a.getCentreActeurY() >= this.getCentreJoueurY()-24 ) {
+                            ((Ennemi) a).subirDegat(pointAttaque);
+                            System.out.println("leftClick");
+                        }
+                        break;
+                    case "up" :
+                        System.out.println("up");
+                        if (a.getCentreActeurY()<=this.getCentreJoueurY()+24 && a.getCentreActeurY() <= this.getCentreJoueurY()
+                                && a.getCentreActeurX()<=this.getCentreJoueurX()-24 && a.getCentreActeurX()<=this.getCentreJoueurX() ) {
+                            ((Ennemi) a).subirDegat(pointAttaque);
+                            System.out.println("upClick");
+                        }
+                        break;
+
+                    case "down" :
+                        System.out.println("down");
+                        if (a.getCentreActeurY()<=this.getCentreJoueurY()-24 && a.getCentreActeurY() >= this.getCentreJoueurY()
+                                && a.getCentreActeurX()<=this.getCentreJoueurX()-24 && a.getCentreActeurX()<=this.getCentreJoueurX() ) {
+                            ((Ennemi) a).subirDegat(pointAttaque);
+                            System.out.println("DownClick");
+                        }
+                        break;
+                }
+
+            }
+        }
     }
 
 }
