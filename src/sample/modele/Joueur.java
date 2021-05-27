@@ -7,8 +7,7 @@ import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.ennemis.Ennemi;
 import sample.modele.items.Armes.Arme;
 import sample.modele.items.Armes.Gourdin;
-import sample.modele.items.Armes.Lance;
-import sample.modele.items.Objets.Inventaire;
+import sample.modele.items.Inventaire;
 
 public class Joueur {
 
@@ -243,4 +242,7 @@ public class Joueur {
         hp += hp;
     }
 
+    public Inventaire getInventaire() {
+        return inventaire;
+    }
 }
