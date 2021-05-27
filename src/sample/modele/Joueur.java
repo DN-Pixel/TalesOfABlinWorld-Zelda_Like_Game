@@ -8,6 +8,7 @@ import sample.modele.acteurs.ennemis.Ennemi;
 import sample.modele.items.Armes.Arme;
 import sample.modele.items.Armes.Gourdin;
 import sample.modele.items.Armes.Lance;
+import sample.modele.items.Objets.Inventaire;
 
 public class Joueur {
 
@@ -18,6 +19,7 @@ public class Joueur {
     private static int vitesseDeDeplacement = 2 ;
     private String direction;
     private Terrain zone;
+    private Inventaire inventaire;
 
     public Joueur(int x, int y, Terrain zone) {
         arme = new Gourdin(); // Le joueur commence avec un gourdin
@@ -26,6 +28,7 @@ public class Joueur {
         this.zone = zone;
         direction = "down";
         hp = 10;
+        this.inventaire = new Inventaire();
     }
 
     public int getHp() {
