@@ -73,11 +73,35 @@ public class TerrainVue {
             joueur.setXProperty(spawnX);
             joueur.setYProperty(spawnY);
             affichageDeMap(numero);
+            //permet de mettre la camera au bon endroit dès le loading de map.
+            setCameraOnSpawn(-spawnX+640,-spawnY+360);
             //joueur.updatePosition();
             //zoneActuelle.loadSaveActeurs();
         } catch (IOException e) { e.printStackTrace(); }
     }
-
+    public void setCameraOnSpawn(int spawnX, int spawnY){
+        //verifie si, la position du spawn est sur une limite de la map,
+        //ajuste la position de la camera en fonction.
+        if(spawnX<142) {
+            gamePane.setLayoutX(spawnX + 142);
+            gamePane.setLayoutY(spawnY);
+        }
+        else if(spawnX>zoneActuelle.limiteHorizMap()*16-142){
+            gamePane.setLayoutY(spawnY);
+            gamePane.setLayoutX(spawnX-142);}
+        else if(spawnY<90) {
+            gamePane.setLayoutX(spawnX);
+            gamePane.setLayoutY(spawnY+90);
+        }
+        else if(spawnY>zoneActuelle.limiteVertiMap()*16-90) {
+            gamePane.setLayoutX(spawnX);
+            gamePane.setLayoutY(spawnY-90);
+        }
+        else {
+            gamePane.setLayoutX(spawnX);
+            gamePane.setLayoutY(spawnY);
+        }
+    }
     //Chargement des textures
     Image tileSet = new Image("sample/ressources/tilemaps/allTiles.png");
     public void affichageDeMap(String numero) throws IOException {

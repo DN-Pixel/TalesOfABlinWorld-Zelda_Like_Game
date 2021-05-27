@@ -68,8 +68,16 @@ public class Controller implements Initializable {
         player.translateYProperty().bind(joueur.getyProperty());
     }
     public void initCameraListener(){
-        gamePane.layoutXProperty().bind(joueur.getxProperty().multiply(-1).add(640));
-        gamePane.layoutYProperty().bind(joueur.getyProperty().multiply(-1).add(360));
+        joueur.getxProperty().addListener((obse,old,nouv)->{
+            //si le joueur est trop pres du bord de la map, le déplacement ne se fait pas.
+            if(nouv.intValue()>142 && nouv.intValue()< zoneActuelle.limiteHorizMap()*16-174)
+                gamePane.setLayoutX(-(int)nouv+640);
+        });
+
+        joueur.getyProperty().addListener((obse,old,nouv)->{
+            if(nouv.intValue()>90 && nouv.intValue()< zoneActuelle.limiteVertiMap()*16-90)
+                gamePane.setLayoutY(-(int)nouv+360);
+        });
     }
     // key initialisé aléatoirement pour éviter une erreur
     private static KeyEvent keyPressed = new KeyEvent(KeyEvent.KEY_PRESSED, "d", "D", KeyCode.Z,false, false, false, false);
