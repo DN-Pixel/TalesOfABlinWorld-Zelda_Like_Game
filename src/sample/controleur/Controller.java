@@ -101,10 +101,7 @@ public class Controller implements Initializable {
     }
 
     public static void keyManager(KeyEvent e){
-        if(e.getCode() == KeyCode.DIGIT1){
-            joueur.attaquerEnnemis();
-        }
-        else if (joueur.manageCollisions(e)){
+        if (joueur.manageCollisions(e)){
             keyPressed = e;
             switch (e.getCode()){
                 //mouvement
@@ -127,6 +124,9 @@ public class Controller implements Initializable {
     }
 
     public static void keyReleaseManager(KeyEvent e){
+        if(e.getCode() == KeyCode.DIGIT1){
+            joueur.attaquerEnnemis();
+        }
         switch (e.getCode()){
             //mouvement
             case Z : dy=0;break;

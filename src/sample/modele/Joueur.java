@@ -137,7 +137,6 @@ public class Joueur {
 
     public void subirDegats(int degats){
         hp -= degats;
-        System.out.println("AIE");
         if(hp<=0){
             mourrir();
         }
