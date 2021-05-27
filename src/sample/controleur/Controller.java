@@ -6,6 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -42,6 +43,8 @@ public class Controller implements Initializable {
     private TilePane tilePaneSolid;
     @FXML
     private TilePane tilePaneDeco;
+    @FXML
+    private Label questLabel;
 
     private TerrainVue terrainVue; // classe permettant de load la map et charger les textures
 

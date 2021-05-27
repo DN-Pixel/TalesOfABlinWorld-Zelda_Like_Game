@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -7,12 +14,11 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.shape.Rectangle?>
 
-
-<BorderPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controleur.Controller">
+<BorderPane style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controleur.Controller">
    <center>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" scaleX="1.5" scaleY="1.5">
          <children>
-            <Pane fx:id="gamePane" centerShape="false" layoutX="505.0" layoutY="278.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="164.0" prefWidth="270.0">
+            <Pane fx:id="gamePane" centerShape="false" layoutX="505.0" layoutY="278.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="164.0" prefWidth="270.0" style="-fx-background-color: red;">
                <children>
                   <TilePane fx:id="tilePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="320.0" />
                   <TilePane fx:id="tilePaneSolid" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="320.0" />
@@ -24,8 +30,42 @@
                   </ImageView>
                </children>
             </Pane>
-            <Rectangle fx:id="cameraR" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="280.0" layoutX="465.0" layoutY="220.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="300.0" width="350.0" />
-            <Pane layoutX="233.0" layoutY="160.0" prefHeight="441.0" prefWidth="200.0" />
+            <Rectangle fx:id="cameraR" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="280.0" layoutX="465.0" layoutY="220.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="300.0" width="350.0" />
+            <Pane fx:id="LeftQuestPane" layoutX="212.0" layoutY="120.0" prefHeight="481.0" prefWidth="220.0">
+               <children>
+                  <ImageView fitHeight="157.0" fitWidth="265.0" layoutX="-8.0" layoutY="164.0" pickOnBounds="true" rotate="90.0">
+                     <image>
+                        <Image url="@../ressources/HUD/DialogueBoxSimple.png" />
+                     </image>
+                     <effect>
+                        <Reflection topOpacity="0.92" />
+                     </effect>
+                  </ImageView>
+                  <Label fx:id="questLabel" alignment="TOP_CENTER" layoutX="61.0" layoutY="122.0" prefHeight="240.0" prefWidth="126.0" text="oui mon gate" />
+               </children></Pane>
+            <Pane fx:id="RightInventoryPane" layoutX="851.0" layoutY="120.0" prefHeight="481.0" prefWidth="216.0">
+               <children>
+                  <ImageView fitHeight="167.0" fitWidth="174.0" layoutX="29.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ressources/HUD/FacesetBox.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="bottomPane" layoutX="432.0" layoutY="525.0" prefHeight="76.0" prefWidth="419.0">
+               <children>
+                  <ImageView fitHeight="75.0" fitWidth="419.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="topHPPane" layoutX="431.0" layoutY="120.0" prefHeight="88.0" prefWidth="420.0">
+               <children>
+                  <ImageView fitHeight="45.0" fitWidth="207.0" layoutX="82.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5">
+                     <image>
+                        <Image url="@../ressources/HUD/HPBAR/8HP.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
       </Pane>
    </center>
