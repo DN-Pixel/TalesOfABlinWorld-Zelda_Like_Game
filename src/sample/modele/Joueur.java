@@ -8,14 +8,15 @@ import sample.modele.acteurs.ennemis.Ennemi;
 
 public class Joueur {
 
+    public int hp;
     private IntegerProperty xProperty = new SimpleIntegerProperty(0);
     private IntegerProperty yProperty = new SimpleIntegerProperty(0);
     private static int vitesseDeDeplacement = 2 ;
 
-    public int hp;
+
 
     private Terrain zone;
-    
+
     public Joueur(int x, int y, Terrain zone) {
         hp = 1;
         this.xProperty.setValue(x);
@@ -103,6 +104,13 @@ public class Joueur {
         }
     }
 
+    public void subirDegats(int degats){
+        hp -= degats;
+        if(hp<=0){
+            mourrir();
+        }
+    }
+
     /*
     retourne le centre X du sprite du joueur
      */
@@ -151,13 +159,6 @@ public class Joueur {
                 break;
         }
         return true;
-    }
-
-    public void subirDegats(int degats){
-        hp -= degats;
-        if(hp<=0){
-            mourrir();
-        }
     }
 
     private void mourrir() {
