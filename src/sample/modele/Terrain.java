@@ -145,4 +145,11 @@ public class Terrain {
         }
     }
 
+    public void lesEnnemisAttaquent(int posJoueurX, int posJoueurY, Joueur joueur){
+        for(Acteur a : getListeActeurs()){
+            if(a instanceof Ennemi)
+                ((Ennemi) a).attaquerJoueur(posJoueurX, posJoueurY, joueur);
+        }
+    }
+
 }

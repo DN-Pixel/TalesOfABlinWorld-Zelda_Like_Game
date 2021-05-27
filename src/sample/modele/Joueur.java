@@ -12,9 +12,12 @@ public class Joueur {
     private IntegerProperty yProperty = new SimpleIntegerProperty(0);
     private static int vitesseDeDeplacement = 2 ;
 
+    public int hp;
+
     private Terrain zone;
     
     public Joueur(int x, int y, Terrain zone) {
+        hp = 1;
         this.xProperty.setValue(x);
         this.yProperty.setValue(y);
         this.zone = zone;
@@ -148,6 +151,21 @@ public class Joueur {
                 break;
         }
         return true;
+    }
+
+    public void subirDegats(int degats){
+        hp -= degats;
+        if(hp<=0){
+            mourrir();
+        }
+    }
+
+    private void mourrir() {
+
+    }
+
+    public void regenerer(int hp){ // ATTENTION CA PEUT ALLER AU DESSUS DES PVS MAX
+        hp += hp;
     }
 
 }
