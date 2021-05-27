@@ -50,10 +50,6 @@ public abstract class Ennemi extends Acteur {
 
     public void subirDegat(int pertePv) {
         this.pv -= pertePv;
-        if(pv<=0){
-            this.pv=0;
-            mourir();
-        }
     }
 
     private int oldX =getCentreActeurX()/16;

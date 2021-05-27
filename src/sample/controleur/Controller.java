@@ -88,6 +88,7 @@ public class Controller implements Initializable {
                 (ev ->{
                     movePlayer(); // gère le déplacement à chaque tour de la boucle temporelle
                     timeManager(); // gestion du temps
+                    cleanMap(); // lance le nettoyeur de map
                     if (temps%590==0)
                         zoneActuelle.EnemySpawn();// spawn d'ennemi toutes les 10s
                     if(temps%5==0)
@@ -148,6 +149,9 @@ public class Controller implements Initializable {
         }
     }
 
+    private void cleanMap() {
+        zoneActuelle.clean();
+    }
 
     // permettra de changer de map si le joueur arrive dans une zone de transition
     public void initPlayerTransitionsListener(){
