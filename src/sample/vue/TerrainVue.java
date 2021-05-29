@@ -82,20 +82,20 @@ public class TerrainVue {
     public void setCameraOnSpawn(int spawnX, int spawnY){
         //verifie si, la position du spawn est sur une limite de la map,
         //ajuste la position de la camera en fonction.
-        if(spawnX<142) {
-            gamePane.setLayoutX(spawnX + 142);
+        if(spawnX<152) {
+            gamePane.setLayoutX(spawnX + 152);
             gamePane.setLayoutY(spawnY);
         }
-        else if(spawnX>zoneActuelle.limiteHorizMap()*16-142){
+        else if(spawnX>zoneActuelle.limiteHorizMap()*16-152){
             gamePane.setLayoutY(spawnY);
-            gamePane.setLayoutX(spawnX-142);}
-        else if(spawnY<90) {
+            gamePane.setLayoutX(spawnX-152);}
+        else if(spawnY<115) {
             gamePane.setLayoutX(spawnX);
-            gamePane.setLayoutY(spawnY+90);
+            gamePane.setLayoutY(spawnY+115);
         }
-        else if(spawnY>zoneActuelle.limiteVertiMap()*16-90) {
+        else if(spawnY>zoneActuelle.limiteVertiMap()*16-115) {
             gamePane.setLayoutX(spawnX);
-            gamePane.setLayoutY(spawnY-90);
+            gamePane.setLayoutY(spawnY-115);
         }
         else {
             gamePane.setLayoutX(spawnX);

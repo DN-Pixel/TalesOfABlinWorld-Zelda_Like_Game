@@ -1,0 +1,9 @@
+.fond{
+    -fx-background-image : url(../ressources/HUD/fond.png);
+}
+.quantiteField {
+
+    -fx-text-fill: #ddab71;
+    -fx-cursor: text;
+    -fx-prompt-text-fill:#ddab71 ;
+}

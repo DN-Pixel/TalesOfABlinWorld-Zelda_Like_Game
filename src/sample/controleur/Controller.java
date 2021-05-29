@@ -6,7 +6,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -34,21 +37,38 @@ public class Controller implements Initializable {
 
     private static Terrain zoneActuelle = new Terrain("zone");
     private static Joueur joueur = new Joueur(0, 0, zoneActuelle);
-
-    @FXML
-    private TilePane tilePane;
-    @FXML
-    private ImageView player;
+    //PANES
     @FXML
     private Pane gamePane;
+    @FXML
+    private Pane vendeurPane;
+    @FXML
+    private TilePane tilePane;
     @FXML
     private TilePane tilePaneSolid;
     @FXML
     private TilePane tilePaneDeco;
+    //LABELS TEXTFIELDS
     @FXML
     private Label questLabel;
     @FXML
+    private TextField shopQuantiteField;
+    //IMAGES
+    @FXML
     private ImageView hpBar;
+    @FXML
+    private ImageView player;
+    //BUTTONS
+    @FXML
+    private Button mangerButton;
+    //RADIO INVENTAIRE
+    @FXML
+    private RadioButton noodleRadio;
+    @FXML
+    private RadioButton mielRadio;
+    @FXML
+    private RadioButton meatRadio;
+    //RADIO SHOP
 
     private TerrainVue terrainVue; // classe permettant de load la map et charger les textures
 
@@ -82,12 +102,12 @@ public class Controller implements Initializable {
     public void initCameraListener(){
         joueur.getxProperty().addListener((obse,old,nouv)->{
             //si le joueur est trop pres du bord de la map, le déplacement ne se fait pas.
-            if(nouv.intValue()>142 && nouv.intValue()< zoneActuelle.limiteHorizMap()*16-174)
+            if(nouv.intValue()>152 && nouv.intValue()< zoneActuelle.limiteHorizMap()*16-152)
                 gamePane.setLayoutX(-(int)nouv+640);
         });
 
         joueur.getyProperty().addListener((obse,old,nouv)->{
-            if(nouv.intValue()>90 && nouv.intValue()< zoneActuelle.limiteVertiMap()*16-90)
+            if(nouv.intValue()>115 && nouv.intValue()< zoneActuelle.limiteVertiMap()*16-115)
                 gamePane.setLayoutY(-(int)nouv+360);
         });
     }
@@ -113,6 +133,13 @@ public class Controller implements Initializable {
         );
         gameLoop.getKeyFrames().add(kf);
     }
+    //gestion du temps
+    public void timeManager(){
+        if (temps >= 1000000000)
+            temps = 0; // reset
+        else
+            temps++;
+    }
 
     public static void keyManager(KeyEvent e){
         if (joueur.manageCollisions(e)){
@@ -129,16 +156,8 @@ public class Controller implements Initializable {
             dx = dy = 0 ;
     }
 
-    //gestion du temps
-    public void timeManager(){
-        if (temps >= 1000000000)
-            temps = 0; // reset
-        else
-            temps++;
-    }
-
-    public static void keyReleaseManager(KeyEvent e){
-        if(e.getCode() == KeyCode.DIGIT1){
+    public static void keyReleaseManager(KeyEvent e) {
+        if (e.getCode() == KeyCode.DIGIT1 || e.getCode() == KeyCode.AMPERSAND) {
             joueur.attaquerEnnemis();
         }
         switch (e.getCode()){
