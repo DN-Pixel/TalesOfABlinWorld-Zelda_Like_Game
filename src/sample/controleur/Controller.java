@@ -6,16 +6,16 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
+import sample.vue.Console;
+import sample.vue.ItemDescription;
 import sample.vue.TerrainVue;
 import sample.vue.ImageMap;
 import sample.modele.Joueur;
@@ -50,6 +50,10 @@ public class Controller implements Initializable {
     private TilePane tilePaneDeco;
     //LABELS TEXTFIELDS
     @FXML
+    private TextArea console;
+    @FXML
+    private Label descriptionLabel;
+    @FXML
     private Label questLabel;
     @FXML
     private TextField shopQuantiteField;
@@ -59,6 +63,10 @@ public class Controller implements Initializable {
     @FXML
     private ImageView player;
     //BUTTONS
+    @FXML
+    private Button vendreButton;
+    @FXML
+    private Button acheterButton;
     @FXML
     private Button mangerButton;
     //RADIO INVENTAIRE
@@ -75,6 +83,8 @@ public class Controller implements Initializable {
     private long temps = 0 ;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        joueur.setConsole(new Console(console));
+        joueur.setDescription(new ItemDescription(descriptionLabel));
         player.setId("player");
         terrainVue = new TerrainVue(zoneActuelle, joueur, gamePane, tilePane, tilePaneDeco, tilePaneSolid);
         terrainVue.loadMap("1", 300, 100);
@@ -94,6 +104,7 @@ public class Controller implements Initializable {
        initPlayerListener();
        initPlayerTransitionsListener();
        initCameraListener();
+
     }
     public void initPlayerListener(){
         player.translateXProperty().bind(joueur.getxProperty());
@@ -120,6 +131,9 @@ public class Controller implements Initializable {
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.017),
                 (ev ->{
+                    if (temps==0)
+                        joueur.setYProperty(150); //permet de bouger le personnage au lancement du jeu, afin d'activer le CameraListener.
+
                     movePlayer(); // gère le déplacement à chaque tour de la boucle temporelle
                     timeManager(); // gestion du temps
                     cleanMap(); // lance le nettoyeur de map
@@ -167,6 +181,11 @@ public class Controller implements Initializable {
             case S : dy=0;break;
             case Q : dx=0;break;
         }
+    }
+    //permet de changer la description des item de l'nventaire, en lui envoyant directement le fx:id de l'image cliquée.
+    @FXML
+    public void setDescription(MouseEvent event) {
+        joueur.getDescription().setDescritpion(event.getPickResult().getIntersectedNode().getId(), joueur.getInventaire());
     }
 
     public void movePlayer(){

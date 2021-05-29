@@ -11,7 +11,7 @@ public class Objet {
             this.quantite = 0;
             this.valeur = valeur;
             this.nom = nom;
-            this.description = null;
+            this.description = "Nom: " + this.nom + "\nQuantité: "+ this.quantite + "\nValeur: "+ this.valeur;
     }
 
     public int getQuantite() {

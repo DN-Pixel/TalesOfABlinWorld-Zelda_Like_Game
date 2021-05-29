@@ -4,15 +4,19 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyEvent;
 import sample.modele.acteurs.Acteur;
-import sample.modele.acteurs.ennemis.Ennemi;
+import sample.modele.acteurs.ennemis.EnnemiCAC;
 import sample.modele.items.Armes.Arme;
 import sample.modele.items.Armes.Gourdin;
 import sample.modele.items.Inventaire;
+import sample.vue.Console;
+import sample.vue.ItemDescription;
 
 public class Joueur {
 
     private IntegerProperty hp = new SimpleIntegerProperty();
     private Arme arme;
+    private Console console;
+    private ItemDescription description;
     private IntegerProperty xProperty = new SimpleIntegerProperty(0);
     private IntegerProperty yProperty = new SimpleIntegerProperty(0);
     private static int vitesseDeDeplacement = 2 ;
@@ -40,6 +44,18 @@ public class Joueur {
         this.hp.setValue(hp);
     }
 
+    public void setConsole(Console console ){
+        this.console=console;
+    }
+    public Console getConsole(){
+        return this.console;
+    }
+    public void setDescription(ItemDescription description){
+        this.description=description;
+    }
+    public ItemDescription getDescription(){
+        return this.description;
+    }
     public int getPointAttaque() {
         return arme.getDegatsArme();
     }
@@ -143,17 +159,26 @@ public class Joueur {
         Acteur a;
         for(int i=getZone().getListeActeurs().size()-1; i>=0;i--){
             a = getZone().getListeActeurs().get(i);
-            if(a instanceof Ennemi && (getCentreJoueurX()>=a.getCentreActeurX()-80 && getCentreJoueurX()<=a.getCentreActeurX()+80)
-                    && (getCentreJoueurY()>=a.getCentreActeurY()-80 && getCentreJoueurY()<=a.getCentreActeurY()+80)){
-                ((Ennemi) a).launchBFS(getCentreJoueurX()/16, getCentreJoueurY()/16, getZone().getMapObstacles());
+            if(a instanceof EnnemiCAC && (
+                    (getCentreJoueurX()>=a.getCentreActeurX()-80 &&
+                    getCentreJoueurX()<=a.getCentreActeurX()-8) ||
+                    (getCentreJoueurX()<=a.getCentreActeurX()+80 &&
+                    getCentreJoueurX()>=a.getCentreActeurX()+8) ||
+                    (getCentreJoueurY()>=a.getCentreActeurY()-80 &&
+                    getCentreJoueurY()<=a.getCentreActeurY()-8) ||
+                    (getCentreJoueurY()<=a.getCentreActeurY()+80 &&
+                    getCentreJoueurY()>=a.getCentreActeurY()+8))) {
+                ((EnnemiCAC) a).launchBFS(getCentreJoueurX()/16, getCentreJoueurY()/16, getZone().getMapObstacles());
             }
         }
     }
 
     public void subirDegats(int degats){
         hp.setValue(hp.getValue()-degats);
+        console.afficherDegatsRecus(degats);
         if(hp.getValue()<=0){
             mourrir();
+            console.afficherMort();
         }
     }
 
@@ -175,10 +200,7 @@ public class Joueur {
     }
 
     public boolean isCollinding(double x, double y){
-        if (this.getX()>=x-16 && this.getX()<=x+16 && this.getY()>=y-16 && this.getY()<=y+16)
-            return true;
-        else
-            return false;
+        return this.getX() >= x - 16 && this.getX() <= x + 16 && this.getY() >= y - 16 && this.getY() <= y + 16;
     }
 
     /*
@@ -214,31 +236,35 @@ public class Joueur {
     public void attaquerEnnemis() {
         for (int i = 0; i <this.zone.getListeActeurs().size() ; i++) {
             Acteur a = this.zone.getListeActeurs().get(i);
-            if (a instanceof Ennemi) {
+            if (a instanceof EnnemiCAC) {
                 switch (direction){
                     case "right" :
                         if (a.getCentreActeurX()<=this.getCentreJoueurX()+arme.getRange() && a.getCentreActeurX()>=this.getCentreJoueurX()
                         && a.getCentreActeurY()<=this.getCentreJoueurY()+24 && a.getCentreActeurY() >= this.getCentreJoueurY()-24 ) {
-                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
+                            ((EnnemiCAC) a).subirDegat(arme.getDegatsArme());
+                            console.afficherDegatsInfliges(arme.getDegatsArme());
                         }
                         break;
                     case "left" :
                         if (a.getCentreActeurX()>=this.getCentreJoueurX()-arme.getRange() && a.getCentreActeurX()<=this.getCentreJoueurX()
                                 && a.getCentreActeurY()<=this.getCentreJoueurY()+24 && a.getCentreActeurY() >= this.getCentreJoueurY()-24 ) {
-                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
+                            ((EnnemiCAC) a).subirDegat(arme.getDegatsArme());
+                            console.afficherDegatsInfliges(arme.getDegatsArme());
                         }
                         break;
                     case "up" :
                         if (a.getCentreActeurY()>=this.getCentreJoueurY()-arme.getRange() && a.getCentreActeurY() <= this.getCentreJoueurY()
                                 && a.getCentreActeurX()>=this.getCentreJoueurX()-24 && a.getCentreActeurX()<=this.getCentreJoueurX()+24 ) {
-                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
+                            ((EnnemiCAC) a).subirDegat(arme.getDegatsArme());
+                            console.afficherDegatsInfliges(arme.getDegatsArme());
                         }
                         break;
 
                     case "down" :
                         if (a.getCentreActeurY()<=this.getCentreJoueurY()+arme.getRange() && a.getCentreActeurY() >= this.getCentreJoueurY()
                                 && a.getCentreActeurX()>=this.getCentreJoueurX()-24 && a.getCentreActeurX()<=this.getCentreJoueurX()+24) {
-                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
+                            ((EnnemiCAC) a).subirDegat(arme.getDegatsArme());
+                            console.afficherDegatsInfliges(arme.getDegatsArme());
                         }
                         break;
                 }

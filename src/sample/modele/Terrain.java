@@ -1,13 +1,9 @@
 package sample.modele;
 
 import javafx.collections.ObservableList;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.SaveActeurs;
 import sample.modele.acteurs.ennemis.*;
-
-import java.util.ArrayList;
 
 
 public class Terrain {
@@ -45,7 +41,7 @@ public class Terrain {
         Acteur a;
         for(int i=0;i<saveActeurs.getSave(numero).size();i++){
             a = saveActeurs.getSave(numero).get(i);
-            if(a instanceof Ennemi)
+            if(a instanceof EnnemiCAC)
                 mapObstacles[a.getY()/16][a.getX()/16] = 6666; // 6666 -> ENNEMI
             else
                 mapObstacles[a.getY()/16][a.getX()/16] = 7777; // 7777 -> PNJ
@@ -140,22 +136,22 @@ public class Terrain {
     // parcours la liste des acteurs pour faire bouger uniquement les ennemis
     public void moveEnnemis(){
         for(Acteur a : getListeActeurs()){
-            if(a instanceof Ennemi)
-                ((Ennemi) a).moveEnnemi(mapObstacles);
+            if(a instanceof EnnemiCAC)
+                ((EnnemiCAC) a).moveEnnemi(mapObstacles);
         }
     }
 
     public void lesEnnemisAttaquent(int posJoueurX, int posJoueurY, Joueur joueur){
         for(Acteur a : getListeActeurs()){
-            if(a instanceof Ennemi)
-                ((Ennemi) a).attaquerJoueur(posJoueurX, posJoueurY, joueur);
+            if(a instanceof EnnemiCAC)
+                ((EnnemiCAC) a).attaquerJoueur(posJoueurX, posJoueurY, joueur);
         }
     }
     // supprime les morts de la liste
     public void clean() {
         for(int i = getListeActeurs().size()-1;i>=0;i--){
             Acteur a = getListeActeurs().get(i);
-            if(a instanceof Ennemi && ((Ennemi) a).getPv()<=0)
+            if(a instanceof EnnemiCAC && ((EnnemiCAC) a).getPv()<=0)
                 getListeActeurs().remove(a);
         }
     }

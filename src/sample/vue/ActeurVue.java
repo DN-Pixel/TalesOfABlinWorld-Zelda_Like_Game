@@ -3,7 +3,7 @@ package sample.vue;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import sample.modele.acteurs.Acteur;
-import sample.modele.acteurs.ennemis.Ennemi;
+import sample.modele.acteurs.ennemis.EnnemiCAC;
 
 public class ActeurVue {
 
@@ -15,7 +15,7 @@ public class ActeurVue {
     }
 
     public void createSprite(Acteur a){
-        if(a instanceof Ennemi){
+        if(a instanceof EnnemiCAC){
             ImageView sprite = new ImageView(imageMap.getImage(a.getClass().getSimpleName())); // récupère l'image de l'ennemi correspondant
             sprite.setTranslateX(a.getX());
             sprite.setTranslateY(a.getY());

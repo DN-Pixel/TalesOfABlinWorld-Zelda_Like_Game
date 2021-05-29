@@ -1,6 +1,6 @@
 package sample.modele.acteurs.ennemis;
 
-public class Oeil extends Ennemi {
+public class Oeil extends EnnemiCAC {
 
 
     public Oeil(int x, int y) {

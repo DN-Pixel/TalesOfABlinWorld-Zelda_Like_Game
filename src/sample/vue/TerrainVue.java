@@ -73,6 +73,7 @@ public class TerrainVue {
             joueur.setXProperty(spawnX);
             joueur.setYProperty(spawnY);
             affichageDeMap(numero);
+            joueur.getConsole().afficherZoneActuelle(numero);
             //permet de mettre la camera au bon endroit dès le loading de map.
             setCameraOnSpawn(-spawnX+640,-spawnY+360);
             //joueur.updatePosition();
