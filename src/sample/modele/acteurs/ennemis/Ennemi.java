@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 
-public abstract class EnnemiCAC extends Acteur {
+public abstract class Ennemi extends Acteur {
 
 
     private int pv;
@@ -20,7 +20,7 @@ public abstract class EnnemiCAC extends Acteur {
 
     private Stack<Integer> path = new Stack<Integer>(); // direction à prendre pour rejoindre le joueur (BFS PATHFINDING)
 
-    public EnnemiCAC(int x, int y, int pv, int pointDegat, int niveau){
+    public Ennemi(int x, int y, int pv, int pointDegat, int niveau){
         super(x, y);
         this.pv = pv;
         this.vitesse = 2;

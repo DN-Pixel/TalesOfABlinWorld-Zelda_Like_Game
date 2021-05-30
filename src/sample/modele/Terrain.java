@@ -41,7 +41,7 @@ public class Terrain {
         Acteur a;
         for(int i=0;i<saveActeurs.getSave(numero).size();i++){
             a = saveActeurs.getSave(numero).get(i);
-            if(a instanceof EnnemiCAC)
+            if(a instanceof Ennemi)
                 mapObstacles[a.getY()/16][a.getX()/16] = 6666; // 6666 -> ENNEMI
             else
                 mapObstacles[a.getY()/16][a.getX()/16] = 7777; // 7777 -> PNJ
@@ -136,22 +136,22 @@ public class Terrain {
     // parcours la liste des acteurs pour faire bouger uniquement les ennemis
     public void moveEnnemis(){
         for(Acteur a : getListeActeurs()){
-            if(a instanceof EnnemiCAC)
-                ((EnnemiCAC) a).moveEnnemi(mapObstacles);
+            if(a instanceof Ennemi)
+                ((Ennemi) a).moveEnnemi(mapObstacles);
         }
     }
 
     public void lesEnnemisAttaquent(int posJoueurX, int posJoueurY, Joueur joueur){
         for(Acteur a : getListeActeurs()){
-            if(a instanceof EnnemiCAC)
-                ((EnnemiCAC) a).attaquerJoueur(posJoueurX, posJoueurY, joueur);
+            if(a instanceof Ennemi)
+                ((Ennemi) a).attaquerJoueur(posJoueurX, posJoueurY, joueur);
         }
     }
     // supprime les morts de la liste
     public void clean() {
         for(int i = getListeActeurs().size()-1;i>=0;i--){
             Acteur a = getListeActeurs().get(i);
-            if(a instanceof EnnemiCAC && ((EnnemiCAC) a).getPv()<=0)
+            if(a instanceof Ennemi && ((Ennemi) a).getPv()<=0)
                 getListeActeurs().remove(a);
         }
     }

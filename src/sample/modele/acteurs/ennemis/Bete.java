@@ -1,6 +1,6 @@
 package sample.modele.acteurs.ennemis;
 
-public class Bete extends EnnemiCAC {
+public class Bete extends Ennemi {
 
 
     public Bete(int x, int y) {
