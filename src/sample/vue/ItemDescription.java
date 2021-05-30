@@ -9,7 +9,7 @@ public class ItemDescription {
 
     public ItemDescription(Label description){ this.description=description; }
 
-    public void setDescritpion(String clicSource, Inventaire inventaire){
+    public void refreshDescription(String clicSource, Inventaire inventaire){
 
         switch (clicSource){
             case "inventoryArgent" :

@@ -16,7 +16,6 @@ public class Joueur {
     private IntegerProperty hp = new SimpleIntegerProperty();
     private Arme arme;
     private Console console;
-    private ItemDescription description;
     private IntegerProperty xProperty = new SimpleIntegerProperty(0);
     private IntegerProperty yProperty = new SimpleIntegerProperty(0);
     private static int vitesseDeDeplacement = 2 ;
@@ -49,12 +48,6 @@ public class Joueur {
     }
     public Console getConsole(){
         return this.console;
-    }
-    public void setDescription(ItemDescription description){
-        this.description=description;
-    }
-    public ItemDescription getDescription(){
-        return this.description;
     }
     public int getPointAttaque() {
         return arme.getDegatsArme();

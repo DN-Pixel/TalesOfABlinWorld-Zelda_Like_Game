@@ -31,6 +31,7 @@ public class Controller implements Initializable {
 
     ImageMap imageMap = new ImageMap();
     MapLoader mapLoader = new MapLoader();
+    private ItemDescription itemsDescriptionLoader;
 
     private static int dx = 0;
     private static int dy = 0;
@@ -84,7 +85,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         joueur.setConsole(new Console(console));
-        joueur.setDescription(new ItemDescription(descriptionLabel));
+        itemsDescriptionLoader = new ItemDescription(descriptionLabel);
         player.setId("player");
         terrainVue = new TerrainVue(zoneActuelle, joueur, gamePane, tilePane, tilePaneDeco, tilePaneSolid);
         terrainVue.loadMap("1", 300, 100);
@@ -185,7 +186,7 @@ public class Controller implements Initializable {
     //permet de changer la description des item de l'nventaire, en lui envoyant directement le fx:id de l'image cliquée.
     @FXML
     public void setDescription(MouseEvent event) {
-        joueur.getDescription().setDescritpion(event.getPickResult().getIntersectedNode().getId(), joueur.getInventaire());
+        itemsDescriptionLoader.refreshDescription(event.getPickResult().getIntersectedNode().getId(), joueur.getInventaire());
     }
 
     public void movePlayer(){
