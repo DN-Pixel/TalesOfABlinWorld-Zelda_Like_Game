@@ -225,7 +225,7 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" disable="true" focusTraversable="true" layoutX="19.0" layoutY="128.0" prefHeight="84.0" prefWidth="188.0">
+                  <HBox alignment="CENTER" disable="true" layoutX="19.0" layoutY="128.0" prefHeight="84.0" prefWidth="188.0">
                      <children>
                         <ImageView disable="true" fitHeight="65.0" fitWidth="65.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
                            <image>

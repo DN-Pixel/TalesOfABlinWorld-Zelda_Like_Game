@@ -151,6 +151,7 @@ public class Joueur {
         Acteur a;
         for(int i=getZone().getListeActeurs().size()-1; i>=0;i--){
             a = getZone().getListeActeurs().get(i);
+            //l'aggro s'arrete lorsque l'ennemi est dans un carré de 16/16 autout de moi.
             if(a instanceof Ennemi && (
                     (getCentreJoueurX()>=a.getCentreActeurX()-80 &&
                     getCentreJoueurX()<=a.getCentreActeurX()-8) ||
@@ -170,7 +171,6 @@ public class Joueur {
         console.afficherDegatsRecus(degats);
         if(hp.getValue()<=0){
             mourrir();
-            console.afficherMort();
         }
     }
 
@@ -198,7 +198,6 @@ public class Joueur {
     /*
     Gère les collisions du joueur dans le terrain retourne vrai si tout vas bien et faux si il y a un conflit
      */
-    //><
     public boolean manageCollisions(KeyEvent e){
         switch (e.getCode()){
             case Z:
@@ -266,10 +265,10 @@ public class Joueur {
     }
 
     private void mourrir() {
-
+        console.afficherMort();
     }
 
-    public void regenerer(int hp){ // ATTENTION CA PEUT ALLER AU DESSUS DES PVS MAX
+    public void regenerer(int hp){
         this.hp.setValue(this.hp.getValue()+hp);
         if(this.hp.getValue()>maxHP){
             this.hp.setValue(maxHP);
