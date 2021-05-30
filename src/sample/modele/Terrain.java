@@ -116,13 +116,13 @@ public class Terrain {
                             if (x < .5) saveActeurs.getSave(2).add(new Hibou(j * 16, i * 16));
                             else saveActeurs.getSave(2).add(new Slime(j * 16, i * 16));
                             break;
-                        case 4:
-                            if (x < .5) saveActeurs.getSave(4).add(new Reptile(j  * 16, i * 16));
-                            else saveActeurs.getSave(4).add(new Bambou(j  * 16, i * 16));
+                        case 3:
+                            if (x < .5) saveActeurs.getSave(3).add(new Reptile(j  * 16, i * 16));
+                            else saveActeurs.getSave(3).add(new Bambou(j  * 16, i * 16));
                             break;
-                        case 6:
-                            if (x < .5) saveActeurs.getSave(6).add(new Bete(j  * 16, i * 16));
-                            else saveActeurs.getSave(6).add(new Oeil(j * 16, i * 16));
+                        case 4:
+                            if (x < .9) saveActeurs.getSave(4).add(new Bete(j  * 16, i * 16));
+                            else saveActeurs.getSave(4).add(new Oeil(j * 16, i * 16));
                             break;
                         default:
                             break;

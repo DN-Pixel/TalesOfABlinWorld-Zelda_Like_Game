@@ -152,15 +152,9 @@ public class Joueur {
         for(int i=getZone().getListeActeurs().size()-1; i>=0;i--){
             a = getZone().getListeActeurs().get(i);
             //l'aggro s'arrete lorsque l'ennemi est dans un carré de 16/16 autout de moi.
-            if(a instanceof Ennemi && (
-                    (getCentreJoueurX()>=a.getCentreActeurX()-80 &&
-                    getCentreJoueurX()<=a.getCentreActeurX()-8) ||
-                    (getCentreJoueurX()<=a.getCentreActeurX()+80 &&
-                    getCentreJoueurX()>=a.getCentreActeurX()+8) ||
-                    (getCentreJoueurY()>=a.getCentreActeurY()-80 &&
-                    getCentreJoueurY()<=a.getCentreActeurY()-8) ||
-                    (getCentreJoueurY()<=a.getCentreActeurY()+80 &&
-                    getCentreJoueurY()>=a.getCentreActeurY()+8))) {
+            if(a instanceof Ennemi && (getCentreJoueurX()>=a.getCentreActeurX()-80 &&
+                    getCentreJoueurX()<=a.getCentreActeurX()+80) && (getCentreJoueurY()>=a.getCentreActeurY()-80 &&
+                    getCentreJoueurY()<=a.getCentreActeurY()+80)) {
                 ((Ennemi) a).launchBFS(getCentreJoueurX()/16, getCentreJoueurY()/16, getZone().getMapObstacles());
             }
         }
