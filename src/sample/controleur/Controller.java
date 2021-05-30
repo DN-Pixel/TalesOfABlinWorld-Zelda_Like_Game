@@ -15,7 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import sample.vue.Console;
-import sample.vue.ItemDescription;
+import sample.vue.ItemDescriptionLoader;
 import sample.vue.TerrainVue;
 import sample.vue.ImageMap;
 import sample.modele.Joueur;
@@ -31,7 +31,7 @@ public class Controller implements Initializable {
 
     ImageMap imageMap = new ImageMap();
     MapLoader mapLoader = new MapLoader();
-    private ItemDescription itemsDescriptionLoader;
+    private ItemDescriptionLoader itemsDescriptionLoader;
 
     private static int dx = 0;
     private static int dy = 0;
@@ -85,7 +85,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         joueur.setConsole(new Console(console));
-        itemsDescriptionLoader = new ItemDescription(descriptionLabel);
+        itemsDescriptionLoader = new ItemDescriptionLoader(descriptionLabel);
         player.setId("player");
         terrainVue = new TerrainVue(zoneActuelle, joueur, gamePane, tilePane, tilePaneDeco, tilePaneSolid);
         terrainVue.loadMap("1", 300, 100);

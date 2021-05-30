@@ -4,10 +4,10 @@ import javafx.event.Event;
 import javafx.scene.control.Label;
 import sample.modele.items.Inventaire;
 
-public class ItemDescription {
+public class ItemDescriptionLoader {
     private Label description;
 
-    public ItemDescription(Label description){ this.description=description; }
+    public ItemDescriptionLoader(Label description){ this.description=description; }
 
     public void refreshDescription(String clicSource, Inventaire inventaire){
 

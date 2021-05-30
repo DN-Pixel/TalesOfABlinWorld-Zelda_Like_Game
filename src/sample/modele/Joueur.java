@@ -9,7 +9,6 @@ import sample.modele.items.Armes.Arme;
 import sample.modele.items.Armes.Gourdin;
 import sample.modele.items.Inventaire;
 import sample.vue.Console;
-import sample.vue.ItemDescription;
 
 public class Joueur {
 
