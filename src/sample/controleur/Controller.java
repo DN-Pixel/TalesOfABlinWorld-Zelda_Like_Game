@@ -214,13 +214,13 @@ public class Controller implements Initializable {
                 switch (joueur.getNumeroZone()){
                     case "1":
                         if(joueur.isCollinding(622, 228))  terrainVue.loadMap("2", 50, 100);
-                        else if(joueur.isCollinding(415, 300))  terrainVue.loadMap("4", 500, 80);
+                        else if(joueur.isCollinding(415, 300) || joueur.isCollinding(430, 300))  terrainVue.loadMap("4", 500, 80);
                         break;
                     case "2":
                         if(joueur.isCollinding(0, 100))  terrainVue.loadMap("1", 600, 250);
                         break;
                     case "4":
-                        if(joueur.isCollinding(500, 30))  terrainVue.loadMap("1", 415, 260);
+                        if(joueur.isCollinding(500, 16))  terrainVue.loadMap("1", 415, 260);
                         break;
                     default:
                         break;
