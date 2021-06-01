@@ -106,6 +106,7 @@ public class Joueur {
         this.maxHP = maxHP;
     }
 
+    public Inventaire getInventaire() { return this.inventaire; }
 
     public void moveUp () {
         this.yProperty.setValue(this.yProperty.getValue()-vitesseDeDeplacement);
@@ -275,7 +276,4 @@ public class Joueur {
         }
     }
 
-    public Inventaire getInventaire() {
-        return inventaire;
-    }
 }

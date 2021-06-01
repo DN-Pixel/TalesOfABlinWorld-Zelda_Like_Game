@@ -14,10 +14,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import sample.vue.Console;
-import sample.vue.ItemDescriptionLoader;
-import sample.vue.TerrainVue;
-import sample.vue.ImageMap;
+import sample.modele.Projectiles;
+import sample.vue.*;
 import sample.modele.Joueur;
 import sample.modele.Terrain;
 import sample.vue.animations.PlayerHPAnimation;
@@ -80,7 +78,7 @@ public class Controller implements Initializable {
     //RADIO SHOP
 
     private TerrainVue terrainVue; // classe permettant de load la map et charger les textures
-
+    private ProjectilesVue projectileVue;
     private long temps = 0 ;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -88,6 +86,7 @@ public class Controller implements Initializable {
         itemsDescriptionLoader = new ItemDescriptionLoader(descriptionLabel);
         player.setId("player");
         terrainVue = new TerrainVue(zoneActuelle, joueur, gamePane, tilePane, tilePaneDeco, tilePaneSolid);
+        projectileVue = new ProjectilesVue(gamePane);
         terrainVue.loadMap("1", 300, 100);
         initListeners();
         initBoucleTemporelle();
@@ -138,12 +137,15 @@ public class Controller implements Initializable {
                     movePlayer(); // gère le déplacement à chaque tour de la boucle temporelle
                     timeManager(); // gestion du temps
                     cleanMap(); // lance le nettoyeur de map
-                    if (temps%590==0)
+                    if(temps%590==0)
                         zoneActuelle.EnemySpawn();// spawn d'ennemi toutes les 10s
                     if(temps%5==0)
                         zoneActuelle.moveEnnemis(); // fais déplacer les ennemis
-                    if(temps%177==0)
+                    if(temps%177==0) {
                         zoneActuelle.lesEnnemisAttaquent(joueur.getCentreJoueurX(), joueur.getCentreJoueurY(), joueur); // fais attaquer les ennemis toutes les 3s
+                        zoneActuelle.spawnProjectile(gamePane,"Ennemi");
+                    }
+                    zoneActuelle.manageProjeciles(joueur);
                 })
         );
         gameLoop.getKeyFrames().add(kf);
@@ -151,7 +153,7 @@ public class Controller implements Initializable {
     //gestion du temps
     public void timeManager(){
         if (temps >= 1000000000)
-            temps = 0; // reset
+            temps = 1; // reset
         else
             temps++;
     }

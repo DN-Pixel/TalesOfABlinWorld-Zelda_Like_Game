@@ -3,10 +3,7 @@ package sample.modele.acteurs;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
-import sample.modele.acteurs.ennemis.Bete;
-import sample.modele.acteurs.ennemis.Hibou;
-import sample.modele.acteurs.ennemis.Reptile;
-import sample.modele.acteurs.ennemis.Slime;
+import sample.modele.acteurs.ennemis.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +37,7 @@ public class SaveActeurs {
         save.add(ennemi1);
         Acteur ennemi2 = new Hibou(16*5, 16*15);
         save.add(ennemi2);
+        save.add(new Bambou(10*16,10*16));
         savesListesActeurs.put(2, save);
     }
 }
