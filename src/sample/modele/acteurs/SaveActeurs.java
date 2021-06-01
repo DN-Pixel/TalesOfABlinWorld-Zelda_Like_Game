@@ -23,6 +23,7 @@ public class SaveActeurs {
         genererSaveZone3();
         genererSaveZone4();
     }
+
     public ObservableList<Acteur> getSave(int numeroDeZone){
         return savesListesActeurs.get(numeroDeZone);
     }

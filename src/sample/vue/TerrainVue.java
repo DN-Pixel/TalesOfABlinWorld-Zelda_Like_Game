@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import sample.controleur.MapLoader;
+import sample.controleur.ObsListProjectiles;
 import sample.modele.Joueur;
 import sample.modele.Terrain;
 import sample.modele.acteurs.Acteur;
@@ -68,6 +69,7 @@ public class TerrainVue {
             zoneActuelle.setMapObstacles(mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Obstacles"));
             zoneActuelle.setMapSpawn(mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Spawn"));
             zoneActuelle.getListeActeurs().addListener(new ObsListActeurs(gamePane));
+            zoneActuelle.getProjectiles().addListener(new ObsListProjectiles(gamePane));
             updatePaneWhenLoadingMap();
             joueur.setZone(zoneActuelle);
             joueur.setXProperty(spawnX);
