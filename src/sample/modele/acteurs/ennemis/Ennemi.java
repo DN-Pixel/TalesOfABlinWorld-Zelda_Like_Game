@@ -32,7 +32,8 @@ public abstract class Ennemi extends Acteur {
     //setters
     public void setPointDegat(int pointDegat) {this.pointDegat=pointDegat;}
     public void setPV(int newPv) {this.pv = newPv;}
-    public void setNiveau (int niveau) {this.niveau = niveau;}
+    public void setNiveau (int niveau) {this.niveau = niveau;
+    System.out.println("mfdslih");}
 
     //getters
     public int getPv() {return this.pv;}
