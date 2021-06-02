@@ -28,7 +28,7 @@ public class Objet {
 
     // UPDATE LA  DESCRIPTION ET LA RETOURNE
     public String getDescription() {
-        this.description = "Nom: " + this.nom + "\nQuantité: "+ this.quantite + "\nValeur Unitaire: "+ this.valeur;
+        this.description = "Nom: " + this.nom + "\nQuantité: "+ this.quantite + "\nValeur: "+ this.valeur;
         return description;
     }
 

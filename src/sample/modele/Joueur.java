@@ -2,6 +2,7 @@ package sample.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.control.RadioButton;
 import javafx.scene.input.KeyEvent;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.ennemis.Ennemi;
@@ -263,12 +264,40 @@ public class Joueur {
             }
         }
     }
+    public void manger(RadioButton mielRadio, RadioButton meatRadio,RadioButton noodleRadio) {
+        if (noodleRadio.isSelected()) {
+            if (getInventaire().estDisponible("Nouilles", 1)) {
+                getInventaire().eneleverObjet("Nouilles", 1);
+                regenerer((int)(maxHP*0.75));
+            }
+            else
+                console.afficherItemIndisponible("Nouille");
+        }
 
+        else if (mielRadio.isSelected()) {
+            if (getInventaire().estDisponible("Miel", 1)) {
+                getInventaire().eneleverObjet("Miel", 1);
+                regenerer((int)(maxHP*0.3));
+            }
+            else
+                console.afficherItemIndisponible("miel");
+        }
+
+        else if (meatRadio.isSelected()) {
+            if (getInventaire().estDisponible("Viande", 1)) {
+                getInventaire().eneleverObjet("Viande", 1);
+                regenerer((int)(maxHP/2));
+            }
+            else
+                console.afficherItemIndisponible("viande");
+        }
+    }
     private void mourrir() {
         console.afficherMort();
     }
 
     public void regenerer(int hp){
+        console.afficherHeal(hp);
         this.hp.setValue(this.hp.getValue()+hp);
         if(this.hp.getValue()>maxHP){
             this.hp.setValue(maxHP);

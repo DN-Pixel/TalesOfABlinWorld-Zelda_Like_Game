@@ -26,6 +26,14 @@ public class Console {
         console.appendText("\nVous êtes mort(e) !");
     }
 
+    public void afficherItemIndisponible(String itemManquant){
+        console.appendText("\nVous n'avez plus de "+itemManquant + "!");
+    }
+
+    public void afficherHeal(int healAmount){
+        console.appendText("\nVous vous soignez de " + healAmount + " HP!");
+    }
+
 //permet de différencier les messages identiques successifs dans la console.
     public static void setStar(){
         if (star.equals("**"))
