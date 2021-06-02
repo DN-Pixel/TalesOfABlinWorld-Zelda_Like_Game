@@ -30,7 +30,7 @@ public class Controller implements Initializable {
 
     ImageMap imageMap = new ImageMap();
     private static CooldownManager  cdManager = new CooldownManager();
-    private ItemDescriptionLoader itemsDescriptionLoader;
+    private ItemDescriptionSwitcher itemsDescriptionLoader;
 
     private static int dx = 0;
     private static int dy = 0;
@@ -90,7 +90,7 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         joueur.setArmeDistance(new Shuriken()); // ****************** TEMPORAIRE ******************
         initConsole(); // Charge la console
-        itemsDescriptionLoader = new ItemDescriptionLoader(descriptionLabel);
+        itemsDescriptionLoader = new ItemDescriptionSwitcher(descriptionLabel);
         player.setId("player");
         terrainVue = new TerrainVue(zoneActuelle, joueur, gamePane, tilePane, tilePaneDeco, tilePaneSolid);
         terrainVue.loadMap("1", 300, 100); // charge la première map
@@ -201,7 +201,7 @@ public class Controller implements Initializable {
             joueur.attaquerEnnemis();
         else if(e.getCode() == KeyCode.F)
             joueur.loot();
-        else if(cdManager.getCdShuriken()>=1 && e.getCode() == KeyCode.DIGIT3 || e.getCode() == KeyCode.QUOTEDBL){
+        else if(cdManager.getCdShuriken()>=1 && (e.getCode() == KeyCode.DIGIT3 || e.getCode() == KeyCode.QUOTEDBL)){
             joueur.attaquerEnDistance();
             cdManager.setCdShuriken(0);
         }
