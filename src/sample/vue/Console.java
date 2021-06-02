@@ -33,4 +33,8 @@ public class Console {
         else
             star="**";
     }
+
+    public void afficherItemRecup(String item, int quantite){
+        console.appendText("\nVous avez trouver "+quantite+" "+item+"(s) !");
+    }
 }

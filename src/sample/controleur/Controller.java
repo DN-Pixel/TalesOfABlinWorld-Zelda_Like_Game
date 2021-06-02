@@ -133,12 +133,10 @@ public class Controller implements Initializable {
                 (ev ->{
                     if (temps==0)
                         joueur.setYProperty(150); //permet de bouger le personnage au lancement du jeu, afin d'activer le CameraListener.
-
                     movePlayer(); // gère le déplacement à chaque tour de la boucle temporelle
                     timeManager(); // gestion du temps
                     cleanMap(); // lance le nettoyeur de map
-                    if(temps%590==0)
-                        zoneActuelle.EnemySpawn();// spawn d'ennemi toutes les 10s
+                    spawnManager(); // manage le spawn des ennemis et des ressources
                     if(temps%5==0)
                         zoneActuelle.moveEnnemis(); // fais déplacer les ennemis
                     if(temps%177==0) {
@@ -157,7 +155,12 @@ public class Controller implements Initializable {
         else
             temps++;
     }
-
+    public void spawnManager(){
+        if(temps%590==0)
+            zoneActuelle.EnemySpawn();// spawn d'ennemi toutes les 10s
+        if(temps%1200==0)
+            zoneActuelle.ressourceSpawn(); // spawn de ressources les 20s
+    }
     public static void keyManager(KeyEvent e){
         if (joueur.manageCollisions(e)){
             keyPressed = e;
@@ -174,9 +177,10 @@ public class Controller implements Initializable {
     }
 
     public static void keyReleaseManager(KeyEvent e) {
-        if (e.getCode() == KeyCode.DIGIT1 || e.getCode() == KeyCode.AMPERSAND) {
+        if (e.getCode() == KeyCode.DIGIT1 || e.getCode() == KeyCode.AMPERSAND)
             joueur.attaquerEnnemis();
-        }
+        else if(e.getCode() == KeyCode.F)
+            joueur.loot();
         switch (e.getCode()){
             //mouvement
             case Z : dy=0;break;

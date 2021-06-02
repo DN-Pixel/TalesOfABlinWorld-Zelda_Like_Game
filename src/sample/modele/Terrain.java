@@ -9,6 +9,10 @@ import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.Pnj;
 import sample.modele.acteurs.SaveActeurs;
 import sample.modele.acteurs.ennemis.*;
+import sample.modele.ressources.Ressource;
+import sample.modele.ressources.SaveRessources;
+import sample.modele.ressources.SourceBois;
+import sample.modele.ressources.SourceMinerai;
 
 import java.util.ArrayList;
 
@@ -17,6 +21,7 @@ public class Terrain {
     private String nomDeCarte;
     private int [][] mapObstacles; // MAP DES OBSTACLES ET COLLISIONS
     private SaveActeurs saveActeurs = new SaveActeurs();
+    private SaveRessources saveRessources = new SaveRessources();
     private ObservableList<Projectiles> projectiles = FXCollections.observableArrayList();
     private int[][] mapSpawn; // ZONE DE SPAWN DES ENNEMIS
 
@@ -87,11 +92,27 @@ public class Terrain {
         int numero = Integer.parseInt(nomDeCarte.substring((nomDeCarte.length()-1)));
         return saveActeurs.getSave(numero);
     }
+
+    public ObservableList<Ressource> getListeRessource() {
+        int numero = Integer.parseInt(nomDeCarte.substring((nomDeCarte.length()-1)));
+        return saveRessources.getSave(numero);
+    }
     /*
     CHERCHE DANS LA LISTE DES ACTEURS SI IL EXSITE
      */
     public boolean findActeur(String id){
         for(Acteur a: getListeActeurs()){
+            if(a.getId().equals(id))
+                return true;
+        }
+        return false;
+    }
+
+    /*
+    CHERCHE DANS LA LISTE DES RESSOURCES SI IL EXSITE
+     */
+    public boolean findRessource(String id){
+        for(Ressource a: getListeRessource()){
             if(a.getId().equals(id))
                 return true;
         }
@@ -141,6 +162,28 @@ public class Terrain {
             }
         }
     }
+
+    public void ressourceSpawn(){
+        boolean spawned = false;
+        int i = 0;
+        int j = 0;
+        // si il y a deja 10 ressources ou nous sommes dans la zone 1, rien ne spawn
+        if(getListeRessource().size()>10 || Integer.parseInt(nomDeCarte.substring((nomDeCarte.length() - 1)))==1)
+            return;
+        while(!spawned){
+            i = (int)(Math.random()*mapObstacles.length);
+            j = (int)(Math.random()*mapObstacles[0].length);
+            if(mapObstacles[i][j]==-1){
+                if(Math.random()<=0.5)
+                    getListeRessource().add(new SourceBois(j*16, i*16));
+                else
+                    getListeRessource().add(new SourceMinerai(j*16, i*16));
+                mapObstacles[i][j] = 1880;
+                spawned = true;
+            }
+        }
+    }
+
     // parcours la liste des acteurs pour faire bouger uniquement les ennemis
     public void moveEnnemis(){
         for(Acteur a : getListeActeurs()){

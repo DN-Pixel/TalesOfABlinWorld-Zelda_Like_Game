@@ -9,11 +9,10 @@ import sample.vue.ProjectilesVue;
 import java.util.List;
 
 public class ObsListProjectiles implements ListChangeListener<Projectiles> {
-    private Pane pane;
+
     private ProjectilesVue projectilesVue;
 
     public ObsListProjectiles (Pane gamePane){
-        this.pane =gamePane;
         this.projectilesVue = new ProjectilesVue(gamePane);
     }
 

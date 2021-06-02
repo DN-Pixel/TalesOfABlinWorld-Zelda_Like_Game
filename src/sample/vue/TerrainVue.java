@@ -8,10 +8,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import sample.controleur.MapLoader;
 import sample.controleur.ObsListProjectiles;
+import sample.controleur.ObsListRessources;
 import sample.modele.Joueur;
 import sample.modele.Terrain;
 import sample.modele.acteurs.Acteur;
 import sample.controleur.ObsListActeurs;
+import sample.modele.ressources.Ressource;
 
 import java.io.IOException;
 
@@ -40,8 +42,8 @@ public class TerrainVue {
         this.tilePaneDeco = tilePaneDeco;
         this.tilePaneSolid = tilePaneSolid;
     }
-
-    public void updatePaneWhenLoadingMap(){
+    // CHARGE L'AFFICHAGE DES ACTEURS LORS DU CHARGEMENT DE MAP
+    public void updateActeurs(){
         Acteur a;
         Node b;
         for(int i = zoneActuelle.getListeActeurs().size()-1; i>=0;i--){
@@ -54,11 +56,32 @@ public class TerrainVue {
                 gamePane.getChildren().add(sprite);
             }
         }
-        // GERE LE CHANGEMENT DE ZONE
         for(int j = gamePane.getChildren().size()-1;j>=0;j--){
             b = gamePane.getChildren().get(j);
-            if(b.getId().startsWith("a") && !zoneActuelle.findActeur(b.getId()))
+            if((b.getId().startsWith("a") && !zoneActuelle.findActeur(b.getId())))
                 gamePane.getChildren().remove(b);
+        }
+    }
+    // CHARGE L'AFFICHAGE DES ACTEURS LORS DU CHARGEMENT DE MAP
+    public void updateRessources(){
+        Ressource r;
+        Node b;
+        for(int i = zoneActuelle.getListeRessource().size()-1; i>=0;i--){
+            r = zoneActuelle.getListeRessource().get(i);
+            if(gamePane.lookup("#"+r.getId())==null){
+                ImageView sprite = new ImageView(imageMap.getImage(r.getClass().getSimpleName())); // récupère l'image de la ressource correspondante
+                sprite.setId(r.getId());
+                sprite.setLayoutX(r.getX());
+                sprite.setLayoutY(r.getY());
+                zoneActuelle.getMapObstacles()[r.getY()/16][r.getX()/16] = 1880; // OBSTACLES QUI N'A PAS DE TEXTURE DANS LA TILE SET
+                gamePane.getChildren().add(sprite);
+            }
+        }
+        for(int j = gamePane.getChildren().size()-1;j>=0;j--){
+            b = gamePane.getChildren().get(j);
+            if((b.getId().startsWith("r") && !zoneActuelle.findRessource(b.getId()))){
+                gamePane.getChildren().remove(b);
+            }
         }
     }
 
@@ -70,7 +93,9 @@ public class TerrainVue {
             zoneActuelle.setMapSpawn(mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Spawn"));
             zoneActuelle.getListeActeurs().addListener(new ObsListActeurs(gamePane));
             zoneActuelle.getProjectiles().addListener(new ObsListProjectiles(gamePane));
-            updatePaneWhenLoadingMap();
+            zoneActuelle.getListeRessource().addListener(new ObsListRessources(gamePane));
+            updateActeurs();
+            updateRessources();
             joueur.setZone(zoneActuelle);
             joueur.setXProperty(spawnX);
             joueur.setYProperty(spawnY);

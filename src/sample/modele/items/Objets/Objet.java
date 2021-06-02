@@ -11,7 +11,7 @@ public class Objet {
             this.quantite = 0;
             this.valeur = valeur;
             this.nom = nom;
-            this.description = "Nom: " + this.nom + "\nQuantité: "+ this.quantite + "\nValeur: "+ this.valeur;
+            this.description = "Nom: " + this.nom + "\nQuantité: "+ this.quantite + "\nValeur Unitaire: "+ this.valeur;
     }
 
     public int getQuantite() {
@@ -26,7 +26,9 @@ public class Objet {
         return nom;
     }
 
+    // UPDATE LA  DESCRIPTION ET LA RETOURNE
     public String getDescription() {
+        this.description = "Nom: " + this.nom + "\nQuantité: "+ this.quantite + "\nValeur Unitaire: "+ this.valeur;
         return description;
     }
 

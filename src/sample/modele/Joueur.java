@@ -8,6 +8,7 @@ import sample.modele.acteurs.ennemis.Ennemi;
 import sample.modele.items.Armes.Arme;
 import sample.modele.items.Armes.Gourdin;
 import sample.modele.items.Inventaire;
+import sample.modele.ressources.Ressource;
 import sample.vue.Console;
 
 public class Joueur {
@@ -271,6 +272,20 @@ public class Joueur {
         this.hp.setValue(this.hp.getValue()+hp);
         if(this.hp.getValue()>maxHP){
             this.hp.setValue(maxHP);
+        }
+    }
+
+    public void loot(){
+        Ressource r;
+        for(int i = zone.getListeRessource().size()-1;i>=0;i--){
+            r = zone.getListeRessource().get(i);
+            if(r.getCentreRessourceX()<=getCentreJoueurX()+20 && r.getCentreRessourceX()>=getCentreJoueurX()-20
+            && r.getCentreRessourceY()<=getCentreJoueurY()+20 && r.getCentreRessourceY()>=getCentreJoueurY()-20) {
+                getInventaire().ajouterObjet(r.getRecompense(), r.getQuantite());
+                console.afficherItemRecup(r.getRecompense(), r.getQuantite());
+                zone.getMapObstacles()[r.getY()/16][r.getX()/16] = -1;
+                zone.getListeRessource().remove(r);
+            }
         }
     }
 

@@ -49,6 +49,10 @@ public class ImageMap {
         map.put("playerUP", new Image("sample/ressources/player/playerUP.png"));
         map.put("playerRIGHT", new Image("sample/ressources/player/playerRIGHT.png"));
         map.put("playerLEFT", new Image("sample/ressources/player/playerLEFT.png"));
+
+        map.put("SourceBois", new Image("sample/ressources/ressourcesImg/bois.png"));
+        map.put("SourceTresor", new Image("sample/ressources/ressourcesImg/coffre.png"));
+        map.put("SourceMinerai", new Image("sample/ressources/ressourcesImg/minerai.png"));
     }
 
     public Map<String, Image> getMap() {
