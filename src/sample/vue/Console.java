@@ -27,11 +27,13 @@ public class Console {
     }
 
     public void afficherItemIndisponible(String itemManquant){
-        console.appendText("\nVous n'avez plus de "+itemManquant + "!");
+        console.appendText("\n"+star+"Vous n'avez plus de "+itemManquant + "!");
+        setStar();
     }
 
     public void afficherHeal(int healAmount){
-        console.appendText("\nVous vous soignez de " + healAmount + " HP!");
+        console.appendText("\n"+star+"Vous vous soignez de " + healAmount + " HP!");
+        setStar();
     }
 
 //permet de différencier les messages identiques successifs dans la console.

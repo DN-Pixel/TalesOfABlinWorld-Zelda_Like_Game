@@ -14,8 +14,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import sample.modele.Projectiles;
-import sample.modele.items.Inventaire;
 import sample.vue.*;
 import sample.modele.Joueur;
 import sample.modele.Terrain;
@@ -23,7 +21,6 @@ import sample.vue.animations.PlayerHPAnimation;
 import sample.vue.animations.PlayerMovementAnimation;
 
 
-import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -31,7 +28,7 @@ public class Controller implements Initializable {
 
     ImageMap imageMap = new ImageMap();
     MapLoader mapLoader = new MapLoader();
-    private ItemDescriptionLoader itemsDescriptionLoader;
+    private ItemDescriptionSwitcher itemsDescriptionLoader;
 
     private static int dx = 0;
     private static int dy = 0;
@@ -58,6 +55,8 @@ public class Controller implements Initializable {
     private Label questLabel;
     @FXML
     private TextField shopQuantiteField;
+    @FXML
+    private Label nbGoldLabel;
     //IMAGES
     @FXML
     private ImageView hpBar;
@@ -81,6 +80,7 @@ public class Controller implements Initializable {
     private RadioButton meatRadio;
     //RADIO SHOP
 
+
     private TerrainVue terrainVue; // classe permettant de load la map et charger les textures
     private ProjectilesVue projectileVue;
     private long temps = 0 ;
@@ -88,7 +88,8 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         joueur.setConsole(new Console(console));
         joueur.getInventaire().ajouterObjet("Miel",5);
-        itemsDescriptionLoader = new ItemDescriptionLoader(descriptionLabel);
+        joueur.getInventaire().ajouterObjet("Potion",5);
+        itemsDescriptionLoader = new ItemDescriptionSwitcher(descriptionLabel);
         player.setId("player");
         terrainVue = new TerrainVue(zoneActuelle, joueur, gamePane, tilePane, tilePaneDeco, tilePaneSolid);
         projectileVue = new ProjectilesVue(gamePane);
@@ -109,11 +110,18 @@ public class Controller implements Initializable {
        initPlayerListener();
        initPlayerTransitionsListener();
        initCameraListener();
-
+       initInventaireListener();
     }
+
     public void initPlayerListener(){
         player.translateXProperty().bind(joueur.getxProperty());
         player.translateYProperty().bind(joueur.getyProperty());
+    }
+    public void initInventaireListener(){
+        nbGoldLabel.textProperty().bind(joueur.getInventaire().nbrOrProperty().asString());
+        for (int i = joueur.getInventaire().getListObjet().size()-1;i>=0;i--){
+            joueur.getInventaire().getListObjet().get(i).quantiteProperty().addListener((e)-> itemsDescriptionLoader.switchDescription(inventoryClicEventMemory, joueur.getInventaire()));
+        }
     }
     public void initCameraListener(){
         joueur.getxProperty().addListener((obse,old,nouv)->{
@@ -186,6 +194,9 @@ public class Controller implements Initializable {
             joueur.attaquerEnnemis();
         else if(e.getCode() == KeyCode.F)
             joueur.loot();
+        else if(e.getCode()== KeyCode.DIGIT2 || e.getCode()==KeyCode.UNDEFINED)
+            joueur.manger("Potion");
+
         switch (e.getCode()){
             //mouvement
             case Z : dy=0;break;
@@ -194,10 +205,14 @@ public class Controller implements Initializable {
             case Q : dx=0;break;
         }
     }
+    public static String inventoryClicEventMemory = "";
     //permet de changer la description des item de l'nventaire, en lui envoyant directement le fx:id de l'image cliquée.
     @FXML
     public void setDescription(MouseEvent event) {
-        itemsDescriptionLoader.refreshDescription(event.getPickResult().getIntersectedNode().getId(), joueur.getInventaire());
+        //permet de mémoriser le dernier evenemet effectué. Afin que la description puisse savoir quel item a été séléctionné
+        //auparavent et puisse s'actualiser en considerant le changement de BON item.
+        inventoryClicEventMemory = event.getPickResult().getIntersectedNode().getId();
+        itemsDescriptionLoader.switchDescription(event.getPickResult().getIntersectedNode().getId(), joueur.getInventaire());
     }
 
     public void movePlayer(){
@@ -248,7 +263,12 @@ public class Controller implements Initializable {
 
     @FXML
     void manger(MouseEvent event) {
-        joueur.manger(mielRadio,meatRadio,noodleRadio);
+       RadioButton radioSelected = (RadioButton) Nourriture.getSelectedToggle();
+       try {
+           joueur.manger(radioSelected.getId());
+       }catch (Exception e) {
+           console.appendText("\nVeuillez Selectionner un consommable");
+       };
     }
 
 }
