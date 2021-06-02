@@ -1,7 +1,7 @@
 package sample.modele.acteurs.ennemis;
 
 import sample.modele.Joueur;
-import sample.modele.Projectiles;
+import sample.modele.Projectile;
 
 public class EnnemiDistance extends Ennemi {
 
@@ -14,20 +14,20 @@ public class EnnemiDistance extends Ennemi {
 
     }
 
-    public Projectiles attaquerJoueur(Joueur joueur){
-        Projectiles p;
+    public Projectile attaquerJoueur(Joueur joueur){
+        Projectile p;
         //calcul quel est l'axe le plus proche ATM du joueur.
         if(Math.abs(joueur.getCentreJoueurX()-getCentreActeurX()) < Math.abs(joueur.getCentreJoueurY()-getCentreActeurY())) {
             if (joueur.getCentreJoueurY() < getCentreActeurY() )
-                p = new Projectiles(this.getX(), this.getY(), "UP", "Ennemi");
+                p = new Projectile(this.getX(), this.getY(), "UP", "Ennemi");
             else
-                p = new Projectiles(this.getX(), this.getY(), "DOWN", "Ennemi");
+                p = new Projectile(this.getX(), this.getY(), "DOWN", "Ennemi");
         }
         else{
             if(joueur.getCentreJoueurX() < getCentreActeurX())
-                p = new Projectiles(this.getX(), this.getY(), "LEFT", "Ennemi");
+                p = new Projectile(this.getX(), this.getY(), "LEFT", "Ennemi");
             else
-                p = new Projectiles(this.getX(), this.getY(), "RIGHT", "Ennemi");
+                p = new Projectile(this.getX(), this.getY(), "RIGHT", "Ennemi");
         }
         return  p;
     }

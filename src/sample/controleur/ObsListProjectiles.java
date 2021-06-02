@@ -3,12 +3,12 @@ package sample.controleur;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
-import sample.modele.Projectiles;
+import sample.modele.Projectile;
 import sample.vue.ProjectilesVue;
 
 import java.util.List;
 
-public class ObsListProjectiles implements ListChangeListener<Projectiles> {
+public class ObsListProjectiles implements ListChangeListener<Projectile> {
 
     private ProjectilesVue projectilesVue;
 
@@ -17,16 +17,16 @@ public class ObsListProjectiles implements ListChangeListener<Projectiles> {
     }
 
     @Override
-    public void onChanged(Change<? extends Projectiles> list) {
-        List<? extends Projectiles> listAdded;
-        List<? extends Projectiles> listRemoved;
+    public void onChanged(Change<? extends Projectile> list) {
+        List<? extends Projectile> listAdded;
+        List<? extends Projectile> listRemoved;
         while (list.next()){
             listAdded = list.getAddedSubList();
             listRemoved = list.getRemoved();
-            for (Projectiles p : listAdded){
+            for (Projectile p : listAdded){
                 projectilesVue.creerBulletSprite(p);
             }
-            for (Projectiles p : listRemoved){
+            for (Projectile p : listRemoved){
                 projectilesVue.removeBulletFromPane(p);
             }
         }

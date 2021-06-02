@@ -14,8 +14,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import sample.modele.Projectiles;
-import sample.modele.items.Inventaire;
 import sample.vue.*;
 import sample.modele.Joueur;
 import sample.modele.Terrain;
@@ -23,7 +21,6 @@ import sample.vue.animations.PlayerHPAnimation;
 import sample.vue.animations.PlayerMovementAnimation;
 
 
-import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 

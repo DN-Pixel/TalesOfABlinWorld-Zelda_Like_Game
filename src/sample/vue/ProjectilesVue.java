@@ -1,14 +1,9 @@
 package sample.vue;
 
-import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import sample.controleur.ObsListActeurs;
-import sample.modele.Projectiles;
-import sample.modele.acteurs.ennemis.Bambou;
+import sample.modele.Projectile;
 
 public class ProjectilesVue {
     private Pane gamePane;
@@ -20,7 +15,7 @@ public class ProjectilesVue {
         this.gamePane = gamePane;
     }
 
-    public void creerBulletSprite(Projectiles p){
+    public void creerBulletSprite(Projectile p){
         ImageView i = new ImageView();
         if (p.getId().startsWith("Bambou"))
             i.setImage(imageBambouBullet);
@@ -33,7 +28,7 @@ public class ProjectilesVue {
         i.layoutYProperty().bind(p.yProperty());
         gamePane.getChildren().add(i);
     }
-    public void removeBulletFromPane(Projectiles p){
+    public void removeBulletFromPane(Projectile p){
         gamePane.getChildren().remove(gamePane.lookup("#"+p.getId()));
     }
 }

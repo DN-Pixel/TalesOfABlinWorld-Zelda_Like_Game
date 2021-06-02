@@ -2,7 +2,6 @@ package sample.controleur;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
-import sample.modele.Projectiles;
 import sample.modele.ressources.Ressource;
 import sample.vue.RessourceVue;
 

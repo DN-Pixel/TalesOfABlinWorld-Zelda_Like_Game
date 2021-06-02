@@ -3,10 +3,7 @@ package sample.modele;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import sample.modele.acteurs.Acteur;
-import sample.modele.acteurs.Pnj;
 import sample.modele.acteurs.SaveActeurs;
 import sample.modele.acteurs.ennemis.*;
 import sample.modele.ressources.Ressource;
@@ -14,15 +11,13 @@ import sample.modele.ressources.SaveRessources;
 import sample.modele.ressources.SourceBois;
 import sample.modele.ressources.SourceMinerai;
 
-import java.util.ArrayList;
-
 public class Terrain {
 
     private String nomDeCarte;
     private int [][] mapObstacles; // MAP DES OBSTACLES ET COLLISIONS
     private SaveActeurs saveActeurs = new SaveActeurs();
     private SaveRessources saveRessources = new SaveRessources();
-    private ObservableList<Projectiles> projectiles = FXCollections.observableArrayList();
+    private ObservableList<Projectile> projectiles = FXCollections.observableArrayList();
     private int[][] mapSpawn; // ZONE DE SPAWN DES ENNEMIS
 
 
@@ -46,7 +41,7 @@ public class Terrain {
     public int[][] getMapObstacles () {
         return this.mapObstacles;
     }
-    public ObservableList<Projectiles> getProjectiles() {
+    public ObservableList<Projectile> getProjectiles() {
         return projectiles;
     }
 
@@ -211,7 +206,7 @@ public class Terrain {
         for (int i=getListeActeurs().size()-1;i>=0;i--) {
             if (getListeActeurs().get(i) instanceof EnnemiDistance) {
                 //permet de creer un Projectile ayant pour ID le nom de celui qui le lance.
-                Projectiles p = ((EnnemiDistance) getListeActeurs().get(i)).attaquerJoueur(joueur);
+                Projectile p = ((EnnemiDistance) getListeActeurs().get(i)).attaquerJoueur(joueur);
                 //Projectiles p = new Projectiles(getListeActeurs().get(i).getCentreActeurX(), getListeActeurs().get(i).getCentreActeurY(), "DOWN", getListeActeurs().get(i).getClass().getSimpleName());
                 projectiles.add(p);
             }
@@ -220,7 +215,7 @@ public class Terrain {
     public void manageProjeciles(Joueur joueur){
         for (int i= projectiles.size()-1;i >=0 ;i--) {
             //si je suis hors map. alos je remove l'objet de la liste
-            projectiles.get(i).moveProjectiles(projectiles.get(i));
+            projectiles.get(i).moveProjectile(projectiles.get(i));
 
             if (projectiles.get(i).getY()>limiteVertiMap()*17 ||
                 projectiles.get(i).getY()< -16 ||

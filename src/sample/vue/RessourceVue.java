@@ -3,7 +3,6 @@ package sample.vue;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import sample.modele.Projectiles;
 import sample.modele.ressources.Ressource;
 import sample.modele.ressources.SourceBois;
 import sample.modele.ressources.SourceMinerai;
