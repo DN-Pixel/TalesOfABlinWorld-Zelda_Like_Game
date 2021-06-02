@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
+import sample.modele.items.Armes.Shuriken;
 import sample.vue.*;
 import sample.modele.Joueur;
 import sample.modele.Terrain;
@@ -27,7 +28,7 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
     ImageMap imageMap = new ImageMap();
-    MapLoader mapLoader = new MapLoader();
+    private static CooldownManager  cdManager = new CooldownManager();
     private ItemDescriptionLoader itemsDescriptionLoader;
 
     private static int dx = 0;
@@ -83,6 +84,7 @@ public class Controller implements Initializable {
     private long temps = 0 ;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        joueur.setArmeDistance(new Shuriken()); // ****************** TEMPORAIRE ******************
         joueur.setConsole(new Console(console));
         joueur.getInventaire().ajouterObjet("Miel",5);
         itemsDescriptionLoader = new ItemDescriptionLoader(descriptionLabel);
@@ -143,7 +145,7 @@ public class Controller implements Initializable {
                         zoneActuelle.moveEnnemis(); // fais déplacer les ennemis
                     if(temps%177==0) {
                         zoneActuelle.lesEnnemisAttaquent(joueur); // fais attaquer les ennemis toutes les 3s
-                        zoneActuelle.spawnProjectile(gamePane,joueur);
+                        zoneActuelle.spawnProjectile(joueur);
                     }
                     zoneActuelle.manageProjeciles(joueur);
                 })
@@ -156,6 +158,8 @@ public class Controller implements Initializable {
             temps = 1; // reset
         else
             temps++;
+        if (temps%59==0)
+            cdManager.incrementCD();
     }
     public void spawnManager(){
         if(temps%590==0)
@@ -183,6 +187,10 @@ public class Controller implements Initializable {
             joueur.attaquerEnnemis();
         else if(e.getCode() == KeyCode.F)
             joueur.loot();
+        else if(cdManager.getCdShuriken()>=1 && e.getCode() == KeyCode.DIGIT3 || e.getCode() == KeyCode.QUOTEDBL){
+            joueur.attaquerEnDistance();
+            cdManager.setCdShuriken(0);
+        }
         switch (e.getCode()){
             //mouvement
             case Z : dy=0;break;

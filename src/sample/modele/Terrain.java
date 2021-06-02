@@ -11,13 +11,14 @@ import sample.modele.ressources.SaveRessources;
 import sample.modele.ressources.SourceBois;
 import sample.modele.ressources.SourceMinerai;
 
+
 public class Terrain {
 
     private String nomDeCarte;
     private int [][] mapObstacles; // MAP DES OBSTACLES ET COLLISIONS
     private SaveActeurs saveActeurs = new SaveActeurs();
-    private SaveRessources saveRessources = new SaveRessources();
     private ObservableList<Projectile> projectiles = FXCollections.observableArrayList();
+    private SaveRessources saveRessources = new SaveRessources();
     private int[][] mapSpawn; // ZONE DE SPAWN DES ENNEMIS
 
 
@@ -202,7 +203,7 @@ public class Terrain {
         }
     }
     
-    public void spawnProjectile (Pane gamePane, Joueur joueur){
+    public void spawnProjectile (Joueur joueur){
         for (int i=getListeActeurs().size()-1;i>=0;i--) {
             if (getListeActeurs().get(i) instanceof EnnemiDistance) {
                 //permet de creer un Projectile ayant pour ID le nom de celui qui le lance.
@@ -213,30 +214,39 @@ public class Terrain {
         }
     }
     public void manageProjeciles(Joueur joueur){
+        Projectile p;
         for (int i= projectiles.size()-1;i >=0 ;i--) {
             //si je suis hors map. alos je remove l'objet de la liste
-            projectiles.get(i).moveProjectile(projectiles.get(i));
-
-            if (projectiles.get(i).getY()>limiteVertiMap()*17 ||
-                projectiles.get(i).getY()< -16 ||
-                projectiles.get(i).getX()>limiteHorizMap()*17 ||
-                projectiles.get(i).getX()< -16) {
+            p = projectiles.get(i);
+            p.moveProjectile();
+            if (p.getY() > limiteVertiMap() * 17 ||
+                    p.getY() < -16 ||
+                    p.getX() > limiteHorizMap() * 17 ||
+                    p.getX() < -16) {
                 projectiles.remove(i);
             }
-            else if(projectiles.get(i).getY()>=joueur.getCentreJoueurY()-8 &&
-                    projectiles.get(i).getY()<=joueur.getCentreJoueurY()+8 &&
-                    projectiles.get(i).getX()<=joueur.getCentreJoueurX()+8 &&
-                    projectiles.get(i).getX()>=joueur.getCentreJoueurX()-8) {
-                if (projectiles.get(i).getId().startsWith("Bambou")) {
-                    joueur.subirDegats(new Bambou(0,0).getPointDegat());
-                    projectiles.remove(i);
-                    System.out.println("babouns attack.");
-                    
+            else{
+                for (int j = this.getListeActeurs().size() - 1; j >= 0; j--) {
+                    Acteur a = this.getListeActeurs().get(j);
+                    if(a instanceof Ennemi) {
+                        //projectiles lancees par moi (joueur)
+                        if (p.getId().startsWith("hero") && p.getY()+8 >= a.getCentreActeurY() - 12 &&
+                                p.getY()+8 <= a.getCentreActeurY() + 12 &&
+                                p.getX()+8 <= a.getCentreActeurX() + 12 &&
+                                p.getX()+8 >= a.getCentreActeurX() - 12) {
+                            ((Ennemi) a).subirDegat(joueur.getArmeDistance().getDegatsArme());
+                            projectiles.remove(i);
+                        }
+                        //projectiles lancees par les ennemis
+                        else if (p.getId().startsWith("Ennemi") && p.getY() >= joueur.getCentreJoueurY() - 8 &&
+                                p.getY() <= joueur.getCentreJoueurY() + 8 &&
+                                p.getX() <= joueur.getCentreJoueurX() + 8 &&
+                                p.getX() >= joueur.getCentreJoueurX() - 8) {
+                            projectiles.remove(i);
+                            joueur.subirDegats(((Ennemi) a).getPointDegat());
+                        }
+                    }
                 }
-                else{
-                    joueur.subirDegats(new Oeil(0,0).getPointDegat());
-                    projectiles.remove(i);
-            }
             }
         }
     }

@@ -46,6 +46,7 @@ public class SaveActeurs {
 
     private void genererSaveZone3() {
         ObservableList<Acteur> save = FXCollections.observableArrayList();
+        save.add(new Bambou(16*20, 16*20));
         savesListesActeurs.put(3, save);
     }
 

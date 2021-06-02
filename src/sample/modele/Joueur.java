@@ -6,8 +6,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.input.KeyEvent;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.ennemis.Ennemi;
-import sample.modele.items.Armes.Arme;
-import sample.modele.items.Armes.Gourdin;
+import sample.modele.items.Armes.*;
 import sample.modele.items.Inventaire;
 import sample.modele.ressources.Ressource;
 import sample.vue.Console;
@@ -16,6 +15,7 @@ public class Joueur {
 
     private IntegerProperty hp = new SimpleIntegerProperty();
     private Arme arme;
+    private ArmeDistance armeDistance;
     private Console console;
     private IntegerProperty xProperty = new SimpleIntegerProperty(0);
     private IntegerProperty yProperty = new SimpleIntegerProperty(0);
@@ -33,7 +33,16 @@ public class Joueur {
         direction = "down";
         hp.setValue(10);
         maxHP = hp.getValue();
+        armeDistance = null;
         this.inventaire = new Inventaire();
+    }
+
+    public ArmeDistance getArmeDistance() {
+        return armeDistance;
+    }
+
+    public void setArmeDistance(ArmeDistance armeDistance) {
+        this.armeDistance = armeDistance;
     }
 
     public IntegerProperty getHp() {
@@ -229,40 +238,49 @@ public class Joueur {
         for (int i = 0; i <this.zone.getListeActeurs().size() ; i++) {
             Acteur a = this.zone.getListeActeurs().get(i);
             if (a instanceof Ennemi) {
-                switch (direction){
-                    case "right" :
-                        if (a.getCentreActeurX()<=this.getCentreJoueurX()+arme.getRange() && a.getCentreActeurX()>=this.getCentreJoueurX()
-                        && a.getCentreActeurY()<=this.getCentreJoueurY()+24 && a.getCentreActeurY() >= this.getCentreJoueurY()-24 ) {
-                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
-                            console.afficherDegatsInfliges(arme.getDegatsArme());
-                        }
-                        break;
-                    case "left" :
-                        if (a.getCentreActeurX()>=this.getCentreJoueurX()-arme.getRange() && a.getCentreActeurX()<=this.getCentreJoueurX()
-                                && a.getCentreActeurY()<=this.getCentreJoueurY()+24 && a.getCentreActeurY() >= this.getCentreJoueurY()-24 ) {
-                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
-                            console.afficherDegatsInfliges(arme.getDegatsArme());
-                        }
-                        break;
-                    case "up" :
-                        if (a.getCentreActeurY()>=this.getCentreJoueurY()-arme.getRange() && a.getCentreActeurY() <= this.getCentreJoueurY()
-                                && a.getCentreActeurX()>=this.getCentreJoueurX()-24 && a.getCentreActeurX()<=this.getCentreJoueurX()+24 ) {
-                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
-                            console.afficherDegatsInfliges(arme.getDegatsArme());
-                        }
-                        break;
-
-                    case "down" :
-                        if (a.getCentreActeurY()<=this.getCentreJoueurY()+arme.getRange() && a.getCentreActeurY() >= this.getCentreJoueurY()
-                                && a.getCentreActeurX()>=this.getCentreJoueurX()-24 && a.getCentreActeurX()<=this.getCentreJoueurX()+24) {
-                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
-                            console.afficherDegatsInfliges(arme.getDegatsArme());
-                        }
-                        break;
-                }
-
+                if (this.arme instanceof Melee || this.arme instanceof MeleeRange)
+                    attaquerCorpsACorps(a);
             }
         }
+    }
+
+    public void attaquerCorpsACorps (Acteur a) {
+        switch (direction) {
+            case "right":
+                if (a.getCentreActeurX() <= this.getCentreJoueurX() + arme.getRange() && a.getCentreActeurX() >= this.getCentreJoueurX()
+                        && a.getCentreActeurY() <= this.getCentreJoueurY() + 24 && a.getCentreActeurY() >= this.getCentreJoueurY() - 24) {
+                    ((Ennemi) a).subirDegat(arme.getDegatsArme());
+                    console.afficherDegatsInfliges(arme.getDegatsArme());
+                }
+                break;
+            case "left":
+                if (a.getCentreActeurX() >= this.getCentreJoueurX() - arme.getRange() && a.getCentreActeurX() <= this.getCentreJoueurX()
+                        && a.getCentreActeurY() <= this.getCentreJoueurY() + 24 && a.getCentreActeurY() >= this.getCentreJoueurY() - 24) {
+                    ((Ennemi) a).subirDegat(arme.getDegatsArme());
+                    console.afficherDegatsInfliges(arme.getDegatsArme());
+                }
+                break;
+            case "up":
+                if (a.getCentreActeurY() >= this.getCentreJoueurY() - arme.getRange() && a.getCentreActeurY() <= this.getCentreJoueurY()
+                        && a.getCentreActeurX() >= this.getCentreJoueurX() - 24 && a.getCentreActeurX() <= this.getCentreJoueurX() + 24) {
+                    ((Ennemi) a).subirDegat(arme.getDegatsArme());
+                    console.afficherDegatsInfliges(arme.getDegatsArme());
+                }
+                break;
+
+            case "down":
+                if (a.getCentreActeurY() <= this.getCentreJoueurY() + arme.getRange() && a.getCentreActeurY() >= this.getCentreJoueurY()
+                        && a.getCentreActeurX() >= this.getCentreJoueurX() - 24 && a.getCentreActeurX() <= this.getCentreJoueurX() + 24) {
+                    ((Ennemi) a).subirDegat(arme.getDegatsArme());
+                    console.afficherDegatsInfliges(arme.getDegatsArme());
+                }
+                break;
+        }
+    }
+
+    public void attaquerEnDistance() {
+        Projectile p = new Projectile(this.getX(), this.getY(), direction.toUpperCase(), "hero", "Joueur");
+        this.zone.getProjectiles().add(p);
     }
     public void manger(RadioButton mielRadio, RadioButton meatRadio,RadioButton noodleRadio) {
         if (noodleRadio.isSelected()) {

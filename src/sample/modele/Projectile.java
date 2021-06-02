@@ -7,15 +7,25 @@ public class Projectile {
     private IntegerProperty x= new SimpleIntegerProperty(0);
     private IntegerProperty y= new SimpleIntegerProperty(0);
     private String direction;
+    private String origine;
     private String id;
     private static int b=0;
 
-    public Projectile(int x, int y, String direction, String id){
+    public Projectile(int x, int y, String direction, String id, String o){
         this.id = id+b;
         b++;
         this.x.setValue(x);
         this.y.setValue(y);
+        origine = o;
         this.direction=direction;
+    }
+
+    public String getOrigine() {
+        return origine;
+    }
+
+    public void setOrigine(String origine) {
+        this.origine = origine;
     }
 
     public String getId() {
@@ -34,19 +44,19 @@ public class Projectile {
     public void setY(int y) { this.y.set(y); }
     public String getDirection() { return direction; }
 
-    public void moveProjectile(Projectile p ) {
-        switch (p.getDirection()) {
+    public void moveProjectile() {
+        switch (this.getDirection()) {
             case "UP":
-                p.setY(p.getY() - 2);
+                this.setY(this.getY() - 2);
                 break;
             case "DOWN":
-                p.setY(p.getY() + 2);
+                this.setY(this.getY() + 2);
                 break;
             case "LEFT":
-                p.setX(p.getX() - 2);
+                this.setX(this.getX() - 2);
                 break;
             case "RIGHT":
-                p.setX(p.getX() + 2);
+                this.setX(this.getX() + 2);
                 break;
             default:
                 break;
