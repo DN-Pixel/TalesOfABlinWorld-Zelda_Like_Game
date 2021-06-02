@@ -217,9 +217,13 @@ public class Controller implements Initializable {
                     case "1":
                         if(joueur.isCollinding(622, 228))  terrainVue.loadMap("2", 50, 100);
                         else if(joueur.isCollinding(415, 300) || joueur.isCollinding(430, 300))  terrainVue.loadMap("4", 500, 80);
+                        else  if (joueur.isCollinding(20*16,16) || joueur.isCollinding(22*16,16)) terrainVue.loadMap("3",21*16,36*16);
                         break;
                     case "2":
                         if(joueur.isCollinding(0, 100))  terrainVue.loadMap("1", 600, 250);
+                        break;
+                    case "3" :
+                        if (joueur.isCollinding(20*16,38*16) || (joueur.isCollinding(19*16,38*16))) terrainVue.loadMap("1",21*16,40);
                         break;
                     case "4":
                         if(joueur.isCollinding(500, 16))  terrainVue.loadMap("1", 415, 260);
