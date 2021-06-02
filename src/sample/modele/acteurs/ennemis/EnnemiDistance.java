@@ -9,11 +9,6 @@ public class EnnemiDistance extends Ennemi {
         super(x, y, pv, pointDegat, niveau);
     }
 
-    @Override
-    public void moveEnnemi(int[][] mapObstacle){
-
-    }
-
     public Projectile attaquerJoueur(Joueur joueur){
         Projectile p;
         //calcul quel est l'axe le plus proche ATM du joueur.

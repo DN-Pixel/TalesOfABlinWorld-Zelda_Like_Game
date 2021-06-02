@@ -206,7 +206,7 @@ public class Terrain {
     
     public void spawnProjectile (Joueur joueur){
         for (int i=getListeActeurs().size()-1;i>=0;i--) {
-            if (getListeActeurs().get(i) instanceof EnnemiDistance) {
+            if (getListeActeurs().get(i) instanceof EnnemiDistance && ((EnnemiDistance) getListeActeurs().get(i)).isAggroing() ) {
                 //permet de creer un Projectile ayant pour ID le nom de celui qui le lance.
                 Projectile p = ((EnnemiDistance) getListeActeurs().get(i)).attaquerJoueur(joueur);
                 //Projectiles p = new Projectiles(getListeActeurs().get(i).getCentreActeurX(), getListeActeurs().get(i).getCentreActeurY(), "DOWN", getListeActeurs().get(i).getClass().getSimpleName());

@@ -3,7 +3,7 @@ package sample.controleur;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
 import sample.modele.acteurs.Acteur;
-import sample.vue.ActeurVue;
+import sample.vue.modeleVue.ActeurVue;
 import sample.vue.ImageMap;
 
 import java.util.List;

@@ -11,6 +11,7 @@ public abstract class Ennemi extends Acteur {
 
 
     private int pv;
+    private int aggroRange;
     private int pointDegat;
     private int vitesse;
     private int niveau;
@@ -27,6 +28,10 @@ public abstract class Ennemi extends Acteur {
         this.pointDegat = pointDegat;
         this.niveau = niveau;
         this.moveDirection = 5;
+        if(this instanceof EnnemiDistance)
+            this.aggroRange = 8*16;
+        else
+            this.aggroRange = 5 * 16;
     }
 
     //setters
@@ -140,10 +145,7 @@ public abstract class Ennemi extends Acteur {
         }
     }
 
-    //tuer l'ennemis
-    public void mourir() {
-
+    public int getAggroRange() {
+        return aggroRange;
     }
-
-
 }

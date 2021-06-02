@@ -1,4 +1,4 @@
-package sample.vue;
+package sample.vue.modeleVue;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -14,6 +14,7 @@ import sample.modele.Terrain;
 import sample.modele.acteurs.Acteur;
 import sample.controleur.ObsListActeurs;
 import sample.modele.ressources.Ressource;
+import sample.vue.ImageMap;
 
 import java.io.IOException;
 

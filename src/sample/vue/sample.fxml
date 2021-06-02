@@ -390,7 +390,7 @@
             </Pane>
             <Pane fx:id="topHPPane" layoutX="431.0" layoutY="120.0" prefHeight="88.0" prefWidth="420.0">
                <children>
-                  <TextArea fx:id="console" disable="true" editable="false" layoutX="7.0" layoutY="36.0" opacity="0.8" prefHeight="70.0" prefWidth="408.0" style="-fx-border-color: #ddab71; -fx-border-width: 5px; -fx-border-radius: 2px;" text="Console Logs&#10;&#10;">
+                  <TextArea fx:id="console" disable="true" editable="false" layoutX="7.0" layoutY="36.0" opacity="0.8" prefHeight="70.0" prefWidth="408.0" style="-fx-border-color: #ddab71; -fx-border-width: 5px; -fx-border-radius: 2px;" text="&#10;Console Logs&#10;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

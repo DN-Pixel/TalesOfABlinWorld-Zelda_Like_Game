@@ -4,7 +4,7 @@ package sample.controleur;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
 import sample.modele.Projectile;
-import sample.vue.ProjectilesVue;
+import sample.vue.modeleVue.ProjectilesVue;
 
 import java.util.List;
 

@@ -168,9 +168,9 @@ public class Joueur {
                     a.getCentreActeurY()>=getCentreJoueurY()-16 && a.getCentreActeurY()<=getCentreJoueurY()+16){
                 ((Ennemi) a).setVitesse(0);
             }
-            else if(a instanceof Ennemi && (getCentreJoueurX()>=a.getCentreActeurX()-80 &&
-                    getCentreJoueurX()<=a.getCentreActeurX()+80) && (getCentreJoueurY()>=a.getCentreActeurY()-80 &&
-                    getCentreJoueurY()<=a.getCentreActeurY()+80)) {
+            else if(a instanceof Ennemi && (getCentreJoueurX()>=a.getCentreActeurX()-((Ennemi) a).getAggroRange() &&
+                    getCentreJoueurX()<=a.getCentreActeurX()+((Ennemi) a).getAggroRange()) && (getCentreJoueurY()>=a.getCentreActeurY()-((Ennemi) a).getAggroRange() &&
+                    getCentreJoueurY()<=a.getCentreActeurY()+((Ennemi) a).getAggroRange())) {
                 ((Ennemi) a).launchBFS(getCentreJoueurX()/16, getCentreJoueurY()/16, getZone().getMapObstacles());
             }
         }

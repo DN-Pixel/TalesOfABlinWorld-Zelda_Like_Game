@@ -20,6 +20,7 @@ import sample.modele.Joueur;
 import sample.modele.Terrain;
 import sample.vue.animations.PlayerHPAnimation;
 import sample.vue.animations.PlayerMovementAnimation;
+import sample.vue.modeleVue.TerrainVue;
 
 
 import java.net.URL;
@@ -50,7 +51,6 @@ public class Controller implements Initializable {
     //LABELS TEXTFIELDS
     @FXML
     private TextArea console;
-    Console cons = new Console(console);
     @FXML
     private Label descriptionLabel;
     @FXML
@@ -81,22 +81,26 @@ public class Controller implements Initializable {
     //RADIO SHOP
 
     private TerrainVue terrainVue; // classe permettant de load la map et charger les textures
-    private ProjectilesVue projectileVue;
+
     private long temps = 0 ;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         joueur.setArmeDistance(new Shuriken()); // ****************** TEMPORAIRE ******************
-        joueur.setConsole(cons);
-        zoneActuelle.setConsole(cons);
+        initConsole(); // Charge la console
         itemsDescriptionLoader = new ItemDescriptionLoader(descriptionLabel);
         player.setId("player");
         terrainVue = new TerrainVue(zoneActuelle, joueur, gamePane, tilePane, tilePaneDeco, tilePaneSolid);
-        projectileVue = new ProjectilesVue(gamePane);
-        terrainVue.loadMap("1", 300, 100);
-        initListeners();
-        initBoucleTemporelle();
-        initAnimations();
-        gameLoop.play();
+        terrainVue.loadMap("1", 300, 100); // charge la première map
+        initListeners(); // initialise les listeners
+        initBoucleTemporelle(); // initialise la boucle temporelle
+        initAnimations(); // lance les animations
+        gameLoop.play(); // Lance la boucle temporelle
+    }
+
+    private void initConsole(){
+        Console cons = new Console(console);
+        joueur.setConsole(cons);
+        zoneActuelle.setConsole(cons);
     }
 
     private void initAnimations() {
@@ -121,7 +125,6 @@ public class Controller implements Initializable {
             if(nouv.intValue()>152 && nouv.intValue()< zoneActuelle.limiteHorizMap()*16-152)
                 gamePane.setLayoutX(-(int)nouv+640);
         });
-
         joueur.getyProperty().addListener((obse,old,nouv)->{
             if(nouv.intValue()>115 && nouv.intValue()< zoneActuelle.limiteVertiMap()*16-115)
                 gamePane.setLayoutY(-(int)nouv+360);
@@ -146,7 +149,7 @@ public class Controller implements Initializable {
                         zoneActuelle.moveEnnemis(); // fais déplacer les ennemis
                     if(temps%177==0) {
                         zoneActuelle.lesEnnemisAttaquent(joueur); // fais attaquer les ennemis toutes les 3s
-                        zoneActuelle.spawnProjectile(joueur);
+                        zoneActuelle.spawnProjectile(joueur); // attaques à distance
                     }
                     zoneActuelle.manageProjeciles(joueur);
                 })
