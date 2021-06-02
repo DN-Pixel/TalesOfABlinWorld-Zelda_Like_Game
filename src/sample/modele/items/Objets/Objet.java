@@ -27,6 +27,7 @@ public class Objet {
     }
 
     public String getDescription() {
+        this.description = "Nom: " + this.nom + "\nQuantité: "+ this.quantite + "\nValeur: "+ this.valeur;
         return description;
     }
 

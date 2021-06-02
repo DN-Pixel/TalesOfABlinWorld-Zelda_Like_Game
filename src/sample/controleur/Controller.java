@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import sample.modele.Projectiles;
+import sample.modele.items.Inventaire;
 import sample.vue.*;
 import sample.modele.Joueur;
 import sample.modele.Terrain;
@@ -22,6 +23,7 @@ import sample.vue.animations.PlayerHPAnimation;
 import sample.vue.animations.PlayerMovementAnimation;
 
 
+import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -70,6 +72,8 @@ public class Controller implements Initializable {
     private Button mangerButton;
     //RADIO INVENTAIRE
     @FXML
+    private ToggleGroup Nourriture;
+    @FXML
     private RadioButton noodleRadio;
     @FXML
     private RadioButton mielRadio;
@@ -83,6 +87,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         joueur.setConsole(new Console(console));
+        joueur.getInventaire().ajouterObjet("Miel",5);
         itemsDescriptionLoader = new ItemDescriptionLoader(descriptionLabel);
         player.setId("player");
         terrainVue = new TerrainVue(zoneActuelle, joueur, gamePane, tilePane, tilePaneDeco, tilePaneSolid);
@@ -237,5 +242,9 @@ public class Controller implements Initializable {
         player.translateYProperty().addListener(c);
     }
 
+    @FXML
+    void manger(MouseEvent event) {
+        joueur.manger(mielRadio,meatRadio,noodleRadio);
+    }
 
 }
