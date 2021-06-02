@@ -1,5 +1,7 @@
 package sample.modele.items;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import org.omg.PortableInterceptor.ObjectReferenceFactory;
 import sample.modele.items.Objets.*;
 
@@ -8,8 +10,8 @@ import java.util.ArrayList;
 public class Inventaire {
 
     private ArrayList<Objet> listObjet;
-    private int nbrOr;
-
+    private IntegerProperty nbrOr = new SimpleIntegerProperty();
+    private IntegerProperty quantiteGlobale = new SimpleIntegerProperty();
 
     public Inventaire(){
         this.listObjet = new ArrayList<>();
@@ -23,7 +25,7 @@ public class Inventaire {
         listObjet.add(new Potion());
         listObjet.add(new Viande());
         ajouterObjet("Miel",5);
-        this.nbrOr = 100;
+        this.nbrOr.setValue(100);
     }
 
     public void ajouterObjet(String item, int quantite) {
@@ -77,20 +79,25 @@ public class Inventaire {
         }
         return false;
     }
-
-    public int getNbrOr() {
-        return nbrOr;
+    public int trouverObjet(String nom){
+       for (int i=0; i<getListObjet().size();i++) {
+            System.out.println(nom + " et le truc : " + listObjet.get(i).getClass().getSimpleName());
+            if (nom.endsWith(listObjet.get(i).getClass().getSimpleName())) { return i; }
+        }
+        return 0;
     }
+    public int getNbrOr() { return nbrOr.getValue(); }
+    public IntegerProperty nbrOrProperty() { return nbrOr; }
 
     public void setNbrOr(int nbrOr) {
-        this.nbrOr = nbrOr;
+        this.nbrOr.setValue(nbrOr);
     }
     public void ajouterOr(int nbrOr) {
-        this.nbrOr += nbrOr;
+        this.nbrOr.setValue(this.nbrOr.getValue()+nbrOr);
     }
     public void enleverOr(int nbrOr) {
-        this.nbrOr -= nbrOr;
-        if(this.nbrOr<=0)
+        this.nbrOr.setValue(this.nbrOr.getValue()-nbrOr);
+        if(this.nbrOr.getValue()<=0)
             this.setNbrOr(0);
     }
 

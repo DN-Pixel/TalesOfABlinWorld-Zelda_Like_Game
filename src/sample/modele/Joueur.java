@@ -282,32 +282,39 @@ public class Joueur {
         Projectile p = new Projectile(this.getX(), this.getY(), direction.toUpperCase(), "hero", "Joueur");
         this.zone.getProjectiles().add(p);
     }
-    public void manger(RadioButton mielRadio, RadioButton meatRadio,RadioButton noodleRadio) {
-        if (noodleRadio.isSelected()) {
-            if (getInventaire().estDisponible("Nouilles", 1)) {
-                getInventaire().eneleverObjet("Nouilles", 1);
-                regenerer((int)(maxHP*0.75));
-            }
-            else
-                console.afficherItemIndisponible("Nouille");
-        }
+    public void manger(String selecteRadio) {
 
-        else if (mielRadio.isSelected()) {
-            if (getInventaire().estDisponible("Miel", 1)) {
-                getInventaire().eneleverObjet("Miel", 1);
-                regenerer((int)(maxHP*0.3));
-            }
-            else
-                console.afficherItemIndisponible("miel");
-        }
-
-        else if (meatRadio.isSelected()) {
-            if (getInventaire().estDisponible("Viande", 1)) {
-                getInventaire().eneleverObjet("Viande", 1);
-                regenerer((int)(maxHP/2));
-            }
-            else
-                console.afficherItemIndisponible("viande");
+        switch (selecteRadio) {
+            case "noodleRadio":
+                if (getInventaire().estDisponible("Nouilles", 1)) {
+                    getInventaire().eneleverObjet("Nouilles", 1);
+                    regenerer((int)(maxHP*0.75));
+                }
+                else console.afficherItemIndisponible("nouille");
+                break;
+            case "mielRadio":
+                if (getInventaire().estDisponible("Miel", 1)) {
+                    getInventaire().eneleverObjet("Miel", 1);
+                    regenerer((int)(maxHP*0.3));
+                }
+                else console.afficherItemIndisponible("miel");
+                break;
+            case "meatRadio":
+                if (getInventaire().estDisponible("Viande", 1)) {
+                    getInventaire().eneleverObjet("Viande", 1);
+                    regenerer((int)(maxHP/2));
+                }
+                else console.afficherItemIndisponible("viande");
+                break;
+            case "Potion":
+                if (getInventaire().estDisponible("Potion", 1)) {
+                    getInventaire().eneleverObjet("Potion", 1);
+                    regenerer((int)(maxHP));
+                }
+                else console.afficherItemIndisponible("potion");
+                break;
+            default:
+                break;
         }
     }
     private void mourrir() {
