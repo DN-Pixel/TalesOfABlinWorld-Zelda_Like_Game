@@ -9,6 +9,7 @@ import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.Pnj;
 import sample.modele.acteurs.SaveActeurs;
 import sample.modele.acteurs.ennemis.*;
+import sample.modele.items.Armes.Shuriken;
 
 import java.util.ArrayList;
 
@@ -164,7 +165,7 @@ public class Terrain {
         }
     }
     
-    public void spawnProjectile (Pane gamePane, Joueur joueur){
+    public void spawnProjectile (Joueur joueur){
         for (int i=getListeActeurs().size()-1;i>=0;i--) {
             if (getListeActeurs().get(i) instanceof EnnemiDistance) {
                 //permet de creer un Projectile ayant pour ID le nom de celui qui le lance.
@@ -177,28 +178,41 @@ public class Terrain {
     public void manageProjeciles(Joueur joueur){
         for (int i= projectiles.size()-1;i >=0 ;i--) {
             //si je suis hors map. alos je remove l'objet de la liste
-            projectiles.get(i).moveProjectiles(projectiles.get(i));
-
-            if (projectiles.get(i).getY()>limiteVertiMap()*17 ||
-                projectiles.get(i).getY()< -16 ||
-                projectiles.get(i).getX()>limiteHorizMap()*17 ||
-                projectiles.get(i).getX()< -16) {
-                projectiles.remove(i);
-            }
-            else if(projectiles.get(i).getY()>=joueur.getCentreJoueurY()-8 &&
-                    projectiles.get(i).getY()<=joueur.getCentreJoueurY()+8 &&
-                    projectiles.get(i).getX()<=joueur.getCentreJoueurX()+8 &&
-                    projectiles.get(i).getX()>=joueur.getCentreJoueurX()-8) {
-                if (projectiles.get(i).getId().startsWith("Bambou")) {
-                    joueur.subirDegats(new Bambou(0,0).getPointDegat());
-                    projectiles.remove(i);
-                    System.out.println("babouns attack.");
-                    
+            projectiles.get(i).moveProjectiles();
+            for (int j = this.getListeActeurs().size() - 1; j >= 0; j--) {
+                Acteur a = this.getListeActeurs().get(j);
+                if(a instanceof Ennemi) {
+                    if (projectiles.get(i).getY() > limiteVertiMap() * 17 ||
+                            projectiles.get(i).getY() < -16 ||
+                            projectiles.get(i).getX() > limiteHorizMap() * 17 ||
+                            projectiles.get(i).getX() < -16) {
+                        projectiles.remove(i);
+                    }
+                    //projectiles lancees par les ennemis
+                    else if (projectiles.get(i).getY() >= joueur.getCentreJoueurY() - 8 &&
+                            projectiles.get(i).getY() <= joueur.getCentreJoueurY() + 8 &&
+                            projectiles.get(i).getX() <= joueur.getCentreJoueurX() + 8 &&
+                            projectiles.get(i).getX() >= joueur.getCentreJoueurX() - 8 && projectiles.get(i).getId() != "hero") {
+                        if (projectiles.get(i).getId().startsWith("Bambou")) {
+                            joueur.subirDegats(new Bambou(0, 0).getPointDegat());
+                            projectiles.remove(i);
+                            System.out.println("babouns attack.");
+                        } else {
+                            joueur.subirDegats(new Oeil(0, 0).getPointDegat());
+                            projectiles.remove(i);
+                        }
+                    }
+                    //projectiles lancees par moi (joueur)
+                    else if (projectiles.get(i).getY() >= a.getCentreActeurY() - 8 &&
+                            projectiles.get(i).getY() <= a.getCentreActeurY() + 8 &&
+                            projectiles.get(i).getX() <= a.getCentreActeurX() + 8 &&
+                            projectiles.get(i).getX() >= a.getCentreActeurX() - 8 && projectiles.get(i).getId() == "hero") {
+                            if(projectiles.get(i).getId().startsWith("hero")){
+                                ((Ennemi) a).subirDegat(joueur.getPointAttaque());
+                                projectiles.remove(i);
+                            }
+                    }
                 }
-                else{
-                    joueur.subirDegats(new Oeil(0,0).getPointDegat());
-                    projectiles.remove(i);
-            }
             }
         }
     }

@@ -143,7 +143,7 @@ public class Controller implements Initializable {
                         zoneActuelle.moveEnnemis(); // fais déplacer les ennemis
                     if(temps%177==0) {
                         zoneActuelle.lesEnnemisAttaquent(joueur); // fais attaquer les ennemis toutes les 3s
-                        zoneActuelle.spawnProjectile(gamePane,joueur);
+                        zoneActuelle.spawnProjectile(joueur);
                     }
                     zoneActuelle.manageProjeciles(joueur);
                 })

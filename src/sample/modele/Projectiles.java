@@ -34,19 +34,19 @@ public class Projectiles {
     public void setY(int y) { this.y.set(y); }
     public String getDirection() { return direction; }
 
-    public void moveProjectiles(Projectiles p ) {
-        switch (p.getDirection()) {
+    public void moveProjectiles() {
+        switch (this.getDirection()) {
             case "UP":
-                p.setY(p.getY() - 2);
+                this.setY(this.getY() - 2);
                 break;
             case "DOWN":
-                p.setY(p.getY() + 2);
+                this.setY(this.getY() + 2);
                 break;
             case "LEFT":
-                p.setX(p.getX() - 2);
+                this.setX(this.getX() - 2);
                 break;
             case "RIGHT":
-                p.setX(p.getX() + 2);
+                this.setX(this.getX() + 2);
                 break;
             default:
                 break;

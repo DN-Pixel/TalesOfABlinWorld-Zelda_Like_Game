@@ -5,8 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyEvent;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.ennemis.Ennemi;
-import sample.modele.items.Armes.Arme;
-import sample.modele.items.Armes.Gourdin;
+import sample.modele.items.Armes.*;
 import sample.modele.items.Inventaire;
 import sample.vue.Console;
 
@@ -227,40 +226,51 @@ public class Joueur {
         for (int i = 0; i <this.zone.getListeActeurs().size() ; i++) {
             Acteur a = this.zone.getListeActeurs().get(i);
             if (a instanceof Ennemi) {
-                switch (direction){
-                    case "right" :
-                        if (a.getCentreActeurX()<=this.getCentreJoueurX()+arme.getRange() && a.getCentreActeurX()>=this.getCentreJoueurX()
-                        && a.getCentreActeurY()<=this.getCentreJoueurY()+24 && a.getCentreActeurY() >= this.getCentreJoueurY()-24 ) {
-                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
-                            console.afficherDegatsInfliges(arme.getDegatsArme());
-                        }
-                        break;
-                    case "left" :
-                        if (a.getCentreActeurX()>=this.getCentreJoueurX()-arme.getRange() && a.getCentreActeurX()<=this.getCentreJoueurX()
-                                && a.getCentreActeurY()<=this.getCentreJoueurY()+24 && a.getCentreActeurY() >= this.getCentreJoueurY()-24 ) {
-                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
-                            console.afficherDegatsInfliges(arme.getDegatsArme());
-                        }
-                        break;
-                    case "up" :
-                        if (a.getCentreActeurY()>=this.getCentreJoueurY()-arme.getRange() && a.getCentreActeurY() <= this.getCentreJoueurY()
-                                && a.getCentreActeurX()>=this.getCentreJoueurX()-24 && a.getCentreActeurX()<=this.getCentreJoueurX()+24 ) {
-                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
-                            console.afficherDegatsInfliges(arme.getDegatsArme());
-                        }
-                        break;
-
-                    case "down" :
-                        if (a.getCentreActeurY()<=this.getCentreJoueurY()+arme.getRange() && a.getCentreActeurY() >= this.getCentreJoueurY()
-                                && a.getCentreActeurX()>=this.getCentreJoueurX()-24 && a.getCentreActeurX()<=this.getCentreJoueurX()+24) {
-                            ((Ennemi) a).subirDegat(arme.getDegatsArme());
-                            console.afficherDegatsInfliges(arme.getDegatsArme());
-                        }
-                        break;
-                }
-
+                if (this.arme instanceof Melee || this.arme instanceof MeleeRange)
+                    attaquerCorpsACorps(a);
+                else if (this.arme instanceof ArmeDistance)
+                    attaquerEnDistance(a);
             }
         }
+    }
+
+    public void attaquerCorpsACorps (Acteur a) {
+        switch (direction) {
+            case "right":
+                if (a.getCentreActeurX() <= this.getCentreJoueurX() + arme.getRange() && a.getCentreActeurX() >= this.getCentreJoueurX()
+                        && a.getCentreActeurY() <= this.getCentreJoueurY() + 24 && a.getCentreActeurY() >= this.getCentreJoueurY() - 24) {
+                    ((Ennemi) a).subirDegat(arme.getDegatsArme());
+                    console.afficherDegatsInfliges(arme.getDegatsArme());
+                }
+                break;
+            case "left":
+                if (a.getCentreActeurX() >= this.getCentreJoueurX() - arme.getRange() && a.getCentreActeurX() <= this.getCentreJoueurX()
+                        && a.getCentreActeurY() <= this.getCentreJoueurY() + 24 && a.getCentreActeurY() >= this.getCentreJoueurY() - 24) {
+                    ((Ennemi) a).subirDegat(arme.getDegatsArme());
+                    console.afficherDegatsInfliges(arme.getDegatsArme());
+                }
+                break;
+            case "up":
+                if (a.getCentreActeurY() >= this.getCentreJoueurY() - arme.getRange() && a.getCentreActeurY() <= this.getCentreJoueurY()
+                        && a.getCentreActeurX() >= this.getCentreJoueurX() - 24 && a.getCentreActeurX() <= this.getCentreJoueurX() + 24) {
+                    ((Ennemi) a).subirDegat(arme.getDegatsArme());
+                    console.afficherDegatsInfliges(arme.getDegatsArme());
+                }
+                break;
+
+            case "down":
+                if (a.getCentreActeurY() <= this.getCentreJoueurY() + arme.getRange() && a.getCentreActeurY() >= this.getCentreJoueurY()
+                        && a.getCentreActeurX() >= this.getCentreJoueurX() - 24 && a.getCentreActeurX() <= this.getCentreJoueurX() + 24) {
+                    ((Ennemi) a).subirDegat(arme.getDegatsArme());
+                    console.afficherDegatsInfliges(arme.getDegatsArme());
+                }
+                break;
+        }
+    }
+
+    public void attaquerEnDistance(Acteur a) {
+        Projectiles p = new Projectiles(this.getCentreJoueurX(), this.getCentreJoueurY(), direction, "hero");
+        this.zone.spawnProjectile(this);
     }
 
     private void mourrir() {
