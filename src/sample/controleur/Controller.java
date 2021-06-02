@@ -50,6 +50,7 @@ public class Controller implements Initializable {
     //LABELS TEXTFIELDS
     @FXML
     private TextArea console;
+    Console cons = new Console(console);
     @FXML
     private Label descriptionLabel;
     @FXML
@@ -85,8 +86,8 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         joueur.setArmeDistance(new Shuriken()); // ****************** TEMPORAIRE ******************
-        joueur.setConsole(new Console(console));
-        joueur.getInventaire().ajouterObjet("Miel",5);
+        joueur.setConsole(cons);
+        zoneActuelle.setConsole(cons);
         itemsDescriptionLoader = new ItemDescriptionLoader(descriptionLabel);
         player.setId("player");
         terrainVue = new TerrainVue(zoneActuelle, joueur, gamePane, tilePane, tilePaneDeco, tilePaneSolid);

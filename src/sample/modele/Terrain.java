@@ -10,6 +10,7 @@ import sample.modele.ressources.Ressource;
 import sample.modele.ressources.SaveRessources;
 import sample.modele.ressources.SourceBois;
 import sample.modele.ressources.SourceMinerai;
+import sample.vue.Console;
 
 
 public class Terrain {
@@ -20,7 +21,7 @@ public class Terrain {
     private ObservableList<Projectile> projectiles = FXCollections.observableArrayList();
     private SaveRessources saveRessources = new SaveRessources();
     private int[][] mapSpawn; // ZONE DE SPAWN DES ENNEMIS
-
+    private Console console;
 
 
     public Terrain (String nomDeCarte) {
@@ -223,7 +224,7 @@ public class Terrain {
                     p.getY() < -16 ||
                     p.getX() > limiteHorizMap() * 17 ||
                     p.getX() < -16) {
-                projectiles.remove(i);
+                projectiles.remove(p);
             }
             else{
                 for (int j = this.getListeActeurs().size() - 1; j >= 0; j--) {
@@ -235,14 +236,15 @@ public class Terrain {
                                 p.getX()+8 <= a.getCentreActeurX() + 12 &&
                                 p.getX()+8 >= a.getCentreActeurX() - 12) {
                             ((Ennemi) a).subirDegat(joueur.getArmeDistance().getDegatsArme());
-                            projectiles.remove(i);
+                            console.afficherDegatsInfliges(joueur.getArmeDistance().getDegatsArme());
+                            projectiles.remove(p);
                         }
                         //projectiles lancees par les ennemis
                         else if (p.getId().startsWith("Ennemi") && p.getY() >= joueur.getCentreJoueurY() - 8 &&
                                 p.getY() <= joueur.getCentreJoueurY() + 8 &&
                                 p.getX() <= joueur.getCentreJoueurX() + 8 &&
                                 p.getX() >= joueur.getCentreJoueurX() - 8) {
-                            projectiles.remove(i);
+                            projectiles.remove(p);
                             joueur.subirDegats(((Ennemi) a).getPointDegat());
                         }
                     }
@@ -251,4 +253,7 @@ public class Terrain {
         }
     }
 
+    public void setConsole(Console console) {
+        this.console = console;
+    }
 }

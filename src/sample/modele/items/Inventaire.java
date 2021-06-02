@@ -22,6 +22,7 @@ public class Inventaire {
         listObjet.add(new Nouilles());
         listObjet.add(new Potion());
         listObjet.add(new Viande());
+        ajouterObjet("Miel",5);
         this.nbrOr = 100;
     }
 
