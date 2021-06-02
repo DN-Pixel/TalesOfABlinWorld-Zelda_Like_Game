@@ -14,9 +14,9 @@ public class EnnemiDistance extends Ennemi {
 
     }
 
-    @Override
-    public void attaquerJoueur(int posJoueurX, int posJoueurY, Joueur joueur){
+    public Projectiles attaquerJoueur(Joueur joueur){
         Projectiles p = new Projectiles(this.getX(),this.getY(),"DOWN","Ennemi");
+        return  p;
     }
 
 }

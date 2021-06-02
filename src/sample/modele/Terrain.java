@@ -149,10 +149,10 @@ public class Terrain {
         }
     }
 
-    public void lesEnnemisAttaquent(int posJoueurX, int posJoueurY, Joueur joueur){
+    public void lesEnnemisAttaquent(Joueur joueur){
         for(Acteur a : getListeActeurs()){
             if(a instanceof Ennemi &&  !(a instanceof EnnemiDistance))
-                ((Ennemi) a).attaquerJoueur(posJoueurX, posJoueurY, joueur);
+                ((Ennemi) a).attaquerJoueur(joueur.getCentreJoueurX(), joueur.getCentreJoueurY(), joueur);
         }
     }
     // supprime les morts de la liste
@@ -164,11 +164,12 @@ public class Terrain {
         }
     }
     
-    public void spawnProjectile (Pane gamePane, String id){
+    public void spawnProjectile (Pane gamePane, Joueur joueur){
         for (int i=getListeActeurs().size()-1;i>=0;i--) {
             if (getListeActeurs().get(i) instanceof EnnemiDistance) {
                 //permet de creer un Projectile ayant pour ID le nom de celui qui le lance.
-                Projectiles p = new Projectiles(getListeActeurs().get(i).getCentreActeurX(), getListeActeurs().get(i).getCentreActeurY(), "DOWN", getListeActeurs().get(i).getClass().getSimpleName());
+                Projectiles p = ((EnnemiDistance) getListeActeurs().get(i)).attaquerJoueur(joueur);
+                //Projectiles p = new Projectiles(getListeActeurs().get(i).getCentreActeurX(), getListeActeurs().get(i).getCentreActeurY(), "DOWN", getListeActeurs().get(i).getClass().getSimpleName());
                 projectiles.add(p);
             }
         }
