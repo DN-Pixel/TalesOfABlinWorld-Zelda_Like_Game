@@ -9,6 +9,8 @@ import sample.modele.items.Armes.*;
 import sample.modele.items.Inventaire;
 import sample.vue.Console;
 
+import java.util.Locale;
+
 public class Joueur {
 
     private IntegerProperty hp = new SimpleIntegerProperty();
@@ -228,8 +230,6 @@ public class Joueur {
             if (a instanceof Ennemi) {
                 if (this.arme instanceof Melee || this.arme instanceof MeleeRange)
                     attaquerCorpsACorps(a);
-                else if (this.arme instanceof ArmeDistance)
-                    attaquerEnDistance(a);
             }
         }
     }
@@ -268,9 +268,9 @@ public class Joueur {
         }
     }
 
-    public void attaquerEnDistance(Acteur a) {
-        Projectiles p = new Projectiles(this.getCentreJoueurX(), this.getCentreJoueurY(), direction, "hero");
-        this.zone.spawnProjectile(this);
+    public void attaquerEnDistance() {
+        Projectiles p = new Projectiles(this.getCentreJoueurX(), this.getCentreJoueurY(), direction.toUpperCase(), "hero");
+        this.zone.getProjectiles().add(p);
     }
 
     private void mourrir() {

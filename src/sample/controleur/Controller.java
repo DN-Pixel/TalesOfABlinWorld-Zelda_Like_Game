@@ -174,9 +174,10 @@ public class Controller implements Initializable {
     }
 
     public static void keyReleaseManager(KeyEvent e) {
-        if (e.getCode() == KeyCode.DIGIT1 || e.getCode() == KeyCode.AMPERSAND) {
+        if (e.getCode() == KeyCode.DIGIT1 || e.getCode() == KeyCode.AMPERSAND)
             joueur.attaquerEnnemis();
-        }
+        else if(e.getCode() == KeyCode.DIGIT3 || e.getCode() == KeyCode.QUOTEDBL)
+            joueur.attaquerEnDistance();
         switch (e.getCode()){
             //mouvement
             case Z : dy=0;break;

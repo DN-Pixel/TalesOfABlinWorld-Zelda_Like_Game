@@ -192,7 +192,7 @@ public class Terrain {
                     else if (projectiles.get(i).getY() >= joueur.getCentreJoueurY() - 8 &&
                             projectiles.get(i).getY() <= joueur.getCentreJoueurY() + 8 &&
                             projectiles.get(i).getX() <= joueur.getCentreJoueurX() + 8 &&
-                            projectiles.get(i).getX() >= joueur.getCentreJoueurX() - 8 && projectiles.get(i).getId() != "hero") {
+                            projectiles.get(i).getX() >= joueur.getCentreJoueurX() - 8 && !projectiles.get(i).getId().equals("hero")) {
                         if (projectiles.get(i).getId().startsWith("Bambou")) {
                             joueur.subirDegats(new Bambou(0, 0).getPointDegat());
                             projectiles.remove(i);
@@ -206,8 +206,9 @@ public class Terrain {
                     else if (projectiles.get(i).getY() >= a.getCentreActeurY() - 8 &&
                             projectiles.get(i).getY() <= a.getCentreActeurY() + 8 &&
                             projectiles.get(i).getX() <= a.getCentreActeurX() + 8 &&
-                            projectiles.get(i).getX() >= a.getCentreActeurX() - 8 && projectiles.get(i).getId() == "hero") {
+                            projectiles.get(i).getX() >= a.getCentreActeurX() - 8 && projectiles.get(i).getId().equals("hero")) {
                             if(projectiles.get(i).getId().startsWith("hero")){
+                                System.out.print("jdbkasdjb");
                                 ((Ennemi) a).subirDegat(joueur.getPointAttaque());
                                 projectiles.remove(i);
                             }
