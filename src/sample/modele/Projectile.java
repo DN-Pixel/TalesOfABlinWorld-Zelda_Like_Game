@@ -3,19 +3,29 @@ package sample.modele;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class Projectiles {
+public class Projectile {
     private IntegerProperty x= new SimpleIntegerProperty(0);
     private IntegerProperty y= new SimpleIntegerProperty(0);
     private String direction;
+    private String origine;
     private String id;
     private static int b=0;
 
-    public Projectiles(int x, int y, String direction,String id){
+    public Projectile(int x, int y, String direction, String id, String o){
         this.id = id+b;
         b++;
         this.x.setValue(x);
         this.y.setValue(y);
+        origine = o;
         this.direction=direction;
+    }
+
+    public String getOrigine() {
+        return origine;
+    }
+
+    public void setOrigine(String origine) {
+        this.origine = origine;
     }
 
     public String getId() {
@@ -34,7 +44,7 @@ public class Projectiles {
     public void setY(int y) { this.y.set(y); }
     public String getDirection() { return direction; }
 
-    public void moveProjectiles() {
+    public void moveProjectile() {
         switch (this.getDirection()) {
             case "UP":
                 this.setY(this.getY() - 2);

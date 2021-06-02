@@ -9,12 +9,11 @@ import sample.modele.items.Armes.*;
 import sample.modele.items.Inventaire;
 import sample.vue.Console;
 
-import java.util.Locale;
-
 public class Joueur {
 
     private IntegerProperty hp = new SimpleIntegerProperty();
     private Arme arme;
+    private ArmeDistance armeDistance;
     private Console console;
     private IntegerProperty xProperty = new SimpleIntegerProperty(0);
     private IntegerProperty yProperty = new SimpleIntegerProperty(0);
@@ -32,7 +31,16 @@ public class Joueur {
         direction = "down";
         hp.setValue(10);
         maxHP = hp.getValue();
+        armeDistance = null;
         this.inventaire = new Inventaire();
+    }
+
+    public ArmeDistance getArmeDistance() {
+        return armeDistance;
+    }
+
+    public void setArmeDistance(ArmeDistance armeDistance) {
+        this.armeDistance = armeDistance;
     }
 
     public IntegerProperty getHp() {
@@ -269,7 +277,7 @@ public class Joueur {
     }
 
     public void attaquerEnDistance() {
-        Projectiles p = new Projectiles(this.getCentreJoueurX(), this.getCentreJoueurY(), direction.toUpperCase(), "hero");
+        Projectile p = new Projectile(this.getX(), this.getY(), direction.toUpperCase(), "hero", "Joueur");
         this.zone.getProjectiles().add(p);
     }
 

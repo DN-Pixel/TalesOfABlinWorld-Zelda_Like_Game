@@ -14,7 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import sample.modele.Projectiles;
+import sample.modele.items.Armes.Shuriken;
 import sample.vue.*;
 import sample.modele.Joueur;
 import sample.modele.Terrain;
@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
     ImageMap imageMap = new ImageMap();
-    MapLoader mapLoader = new MapLoader();
+    private static CooldownManager  cdManager = new CooldownManager();
     private ItemDescriptionLoader itemsDescriptionLoader;
 
     private static int dx = 0;
@@ -82,6 +82,7 @@ public class Controller implements Initializable {
     private long temps = 0 ;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        joueur.setArmeDistance(new Shuriken()); // ****************** TEMPORAIRE ******************
         joueur.setConsole(new Console(console));
         itemsDescriptionLoader = new ItemDescriptionLoader(descriptionLabel);
         player.setId("player");
@@ -156,6 +157,8 @@ public class Controller implements Initializable {
             temps = 1; // reset
         else
             temps++;
+        if (temps%59==0)
+            cdManager.incrementCD();
     }
 
     public static void keyManager(KeyEvent e){
@@ -176,8 +179,10 @@ public class Controller implements Initializable {
     public static void keyReleaseManager(KeyEvent e) {
         if (e.getCode() == KeyCode.DIGIT1 || e.getCode() == KeyCode.AMPERSAND)
             joueur.attaquerEnnemis();
-        else if(e.getCode() == KeyCode.DIGIT3 || e.getCode() == KeyCode.QUOTEDBL)
+        else if(cdManager.getCdShuriken()>=1 && e.getCode() == KeyCode.DIGIT3 || e.getCode() == KeyCode.QUOTEDBL){
             joueur.attaquerEnDistance();
+            cdManager.setCdShuriken(0);
+        }
         switch (e.getCode()){
             //mouvement
             case Z : dy=0;break;

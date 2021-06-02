@@ -1,7 +1,7 @@
 package sample.modele.acteurs.ennemis;
 
 import sample.modele.Joueur;
-import sample.modele.Projectiles;
+import sample.modele.Projectile;
 
 public class EnnemiDistance extends Ennemi {
 
@@ -14,8 +14,9 @@ public class EnnemiDistance extends Ennemi {
 
     }
 
-    public Projectiles attaquerJoueur(Joueur joueur){
-        Projectiles p = new Projectiles(this.getX(),this.getY(),"DOWN","Ennemi");
+    public Projectile attaquerJoueur(Joueur joueur){
+        System.out.println(this.getClass().getSimpleName());
+        Projectile p = new Projectile(this.getX(),this.getY(),"DOWN","Ennemi", this.getClass().getSimpleName());
         return  p;
     }
 
