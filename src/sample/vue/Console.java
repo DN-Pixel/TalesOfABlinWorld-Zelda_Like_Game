@@ -40,6 +40,9 @@ public class Console {
     public void afficherHeal(int healAmount){
         console.appendText("\nVous vous soignez de " + healAmount + " HP ! "+ getTime());
     }
+    public void afficherErreurConsommable(){
+        console.appendText("");
+    }
 
 //permet de différencier les messages identiques successifs dans la console.
     public static void setStar(){

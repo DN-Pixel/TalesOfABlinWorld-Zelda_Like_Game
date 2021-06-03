@@ -74,12 +74,6 @@ public class Controller implements Initializable {
     //RADIO INVENTAIRE
     @FXML
     private ToggleGroup Nourriture;
-    @FXML
-    private RadioButton noodleRadio;
-    @FXML
-    private RadioButton mielRadio;
-    @FXML
-    private RadioButton meatRadio;
     //RADIO SHOP
 
 
@@ -165,11 +159,10 @@ public class Controller implements Initializable {
                     if(temps%5==0)
                         zoneActuelle.moveEnnemis(); // fais déplacer les ennemis
                     if(temps%177==0) {
-                        zoneActuelle.lesEnnemisAttaquent(joueur); // fais attaquer les ennemis toutes les 3s
-                        zoneActuelle.spawnProjectile(joueur); // attaques à distance
+                        //zoneActuelle.lesEnnemisAttaquent(joueur); // fais attaquer les ennemis toutes les 3s
+                        //zoneActuelle.spawnProjectile(joueur); // attaques à distance
                     }
-                    if(zoneActuelle.getNumeroCarte()!=1) // projectiles non traités dans la zone 1
-                        zoneActuelle.manageProjeciles(joueur);
+                    zoneActuelle.manageProjeciles(joueur);
                 })
         );
         gameLoop.getKeyFrames().add(kf);
@@ -260,7 +253,7 @@ public class Controller implements Initializable {
                     case "1":
                         if(joueur.isCollinding(622, 228))  terrainVue.loadMap("2", 50, 100);
                         else if(joueur.isCollinding(415, 300) || joueur.isCollinding(430, 300))  terrainVue.loadMap("4", 500, 80);
-                        else  if (joueur.isCollinding(20*16,16) || joueur.isCollinding(22*16,16)) terrainVue.loadMap("3",21*16,36*16);
+                        else  if ( joueur.isCollinding(18*16,10) || joueur.isCollinding(19*16,10) || joueur.isCollinding(20*16,10) || joueur.isCollinding(21*16,10)) terrainVue.loadMap("3",21*16,36*16);
                         break;
                     case "2":
                         if(joueur.isCollinding(0, 100))  terrainVue.loadMap("1", 600, 250);
@@ -286,7 +279,7 @@ public class Controller implements Initializable {
        try {
            joueur.manger(radioSelected.getId());
        }catch (Exception e) {
-           console.appendText("\nVeuillez Selectionner un consommable");
+           joueur.getConsole().afficherErreurConsommable();
        };
     }
 
