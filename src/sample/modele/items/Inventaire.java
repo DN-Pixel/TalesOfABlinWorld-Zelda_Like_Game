@@ -81,7 +81,6 @@ public class Inventaire {
     }
     public int trouverObjet(String nom){
        for (int i=0; i<getListObjet().size();i++) {
-            System.out.println(nom + " et le truc : " + listObjet.get(i).getClass().getSimpleName());
             if (nom.endsWith(listObjet.get(i).getClass().getSimpleName())) { return i; }
         }
         return 0;
