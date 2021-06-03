@@ -122,6 +122,13 @@ public class Controller implements Initializable {
     public void initPlayerListener(){
         player.translateXProperty().bind(joueur.getxProperty());
         player.translateYProperty().bind(joueur.getyProperty());
+        joueur.getHp().addListener((obs, old, nouv) ->{
+            if(nouv.intValue()<=0){
+                joueur.mourrir();
+                terrainVue.loadMap("1", 30*16, 6*16);
+            }
+        });
+
     }
     public void initInventaireListener(){
         nbGoldLabel.textProperty().bind(joueur.getInventaire().nbrOrProperty().asString());
@@ -161,7 +168,8 @@ public class Controller implements Initializable {
                         zoneActuelle.lesEnnemisAttaquent(joueur); // fais attaquer les ennemis toutes les 3s
                         zoneActuelle.spawnProjectile(joueur); // attaques à distance
                     }
-                    zoneActuelle.manageProjeciles(joueur);
+                    if(zoneActuelle.getNumeroCarte()!=1) // projectiles non traités dans la zone 1
+                        zoneActuelle.manageProjeciles(joueur);
                 })
         );
         gameLoop.getKeyFrames().add(kf);
@@ -281,5 +289,7 @@ public class Controller implements Initializable {
            console.appendText("\nVeuillez Selectionner un consommable");
        };
     }
+
+
 
 }

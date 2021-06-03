@@ -85,13 +85,17 @@ public class Terrain {
         return longueur;
     }
 
+    public int getNumeroCarte(){
+        return Integer.parseInt(nomDeCarte.substring((nomDeCarte.length()-1)));
+    }
+
     public ObservableList<Acteur> getListeActeurs() {
-        int numero = Integer.parseInt(nomDeCarte.substring((nomDeCarte.length()-1)));
+        int numero = getNumeroCarte();
         return saveActeurs.getSave(numero);
     }
 
     public ObservableList<Ressource> getListeRessource() {
-        int numero = Integer.parseInt(nomDeCarte.substring((nomDeCarte.length()-1)));
+        int numero = getNumeroCarte();
         return saveRessources.getSave(numero);
     }
     /*
@@ -126,8 +130,8 @@ public class Terrain {
 
     public void EnemySpawn () {
         //Si la limite d'ennemis est atteinte on ne fait rien spawn, si on est dans la ville (map1) non plus.
-        if (saveActeurs.getSave(Integer.parseInt(nomDeCarte.substring((nomDeCarte.length() - 1)))).size() >= 10 ||
-                Integer.parseInt(nomDeCarte.substring((nomDeCarte.length() - 1)))==1)
+        if (saveActeurs.getSave(getNumeroCarte()).size() >= 10 ||
+                getNumeroCarte()==1)
             return;
 
         //gestion du spawn des ennemis en fonction de la zone.
@@ -137,7 +141,7 @@ public class Terrain {
             for (int j = 0; j < mapSpawn[0].length; j++) {
                 //l'ennemis spawn dans le map de spawn si l'emplacement est disponible dans la map obstacle.
                 if (mapSpawn[i][j] == 3415 && mapObstacles[i][j]==-1 &&  Math.random()<0.015 ) {
-                    switch (Integer.parseInt(nomDeCarte.substring((nomDeCarte.length() - 1)))) {
+                    switch (getNumeroCarte()) {
                         case 2:
                             if (x < .5) saveActeurs.getSave(2).add(new Hibou(j * 16, i * 16));
                             else saveActeurs.getSave(2).add(new Slime(j * 16, i * 16));
@@ -165,7 +169,7 @@ public class Terrain {
         int i = 0;
         int j = 0;
         // si il y a deja 10 ressources ou nous sommes dans la zone 1, rien ne spawn
-        if(getListeRessource().size()>10 || Integer.parseInt(nomDeCarte.substring((nomDeCarte.length() - 1)))==1)
+        if(getListeRessource().size()>10 || getNumeroCarte()==1)
             return;
         while(!spawned){
             i = (int)(Math.random()*mapObstacles.length);
@@ -217,6 +221,8 @@ public class Terrain {
     public void manageProjeciles(Joueur joueur){
         Projectile p;
         for (int i= projectiles.size()-1;i >=0 ;i--) {
+            if(projectiles.size()<=0)
+                return;
             //si je suis hors map. alos je remove l'objet de la liste
             p = projectiles.get(i);
             p.moveProjectile();
@@ -235,17 +241,18 @@ public class Terrain {
                                 p.getY()+8 <= a.getCentreActeurY() + 12 &&
                                 p.getX()+8 <= a.getCentreActeurX() + 12 &&
                                 p.getX()+8 >= a.getCentreActeurX() - 12) {
+                            projectiles.remove(p);
                             ((Ennemi) a).subirDegat(joueur.getArmeDistance().getDegatsArme());
                             console.afficherDegatsInfliges(joueur.getArmeDistance().getDegatsArme());
-                            projectiles.remove(p);
                         }
                         //projectiles lancees par les ennemis
                         else if (p.getId().startsWith("Ennemi") && p.getY() >= joueur.getCentreJoueurY() - 8 &&
-                                p.getY() <= joueur.getCentreJoueurY() + 8 &&
-                                p.getX() <= joueur.getCentreJoueurX() + 8 &&
-                                p.getX() >= joueur.getCentreJoueurX() - 8) {
+                                p.getY() <= joueur.getCentreJoueurY() +8  &&
+                                p.getX() <= joueur.getCentreJoueurX()  +8  &&
+                                p.getX() >= joueur.getCentreJoueurX() -8 && a instanceof EnnemiDistance) {
                             projectiles.remove(p);
                             joueur.subirDegats(((Ennemi) a).getPointDegat());
+                            break;
                         }
                     }
                 }

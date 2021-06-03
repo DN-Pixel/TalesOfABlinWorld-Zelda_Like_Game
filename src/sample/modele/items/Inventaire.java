@@ -3,6 +3,7 @@ package sample.modele.items;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import org.omg.PortableInterceptor.ObjectReferenceFactory;
+import sample.modele.acteurs.Acteur;
 import sample.modele.items.Objets.*;
 
 import java.util.ArrayList;
@@ -98,6 +99,13 @@ public class Inventaire {
         this.nbrOr.setValue(this.nbrOr.getValue()-nbrOr);
         if(this.nbrOr.getValue()<=0)
             this.setNbrOr(0);
+    }
+
+    public void clearInventaire(){
+        for(Objet o : getListObjet()){
+            o.setQuantite(0);
+        }
+        setNbrOr((int)(getNbrOr()*0.70));
     }
 
     public ArrayList<Objet> getListObjet() {

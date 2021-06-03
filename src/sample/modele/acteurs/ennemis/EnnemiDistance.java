@@ -14,15 +14,15 @@ public class EnnemiDistance extends Ennemi {
         //calcul quel est l'axe le plus proche ATM du joueur.
         if(Math.abs(joueur.getCentreJoueurX()-getCentreActeurX()) < Math.abs(joueur.getCentreJoueurY()-getCentreActeurY())) {
             if (joueur.getCentreJoueurY() < getCentreActeurY() )
-                p = new Projectile(this.getX(), this.getY(), "UP", "Ennemi", this.getClass().getSimpleName());
+                p = new Projectile(this.getX()+4, this.getY()+4, "UP", "Ennemi", this.getClass().getSimpleName());
             else
-                p = new Projectile(this.getX(), this.getY(), "DOWN", "Ennemi", this.getClass().getSimpleName());
+                p = new Projectile(this.getX()+4, this.getY()+4, "DOWN", "Ennemi", this.getClass().getSimpleName());
         }
         else{
             if(joueur.getCentreJoueurX() < getCentreActeurX())
-                p = new Projectile(this.getX(), this.getY(), "LEFT", "Ennemi", this.getClass().getSimpleName());
+                p = new Projectile(this.getX()+4, this.getY()+4, "LEFT", "Ennemi", this.getClass().getSimpleName());
             else
-                p = new Projectile(this.getX(), this.getY(), "RIGHT", "Ennemi", this.getClass().getSimpleName());
+                p = new Projectile(this.getX()+4, this.getY()+4, "RIGHT", "Ennemi", this.getClass().getSimpleName());
         }
         return  p;
     }

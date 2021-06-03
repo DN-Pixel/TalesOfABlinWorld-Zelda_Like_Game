@@ -179,9 +179,6 @@ public class Joueur {
     public void subirDegats(int degats){
         hp.setValue(hp.getValue()-degats);
         console.afficherDegatsRecus(degats);
-        if(hp.getValue()<=0){
-            mourrir();
-        }
     }
 
     /*
@@ -317,8 +314,12 @@ public class Joueur {
                 break;
         }
     }
-    private void mourrir() {
+    public void mourrir() {
+        zone.getProjectiles().clear();
         console.afficherMort();
+        setHp(maxHP);
+        inventaire.clearInventaire();
+        inventaire.ajouterObjet("Miel", 1);
     }
 
     public void regenerer(int hp){
