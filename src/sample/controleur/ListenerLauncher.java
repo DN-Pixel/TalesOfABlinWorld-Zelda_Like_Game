@@ -15,7 +15,7 @@ public class ListenerLauncher {
     private Joueur joueur;
     private ImageView player;
     private TerrainVue terrainVue;
-    private String inventoryClicEventMemory;
+    private String inventoryClicEventMemory = "";
 
     public ListenerLauncher(Joueur joueur, ImageView player, TerrainVue terrainVue){
         this.joueur = joueur;
