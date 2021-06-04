@@ -2,6 +2,8 @@ package sample.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.control.RadioButton;
 import javafx.scene.input.KeyEvent;
 import sample.modele.acteurs.Acteur;
@@ -20,7 +22,7 @@ public class Joueur {
     private IntegerProperty xProperty = new SimpleIntegerProperty(0);
     private IntegerProperty yProperty = new SimpleIntegerProperty(0);
     private static int vitesseDeDeplacement = 2 ;
-    private String direction;
+    private StringProperty direction = new SimpleStringProperty();
     private Terrain zone;
     private Inventaire inventaire;
     private int maxHP;
@@ -30,7 +32,7 @@ public class Joueur {
         this.xProperty.setValue(x);
         this.yProperty.setValue(y);
         this.zone = zone;
-        direction = "down";
+        direction.setValue("down");
         hp.setValue(10);
         maxHP = hp.getValue();
         armeDistance = null;
@@ -64,11 +66,12 @@ public class Joueur {
     }
 
     public String getDirection() {
-        return direction;
+        return direction.getValue();
     }
 
+    public StringProperty directionProperty(){return  this.direction;}
     public void setDirection(String direction) {
-        this.direction = direction;
+        this.direction.setValue(direction);
     }
 
     public void setArme(Arme arme) {
@@ -121,22 +124,22 @@ public class Joueur {
 
     public void moveUp () {
         this.yProperty.setValue(this.yProperty.getValue()-vitesseDeDeplacement);
-        direction = "up";
+        direction.setValue("up");
     }
 
     public void moveDown () {
         this.yProperty.setValue(this.yProperty.getValue()+vitesseDeDeplacement);
-        direction = "down";
+        direction.setValue("down");
     }
 
     public void moveRight () {
         this.xProperty.setValue(this.xProperty.getValue()+vitesseDeDeplacement);
-        direction = "right";
+        direction.setValue("right");
     }
 
     public void moveLeft () {
         this.xProperty.setValue(this.xProperty.getValue()-vitesseDeDeplacement);
-        direction="left";
+        direction.setValue("left");
     }
     /*
     private int oldTileValue;
@@ -242,7 +245,7 @@ public class Joueur {
     }
 
     public void attaquerCorpsACorps (Acteur a) {
-        switch (direction) {
+        switch (direction.getValue()) {
             case "right":
                 if (a.getCentreActeurX() <= this.getCentreJoueurX() + arme.getRange() && a.getCentreActeurX() >= this.getCentreJoueurX()
                         && a.getCentreActeurY() <= this.getCentreJoueurY() + 24 && a.getCentreActeurY() >= this.getCentreJoueurY() - 24) {
@@ -276,7 +279,7 @@ public class Joueur {
     }
 
     public void attaquerEnDistance() {
-        Projectile p = new Projectile(this.getX(), this.getY(), direction.toUpperCase(), "hero", "Joueur");
+        Projectile p = new Projectile(this.getX(), this.getY(), direction.getValue().toUpperCase(), "hero", "Joueur");
         this.zone.getProjectiles().add(p);
     }
     public void manger(String selecteRadio) {
