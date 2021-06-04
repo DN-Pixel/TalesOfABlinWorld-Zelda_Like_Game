@@ -31,6 +31,7 @@ public class Controller implements Initializable {
     ImageMap imageMap = new ImageMap();
     private static CooldownManager  cdManager = new CooldownManager();
     private ItemDescriptionSwitcher itemsDescriptionLoader;
+    private ListenerLauncher listenerLauncher;
 
     private static int dx = 0;
     private static int dy = 0;
@@ -88,6 +89,7 @@ public class Controller implements Initializable {
         player.setId("player");
         terrainVue = new TerrainVue(zoneActuelle, joueur, gamePane, tilePane, tilePaneDeco, tilePaneSolid);
         terrainVue.loadMap("1", 300, 100); // charge la première map
+        listenerLauncher = new ListenerLauncher(joueur, player, terrainVue);
         initListeners(); // initialise les listeners
         initBoucleTemporelle(); // initialise la boucle temporelle
         initAnimations(); // lance les animations
@@ -107,40 +109,13 @@ public class Controller implements Initializable {
 
     //initialise tous les listeners
     public void initListeners(){
-       initPlayerListener();
-       initPlayerTransitionsListener();
-       initCameraListener();
-       initInventaireListener();
+       listenerLauncher.initPlayerListener();
+       listenerLauncher.initPlayerTransitionsListener();
+       listenerLauncher.initCameraListener(gamePane);
+       listenerLauncher.initInventaireListener(nbGoldLabel, itemsDescriptionLoader);
     }
 
-    public void initPlayerListener(){
-        player.translateXProperty().bind(joueur.getxProperty());
-        player.translateYProperty().bind(joueur.getyProperty());
-        joueur.getHp().addListener((obs, old, nouv) ->{
-            if(nouv.intValue()<=0){
-                joueur.mourrir();
-                terrainVue.loadMap("1", 30*16, 6*16);
-            }
-        });
 
-    }
-    public void initInventaireListener(){
-        nbGoldLabel.textProperty().bind(joueur.getInventaire().nbrOrProperty().asString());
-        for (int i = joueur.getInventaire().getListObjet().size()-1;i>=0;i--){
-            joueur.getInventaire().getListObjet().get(i).quantiteProperty().addListener((e)-> itemsDescriptionLoader.switchDescription(inventoryClicEventMemory, joueur.getInventaire()));
-        }
-    }
-    public void initCameraListener(){
-        joueur.getxProperty().addListener((obse,old,nouv)->{
-            //si le joueur est trop pres du bord de la map, le déplacement ne se fait pas.
-            if(nouv.intValue()>152 && nouv.intValue()< zoneActuelle.limiteHorizMap()*16-152)
-                gamePane.setLayoutX(-(int)nouv+640);
-        });
-        joueur.getyProperty().addListener((obse,old,nouv)->{
-            if(nouv.intValue()>115 && nouv.intValue()< zoneActuelle.limiteVertiMap()*16-115)
-                gamePane.setLayoutY(-(int)nouv+360);
-        });
-    }
     // key initialisé aléatoirement pour éviter une erreur
     private static KeyEvent keyPressed = new KeyEvent(KeyEvent.KEY_PRESSED, "d", "D", KeyCode.Z,false, false, false, false);
     private Timeline gameLoop;
@@ -154,7 +129,7 @@ public class Controller implements Initializable {
                         joueur.setYProperty(150); //permet de bouger le personnage au lancement du jeu, afin d'activer le CameraListener.
                     movePlayer(); // gère le déplacement à chaque tour de la boucle temporelle
                     timeManager(); // gestion du temps
-                    cleanMap(); // lance le nettoyeur de map
+                    zoneActuelle.clean(); // lance le nettoyeur de map
                     spawnManager(); // manage le spawn des ennemis et des ressources
                     if(temps%5==0)
                         zoneActuelle.moveEnnemis(); // fais déplacer les ennemis
@@ -217,13 +192,13 @@ public class Controller implements Initializable {
             case Q : dx=0;break;
         }
     }
-    public static String inventoryClicEventMemory = "";
+
     //permet de changer la description des item de l'nventaire, en lui envoyant directement le fx:id de l'image cliquée.
     @FXML
     public void setDescription(MouseEvent event) {
         //permet de mémoriser le dernier evenemet effectué. Afin que la description puisse savoir quel item a été séléctionné
         //auparavent et puisse s'actualiser en considerant le changement de BON item.
-        inventoryClicEventMemory = event.getPickResult().getIntersectedNode().getId();
+        listenerLauncher.setInventoryClicEventMemory(event.getPickResult().getIntersectedNode().getId());
         itemsDescriptionLoader.switchDescription(event.getPickResult().getIntersectedNode().getId(), joueur.getInventaire());
     }
 
@@ -238,39 +213,6 @@ public class Controller implements Initializable {
             joueur.manageAggro();
             //joueur.updatePosition();
         }
-    }
-
-    private void cleanMap() {
-        zoneActuelle.clean();
-    }
-
-    // permettra de changer de map si le joueur arrive dans une zone de transition
-    public void initPlayerTransitionsListener(){
-        ChangeListener c = new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                switch (joueur.getNumeroZone()){
-                    case "1":
-                        if(joueur.isCollinding(622, 228))  terrainVue.loadMap("2", 50, 100);
-                        else if(joueur.isCollinding(415, 300) || joueur.isCollinding(430, 300))  terrainVue.loadMap("4", 500, 80);
-                        else  if ( joueur.isCollinding(18*16,10) || joueur.isCollinding(19*16,10) || joueur.isCollinding(20*16,10) || joueur.isCollinding(21*16,10)) terrainVue.loadMap("3",21*16,36*16);
-                        break;
-                    case "2":
-                        if(joueur.isCollinding(0, 100))  terrainVue.loadMap("1", 600, 250);
-                        break;
-                    case "3" :
-                        if (joueur.isCollinding(20*16,38*16) || (joueur.isCollinding(19*16,38*16))) terrainVue.loadMap("1",21*16,40);
-                        break;
-                    case "4":
-                        if(joueur.isCollinding(500, 16))  terrainVue.loadMap("1", 415, 260);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        };
-        player.translateXProperty().addListener(c);
-        player.translateYProperty().addListener(c);
     }
 
     @FXML
