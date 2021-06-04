@@ -237,19 +237,19 @@ public class Terrain {
                     Acteur a = this.getListeActeurs().get(j);
                     if(a instanceof Ennemi) {
                         //projectiles lancees par moi (joueur)
-                        if (p.getId().startsWith("hero") && p.getY()+8 >= a.getCentreActeurY() - 12 &&
-                                p.getY()+8 <= a.getCentreActeurY() + 12 &&
-                                p.getX()+8 <= a.getCentreActeurX() + 12 &&
-                                p.getX()+8 >= a.getCentreActeurX() - 12) {
+                        if (p.getId().startsWith("hero") && p.getY()+8 >= a.getCentreActeurY() - ((Ennemi) a).getLargeur() &&
+                                p.getY()+8 <= a.getCentreActeurY() + ((Ennemi) a).getLargeur() &&
+                                p.getX()+8 <= a.getCentreActeurX() + ((Ennemi) a).getLargeur() &&
+                                p.getX()+8 >= a.getCentreActeurX() - ((Ennemi) a).getLargeur()) {
                             projectiles.remove(p);
                             ((Ennemi) a).subirDegat(joueur.getArmeDistance().getDegatsArme());
                             console.afficherDegatsInfliges(joueur.getArmeDistance().getDegatsArme());
                         }
                         //projectiles lancees par les ennemis
-                        else if (p.getId().startsWith("Ennemi") && p.getY() >= joueur.getCentreJoueurY() - 8 &&
-                                p.getY() <= joueur.getCentreJoueurY() +8  &&
-                                p.getX() <= joueur.getCentreJoueurX()  +8  &&
-                                p.getX() >= joueur.getCentreJoueurX() -8 && a instanceof EnnemiDistance) {
+                        else if (p.getId().startsWith("Ennemi") && p.getY() >= joueur.getCentreJoueurY() - p.getTailleProjectile() &&
+                                p.getY() <= joueur.getCentreJoueurY() +p.getTailleProjectile()  &&
+                                p.getX() <= joueur.getCentreJoueurX()  +p.getTailleProjectile()  &&
+                                p.getX() >= joueur.getCentreJoueurX() -p.getTailleProjectile() && a instanceof EnnemiDistance) {
                             projectiles.remove(p);
                             joueur.subirDegats(((Ennemi) a).getPointDegat());
                             break;

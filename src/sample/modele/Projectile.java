@@ -11,13 +11,17 @@ public class Projectile {
     private String id;
     private static int b=0;
 
-    public Projectile(int x, int y, String direction, String id, String o){
+
+    private int tailleProjectile;
+
+    public Projectile(int x, int y, String direction, String id, String o, int taille){
         this.id = id+b;
         b++;
         this.x.setValue(x);
         this.y.setValue(y);
         origine = o;
         this.direction=direction;
+        this.tailleProjectile = taille;
     }
 
     public String getOrigine() {
@@ -43,6 +47,12 @@ public class Projectile {
     public IntegerProperty yProperty() { return y; }
     public void setY(int y) { this.y.set(y); }
     public String getDirection() { return direction; }
+    public int getTailleProjectile() {
+        return tailleProjectile;
+    }
+    public void setTailleProjectile(int tailleProjectile) {
+        this.tailleProjectile = tailleProjectile;
+    }
 
     public void moveProjectile() {
         switch (this.getDirection()) {
