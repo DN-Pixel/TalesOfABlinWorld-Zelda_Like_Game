@@ -10,6 +10,7 @@ import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.ennemis.Ennemi;
 import sample.modele.items.Armes.*;
 import sample.modele.items.Inventaire;
+import sample.modele.quetes.QuestLine;
 import sample.modele.ressources.Ressource;
 import sample.vue.Console;
 
@@ -26,6 +27,7 @@ public class Joueur {
     private Terrain zone;
     private Inventaire inventaire;
     private int maxHP;
+    private QuestLine listeQuetes;
 
     public Joueur(int x, int y, Terrain zone) {
         arme = new Gourdin(); // Le joueur commence avec un gourdin
@@ -37,6 +39,7 @@ public class Joueur {
         maxHP = hp.getValue();
         armeDistance = null;
         this.inventaire = new Inventaire();
+        this.listeQuetes = new QuestLine();
     }
 
     public ArmeDistance getArmeDistance() {
