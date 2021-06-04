@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
+import sample.modele.Projectile;
 import sample.modele.items.Armes.Shuriken;
 import sample.vue.*;
 import sample.modele.Joueur;
@@ -30,6 +31,7 @@ public class Controller implements Initializable {
 
     ImageMap imageMap = new ImageMap();
     private static CooldownManager  cdManager = new CooldownManager();
+
     private ItemDescriptionSwitcher itemsDescriptionLoader;
     private ListenerLauncher listenerLauncher;
 
@@ -38,6 +40,7 @@ public class Controller implements Initializable {
 
     private static Terrain zoneActuelle = new Terrain("zone");
     private static Joueur joueur = new Joueur(0, 0, zoneActuelle);
+    private  BossFightManager bossFightManager = new BossFightManager(zoneActuelle);
     //PANES
     @FXML
     private Pane gamePane;
@@ -79,8 +82,8 @@ public class Controller implements Initializable {
 
 
     private TerrainVue terrainVue; // classe permettant de load la map et charger les textures
-
     private long temps = 0 ;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         joueur.setArmeDistance(new Shuriken()); // ****************** TEMPORAIRE ******************
@@ -137,11 +140,16 @@ public class Controller implements Initializable {
                         zoneActuelle.lesEnnemisAttaquent(joueur); // fais attaquer les ennemis toutes les 3s
                         zoneActuelle.spawnProjectile(joueur); // attaques à distance
                     }
+                    if (zoneActuelle.getNumeroCarte()==6)
+                        bossFightManager.manageBossFight(temps);
+
                     zoneActuelle.manageProjeciles(joueur);
                 })
         );
         gameLoop.getKeyFrames().add(kf);
     }
+
+
     //gestion du temps
     public void timeManager(){
         if (temps >= 1000000000)

@@ -165,12 +165,12 @@ public class Terrain {
     }
 
     public void ressourceSpawn(){
-        boolean spawned = false;
-        int i = 0;
-        int j = 0;
         // si il y a deja 10 ressources ou nous sommes dans la zone 1, rien ne spawn
         if(getListeRessource().size()>10 || getNumeroCarte()==1)
             return;
+        boolean spawned = false;
+        int i = 0;
+        int j = 0;
         while(!spawned){
             i = (int)(Math.random()*mapObstacles.length);
             j = (int)(Math.random()*mapObstacles[0].length);
