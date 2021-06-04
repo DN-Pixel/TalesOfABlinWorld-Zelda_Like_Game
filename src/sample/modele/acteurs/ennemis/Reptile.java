@@ -4,7 +4,7 @@ public class Reptile extends Ennemi {
 
 
     public Reptile(int x, int y) {
-        super(x, y, 50, 4, 2);
+        super(x, y, 18, 3, 2);
     }
 
 }

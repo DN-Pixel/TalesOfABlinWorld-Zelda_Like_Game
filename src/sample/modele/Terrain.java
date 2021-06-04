@@ -1,13 +1,16 @@
 package sample.modele;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.SaveActeurs;
 import sample.modele.acteurs.ennemis.*;
-
-import java.util.ArrayList;
+import sample.modele.ressources.Ressource;
+import sample.modele.ressources.SaveRessources;
+import sample.modele.ressources.SourceBois;
+import sample.modele.ressources.SourceMinerai;
+import sample.vue.Console;
 
 
 public class Terrain {
@@ -15,9 +18,10 @@ public class Terrain {
     private String nomDeCarte;
     private int [][] mapObstacles; // MAP DES OBSTACLES ET COLLISIONS
     private SaveActeurs saveActeurs = new SaveActeurs();
-
+    private ObservableList<Projectile> projectiles = FXCollections.observableArrayList();
+    private SaveRessources saveRessources = new SaveRessources();
     private int[][] mapSpawn; // ZONE DE SPAWN DES ENNEMIS
-
+    private Console console;
 
 
     public Terrain (String nomDeCarte) {
@@ -38,6 +42,9 @@ public class Terrain {
 
     public int[][] getMapObstacles () {
         return this.mapObstacles;
+    }
+    public ObservableList<Projectile> getProjectiles() {
+        return projectiles;
     }
 
     public void loadSaveActeurs(){
@@ -78,15 +85,35 @@ public class Terrain {
         return longueur;
     }
 
+    public int getNumeroCarte(){
+        return Integer.parseInt(nomDeCarte.substring((nomDeCarte.length()-1)));
+    }
+
     public ObservableList<Acteur> getListeActeurs() {
-        int numero = Integer.parseInt(nomDeCarte.substring((nomDeCarte.length()-1)));
+        int numero = getNumeroCarte();
         return saveActeurs.getSave(numero);
+    }
+
+    public ObservableList<Ressource> getListeRessource() {
+        int numero = getNumeroCarte();
+        return saveRessources.getSave(numero);
     }
     /*
     CHERCHE DANS LA LISTE DES ACTEURS SI IL EXSITE
      */
     public boolean findActeur(String id){
         for(Acteur a: getListeActeurs()){
+            if(a.getId().equals(id))
+                return true;
+        }
+        return false;
+    }
+
+    /*
+    CHERCHE DANS LA LISTE DES RESSOURCES SI IL EXSITE
+     */
+    public boolean findRessource(String id){
+        for(Ressource a: getListeRessource()){
             if(a.getId().equals(id))
                 return true;
         }
@@ -102,30 +129,30 @@ public class Terrain {
     }
 
     public void EnemySpawn () {
-        //><
-        //Si la limite d'ennemis est atteinte on ne fait rien spawn, si on est dans une ville non plus.
-        if (saveActeurs.getSave(Integer.parseInt(nomDeCarte.substring((nomDeCarte.length() - 1)))).size() >= 10 ||
-                Integer.parseInt(nomDeCarte.substring((nomDeCarte.length() - 1)))==1)
+        //Si la limite d'ennemis est atteinte on ne fait rien spawn, si on est dans la ville (map1) non plus.
+        if (saveActeurs.getSave(getNumeroCarte()).size() >= 10 ||
+                getNumeroCarte()==1)
             return;
 
         //gestion du spawn des ennemis en fonction de la zone.
         double x = Math.random();
+
         for (int i = 0; i < mapSpawn.length; i++) {
             for (int j = 0; j < mapSpawn[0].length; j++) {
                 //l'ennemis spawn dans le map de spawn si l'emplacement est disponible dans la map obstacle.
                 if (mapSpawn[i][j] == 3415 && mapObstacles[i][j]==-1 &&  Math.random()<0.015 ) {
-                    switch (Integer.parseInt(nomDeCarte.substring((nomDeCarte.length() - 1)))) {
+                    switch (getNumeroCarte()) {
                         case 2:
                             if (x < .5) saveActeurs.getSave(2).add(new Hibou(j * 16, i * 16));
                             else saveActeurs.getSave(2).add(new Slime(j * 16, i * 16));
                             break;
-                        case 4:
-                            if (x < .5) saveActeurs.getSave(4).add(new Reptile(j  * 16, i * 16));
-                            else saveActeurs.getSave(4).add(new Bambou(j  * 16, i * 16));
+                        case 3:
+                            if (x < .5) saveActeurs.getSave(3).add(new Reptile(j  * 16, i * 16));
+                            else saveActeurs.getSave(3).add(new Bambou(j  * 16, i * 16));
                             break;
-                        case 6:
-                            if (x < .5) saveActeurs.getSave(6).add(new Bete(j  * 16, i * 16));
-                            else saveActeurs.getSave(6).add(new Oeil(j * 16, i * 16));
+                        case 4:
+                            if (x < .9) saveActeurs.getSave(4).add(new Bete(j  * 16, i * 16));
+                            else saveActeurs.getSave(4).add(new Oeil(j * 16, i * 16));
                             break;
                         default:
                             break;
@@ -136,6 +163,28 @@ public class Terrain {
             }
         }
     }
+
+    public void ressourceSpawn(){
+        boolean spawned = false;
+        int i = 0;
+        int j = 0;
+        // si il y a deja 10 ressources ou nous sommes dans la zone 1, rien ne spawn
+        if(getListeRessource().size()>10 || getNumeroCarte()==1)
+            return;
+        while(!spawned){
+            i = (int)(Math.random()*mapObstacles.length);
+            j = (int)(Math.random()*mapObstacles[0].length);
+            if(mapObstacles[i][j]==-1){
+                if(Math.random()<=0.5)
+                    getListeRessource().add(new SourceBois(j*16, i*16));
+                else
+                    getListeRessource().add(new SourceMinerai(j*16, i*16));
+                mapObstacles[i][j] = 1880;
+                spawned = true;
+            }
+        }
+    }
+
     // parcours la liste des acteurs pour faire bouger uniquement les ennemis
     public void moveEnnemis(){
         for(Acteur a : getListeActeurs()){
@@ -144,15 +193,74 @@ public class Terrain {
         }
     }
 
-    // ADAPTE LA TAILLE DES TILES PANES DE LA VUE EN FONCTION DE LA MAP
-    public void updateTilePaneSize(TilePane floor, TilePane deco, TilePane solid, Pane pane){
-        floor.setPrefWidth(limiteHorizMap()*16);
-        floor.setPrefHeight(limiteVertiMap()*16);
-        deco.setPrefWidth(limiteHorizMap()*16);
-        deco.setPrefHeight(limiteVertiMap()*16);
-        solid.setPrefWidth(limiteHorizMap()*16);
-        solid.setPrefHeight(limiteVertiMap()*16);
-        pane.setPrefWidth(limiteHorizMap()*16);
-        pane.setPrefHeight(limiteVertiMap()*16);
+    public void lesEnnemisAttaquent(Joueur joueur){
+        for(Acteur a : getListeActeurs()){
+            if(a instanceof Ennemi &&  !(a instanceof EnnemiDistance))
+                ((Ennemi) a).attaquerJoueur(joueur.getCentreJoueurX(), joueur.getCentreJoueurY(), joueur);
+        }
+    }
+    // supprime les morts de la liste
+    public void clean() {
+        for(int i = getListeActeurs().size()-1;i>=0;i--){
+            Acteur a = getListeActeurs().get(i);
+            if(a instanceof Ennemi && ((Ennemi) a).getPv()<=0)
+                getListeActeurs().remove(a);
+        }
+    }
+    
+    public void spawnProjectile (Joueur joueur){
+        for (int i=getListeActeurs().size()-1;i>=0;i--) {
+            if (getListeActeurs().get(i) instanceof EnnemiDistance && ((EnnemiDistance) getListeActeurs().get(i)).isAggroing() ) {
+                //permet de creer un Projectile ayant pour ID le nom de celui qui le lance.
+                Projectile p = ((EnnemiDistance) getListeActeurs().get(i)).attaquerJoueur(joueur);
+                //Projectiles p = new Projectiles(getListeActeurs().get(i).getCentreActeurX(), getListeActeurs().get(i).getCentreActeurY(), "DOWN", getListeActeurs().get(i).getClass().getSimpleName());
+                projectiles.add(p);
+            }
+        }
+    }
+    public void manageProjeciles(Joueur joueur){
+        Projectile p;
+        for (int i= projectiles.size()-1;i >=0 ;i--) {
+            if(projectiles.size()<=0)
+                return;
+            //si je suis hors map. alos je remove l'objet de la liste
+            p = projectiles.get(i);
+            p.moveProjectile();
+            if (p.getY() > limiteVertiMap() * 17 ||
+                    p.getY() < -16 ||
+                    p.getX() > limiteHorizMap() * 17 ||
+                    p.getX() < -16) {
+                projectiles.remove(p);
+            }
+            else{
+                for (int j = this.getListeActeurs().size() - 1; j >= 0; j--) {
+                    Acteur a = this.getListeActeurs().get(j);
+                    if(a instanceof Ennemi) {
+                        //projectiles lancees par moi (joueur)
+                        if (p.getId().startsWith("hero") && p.getY()+8 >= a.getCentreActeurY() - 12 &&
+                                p.getY()+8 <= a.getCentreActeurY() + 12 &&
+                                p.getX()+8 <= a.getCentreActeurX() + 12 &&
+                                p.getX()+8 >= a.getCentreActeurX() - 12) {
+                            projectiles.remove(p);
+                            ((Ennemi) a).subirDegat(joueur.getArmeDistance().getDegatsArme());
+                            console.afficherDegatsInfliges(joueur.getArmeDistance().getDegatsArme());
+                        }
+                        //projectiles lancees par les ennemis
+                        else if (p.getId().startsWith("Ennemi") && p.getY() >= joueur.getCentreJoueurY() - 8 &&
+                                p.getY() <= joueur.getCentreJoueurY() +8  &&
+                                p.getX() <= joueur.getCentreJoueurX()  +8  &&
+                                p.getX() >= joueur.getCentreJoueurX() -8 && a instanceof EnnemiDistance) {
+                            projectiles.remove(p);
+                            joueur.subirDegats(((Ennemi) a).getPointDegat());
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void setConsole(Console console) {
+        this.console = console;
     }
 }

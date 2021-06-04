@@ -6,96 +6,182 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
-import javafx.scene.image.Image;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.util.Duration;
-import sample.modele.acteurs.Acteur;
-import sample.modele.acteurs.ObsListActeurs;
-import sample.vue.imageMap;
+import sample.modele.items.Armes.Shuriken;
+import sample.vue.*;
 import sample.modele.Joueur;
 import sample.modele.Terrain;
+import sample.vue.animations.PlayerHPAnimation;
+import sample.vue.animations.PlayerMovementAnimation;
+import sample.vue.modeleVue.TerrainVue;
 
 
-import javax.swing.*;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
-    sample.vue.imageMap imageMap = new imageMap();
-    MapLoader mapLoader = new MapLoader();
+    ImageMap imageMap = new ImageMap();
+    private static CooldownManager  cdManager = new CooldownManager();
+    private ItemDescriptionSwitcher itemsDescriptionLoader;
 
     private static int dx = 0;
     private static int dy = 0;
 
     private static Terrain zoneActuelle = new Terrain("zone");
     private static Joueur joueur = new Joueur(0, 0, zoneActuelle);
-
-    @FXML
-    private TilePane tilePane;
-    @FXML
-    private ImageView player;
+    //PANES
     @FXML
     private Pane gamePane;
+    @FXML
+    private Pane vendeurPane;
+    @FXML
+    private TilePane tilePane;
     @FXML
     private TilePane tilePaneSolid;
     @FXML
     private TilePane tilePaneDeco;
+    //LABELS TEXTFIELDS
     @FXML
-    private Pane camera;
+    private TextArea console;
+    @FXML
+    private Label descriptionLabel;
+    @FXML
+    private Label questLabel;
+    @FXML
+    private TextField shopQuantiteField;
+    @FXML
+    private Label nbGoldLabel;
+    //IMAGES
+    @FXML
+    private ImageView hpBar;
+    @FXML
+    private ImageView player;
+    //BUTTONS
+    @FXML
+    private Button vendreButton;
+    @FXML
+    private Button acheterButton;
+    @FXML
+    private Button mangerButton;
+    //RADIO INVENTAIRE
+    @FXML
+    private ToggleGroup Nourriture;
+    //RADIO SHOP
+
+
+    private TerrainVue terrainVue; // classe permettant de load la map et charger les textures
+
     private long temps = 0 ;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        joueur.setArmeDistance(new Shuriken()); // ****************** TEMPORAIRE ******************
+        initConsole(); // Charge la console
+        itemsDescriptionLoader = new ItemDescriptionSwitcher(descriptionLabel);
         player.setId("player");
-        loadMap("1", 300, 100);
-        initListeners();
-        initAnimation();
-        gameLoop.play();
+        terrainVue = new TerrainVue(zoneActuelle, joueur, gamePane, tilePane, tilePaneDeco, tilePaneSolid);
+        terrainVue.loadMap("1", 300, 100); // charge la première map
+        initListeners(); // initialise les listeners
+        initBoucleTemporelle(); // initialise la boucle temporelle
+        initAnimations(); // lance les animations
+        gameLoop.play(); // Lance la boucle temporelle
     }
+
+    private void initConsole(){
+        Console cons = new Console(console);
+        joueur.setConsole(cons);
+        zoneActuelle.setConsole(cons);
+    }
+
+    private void initAnimations() {
+        PlayerMovementAnimation.initAnimation(player, joueur, imageMap); // INITIALISE LES ANIMATIONS DE DEPLACEMENTS DU JOUEUR
+        PlayerHPAnimation.initAnimation(joueur, hpBar, imageMap); // INTIALISE LES ANIMATIONS DE VIE (Coeurs)
+    }
+
     //initialise tous les listeners
     public void initListeners(){
        initPlayerListener();
        initPlayerTransitionsListener();
        initCameraListener();
+       initInventaireListener();
     }
+
     public void initPlayerListener(){
         player.translateXProperty().bind(joueur.getxProperty());
         player.translateYProperty().bind(joueur.getyProperty());
+        joueur.getHp().addListener((obs, old, nouv) ->{
+            if(nouv.intValue()<=0){
+                joueur.mourrir();
+                terrainVue.loadMap("1", 30*16, 6*16);
+            }
+        });
+
+    }
+    public void initInventaireListener(){
+        nbGoldLabel.textProperty().bind(joueur.getInventaire().nbrOrProperty().asString());
+        for (int i = joueur.getInventaire().getListObjet().size()-1;i>=0;i--){
+            joueur.getInventaire().getListObjet().get(i).quantiteProperty().addListener((e)-> itemsDescriptionLoader.switchDescription(inventoryClicEventMemory, joueur.getInventaire()));
+        }
     }
     public void initCameraListener(){
-        gamePane.layoutXProperty().bind(joueur.getxProperty().multiply(-1).add(640));
-        gamePane.layoutYProperty().bind(joueur.getyProperty().multiply(-1).add(360));
+        joueur.getxProperty().addListener((obse,old,nouv)->{
+            //si le joueur est trop pres du bord de la map, le déplacement ne se fait pas.
+            if(nouv.intValue()>152 && nouv.intValue()< zoneActuelle.limiteHorizMap()*16-152)
+                gamePane.setLayoutX(-(int)nouv+640);
+        });
+        joueur.getyProperty().addListener((obse,old,nouv)->{
+            if(nouv.intValue()>115 && nouv.intValue()< zoneActuelle.limiteVertiMap()*16-115)
+                gamePane.setLayoutY(-(int)nouv+360);
+        });
     }
     // key initialisé aléatoirement pour éviter une erreur
     private static KeyEvent keyPressed = new KeyEvent(KeyEvent.KEY_PRESSED, "d", "D", KeyCode.Z,false, false, false, false);
     private Timeline gameLoop;
-    private void initAnimation() {
-
+    private void initBoucleTemporelle() {
         gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.017),
                 (ev ->{
+                    if (temps==0)
+                        joueur.setYProperty(150); //permet de bouger le personnage au lancement du jeu, afin d'activer le CameraListener.
                     movePlayer(); // gère le déplacement à chaque tour de la boucle temporelle
-                    if (temps%590==0) // spawn d'ennemi toutes les 10s
-                        zoneActuelle.EnemySpawn();
-                    if(temps%5==0)
-                        zoneActuelle.moveEnnemis();
                     timeManager(); // gestion du temps
+                    cleanMap(); // lance le nettoyeur de map
+                    spawnManager(); // manage le spawn des ennemis et des ressources
+                    if(temps%5==0)
+                        zoneActuelle.moveEnnemis(); // fais déplacer les ennemis
+                    if(temps%177==0) {
+                        zoneActuelle.lesEnnemisAttaquent(joueur); // fais attaquer les ennemis toutes les 3s
+                        zoneActuelle.spawnProjectile(joueur); // attaques à distance
+                    }
+                    zoneActuelle.manageProjeciles(joueur);
                 })
         );
         gameLoop.getKeyFrames().add(kf);
     }
-
+    //gestion du temps
+    public void timeManager(){
+        if (temps >= 1000000000)
+            temps = 1; // reset
+        else
+            temps++;
+        if (temps%59==0)
+            cdManager.incrementCD();
+    }
+    public void spawnManager(){
+        if(temps%590==0)
+            zoneActuelle.EnemySpawn();// spawn d'ennemi toutes les 10s
+        if(temps%1200==0)
+            zoneActuelle.ressourceSpawn(); // spawn de ressources les 20s
+    }
     public static void keyManager(KeyEvent e){
         if (joueur.manageCollisions(e)){
             keyPressed = e;
@@ -111,15 +197,18 @@ public class Controller implements Initializable {
             dx = dy = 0 ;
     }
 
-    //gestion du temps
-    public void timeManager(){
-        if (temps >= 1000000000)
-            temps = 0; // reset
-        else
-            temps++;
-    }
+    public static void keyReleaseManager(KeyEvent e) {
+        if (e.getCode() == KeyCode.DIGIT1 || e.getCode() == KeyCode.AMPERSAND)
+            joueur.attaquerEnnemis();
+        else if(e.getCode() == KeyCode.F)
+            joueur.loot();
+        else if(cdManager.getCdShuriken()>=1 && (e.getCode() == KeyCode.DIGIT3 || e.getCode() == KeyCode.QUOTEDBL)){
+            joueur.attaquerEnDistance();
+            cdManager.setCdShuriken(0);
+        }
+        else if(e.getCode()== KeyCode.DIGIT2 || e.getCode()==KeyCode.UNDEFINED)
+            joueur.manger("Potion");
 
-    public static void keyReleaseManager(KeyEvent e){
         switch (e.getCode()){
             //mouvement
             case Z : dy=0;break;
@@ -128,85 +217,31 @@ public class Controller implements Initializable {
             case Q : dx=0;break;
         }
     }
+    public static String inventoryClicEventMemory = "";
+    //permet de changer la description des item de l'nventaire, en lui envoyant directement le fx:id de l'image cliquée.
+    @FXML
+    public void setDescription(MouseEvent event) {
+        //permet de mémoriser le dernier evenemet effectué. Afin que la description puisse savoir quel item a été séléctionné
+        //auparavent et puisse s'actualiser en considerant le changement de BON item.
+        inventoryClicEventMemory = event.getPickResult().getIntersectedNode().getId();
+        itemsDescriptionLoader.switchDescription(event.getPickResult().getIntersectedNode().getId(), joueur.getInventaire());
+    }
 
     public void movePlayer(){
         if(joueur.manageCollisions(keyPressed)){
             //permet de récuperer l'ancienne valeur de la Tile du tableau de Spawn.
-            //joueur.setOldTleValue(joueur.getZone().getMapSpawn()[(joueur.getCentreJoueurY()/16)][(joueur.getCentreJoueurX()/16)]);
+            //joueur.setOldTileValue(joueur.getZone().getMapSpawn()[(joueur.getCentreJoueurY()/16)][(joueur.getCentreJoueurX()/16)]);
             if(dx==1) joueur.moveRight();
             if(dx==-1) joueur.moveLeft();
             if(dy==1) joueur.moveDown();
             if(dy==-1) joueur.moveUp();
+            joueur.manageAggro();
             //joueur.updatePosition();
         }
     }
 
-    public void updatePaneWhenLoadingMap(){
-        Acteur a;
-        Node b;
-        for(int i = zoneActuelle.getListeActeurs().size()-1; i>=0;i--){
-            a = zoneActuelle.getListeActeurs().get(i);
-            if(gamePane.lookup("#"+a.getId())==null){
-                ImageView sprite = new ImageView(imageMap.getImage(a.getClass().getSimpleName())); // récupère l'image de l'ennemi correspondant
-                sprite.setId(a.getId());
-                sprite.translateXProperty().bind(a.getXProperty());
-                sprite.translateYProperty().bind(a.getYProperty());
-                gamePane.getChildren().add(sprite);
-            }
-        }
-        // GERE LE CHANGEMENT DE ZONE
-        for(int j = gamePane.getChildren().size()-1;j>=0;j--){
-            b = gamePane.getChildren().get(j);
-            if(b.getId().startsWith("a") && !zoneActuelle.findActeur(b.getId()))
-                gamePane.getChildren().remove(b);
-        }
-    }
-
-    //charge le fichier de la premiere map.
-    public void loadMap(String numero, int spawnX, int spawnY){
-        try {
-            zoneActuelle.setNomDeCarte("zone"+numero);
-            zoneActuelle.setMapObstacles(mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Obstacles"));
-            zoneActuelle.setMapSpawn(mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Spawn"));
-            zoneActuelle.getListeActeurs().addListener(new ObsListActeurs(gamePane));
-            updatePaneWhenLoadingMap();
-            joueur.setZone(zoneActuelle);
-            joueur.setXProperty(spawnX);
-            joueur.setYProperty(spawnY);
-            affichageDeMap(numero);
-            //joueur.updatePosition();
-            //zoneActuelle.loadSaveActeurs();
-        } catch (IOException e) { e.printStackTrace(); }
-    }
-
-    //Chargement des textures
-    Image tileSet = new Image("sample/ressources/tilemaps/allTiles.png");
-    public void affichageDeMap(String numero) throws IOException {
-        int floor[][] = mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Floor");
-        int deco[][] = mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Décoration");
-        zoneActuelle.updateTilePaneSize(tilePane, tilePaneDeco, tilePaneSolid, gamePane);
-        // affiche chacune des couches
-        chargerTextures(floor,tilePane);
-        chargerTextures(deco,tilePaneDeco);
-        chargerTextures(zoneActuelle.getMapObstacles(),tilePaneSolid);
-    }
-
-    public void chargerTextures (int [][] tab,TilePane tilepane){
-        tilepane.getChildren().clear();
-        for(int i = 0; i<tab.length ; i++){
-            for(int j = 0; j<tab[i].length ; j++){
-                if(tab[i][j]!=-1) {
-                    ImageView tile = new ImageView(tileSet);
-                    Rectangle2D cut = new Rectangle2D((int)(tab[i][j]%(tileSet.getWidth()/16))*16,
-                            (int) (tab[i][j]/(tileSet.getWidth()/16))*16, 16, 16);
-                    tile.setViewport(cut);
-                    tilepane.getChildren().add(tile);
-                }
-                else{
-                    tilepane.getChildren().add(new ImageView(imageMap.getImage("empty")));
-                }
-            }
-        }
+    private void cleanMap() {
+        zoneActuelle.clean();
     }
 
     // permettra de changer de map si le joueur arrive dans une zone de transition
@@ -216,10 +251,18 @@ public class Controller implements Initializable {
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 switch (joueur.getNumeroZone()){
                     case "1":
-                        if(joueur.isCollinding(622, 228)) loadMap("2", 50, 100);
+                        if(joueur.isCollinding(622, 228))  terrainVue.loadMap("2", 50, 100);
+                        else if(joueur.isCollinding(415, 300) || joueur.isCollinding(430, 300))  terrainVue.loadMap("4", 500, 80);
+                        else  if ( joueur.isCollinding(18*16,10) || joueur.isCollinding(19*16,10) || joueur.isCollinding(20*16,10) || joueur.isCollinding(21*16,10)) terrainVue.loadMap("3",21*16,36*16);
                         break;
                     case "2":
-                        if(joueur.isCollinding(0, 100)) loadMap("1", 600, 228);
+                        if(joueur.isCollinding(0, 100))  terrainVue.loadMap("1", 600, 250);
+                        break;
+                    case "3" :
+                        if (joueur.isCollinding(20*16,38*16) || (joueur.isCollinding(19*16,38*16))) terrainVue.loadMap("1",21*16,40);
+                        break;
+                    case "4":
+                        if(joueur.isCollinding(500, 16))  terrainVue.loadMap("1", 415, 260);
                         break;
                     default:
                         break;
@@ -229,6 +272,17 @@ public class Controller implements Initializable {
         player.translateXProperty().addListener(c);
         player.translateYProperty().addListener(c);
     }
+
+    @FXML
+    void manger(MouseEvent event) {
+       RadioButton radioSelected = (RadioButton) Nourriture.getSelectedToggle();
+       try {
+           joueur.manger(radioSelected.getId());
+       }catch (Exception e) {
+           joueur.getConsole().afficherErreurConsommable();
+       };
+    }
+
 
 
 }

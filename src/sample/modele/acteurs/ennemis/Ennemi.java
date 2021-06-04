@@ -1,29 +1,44 @@
 package sample.modele.acteurs.ennemis;
 
+import sample.modele.Joueur;
 import sample.modele.acteurs.Acteur;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Stack;
 
 public abstract class Ennemi extends Acteur {
 
 
     private int pv;
+    private int aggroRange;
     private int pointDegat;
     private int vitesse;
     private int niveau;
-    private int moveDirection; //1 pour up; 2 pour down; 3 pour right; 4 pour left; 5 pour none
+    private int moveDirection; //1 pour down; 2 pour up; 3 pour right; 4 pour left; 5 pour none
+
+    private BFS bfs = new BFS();
+
+    private Stack<Integer> path = new Stack<Integer>(); // direction à prendre pour rejoindre le joueur (BFS PATHFINDING)
 
     public Ennemi(int x, int y, int pv, int pointDegat, int niveau){
         super(x, y);
         this.pv = pv;
-        this.vitesse = 1;
+        this.vitesse = 2;
         this.pointDegat = pointDegat;
         this.niveau = niveau;
         this.moveDirection = 5;
+        if(this instanceof EnnemiDistance)
+            this.aggroRange = 8*16;
+        else
+            this.aggroRange = 5 * 16;
     }
 
     //setters
     public void setPointDegat(int pointDegat) {this.pointDegat=pointDegat;}
     public void setPV(int newPv) {this.pv = newPv;}
-    public void setNiveau (int niveau) {this.niveau = niveau;}
+    public void setNiveau (int niveau) {this.niveau = niveau;
+    System.out.println("mfdslih");}
 
     //getters
     public int getPv() {return this.pv;}
@@ -41,19 +56,28 @@ public abstract class Ennemi extends Acteur {
 
     public void subirDegat(int pertePv) {
         this.pv -= pertePv;
-        if(pv<=0){
-            this.pv=0;
-            mourir();
-        }
     }
+
+    private int oldX =getCentreActeurX()/16;
+    private int oldY =getCentreActeurY()/16;
 
     //gere les deplacements
     //le 5 represente aucun movement
     public  void moveEnnemi(int [][] mapObstacle){
-        if(Math.random()<0.2)
-            this.moveDirection = (int) (Math.random() * (5)+1);
-        while (!verifieDeplacement(mapObstacle))
-            this.moveDirection = (int) (Math.random() * (5)+1);
+        if(isAggroing()){
+            moveDirection = pathfinding();
+            setVitesse(3);
+        }
+        else{
+            setVitesse(2);
+            if(Math.random()<0.2)
+                this.moveDirection = (int) (Math.random() * (5)+1);
+            while (!verifieDeplacement(mapObstacle))
+                this.moveDirection = (int) (Math.random() * (5)+1);
+        }
+        oldX = getCentreActeurX()/16;
+        oldY = getCentreActeurY()/16;
+
         if (moveDirection == 1)
             setY(getY()+vitesse);
         else if (moveDirection == 2)
@@ -62,6 +86,23 @@ public abstract class Ennemi extends Acteur {
             setX(getX()+vitesse);
         else if (moveDirection == 4)
             setX(getX()-vitesse);
+    }
+    // retourne la prochaine direction
+    public int pathfinding(){
+        // Si on est en BFS et qu'on a une nouvelle position
+        int direction = path.lastElement();
+        if(getCentreActeurX()/16!=oldX || getCentreActeurY()/16!=oldY)
+            path.pop();
+        return direction;
+    }
+
+    public void launchBFS(int playerPosX, int playerPosY, int[][] mapObstacle){
+        path = bfs.start(getCentreActeurX()/16, getCentreActeurY()/16, playerPosX, playerPosY, mapObstacle);
+    }
+
+    // si l'ennemi cherche a attaquer l'ennemi (BFS lancé)
+    public boolean isAggroing() {
+        return !path.empty();
     }
 
     //verifie si l'ennemi peut se deplacer
@@ -97,14 +138,14 @@ public abstract class Ennemi extends Acteur {
     }
 
     //gere les attaques
-    public void attaquerJoueur(){
-
+    public void attaquerJoueur(int posJoueurX, int posJoueurY, Joueur joueur){
+        if(posJoueurX<=getCentreActeurX()+24 && posJoueurX>=getCentreActeurX()-24
+                && posJoueurY<=getCentreActeurY()+24 && posJoueurY>=getCentreActeurY()-24){
+            joueur.subirDegats(getPointDegat());
+        }
     }
 
-    //tuer l'ennemis
-    public void mourir() {
-
+    public int getAggroRange() {
+        return aggroRange;
     }
-
-
 }
