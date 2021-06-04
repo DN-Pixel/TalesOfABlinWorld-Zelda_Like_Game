@@ -41,6 +41,8 @@ public class SaveRessources {
 
     private void genererSaveZone3() {
         ObservableList<Ressource> save = FXCollections.observableArrayList();
+        save.add(new SourceTresor(16*34, 16*3));
+        save.add(new SourceTresor(16*2, 29*16));
         saveListesRessources.put(3, save);
     }
 
