@@ -11,12 +11,12 @@ public class Projectile {
     private String id;
     private static int b=0;
 
-    public Projectile(int x, int y, String direction, String id, String o){
+    public Projectile(int x, int y, String direction, String id, String origine){
         this.id = id+b;
         b++;
         this.x.setValue(x);
         this.y.setValue(y);
-        origine = o;
+        this.origine = origine;
         this.direction=direction;
     }
 

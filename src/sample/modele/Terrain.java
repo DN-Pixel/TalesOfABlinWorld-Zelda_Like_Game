@@ -154,6 +154,9 @@ public class Terrain {
                             if (x < .9) saveActeurs.getSave(4).add(new Bete(j  * 16, i * 16));
                             else saveActeurs.getSave(4).add(new Oeil(j * 16, i * 16));
                             break;
+                        case 5 :
+                            saveActeurs.getSave(5).add(new Oeil(j * 16, i * 16));
+                            break;
                         default:
                             break;
                     }
@@ -218,6 +221,7 @@ public class Terrain {
             }
         }
     }
+
     public void manageProjeciles(Joueur joueur){
         Projectile p;
         for (int i= projectiles.size()-1;i >=0 ;i--) {

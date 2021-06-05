@@ -22,6 +22,7 @@ public class SaveRessources {
         genererSaveZone2();
         genererSaveZone3();
         genererSaveZone4();
+        genererSaveZone5();
     }
 
     public ObservableList<Ressource> getSave(int numeroDeZone){
@@ -52,6 +53,10 @@ public class SaveRessources {
         save.add(new SourceTresor(33*16, 30*16));
         save.add(new SourceTresor(39*16, 33*16));
         saveListesRessources.put(4, save);
+    }
+    private void genererSaveZone5() {
+        ObservableList<Ressource> save = FXCollections.observableArrayList();
+        saveListesRessources.put(5, save);
     }
 }
 

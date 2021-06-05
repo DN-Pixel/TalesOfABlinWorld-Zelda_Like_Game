@@ -232,7 +232,4 @@ public class Controller implements Initializable {
            joueur.getConsole().afficherErreurConsommable();
        };
     }
-
-
-
 }
