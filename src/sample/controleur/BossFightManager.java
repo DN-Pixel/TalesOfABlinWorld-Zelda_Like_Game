@@ -19,7 +19,7 @@ public class BossFightManager {
     public void bossSpecialAttack(){
         for (int i = 0; i<=20;i=i+2){
             if (!(i>8&&i<12)) //exclusion de la zone safe.
-                terrain.getProjectiles().add(new Projectile(i,0,"down","Ennemi","EnnemiBoss"));
+                terrain.getProjectiles().add(new Projectile(i,0,"down","Ennemi","EnnemiBoss", 24));
         }
     }
 
