@@ -14,12 +14,12 @@ public class Projectile {
 
     private int tailleProjectile;
 
-    public Projectile(int x, int y, String direction, String id, String o, int taille){
+    public Projectile(int x, int y, String direction, String id, String origine, int taille){
         this.id = id+b;
         b++;
         this.x.setValue(x);
         this.y.setValue(y);
-        origine = o;
+        this.origine = origine;
         this.direction=direction;
         this.tailleProjectile = taille;
     }

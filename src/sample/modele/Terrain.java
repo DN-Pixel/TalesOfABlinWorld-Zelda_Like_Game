@@ -154,6 +154,9 @@ public class Terrain {
                             if (x < .9) saveActeurs.getSave(4).add(new Bete(j  * 16, i * 16));
                             else saveActeurs.getSave(4).add(new Oeil(j * 16, i * 16));
                             break;
+                        case 5 :
+                            saveActeurs.getSave(5).add(new Oeil(j * 16, i * 16));
+                            break;
                         default:
                             break;
                     }
@@ -165,12 +168,12 @@ public class Terrain {
     }
 
     public void ressourceSpawn(){
-        boolean spawned = false;
-        int i = 0;
-        int j = 0;
         // si il y a deja 10 ressources ou nous sommes dans la zone 1, rien ne spawn
         if(getListeRessource().size()>10 || getNumeroCarte()==1)
             return;
+        boolean spawned = false;
+        int i = 0;
+        int j = 0;
         while(!spawned){
             i = (int)(Math.random()*mapObstacles.length);
             j = (int)(Math.random()*mapObstacles[0].length);
@@ -218,6 +221,7 @@ public class Terrain {
             }
         }
     }
+
     public void manageProjeciles(Joueur joueur){
         Projectile p;
         for (int i= projectiles.size()-1;i >=0 ;i--) {
