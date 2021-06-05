@@ -140,7 +140,7 @@ public class Controller implements Initializable {
                         zoneActuelle.lesEnnemisAttaquent(joueur); // fais attaquer les ennemis toutes les 3s
                         zoneActuelle.spawnProjectile(joueur); // attaques à distance
                     }
-                    if (zoneActuelle.getNumeroCarte()==6)
+                    if (zoneActuelle.getNumeroCarte()==6 && zoneActuelle.findActeur("aBoss"))
                         bossFightManager.manageBossFight(temps);
 
                     zoneActuelle.manageProjeciles(joueur);

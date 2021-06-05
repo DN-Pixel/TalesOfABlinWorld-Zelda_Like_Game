@@ -32,7 +32,10 @@ public abstract class Ennemi extends Acteur {
             this.aggroRange = 8*16;
         else
             this.aggroRange = 5 * 16;
-        if (this instanceof EnnemiBoss) this.largeur=24;
+        if (this instanceof EnnemiBoss) {
+            this.largeur=24;
+            this.aggroRange = 10000;
+        }
         else this.largeur=12;
     }
 

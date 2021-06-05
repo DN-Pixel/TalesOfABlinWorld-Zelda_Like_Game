@@ -2,6 +2,7 @@ package sample.modele.acteurs;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import sample.modele.acteurs.ennemis.EnnemiBoss;
 
 public class Acteur {
 
@@ -10,8 +11,12 @@ public class Acteur {
     private static int a = 0;
 
     public Acteur(int x, int y) {
-        id="a"+a;
-        a++;
+        if(this instanceof EnnemiBoss)
+            id = "aBoss";
+        else{
+            id="a"+a;
+            a++;
+        }
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
     }

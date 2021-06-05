@@ -151,11 +151,15 @@ public class Terrain {
                             else saveActeurs.getSave(3).add(new Bambou(j  * 16, i * 16));
                             break;
                         case 4:
-                            if (x < .9) saveActeurs.getSave(4).add(new Bete(j  * 16, i * 16));
+                            if (x < .5) saveActeurs.getSave(4).add(new Bete(j  * 16, i * 16));
                             else saveActeurs.getSave(4).add(new Oeil(j * 16, i * 16));
                             break;
                         case 5 :
-                            saveActeurs.getSave(5).add(new Oeil(j * 16, i * 16));
+                            if (x < .5) saveActeurs.getSave(5).add(new Bambou(j * 16, i * 16));
+                            else saveActeurs.getSave(5).add(new Hibou(j * 16, i * 16));
+                            break;
+                        case 6 :
+                            saveActeurs.getSave(6).add(new Oeil(j * 16, i * 16));
                             break;
                         default:
                             break;
@@ -169,7 +173,7 @@ public class Terrain {
 
     public void ressourceSpawn(){
         // si il y a deja 10 ressources ou nous sommes dans la zone 1, rien ne spawn
-        if(getListeRessource().size()>10 || getNumeroCarte()==1)
+        if(getListeRessource().size()>10 || getNumeroCarte()==1  || getNumeroCarte()==6)
             return;
         boolean spawned = false;
         int i = 0;
@@ -250,10 +254,12 @@ public class Terrain {
                             console.afficherDegatsInfliges(joueur.getArmeDistance().getDegatsArme());
                         }
                         //projectiles lancees par les ennemis
-                        else if (p.getId().startsWith("Ennemi") && p.getY() >= joueur.getCentreJoueurY() - p.getTailleProjectile() &&
-                                p.getY() <= joueur.getCentreJoueurY() +p.getTailleProjectile()  &&
-                                p.getX() <= joueur.getCentreJoueurX()  +p.getTailleProjectile()  &&
-                                p.getX() >= joueur.getCentreJoueurX() -p.getTailleProjectile() && a instanceof EnnemiDistance) {
+                        else if (p.getId().startsWith("Ennemi") &&
+                                joueur.getCentreJoueurX()<=p.getCentreX()+p.getTailleProjectile() &&
+                                joueur.getCentreJoueurX()>=p.getCentreX() - p.getTailleProjectile() &&
+                                joueur.getCentreJoueurY()<=p.getCentreY()+ p.getTailleProjectile() &&
+                                joueur.getCentreJoueurY()>=p.getCentreY() - p.getTailleProjectile()
+                                && a instanceof EnnemiDistance) {
                             projectiles.remove(p);
                             joueur.subirDegats(((Ennemi) a).getPointDegat());
                             break;
