@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -21,7 +31,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane style="-fx-background-size: 1300 800;" styleClass="fond" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controleur.Controller">
+<BorderPane style="-fx-background-size: 1300 800;" styleClass="fond" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controleur.Controller">
    <center>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" scaleX="1.5" scaleY="1.5">
          <children>
@@ -425,7 +435,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="vendeurPane" disable="true" layoutX="381.0" layoutY="500.0" prefHeight="102.0" prefWidth="543.0" visible="false">
+            <Pane fx:id="vendeurPane" layoutX="381.0" layoutY="500.0" prefHeight="102.0" prefWidth="543.0">
                <children>
                   <ImageView fitHeight="124.0" fitWidth="465.0" layoutX="38.0" layoutY="-29.0" pickOnBounds="true">
                      <image>
@@ -496,7 +506,7 @@
                   </HBox>
                   <HBox alignment="CENTER" disable="true" layoutX="50.0" layoutY="-4.0" prefHeight="26.0" prefWidth="221.0" spacing="23.0">
                      <children>
-                        <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="inventoryFer" fitHeight="17.0" fitWidth="17.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -507,18 +517,7 @@
                               <Insets />
                            </HBox.margin>
                         </ImageView>
-                        <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <image>
-                              <Image url="@../ressources/HUD/objet/diamant.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </ImageView>
-                        <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="inventoryArgent" fitHeight="17.0" fitWidth="17.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -529,7 +528,18 @@
                               <Insets />
                            </HBox.margin>
                         </ImageView>
-                        <ImageView fitHeight="19.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="inventoryDiamant" fitHeight="17.0" fitWidth="17.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/HUD/objet/diamant.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="inventoryMineraiBrut" fitHeight="19.0" fitWidth="19.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -540,7 +550,7 @@
                               <Insets />
                            </HBox.margin>
                         </ImageView>
-                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="108.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="inventoryBois" fitHeight="19.0" fitWidth="19.0" layoutX="108.0" layoutY="18.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -549,42 +559,6 @@
                            </image>
                            <HBox.margin>
                               <Insets left="-4.0" />
-                           </HBox.margin>
-                        </ImageView>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" layoutX="309.0" layoutY="-7.0" prefHeight="34.0" prefWidth="130.0" spacing="28.0">
-                     <children>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../ressources/HUD/objet/honey.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </ImageView>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="83.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../ressources/HUD/objet/beef.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="3.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="108.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../ressources/HUD/objet/noodle.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </ImageView>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="121.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../ressources/HUD/objet/potion.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets left="1.0" />
                            </HBox.margin>
                         </ImageView>
                      </children>
@@ -639,6 +613,42 @@
                      <padding>
                         <Insets bottom="-10.0" top="-10.0" />
                      </padding>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="309.0" layoutY="-7.0" prefHeight="34.0" prefWidth="130.0" spacing="28.0">
+                     <children>
+                        <ImageView fx:id="inventoryMiel" fitHeight="16.0" fitWidth="16.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/HUD/objet/honey.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="inventoryViande" fitHeight="16.0" fitWidth="16.0" layoutX="83.0" layoutY="18.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/HUD/objet/beef.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="3.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="inventoryNouilles" fitHeight="16.0" fitWidth="16.0" layoutX="108.0" layoutY="18.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/HUD/objet/noodle.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="inventoryPotion" fitHeight="16.0" fitWidth="16.0" layoutX="121.0" layoutY="19.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/HUD/objet/potion.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="1.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
                   </HBox>
                   <Button fx:id="vendreButton" layoutX="65.0" layoutY="55.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="140.0" style="-fx-background-color: NONE; -fx-border-width: 2PX; -fx-border-color: #ddab71; -fx-border-radius: 5px;" text="VENDRE" textFill="#ddab71">
                      <cursor>
@@ -695,7 +705,7 @@
                               <SepiaTone />
                            </effect>
                         </RadioButton>
-                        <RadioButton fx:id="shopMineraiRadio" layoutX="145.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
+                        <RadioButton fx:id="shopMineraiBrutRadio" layoutX="145.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
