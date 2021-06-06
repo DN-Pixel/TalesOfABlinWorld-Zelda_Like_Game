@@ -435,7 +435,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="vendeurPane" layoutX="381.0" layoutY="500.0" prefHeight="102.0" prefWidth="543.0">
+            <Pane fx:id="vendeurPane" disable="true" layoutX="381.0" layoutY="500.0" prefHeight="102.0" prefWidth="543.0" visible="false">
                <children>
                   <ImageView fitHeight="124.0" fitWidth="465.0" layoutX="38.0" layoutY="-29.0" pickOnBounds="true">
                      <image>
@@ -504,7 +504,7 @@
                         <Insets bottom="-10.0" top="-10.0" />
                      </padding>
                   </HBox>
-                  <HBox alignment="CENTER" disable="true" layoutX="50.0" layoutY="-4.0" prefHeight="26.0" prefWidth="221.0" spacing="23.0">
+                  <HBox alignment="CENTER" layoutX="50.0" layoutY="-4.0" prefHeight="26.0" prefWidth="221.0" spacing="23.0">
                      <children>
                         <ImageView fx:id="inventoryFer" fitHeight="17.0" fitWidth="17.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
                            <cursor>
@@ -623,6 +623,9 @@
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView fx:id="inventoryViande" fitHeight="16.0" fitWidth="16.0" layoutX="83.0" layoutY="18.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -631,6 +634,9 @@
                            <HBox.margin>
                               <Insets right="3.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView fx:id="inventoryNouilles" fitHeight="16.0" fitWidth="16.0" layoutX="108.0" layoutY="18.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -639,6 +645,9 @@
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                         <ImageView fx:id="inventoryPotion" fitHeight="16.0" fitWidth="16.0" layoutX="121.0" layoutY="19.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -647,10 +656,13 @@
                            <HBox.margin>
                               <Insets left="1.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                      </children>
                   </HBox>
-                  <Button fx:id="vendreButton" layoutX="65.0" layoutY="55.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="140.0" style="-fx-background-color: NONE; -fx-border-width: 2PX; -fx-border-color: #ddab71; -fx-border-radius: 5px;" text="VENDRE" textFill="#ddab71">
+                  <Button fx:id="vendreButton" layoutX="65.0" layoutY="55.0" mnemonicParsing="false" onAction="#vendre" prefHeight="26.0" prefWidth="140.0" style="-fx-background-color: NONE; -fx-border-width: 2PX; -fx-border-color: #ddab71; -fx-border-radius: 5px;" text="VENDRE" textFill="#ddab71">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -661,7 +673,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="acheterButton" layoutX="337.0" layoutY="55.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="140.0" style="-fx-background-color: NONE; -fx-border-width: 2PX; -fx-border-color: #ddab71; -fx-border-radius: 5px;" text="ACHETER" textFill="#ddab71">
+                  <Button fx:id="acheterButton" layoutX="337.0" layoutY="55.0" mnemonicParsing="false" onAction="#acheter" prefHeight="26.0" prefWidth="140.0" style="-fx-background-color: NONE; -fx-border-width: 2PX; -fx-border-color: #ddab71; -fx-border-radius: 5px;" text="ACHETER" textFill="#ddab71">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -678,7 +690,7 @@
                      </padding></TextField>
                   <HBox alignment="CENTER" layoutX="72.0" layoutY="31.0" prefHeight="18.0" prefWidth="168.0" spacing="16.0">
                      <children>
-                        <RadioButton fx:id="shopFerRadio" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0">
+                        <RadioButton fx:id="Fer" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -689,7 +701,7 @@
                               <ToggleGroup fx:id="shopRadio" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="shopArgentRadio" layoutX="98.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
+                        <RadioButton fx:id="Argent" layoutX="98.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -697,7 +709,7 @@
                               <SepiaTone />
                            </effect>
                         </RadioButton>
-                        <RadioButton fx:id="shopDiamantRadio" layoutX="121.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
+                        <RadioButton fx:id="Diamant" layoutX="121.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -705,7 +717,7 @@
                               <SepiaTone />
                            </effect>
                         </RadioButton>
-                        <RadioButton fx:id="shopMineraiBrutRadio" layoutX="145.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
+                        <RadioButton fx:id="MineraiBrut" layoutX="145.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -713,7 +725,7 @@
                               <SepiaTone />
                            </effect>
                         </RadioButton>
-                        <RadioButton fx:id="shopBoisRadio" layoutX="168.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
+                        <RadioButton fx:id="Bois" layoutX="168.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -725,7 +737,7 @@
                   </HBox>
                   <HBox alignment="CENTER" layoutX="307.0" layoutY="31.0" prefHeight="18.0" prefWidth="142.0" spacing="22.0">
                      <children>
-                        <RadioButton fx:id="shopMielRadio" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
+                        <RadioButton fx:id="Miel" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -733,7 +745,7 @@
                               <SepiaTone />
                            </effect>
                         </RadioButton>
-                        <RadioButton fx:id="shopViandeRadio" layoutX="98.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
+                        <RadioButton fx:id="Viande" layoutX="98.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -741,7 +753,7 @@
                               <SepiaTone />
                            </effect>
                         </RadioButton>
-                        <RadioButton fx:id="shopNoodleRadio" layoutX="145.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
+                        <RadioButton fx:id="Nouilles" layoutX="145.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -749,7 +761,7 @@
                               <SepiaTone />
                            </effect>
                         </RadioButton>
-                        <RadioButton fx:id="shopPotionRadio" layoutX="168.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
+                        <RadioButton fx:id="Potion" layoutX="168.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -54,9 +55,7 @@ public class Controller implements Initializable {
     private Pane gamePane;
     @FXML
     private Pane vendeurPane;
-
     private static Pane vendeurInterface;
-
     @FXML
     private TilePane tilePane;
     @FXML
@@ -86,9 +85,11 @@ public class Controller implements Initializable {
     private Button acheterButton;
     @FXML
     private Button mangerButton;
-    //RADIO INVENTAIRE
+    //RADIO INVENTAIRE / SHOP
     @FXML
     private ToggleGroup Nourriture;
+    @FXML
+    private ToggleGroup shopRadio;
     //RADIO SHOP
 
 
@@ -246,6 +247,31 @@ public class Controller implements Initializable {
            joueur.getConsole().afficherErreurConsommable();
        };
     }
+
+    @FXML
+    void vendre(ActionEvent event) {
+        RadioButton shopRadioSelected = (RadioButton) shopRadio.getSelectedToggle();
+        int quantitéVoulue =0;
+
+        try { quantitéVoulue = Integer.parseInt(this.shopQuantiteField.getText());
+        }catch (Exception e){ joueur.getConsole().afficherErreurDeSaisie(); }
+
+        try{ joueur.getInventaire().vendreObjet(shopRadioSelected.getId(),quantitéVoulue);
+        }catch(Exception exception){joueur.getConsole().afficherErreurShopNonSelected(); }
+    }
+
+    @FXML
+    void acheter(ActionEvent event) {
+        RadioButton shopRadioSelected = (RadioButton) shopRadio.getSelectedToggle();
+        int quantitéVoulue=0;
+
+        try { quantitéVoulue = Integer.parseInt(this.shopQuantiteField.getText());
+        }catch (Exception exception){ joueur.getConsole().afficherErreurDeSaisie(); }
+
+        try { joueur.getInventaire().acheterObjet(shopRadioSelected.getId(), quantitéVoulue);
+        }catch (Exception e){ joueur.getConsole().afficherErreurShopNonSelected(); }
+    }
+
 
     private static void interagirAvecPnj() {
         Pnj a = (Pnj) joueur.parler();
