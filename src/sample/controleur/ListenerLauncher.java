@@ -92,6 +92,12 @@ public class ListenerLauncher {
 
     public void initInventaireListener(Label nbGoldLabel, ItemDescriptionSwitcher itemsDescriptionLoader){
         nbGoldLabel.textProperty().bind(joueur.getInventaire().nbrOrProperty().asString());
+        joueur.getInventaire().nbrOrProperty().addListener((observable, oldValue, newValue) ->{
+            if(newValue.intValue()-oldValue.intValue()<0)
+                joueur.getConsole().afficherPerteArgent(oldValue.intValue()-newValue.intValue());
+            else
+                joueur.getConsole().afficherGainArgent(newValue.intValue()-oldValue.intValue());
+        });
         for (int i = joueur.getInventaire().getListObjet().size()-1;i>=0;i--){
             joueur.getInventaire().getListObjet().get(i).quantiteProperty().addListener((e)-> itemsDescriptionLoader.switchDescription(inventoryClicEventMemory, joueur.getInventaire()));
         }
