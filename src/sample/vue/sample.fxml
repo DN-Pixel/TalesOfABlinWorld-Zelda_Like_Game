@@ -30,6 +30,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane style="-fx-background-size: 1300 800;" styleClass="fond" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controleur.Controller">
    <center>
@@ -65,10 +66,14 @@
                         <Image url="@../ressources/HUD/menu/parchemin.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="questLabel" alignment="TOP_CENTER" layoutX="64.0" layoutY="118.0" prefHeight="215.0" prefWidth="125.0" text="frfrknfrifrdiu hghg dugiudg hiudgh idgh dugh kdnvd jkgh kjg dkjngdk g ndkjg" textAlignment="CENTER" wrapText="true">
+                  <Label fx:id="questTitle" alignment="TOP_CENTER" layoutX="62.0" layoutY="108.0" prefHeight="41.0" prefWidth="125.0" text="Titre" textAlignment="CENTER" wrapText="true" />
+                  <Text fx:id="questDescription" layoutX="68.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="content" textAlignment="CENTER" wrappingWidth="112.80337524414062">
                      <font>
-                        <Font size="9.0" />
-                     </font></Label>
+                        <Font size="10.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="recompenseOr" layoutX="71.0" layoutY="315.0" text="Or:" textAlignment="CENTER" />
+                  <Label fx:id="recompenseObjet" layoutX="133.0" layoutY="314.0" text="Objet:" textAlignment="CENTER" />
                </children></Pane>
             <Pane fx:id="RightInventoryPane" layoutX="851.0" layoutY="120.0" prefHeight="481.0" prefWidth="216.0">
                <children>

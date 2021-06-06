@@ -2,6 +2,7 @@ package sample.controleur;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
+import sample.modele.Joueur;
 import sample.modele.ressources.Ressource;
 import sample.vue.modeleVue.RessourceVue;
 
@@ -10,8 +11,10 @@ import java.util.List;
 public class ObsListRessources implements ListChangeListener<Ressource> {
 
     private RessourceVue ressourceVue;
+    private Joueur joueur;
 
-    public ObsListRessources(Pane p){
+    public ObsListRessources(Pane p, Joueur j){
+        joueur = j;
         ressourceVue = new RessourceVue(p);
     }
 
@@ -27,6 +30,7 @@ public class ObsListRessources implements ListChangeListener<Ressource> {
             }
             for (Ressource r : listRemoved){
                 ressourceVue.removeRessourceFromPane(r);
+                joueur.getListeQuetes().ressourceTracker(r);
             }
         }
     }

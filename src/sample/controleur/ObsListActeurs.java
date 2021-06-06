@@ -2,6 +2,7 @@ package sample.controleur;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
+import sample.modele.Joueur;
 import sample.modele.acteurs.Acteur;
 import sample.vue.modeleVue.ActeurVue;
 import sample.vue.ImageMap;
@@ -13,8 +14,10 @@ public class ObsListActeurs implements ListChangeListener<Acteur> {
     private Pane pane;
     private ImageMap imageMap = new ImageMap();
     private ActeurVue acteurVue;
+    private Joueur joueur;
 
-    public ObsListActeurs(Pane p){
+    public ObsListActeurs(Pane p, Joueur j){
+        joueur = j;
         pane = p;
         acteurVue = new ActeurVue(p);
     }
@@ -31,6 +34,7 @@ public class ObsListActeurs implements ListChangeListener<Acteur> {
             }
             for(Acteur a : listEnleves){
                 acteurVue.removeSprite(a);
+                joueur.getListeQuetes().killTracker(a);
             }
         }
     }

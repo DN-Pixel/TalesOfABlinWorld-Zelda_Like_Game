@@ -15,16 +15,19 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import sample.modele.Projectile;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.Pnj;
 import sample.modele.items.Armes.Shuriken;
+import sample.modele.quetes.Quete;
 import sample.vue.*;
 import sample.modele.Joueur;
 import sample.modele.Terrain;
 import sample.vue.animations.PlayerHPAnimation;
 import sample.vue.animations.PlayerMovementAnimation;
+import sample.vue.modeleVue.QueteVue;
 import sample.vue.modeleVue.TerrainVue;
 
 
@@ -90,8 +93,20 @@ public class Controller implements Initializable {
     @FXML
     private ToggleGroup Nourriture;
     //RADIO SHOP
+    // QUESTS
+    @FXML
+    private Label questTitle;
 
+    @FXML
+    private Text questDescription;
 
+    @FXML
+    private Label recompenseOr;
+
+    @FXML
+    private Label recompenseObjet;
+
+    private QueteVue queteVue;
     private TerrainVue terrainVue; // classe permettant de load la map et charger les textures
     private long temps = 0 ;
 
@@ -109,7 +124,14 @@ public class Controller implements Initializable {
         initListeners(); // initialise les listeners
         initBoucleTemporelle(); // initialise la boucle temporelle
         initAnimations(); // lance les animations
+        loadQuests();
         gameLoop.play(); // Lance la boucle temporelle
+    }
+
+    public void loadQuests(){
+        queteVue = new QueteVue(questTitle, questDescription, recompenseOr, recompenseObjet);
+        joueur.getListeQuetes().getQuetes().addListener(new ObsListQuetes(queteVue));
+        joueur.getListeQuetes().getQuetes().add(joueur.getListeQuetes().getQuetes().size(), new Quete("Felicitations !", "Vous avez rempli toutes les quetes disponibles !", 2727, "Nice", 69));
     }
 
     private void initConsole(){

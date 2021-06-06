@@ -40,7 +40,7 @@ public class Joueur {
         maxHP = hp.getValue();
         armeDistance = null;
         this.inventaire = new Inventaire();
-        this.listeQuetes = new QuestLine();
+        this.listeQuetes = new QuestLine(this);
     }
 
     public ArmeDistance getArmeDistance() {
@@ -145,27 +145,36 @@ public class Joueur {
         this.xProperty.setValue(this.xProperty.getValue()-vitesseDeDeplacement);
         direction.setValue("left");
     }
+
+    public QuestLine getListeQuetes() {
+        return listeQuetes;
+    }
+
+    public void setListeQuetes(QuestLine listeQuetes) {
+        this.listeQuetes = listeQuetes;
+    }
+
     /*
-    private int oldTileValue;
-    private int oldPlayerX =getCentreJoueurX()/16;
-    private int oldPlayerY =getCentreJoueurY()/16;
+        private int oldTileValue;
+        private int oldPlayerX =getCentreJoueurX()/16;
+        private int oldPlayerY =getCentreJoueurY()/16;
 
-    public void setOldTileValue (int Value){
-        oldTileValue=Value;
-    }
-
-    public void updatePosition(){
-        int newTile = this.zone.getMapSpawn()[getCentreJoueurY()/16][getCentreJoueurX()/16];
-        System.out.println(newTile);
-        if(newTile != oldTileValue){
-            this.zone.getMapSpawn()[oldPlayerY][oldPlayerX] = oldTileValue;
-            oldPlayerX =getCentreJoueurX()/16;
-            oldPlayerY =getCentreJoueurY()/16;
-            this.zone.getMapSpawn()[getCentreJoueurY()/16][getCentreJoueurX()/16]=99;
-            manageAggro();
+        public void setOldTileValue (int Value){
+            oldTileValue=Value;
         }
-    }
-*/
+
+        public void updatePosition(){
+            int newTile = this.zone.getMapSpawn()[getCentreJoueurY()/16][getCentreJoueurX()/16];
+            System.out.println(newTile);
+            if(newTile != oldTileValue){
+                this.zone.getMapSpawn()[oldPlayerY][oldPlayerX] = oldTileValue;
+                oldPlayerX =getCentreJoueurX()/16;
+                oldPlayerY =getCentreJoueurY()/16;
+                this.zone.getMapSpawn()[getCentreJoueurY()/16][getCentreJoueurX()/16]=99;
+                manageAggro();
+            }
+        }
+    */
     public void manageAggro(){
         Acteur a;
         for(int i=getZone().getListeActeurs().size()-1; i>=0;i--){
@@ -354,6 +363,7 @@ public class Joueur {
     public Acteur parler(){
         for(Acteur a : zone.getListeActeurs()){
             if(a instanceof Pnj && isCollinding(a.getX(), a.getY())) {
+                listeQuetes.talkTracker(a);
                 return a;
             }
         }
