@@ -17,7 +17,12 @@ public class SaveActeurs {
 
     private Map<Integer, ObservableList<Acteur>> savesListesActeurs = new HashMap<>();
 
+    public Map<Integer, ObservableList<Acteur>> getSavesListesActeurs() {
+        return savesListesActeurs;
+    }
+
     public SaveActeurs(){
+        genererSaveZone0();
         genererSaveZone1();
         genererSaveZone2();
         genererSaveZone3();
@@ -31,9 +36,19 @@ public class SaveActeurs {
         return savesListesActeurs.get(numeroDeZone);
     }
 
+    public void genererSaveZone0(){
+        ObservableList<Acteur> save = FXCollections.observableArrayList();
+        save.add(new Pnj(11*16, 2*16, "spectre"));
+        savesListesActeurs.put(0, save);
+    }
+
     public void genererSaveZone1(){
         ObservableList<Acteur> save = FXCollections.observableArrayList();
         save.add(new Pnj(37*16, 10*16, "vendeur"));
+        save.add(new Pnj(21*16, 18*16, "upgrader"));
+        save.add(new Pnj(28*16, 5*16, "master"));
+        save.add(new Pnj(11*16, 5*16, "villageois4"));
+        save.add(new Pnj(4*16, 19*16, "villageois2"));
         savesListesActeurs.put(1, save);
     }
 

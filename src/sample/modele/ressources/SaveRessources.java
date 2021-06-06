@@ -18,6 +18,7 @@ public class SaveRessources {
     private Map<Integer, ObservableList<Ressource>> saveListesRessources = new HashMap<>();
 
     public SaveRessources(){
+        genererSaveZone0();
         genererSaveZone1();
         genererSaveZone2();
         genererSaveZone3();
@@ -27,8 +28,17 @@ public class SaveRessources {
         genererSaveZone7();
     }
 
+    public Map<Integer, ObservableList<Ressource>> getSaveListesRessources() {
+        return saveListesRessources;
+    }
+
     public ObservableList<Ressource> getSave(int numeroDeZone){
         return saveListesRessources.get(numeroDeZone);
+    }
+
+    public void genererSaveZone0(){
+        ObservableList<Ressource> save = FXCollections.observableArrayList();
+        saveListesRessources.put(0, save);
     }
 
     public void genererSaveZone1(){

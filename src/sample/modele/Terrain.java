@@ -24,6 +24,13 @@ public class Terrain {
     private int[][] mapSpawn; // ZONE DE SPAWN DES ENNEMIS
     private Console console;
 
+    public SaveActeurs getSaveActeurs() {
+        return saveActeurs;
+    }
+
+    public SaveRessources getSaveRessources() {
+        return saveRessources;
+    }
 
     public Terrain (String nomDeCarte) {
         this.nomDeCarte = nomDeCarte;
@@ -128,9 +135,9 @@ public class Terrain {
     }
 
     public void EnemySpawn () {
-        //Si la limite d'ennemis est atteinte on ne fait rien spawn, si on est dans la ville (map1) non plus.
+        //Si la limite d'ennemis est atteinte on ne fait rien spawn, si on est dans la ville (map1) ou la map0 non plus.
         if (saveActeurs.getSave(getNumeroCarte()).size() >= 10 ||
-                getNumeroCarte()==1)
+                getNumeroCarte()==1 || getNumeroCarte()==0)
             return;
 
         //gestion du spawn des ennemis en fonction de la zone.
@@ -172,7 +179,7 @@ public class Terrain {
 
     public void ressourceSpawn(){
         // si il y a deja 10 ressources ou nous sommes dans la zone 1, rien ne spawn
-        if(getListeRessource().size()>10 || getNumeroCarte()==1  || getNumeroCarte()==6)
+        if(getListeRessource().size()>10 || getNumeroCarte()==1  || getNumeroCarte()==6 || getNumeroCarte()==0)
             return;
         boolean spawned = false;
         int i = 0;

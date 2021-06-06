@@ -44,6 +44,9 @@ public class ListenerLauncher {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 switch (joueur.getNumeroZone()){
+                    case "0":
+                        if(joueur.isCollinding(9*16, 16) && !joueur.getListeQuetes().getQueteActuelle().getTitre().startsWith("Chapitre 0"))  terrainVue.loadMap("1", 36*16, 3*16);
+                        break;
                     case "1":
                         if(joueur.isCollinding(622, 228))  terrainVue.loadMap("2", 50, 100);
                         else if(joueur.isCollinding(415, 300) || joueur.isCollinding(430, 300))  terrainVue.loadMap("4", 500, 80);
