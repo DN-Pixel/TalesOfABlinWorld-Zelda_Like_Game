@@ -16,11 +16,10 @@ public class Quete {
     private String recompenseObjet;
     private int quantiteObjet;
 
-    public Quete(String titre, String description, String typeQuete, int recompenseOr, String recompenseObjet, int quantiteObjet){
+    public Quete(String titre, String description, int recompenseOr, String recompenseObjet, int quantiteObjet){
         idQuete++;
         this.titre = titre;
         this.description = description;
-        this.typeQuete = typeQuete.toUpperCase(Locale.ROOT); // TOUJOURS EN MAJUSCULE - KILL - LOOT - TALK
         this.recompenseOr = recompenseOr;
         this.recompenseObjet = recompenseObjet;
         this.quantiteObjet = quantiteObjet;
