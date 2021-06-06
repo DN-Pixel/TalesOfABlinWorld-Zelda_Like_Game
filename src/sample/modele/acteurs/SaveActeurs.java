@@ -24,6 +24,7 @@ public class SaveActeurs {
         genererSaveZone4();
         genererSaveZone5();
         genererSaveZone6();
+        genererSaveZone7();
     }
 
     public ObservableList<Acteur> getSave(int numeroDeZone){
@@ -75,7 +76,8 @@ public class SaveActeurs {
 
     private void genererSaveZone5(){
         ObservableList<Acteur> save = FXCollections.observableArrayList();
-        save.add(new Bambou(16*20, 16*20));
+        save.add(new Reptile(13*16,7*16));
+        save.add(new Reptile(16*16,7*16));
         savesListesActeurs.put(5, save);
     }
 
@@ -83,5 +85,9 @@ public class SaveActeurs {
         ObservableList<Acteur> save = FXCollections.observableArrayList();
         save.add(new EnnemiBoss(14*16, 16*2));
         savesListesActeurs.put(6, save);
+    }
+    private void genererSaveZone7(){
+        ObservableList<Acteur> save = FXCollections.observableArrayList();
+        savesListesActeurs.put(7, save);
     }
 }

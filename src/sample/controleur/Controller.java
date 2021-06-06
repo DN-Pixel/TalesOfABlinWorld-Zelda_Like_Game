@@ -91,7 +91,7 @@ public class Controller implements Initializable {
         itemsDescriptionLoader = new ItemDescriptionSwitcher(descriptionLabel);
         player.setId("player");
         terrainVue = new TerrainVue(zoneActuelle, joueur, gamePane, tilePane, tilePaneDeco, tilePaneSolid);
-        terrainVue.loadMap("1", 300, 100); // charge la première map
+        terrainVue.loadMap("1", 36*16, 3*16); // charge la première map
         listenerLauncher = new ListenerLauncher(joueur, player, terrainVue);
         initListeners(); // initialise les listeners
         initBoucleTemporelle(); // initialise la boucle temporelle
@@ -128,8 +128,8 @@ public class Controller implements Initializable {
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.017),
                 (ev ->{
-                    if (temps==0)
-                        joueur.setYProperty(150); //permet de bouger le personnage au lancement du jeu, afin d'activer le CameraListener.
+                    //if (temps==0)
+                        //joueur.setYProperty(150); //permet de bouger le personnage au lancement du jeu, afin d'activer le CameraListener.
                     movePlayer(); // gère le déplacement à chaque tour de la boucle temporelle
                     timeManager(); // gestion du temps
                     zoneActuelle.clean(); // lance le nettoyeur de map
