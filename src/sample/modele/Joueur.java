@@ -292,6 +292,8 @@ public class Joueur {
     }
 
     public void attaquerEnDistance() {
+        if(armeDistance==null)
+            return;
         Projectile p = new Projectile(this.getX(), this.getY(), direction.getValue().toUpperCase(), "hero", "Joueur", 8, 2);
         this.zone.getProjectiles().add(p);
     }

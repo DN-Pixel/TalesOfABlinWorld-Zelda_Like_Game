@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import sample.modele.Joueur;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.Pnj;
+import sample.modele.items.Armes.Shuriken;
 import sample.modele.ressources.Ressource;
 
 public class QuestLine {
@@ -14,7 +15,7 @@ public class QuestLine {
     public QuestLine(Joueur j){
         joueur = j;
         quetes = FXCollections.observableArrayList();
-        quetes.add(new TalkQuete("Chapitre 1 - Souvenirs obscurs", "Parler au vendeur devant la boutique à l'est de la ville", 100, "Potion", 1, "vendeur"));
+        quetes.add(new TalkQuete("Chapitre 1 - Souvenirs obscurs", "Parler au vendeur devant la boutique à l'est de la ville", 100, "Shuriken", 1, "vendeur"));
         quetes.add(new KillQuete("Chapitre 1 - Sku", "Tue le", 100, "Potion", 1, "Slime", 1));
         quetes.add(new LootQuete("Chapitre 1 - Sku", "Tue le", 100, "Bois", 3, "SourceBois", 1));
     }
@@ -24,7 +25,11 @@ public class QuestLine {
     }
 
     public void completeQuest(){
-        joueur.getInventaire().ajouterObjet(getQueteActuelle().getRecompenseObjet(), getQueteActuelle().getQuantiteObjet());
+        if(getQueteActuelle().getRecompenseObjet().equals("Shuriken")){
+            joueur.setArmeDistance(new Shuriken());
+        }
+        else
+            joueur.getInventaire().ajouterObjet(getQueteActuelle().getRecompenseObjet(), getQueteActuelle().getQuantiteObjet());
         joueur.getInventaire().ajouterOr(getQueteActuelle().getRecompenseOr());
         quetes.remove(0);
     }
