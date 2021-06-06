@@ -108,7 +108,7 @@ public class Controller implements Initializable {
     private Label recompenseObjet;
 
     private QueteVue queteVue;
-    private TerrainVue terrainVue; // classe permettant de load la map et charger les textures
+    public TerrainVue terrainVue; // classe permettant de load la map et charger les textures
     private long temps = 0 ;
 
     @Override
@@ -118,7 +118,7 @@ public class Controller implements Initializable {
         itemsDescriptionLoader = new ItemDescriptionSwitcher(descriptionLabel);
         player.setId("player");
         terrainVue = new TerrainVue(zoneActuelle, joueur, gamePane, tilePane, tilePaneDeco, tilePaneSolid);
-        terrainVue.loadMap("1", 36*16, 3*16); // charge la première map
+        terrainVue.loadMap("0", 9*16, 27*16); // charge la première map (cauchemar)
         player.toFront(); // met le joueur devant tout le monde
         listenerLauncher = new ListenerLauncher(joueur, player, terrainVue);
         initListeners(); // initialise les listeners

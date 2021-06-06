@@ -1,5 +1,6 @@
 package sample.vue.modeleVue;
 
+import javafx.beans.InvalidationListener;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -16,6 +17,7 @@ import sample.modele.ressources.Ressource;
 import sample.vue.ImageMap;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class TerrainVue {
 
@@ -41,6 +43,12 @@ public class TerrainVue {
         this.tilePane = tilePane;
         this.tilePaneDeco = tilePaneDeco;
         this.tilePaneSolid = tilePaneSolid;
+        zoneActuelle.getProjectiles().addListener(new ObsListProjectiles(gamePane));
+        for(int i = 0; i<zoneActuelle.getSaveActeurs().getSavesListesActeurs().size();i++)
+            zoneActuelle.getSaveActeurs().getSavesListesActeurs().get(i).addListener(new ObsListActeurs(gamePane, joueur));
+        for(int i = 0; i<zoneActuelle.getSaveRessources().getSaveListesRessources().size();i++)
+            zoneActuelle.getSaveRessources().getSaveListesRessources().get(i).addListener(new ObsListRessources(gamePane, joueur));
+
     }
     // CHARGE L'AFFICHAGE DES ACTEURS LORS DU CHARGEMENT DE MAP
     public void updateActeurs(){
@@ -97,15 +105,16 @@ public class TerrainVue {
         }
     }
 
+
     //charge le fichier de la premiere map.
     public void loadMap(String numero, int spawnX, int spawnY){
         try {
             zoneActuelle.setNomDeCarte("zone"+numero);
             zoneActuelle.setMapObstacles(mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Obstacles"));
             zoneActuelle.setMapSpawn(mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Spawn"));
-            zoneActuelle.getListeActeurs().addListener(new ObsListActeurs(gamePane, joueur));
-            zoneActuelle.getProjectiles().addListener(new ObsListProjectiles(gamePane));
-            zoneActuelle.getListeRessource().addListener(new ObsListRessources(gamePane, joueur));
+            //zoneActuelle.getListeActeurs().addListener(new ObsListActeurs(gamePane, joueur));
+            //zoneActuelle.getProjectiles().addListener(new ObsListProjectiles(gamePane));
+            //zoneActuelle.getListeRessource().addListener(new ObsListRessources(gamePane, joueur));
             updateActeurs();
             updateRessources();
             zoneActuelle.loadPnjHitboxes();
