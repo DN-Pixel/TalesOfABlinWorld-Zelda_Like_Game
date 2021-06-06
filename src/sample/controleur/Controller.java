@@ -114,7 +114,6 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         vendeurInterface = vendeurPane;
-        joueur.setArmeDistance(new Shuriken()); // ****************** TEMPORAIRE ******************
         initConsole(); // Charge la console
         itemsDescriptionLoader = new ItemDescriptionSwitcher(descriptionLabel);
         player.setId("player");
