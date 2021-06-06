@@ -400,30 +400,35 @@
                         <Image url="@../ressources/HUD/touches/RIGHT.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="99.0" fitWidth="80.0" layoutX="214.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../ressources/HUD/touches/key1.png" />
-                     </image>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </ImageView>
-                  <ImageView fitHeight="99.0" fitWidth="80.0" layoutX="347.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../ressources/HUD/touches/key2.png" />
-                     </image>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </ImageView>
-                  <ImageView fitHeight="80.0" fitWidth="64.0" layoutX="448.0" layoutY="22.0" pickOnBounds="true">
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                     <image>
-                        <Image url="@../ressources/HUD/touches/keyE.png" />
-                     </image>
-                  </ImageView>
+                  <HBox alignment="CENTER" layoutX="151.0" prefHeight="111.0" prefWidth="432.0" spacing="25.0">
+                     <children>
+                        <ImageView fitHeight="103.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/HUD/touches/key1.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="103.0" fitWidth="59.0" layoutX="161.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/HUD/touches/key2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="103.0" fitWidth="59.0" layoutX="191.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/HUD/touches/key3.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="103.0" fitWidth="59.0" layoutX="220.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/HUD/touches/keyE.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="103.0" fitWidth="59.0" layoutX="250.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/HUD/touches/keyF.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
                </children>
             </Pane>
             <Pane fx:id="topHPPane" layoutX="431.0" layoutY="120.0" prefHeight="88.0" prefWidth="420.0">
