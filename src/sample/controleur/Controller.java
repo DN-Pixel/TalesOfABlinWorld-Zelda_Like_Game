@@ -17,6 +17,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import sample.modele.Projectile;
+import sample.modele.acteurs.Acteur;
+import sample.modele.acteurs.Pnj;
 import sample.modele.items.Armes.Shuriken;
 import sample.vue.*;
 import sample.modele.Joueur;
@@ -52,6 +54,9 @@ public class Controller implements Initializable {
     private Pane gamePane;
     @FXML
     private Pane vendeurPane;
+
+    private static Pane vendeurInterface;
+
     @FXML
     private TilePane tilePane;
     @FXML
@@ -92,12 +97,14 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        vendeurInterface = vendeurPane;
         joueur.setArmeDistance(new Shuriken()); // ****************** TEMPORAIRE ******************
         initConsole(); // Charge la console
         itemsDescriptionLoader = new ItemDescriptionSwitcher(descriptionLabel);
         player.setId("player");
         terrainVue = new TerrainVue(zoneActuelle, joueur, gamePane, tilePane, tilePaneDeco, tilePaneSolid);
         terrainVue.loadMap("1", 36*16, 3*16); // charge la première map
+        player.toFront(); // met le joueur devant tout le monde
         listenerLauncher = new ListenerLauncher(joueur, player, terrainVue);
         initListeners(); // initialise les listeners
         initBoucleTemporelle(); // initialise la boucle temporelle
@@ -134,14 +141,13 @@ public class Controller implements Initializable {
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.017),
                 (ev ->{
-                    //if (temps==0)
-                        //joueur.setYProperty(150); //permet de bouger le personnage au lancement du jeu, afin d'activer le CameraListener.
-                    movePlayer(); // gère le déplacement à chaque tour de la boucle temporelle
+                    if(!vendeurPane.isVisible()) // Si le joueur n'a pas de discussion en cours
+                        movePlayer(); // gère le déplacement à chaque tour de la boucle temporelle
                     timeManager(); // gestion du temps
                     zoneActuelle.clean(); // lance le nettoyeur de map
                     spawnManager(); // manage le spawn des ennemis et des ressources
                     if(temps%5==0)
-                        zoneActuelle.moveEnnemis(); // fais déplacer les ennemis
+                        zoneActuelle.moveEnnemis();
                     if(temps%177==0) {
                         zoneActuelle.lesEnnemisAttaquent(joueur); // fais attaquer les ennemis toutes les 3s
                         zoneActuelle.spawnProjectile(joueur); // attaques à distance
@@ -193,6 +199,8 @@ public class Controller implements Initializable {
             joueur.attaquerEnnemis();
         else if(e.getCode() == KeyCode.F)
             joueur.loot();
+        else if(e.getCode() == KeyCode.E)
+            interagirAvecPnj();
         else if(cdManager.getCdShuriken()>=1 && (e.getCode() == KeyCode.DIGIT3 || e.getCode() == KeyCode.QUOTEDBL)){
             joueur.attaquerEnDistance();
             cdManager.setCdShuriken(0);
@@ -221,13 +229,11 @@ public class Controller implements Initializable {
     public void movePlayer(){
         if(joueur.manageCollisions(keyPressed)){
             //permet de récuperer l'ancienne valeur de la Tile du tableau de Spawn.
-            //joueur.setOldTileValue(joueur.getZone().getMapSpawn()[(joueur.getCentreJoueurY()/16)][(joueur.getCentreJoueurX()/16)]);
             if(dx==1) joueur.moveRight();
             if(dx==-1) joueur.moveLeft();
             if(dy==1) joueur.moveDown();
             if(dy==-1) joueur.moveUp();
             joueur.manageAggro();
-            //joueur.updatePosition();
         }
     }
 
@@ -240,4 +246,19 @@ public class Controller implements Initializable {
            joueur.getConsole().afficherErreurConsommable();
        };
     }
+
+    private static void interagirAvecPnj() {
+        Pnj a = (Pnj) joueur.parler();
+        if(a!=null && a.getNom().equals("vendeur")){
+            if(vendeurInterface.isVisible()){
+                vendeurInterface.setVisible(false);
+                vendeurInterface.setDisable(true);
+            }
+            else{
+                vendeurInterface.setVisible(true);
+                vendeurInterface.setDisable(false);
+            }
+        }
+    }
+
 }

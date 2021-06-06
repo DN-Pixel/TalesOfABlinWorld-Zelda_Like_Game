@@ -13,6 +13,8 @@ public class Acteur {
     public Acteur(int x, int y) {
         if(this instanceof EnnemiBoss)
             id = "aBoss";
+        else if(this instanceof Pnj)
+            id = "pnj"+a;
         else{
             id="a"+a;
             a++;

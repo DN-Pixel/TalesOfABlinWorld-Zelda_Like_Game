@@ -6,25 +6,18 @@ import java.util.ArrayList;
 
 public class Pnj extends Acteur {
 
-    private ArrayList<Quete> listQuete;
+    private String nom;
 
-    public Pnj(int x, int y){
+    public Pnj(int x, int y, String n){
         super(x, y);
-        this.listQuete = new ArrayList<>();
+        nom = n;
     }
 
-    public void setListQuete(Quete q){this.listQuete.add(q);}
-    public int getNbrQuete() { return this.listQuete.size();}
-
-    public void removeQuete(Quete q){
-        for (int i=0; i<this.listQuete.size(); i++){
-            if (this.listQuete.get(i)==q)
-                this.listQuete.remove(i);
-        }
+    public String getNom() {
+        return nom;
     }
 
-    public void queteAccepte() {
-
+    public void setNom(String nom) {
+        this.nom = nom;
     }
-
 }

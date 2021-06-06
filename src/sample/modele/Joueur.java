@@ -7,6 +7,7 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.control.RadioButton;
 import javafx.scene.input.KeyEvent;
 import sample.modele.acteurs.Acteur;
+import sample.modele.acteurs.Pnj;
 import sample.modele.acteurs.ennemis.Ennemi;
 import sample.modele.items.Armes.*;
 import sample.modele.items.Inventaire;
@@ -348,6 +349,15 @@ public class Joueur {
                 zone.getListeRessource().remove(r);
             }
         }
+    }
+
+    public Acteur parler(){
+        for(Acteur a : zone.getListeActeurs()){
+            if(a instanceof Pnj && isCollinding(a.getX(), a.getY())) {
+                return a;
+            }
+        }
+        return null;
     }
 
 }

@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
 import sample.modele.acteurs.Acteur;
+import sample.modele.acteurs.Pnj;
 import sample.modele.acteurs.SaveActeurs;
 import sample.modele.acteurs.ennemis.*;
 import sample.modele.ressources.Ressource;
@@ -47,14 +48,12 @@ public class Terrain {
         return projectiles;
     }
 
-    public void loadSaveActeurs(){
-        int numero = Integer.parseInt(nomDeCarte.substring((nomDeCarte.length()-1))); // récupère le numéro de la carte
+    public void loadPnjHitboxes(){
+        int numero = getNumeroCarte(); // récupère le numéro de la carte
         Acteur a;
         for(int i=0;i<saveActeurs.getSave(numero).size();i++){
             a = saveActeurs.getSave(numero).get(i);
-            if(a instanceof Ennemi)
-                mapObstacles[a.getY()/16][a.getX()/16] = 6666; // 6666 -> ENNEMI
-            else
+            if(a instanceof Pnj)
                 mapObstacles[a.getY()/16][a.getX()/16] = 7777; // 7777 -> PNJ
         }
     }

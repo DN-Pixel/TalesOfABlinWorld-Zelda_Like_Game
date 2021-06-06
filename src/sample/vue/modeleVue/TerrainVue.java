@@ -13,6 +13,8 @@ import sample.modele.Joueur;
 import sample.modele.Terrain;
 import sample.modele.acteurs.Acteur;
 import sample.controleur.ObsListActeurs;
+import sample.modele.acteurs.Pnj;
+import sample.modele.acteurs.ennemis.Ennemi;
 import sample.modele.ressources.Ressource;
 import sample.vue.ImageMap;
 
@@ -50,13 +52,25 @@ public class TerrainVue {
         for(int i = zoneActuelle.getListeActeurs().size()-1; i>=0;i--){
             a = zoneActuelle.getListeActeurs().get(i);
             if(gamePane.lookup("#"+a.getId())==null){
-                ImageView sprite = new ImageView(imageMap.getImage(a.getClass().getSimpleName())); // récupère l'image de l'ennemi correspondant
-                sprite.setId(a.getId());
-                sprite.translateXProperty().bind(a.getXProperty());
-                sprite.translateYProperty().bind(a.getYProperty());
-                gamePane.getChildren().add(sprite);
+                if(a instanceof Ennemi){
+                    ImageView sprite = new ImageView(imageMap.getImage(a.getClass().getSimpleName())); // récupère l'image de l'ennemi correspondant
+                    sprite.setId(a.getId());
+                    sprite.translateXProperty().bind(a.getXProperty());
+                    sprite.translateYProperty().bind(a.getYProperty());
+                    gamePane.getChildren().add(sprite);
+                }
+                else{
+                    ImageView sprite = new ImageView(imageMap.getImage(((Pnj) a).getNom())); // récupère l'image de l'ennemi correspondant
+                    sprite.setTranslateX(a.getX());
+                    sprite.setTranslateY(a.getY());
+                    sprite.setId(a.getId());
+                    sprite.translateXProperty().bind(a.getXProperty());
+                    sprite.translateYProperty().bind(a.getYProperty());
+                    gamePane.getChildren().add(sprite);
+                }
             }
         }
+
         for(int j = gamePane.getChildren().size()-1;j>=0;j--){
             b = gamePane.getChildren().get(j);
             if((b.getId().startsWith("a") && !zoneActuelle.findActeur(b.getId())))
@@ -97,6 +111,7 @@ public class TerrainVue {
             zoneActuelle.getListeRessource().addListener(new ObsListRessources(gamePane));
             updateActeurs();
             updateRessources();
+            zoneActuelle.loadPnjHitboxes();
             joueur.setZone(zoneActuelle);
             joueur.setXProperty(spawnX);
             joueur.setYProperty(spawnY);
