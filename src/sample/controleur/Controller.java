@@ -13,6 +13,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import sample.modele.Projectile;
 import sample.modele.items.Armes.Shuriken;
@@ -24,7 +26,11 @@ import sample.vue.animations.PlayerMovementAnimation;
 import sample.vue.modeleVue.TerrainVue;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -160,8 +166,10 @@ public class Controller implements Initializable {
             cdManager.incrementCD();
     }
     public void spawnManager(){
-        if(temps%590==0)
+        if(temps%590==0 && zoneActuelle.getNumeroCarte()!=6)
             zoneActuelle.EnemySpawn();// spawn d'ennemi toutes les 10s
+        else if(temps%700==0)
+            zoneActuelle.EnemySpawn();// spawn d'ennemi toutes les 15s
         if(temps%1200==0)
             zoneActuelle.ressourceSpawn(); // spawn de ressources les 20s
     }

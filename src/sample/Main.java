@@ -13,7 +13,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Pane root = FXMLLoader.load(getClass().getResource("vue/sample.fxml"));
+        BorderPane root = FXMLLoader.load(getClass().getResource("vue/sample.fxml"));
         Scene scene = new Scene(root,1280,720);
 
         scene.setOnKeyPressed(Controller::keyManager);

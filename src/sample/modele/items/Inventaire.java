@@ -2,7 +2,6 @@ package sample.modele.items;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import org.omg.PortableInterceptor.ObjectReferenceFactory;
 import sample.modele.acteurs.Acteur;
 import sample.modele.items.Objets.*;
 
