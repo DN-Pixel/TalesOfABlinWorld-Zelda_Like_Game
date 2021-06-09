@@ -65,6 +65,8 @@ public class Controller implements Initializable {
     private TilePane tilePaneSolid;
     @FXML
     private TilePane tilePaneDeco;
+    @FXML
+    private Pane dialoguePane;
     //LABELS TEXTFIELDS
     @FXML
     private TextArea console;
@@ -76,6 +78,8 @@ public class Controller implements Initializable {
     private TextField shopQuantiteField;
     @FXML
     private Label nbGoldLabel;
+    @FXML
+    private Label dialogueLabel;
     //IMAGES
     @FXML
     private ImageView hpBar;

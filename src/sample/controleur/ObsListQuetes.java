@@ -14,6 +14,7 @@ public class ObsListQuetes implements ListChangeListener<Quete> {
 
     @Override
     public void onChanged(Change<? extends Quete> c) {
+
         queteVue.displayQuest(c.getList().get(0));
     }
 }
