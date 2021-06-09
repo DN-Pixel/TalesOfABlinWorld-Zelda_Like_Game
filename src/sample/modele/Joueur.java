@@ -4,8 +4,10 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.Pnj;
 import sample.modele.acteurs.ennemis.Ennemi;
@@ -370,6 +372,26 @@ public class Joueur {
             }
         }
         return null;
+    }
+    public void afficherDialogue(Label phrase, Pane dialogueImage){
+
+        for(Acteur a : zone.getListeActeurs()){
+            if(a instanceof Pnj && isCollinding(a.getX(), a.getY()) && !(((Pnj) a).getNom().equals("vendeur")|| ((Pnj) a).getNom().equals("upgrader"))) {
+                //partie visibilité
+                if(dialogueImage.isVisible())
+                    dialogueImage.setVisible(false);
+                else
+                    dialogueImage.setVisible(true);
+                //partie set text
+                double x = Math.random();
+                if (x<=0.33)
+                    phrase.setText(((Pnj) a).getRepliques().get(0));
+                else if(x<=0.66)
+                    phrase.setText(((Pnj) a).getRepliques().get(1));
+                else
+                    phrase.setText(((Pnj) a).getRepliques().get(2));
+            }
+        }
     }
 
 }

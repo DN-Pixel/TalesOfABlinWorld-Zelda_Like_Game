@@ -67,6 +67,7 @@ public class Controller implements Initializable {
     private TilePane tilePaneDeco;
     @FXML
     private Pane dialoguePane;
+    private static Pane dialogueGlobalInterface;
     //LABELS TEXTFIELDS
     @FXML
     private TextArea console;
@@ -80,6 +81,7 @@ public class Controller implements Initializable {
     private Label nbGoldLabel;
     @FXML
     private Label dialogueLabel;
+    private static Label dialogueInterface;
     //IMAGES
     @FXML
     private ImageView hpBar;
@@ -118,6 +120,8 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         vendeurInterface = vendeurPane;
+        dialogueInterface = dialogueLabel;
+        dialogueGlobalInterface=dialoguePane;
         initConsole(); // Charge la console
         itemsDescriptionLoader = new ItemDescriptionSwitcher(descriptionLabel);
         player.setId("player");
@@ -225,8 +229,10 @@ public class Controller implements Initializable {
             joueur.attaquerEnnemis();
         else if(e.getCode() == KeyCode.F)
             joueur.loot();
-        else if(e.getCode() == KeyCode.E)
+        else if(e.getCode() == KeyCode.E){
             interagirAvecPnj();
+            joueur.afficherDialogue(dialogueInterface,dialogueGlobalInterface);
+        }
         else if(cdManager.getCdShuriken()>=1 && (e.getCode() == KeyCode.DIGIT3 || e.getCode() == KeyCode.QUOTEDBL)){
             joueur.attaquerEnDistance();
             cdManager.setCdShuriken(0);

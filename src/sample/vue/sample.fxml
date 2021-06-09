@@ -445,6 +445,23 @@
                   </ImageView>
                </children>
             </Pane>
+            <Pane fx:id="dialoguePane" layoutX="381.0" layoutY="500.0" prefHeight="102.0" prefWidth="543.0" visible="false">
+               <children>
+                  <ImageView fitHeight="117.0" fitWidth="576.0" layoutX="-24.0" layoutY="-15.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../ressources/HUD/menu/WoodPane.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust brightness="-0.1" hue="0.01" saturation="-1.0" />
+                     </effect>
+                  </ImageView>
+                  <Label fx:id="dialogueLabel" layoutX="-5.0" layoutY="-3.0" prefHeight="93.0" prefWidth="536.0" text="jeune aventure reb jjhf sh fse bejhrf h vhg vysfkeyvf sjvfk hv hv hsfv ghwfv hsgegvesh sehGVhgv " textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
             <Pane fx:id="vendeurPane" disable="true" layoutX="381.0" layoutY="500.0" prefHeight="102.0" prefWidth="543.0" visible="false">
                <children>
                   <ImageView fitHeight="124.0" fitWidth="465.0" layoutX="38.0" layoutY="-29.0" pickOnBounds="true">
@@ -781,23 +798,6 @@
                         </RadioButton>
                      </children>
                   </HBox>
-               </children>
-            </Pane>
-            <Pane fx:id="dialoguePane" layoutX="381.0" layoutY="500.0" prefHeight="102.0" prefWidth="543.0">
-               <children>
-                  <ImageView fitHeight="117.0" fitWidth="576.0" layoutX="-24.0" layoutY="-15.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@../ressources/HUD/menu/WoodPane.png" />
-                     </image>
-                     <effect>
-                        <ColorAdjust brightness="-0.1" hue="0.01" saturation="-1.0" />
-                     </effect>
-                  </ImageView>
-                  <Label fx:id="dialogueLabel" layoutX="-5.0" layoutY="-3.0" prefHeight="93.0" prefWidth="536.0" text="jeune aventure reb jjhf sh fse bejhrf h vhg vysfkeyvf sjvfk hv hv hsfv ghwfv hsgegvesh sehGVhgv " textFill="WHITE" wrapText="true">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
                </children>
             </Pane>
          </children>
