@@ -30,12 +30,12 @@ public class Pnj extends Acteur {
     public ArrayList<String> addReplique(String nom){
         ArrayList<String> lines = new ArrayList<>();
         switch (nom) {
-            case "Enfant":
+            case "kid":
                 lines.add("Viens on joue au ballon ! ");
                 lines.add("Ma mere m'a que j'etais quelqu'un de special !!");
                 lines.add("Cache-cache est un jeu bien trop difficile, je ne sais pas qui a inventer ce jeu ?!");
                 break;
-            case "Cavegirl":
+            case "cavegirl":
                 lines.add("N'approchez pas trop...");
                 lines.add("Je vous sens d'ici... prenez donc une douche ?");
                 lines.add("Vous avez l'air d'aimer le vert... pas moi.");

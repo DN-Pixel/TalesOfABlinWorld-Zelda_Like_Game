@@ -2,8 +2,6 @@ package sample.controleur;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,29 +12,22 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import sample.modele.Projectile;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.Pnj;
-import sample.modele.items.Armes.Shuriken;
 import sample.modele.quetes.Quete;
 import sample.vue.*;
 import sample.modele.Joueur;
 import sample.modele.Terrain;
 import sample.vue.animations.PlayerHPAnimation;
 import sample.vue.animations.PlayerMovementAnimation;
+import sample.vue.modeleVue.DialogueVue;
 import sample.vue.modeleVue.QueteVue;
 import sample.vue.modeleVue.TerrainVue;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -112,10 +103,11 @@ public class Controller implements Initializable {
 
     @FXML
     private Label recompenseObjet;
-
+    private DialogueVue dialogueVue;
+    private static DialogueVue dialogueVueInterface;//classe permettant d'afficher les dialogues.
     private QueteVue queteVue;
     public TerrainVue terrainVue; // classe permettant de load la map et charger les textures
-    private long temps = 0 ;
+    private static long temps = 0 ;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -125,6 +117,8 @@ public class Controller implements Initializable {
         initConsole(); // Charge la console
         itemsDescriptionLoader = new ItemDescriptionSwitcher(descriptionLabel);
         player.setId("player");
+        dialogueVue = new DialogueVue(dialogueLabel,dialoguePane,joueur);
+        dialogueVueInterface=dialogueVue;
         terrainVue = new TerrainVue(zoneActuelle, joueur, gamePane, tilePane, tilePaneDeco, tilePaneSolid);
         terrainVue.loadMap("0", 9*16, 27*16); // charge la première map (cauchemar)
         player.toFront(); // met le joueur devant tout le monde
@@ -186,6 +180,7 @@ public class Controller implements Initializable {
                         bossFightManager.manageBossFight(temps);
 
                     zoneActuelle.manageProjeciles(joueur);
+                    dialogueVueInterface.checkDialogueTimerOut(temps);
                 })
         );
         gameLoop.getKeyFrames().add(kf);
@@ -194,8 +189,10 @@ public class Controller implements Initializable {
 
     //gestion du temps
     public void timeManager(){
-        if (temps >= 1000000000)
+        if (temps >= 1000000000) {
             temps = 1; // reset
+            dialogueVueInterface.debutDialogueTimeSetter(120);
+        }
         else
             temps++;
         if (temps%59==0)
@@ -231,7 +228,8 @@ public class Controller implements Initializable {
             joueur.loot();
         else if(e.getCode() == KeyCode.E){
             interagirAvecPnj();
-            joueur.afficherDialogue(dialogueInterface,dialogueGlobalInterface);
+            parlerAvecActeur();
+            dialogueVueInterface.debutDialogueTimeSetter(temps);//permet de mémoriser le timer du clic
         }
         else if(cdManager.getCdShuriken()>=1 && (e.getCode() == KeyCode.DIGIT3 || e.getCode() == KeyCode.QUOTEDBL)){
             joueur.attaquerEnDistance();
@@ -317,5 +315,10 @@ public class Controller implements Initializable {
             }
         }
     }
-
+    private static void parlerAvecActeur(){
+        for(Acteur a : joueur.getZone().getListeActeurs()){
+            if(a instanceof Pnj && joueur.isCollinding(a.getX(), a.getY()) && !(((Pnj) a).getNom().equals("vendeur")|| ((Pnj) a).getNom().equals("upgrader")))
+               dialogueVueInterface.afficherDialogue(a);
+        }
+    }
 }
