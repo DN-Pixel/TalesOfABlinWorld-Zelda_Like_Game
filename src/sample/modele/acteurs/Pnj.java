@@ -83,7 +83,7 @@ public class Pnj extends Acteur {
             case "villageois4":
                 lines.add("Laissez-moi tranquille...");
                 lines.add("Je ne peux pas vous aider, surtout à ce propos.");
-                lines.add("Jamais entendu parler.");
+                lines.add("Momoku ? Jamais entendu parler.");
                 break;
             case "villageois5":
                 lines.add("J'ai entendu dire que boire des 'Potion' pouvait faire pousser les cheveux !");
