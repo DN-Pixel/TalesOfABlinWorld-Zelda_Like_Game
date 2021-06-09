@@ -71,6 +71,7 @@ public class Inventaire {
     }
 
     public boolean estDisponible (String item, int quantite) {
+        if(quantite<0) return false;
         for (Objet i : this.listObjet ) {
             if (i.getClass().getSimpleName().equals(item) && i.getQuantite()>=quantite) {
                 return true;
@@ -82,7 +83,7 @@ public class Inventaire {
        for (int i=0; i<getListObjet().size();i++) {
             if (nom.endsWith(listObjet.get(i).getClass().getSimpleName())) { return i; }
         }
-        return 0;
+        return -1;
     }
     public int getNbrOr() { return nbrOr.getValue(); }
     public IntegerProperty nbrOrProperty() { return nbrOr; }
