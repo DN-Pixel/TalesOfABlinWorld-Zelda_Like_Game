@@ -49,9 +49,9 @@ public class ListenerLauncher {
                         break;
                     case "1":
                         if(joueur.isCollinding(622, 228))  terrainVue.loadMap("2", 50, 100);
-                        else if(joueur.isCollinding(415, 300) || joueur.isCollinding(430, 300))  terrainVue.loadMap("4", 500, 80);
-                        else if ( joueur.isCollinding(18*16,10) || joueur.isCollinding(19*16,10) || joueur.isCollinding(20*16,10) || joueur.isCollinding(21*16,10)) terrainVue.loadMap("3",21*16,36*16);
-                        else if (joueur.isCollinding(10,12*16) || joueur.isCollinding(10,13*16)) terrainVue.loadMap("5",29*16,30*16);
+                        else if(joueur.getNiveau()>=3 && (joueur.isCollinding(415, 300) || joueur.isCollinding(430, 300)))  terrainVue.loadMap("4", 500, 80);
+                        else if (joueur.getNiveau()>=2 && (joueur.isCollinding(18*16,10) || joueur.isCollinding(19*16,10) || joueur.isCollinding(20*16,10) || joueur.isCollinding(21*16,10))) terrainVue.loadMap("3",21*16,36*16);
+                        else if (joueur.getNiveau()>=4 && (joueur.isCollinding(10,12*16) || joueur.isCollinding(10,13*16))) terrainVue.loadMap("5",29*16,30*16);
                         break;
                     case "2":
                         if(joueur.isCollinding(0, 100))  terrainVue.loadMap("1", 600, 250);
@@ -64,8 +64,11 @@ public class ListenerLauncher {
                         break;
                     case "5":
                         if(joueur.isCollinding(29*16,32*16)) terrainVue.loadMap("1",30,12*16);
-                        if(joueur.isCollinding(14*16,2*16)) terrainVue.loadMap("6",14*16,25*16);
+                        if(joueur.getNiveau()>=5 && joueur.isCollinding(14*16,2*16)) terrainVue.loadMap("6",14*16,25*16);
                         if(joueur.isCollinding(0,7*16)) terrainVue.loadMap("7",45*16,7*16);
+                        break;
+                    case"6":
+                        if (joueur.getNiveau()>=6 && joueur.isCollinding(14*16,25*16)) terrainVue.loadMap("5",14*16,11*16);
                         break;
                     case"7":
                         if (joueur.isCollinding(48*16,8*16)) terrainVue.loadMap("5",20,7*16);

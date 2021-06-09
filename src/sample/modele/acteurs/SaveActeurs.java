@@ -78,10 +78,14 @@ public class SaveActeurs {
 
     private void genererSaveZone4() {
         ObservableList<Acteur> save = FXCollections.observableArrayList();
+        save.add(new Pnj(16*35, 16*7, "moine"));
+        save.add(new Pnj(37*16, 33*16, "goldninja"));
         save.add(new Oeil(16*29, 16*18));
-        save.add(new Oeil(16*23, 16*13));
+        save.add(new Oeil(16*23, 16*17));
         save.add(new Bete(16*13, 16*6));
         save.add(new Bete(16*3, 16*21));
+        save.add(new Oeil(16*13, 16*29));
+        save.add(new Oeil(16*2, 16*9));
         save.add(new Oeil(16*6, 16*34));
         save.add(new Bete(16*23, 16*37));
         save.add(new Oeil(16*37, 16*34));
@@ -92,6 +96,7 @@ public class SaveActeurs {
 
     private void genererSaveZone5(){
         ObservableList<Acteur> save = FXCollections.observableArrayList();
+        save.add(new Pnj(16, 16*33,"cavegirl"));
         save.add(new Reptile(13*16,7*16));
         save.add(new Reptile(16*16,7*16));
         savesListesActeurs.put(5, save);

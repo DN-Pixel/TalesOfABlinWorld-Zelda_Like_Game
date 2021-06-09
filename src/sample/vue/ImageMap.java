@@ -19,8 +19,8 @@ public class ImageMap {
         map.put("Reptile", new Image("sample/ressources/ennemis/reptile.png"));
         map.put("EnnemiBoss", new Image("sample/ressources/ennemis/boss.png"));
 
-        map.put("Enfant", new Image("sample/ressources/pnj/kid.png"));
-        map.put("Cavegirl", new Image("sample/ressources/pnj/cavegirl.png"));
+        map.put("kid", new Image("sample/ressources/pnj/kid.png"));
+        map.put("cavegirl", new Image("sample/ressources/pnj/cavegirl.png"));
         map.put("goldninja", new Image("sample/ressources/pnj/goldninja.png"));
         map.put("master", new Image("sample/ressources/pnj/master.png"));
         map.put("moine", new Image("sample/ressources/pnj/moine.png"));

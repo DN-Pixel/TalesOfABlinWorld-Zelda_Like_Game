@@ -28,6 +28,7 @@ public class Joueur {
     private Terrain zone;
     private Inventaire inventaire;
     private int maxHP;
+    private int niveau;
     private QuestLine listeQuetes;
 
     public Joueur(int x, int y, Terrain zone) {
@@ -39,12 +40,23 @@ public class Joueur {
         hp.setValue(10);
         maxHP = hp.getValue();
         armeDistance = null;
+        niveau = 1;
         this.inventaire = new Inventaire();
         this.listeQuetes = new QuestLine(this);
     }
 
     public ArmeDistance getArmeDistance() {
         return armeDistance;
+    }
+
+    public int getNiveau() {
+        return niveau;
+    }
+
+    public void lvlUp(){
+        niveau++;
+        maxHP += 5;
+        hp.setValue(maxHP);
     }
 
     public void setArmeDistance(ArmeDistance armeDistance) {
