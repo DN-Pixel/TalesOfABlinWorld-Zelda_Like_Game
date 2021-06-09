@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -22,7 +32,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane style="-fx-background-size: 1300 800;" styleClass="fond" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controleur.Controller">
+<BorderPane style="-fx-background-size: 1300 800;" styleClass="fond" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controleur.Controller">
    <center>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" scaleX="1.5" scaleY="1.5">
          <children>
@@ -433,6 +443,23 @@
                         <Image url="@../ressources/HUD/HPBAR/10HP.png" />
                      </image>
                   </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="dialoguePane" layoutX="381.0" layoutY="500.0" prefHeight="102.0" prefWidth="543.0" visible="false">
+               <children>
+                  <ImageView fitHeight="117.0" fitWidth="576.0" layoutX="-24.0" layoutY="-15.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../ressources/HUD/menu/WoodPane.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust brightness="-0.1" hue="0.01" saturation="-1.0" />
+                     </effect>
+                  </ImageView>
+                  <Label fx:id="dialogueLabel" layoutX="-5.0" layoutY="-3.0" prefHeight="93.0" prefWidth="536.0" text="jeune aventure reb jjhf sh fse bejhrf h vhg vysfkeyvf sjvfk hv hv hsfv ghwfv hsgegvesh sehGVhgv " textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <Pane fx:id="vendeurPane" disable="true" layoutX="381.0" layoutY="500.0" prefHeight="102.0" prefWidth="543.0" visible="false">
