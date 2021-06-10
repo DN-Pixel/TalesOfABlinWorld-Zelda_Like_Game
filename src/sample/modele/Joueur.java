@@ -381,4 +381,14 @@ public class Joueur {
         }
         return null;
     }
+
+    public void acheterArme(Arme armechoisie) {
+        if(getInventaire().getNbrOr()>=armechoisie.getValue()) {
+            getInventaire().setNbrOr(getInventaire().getNbrOr() - armechoisie.getValue());
+            setArme(armechoisie);
+        }
+        else{
+            getConsole().afficherArgentManquant();
+        }
+    }
 }

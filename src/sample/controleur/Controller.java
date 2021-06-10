@@ -18,6 +18,7 @@ import javafx.util.Duration;
 import sample.modele.Console;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.Pnj;
+import sample.modele.items.Armes.Arme;
 import sample.modele.items.Armes.ShopInventory;
 import sample.modele.quetes.Quete;
 import sample.vue.*;
@@ -90,6 +91,8 @@ public class Controller implements Initializable {
     @FXML
     private Label descriptionArmeLabel;
     private static Label dialogueInterface;
+    @FXML
+    private Label pourcentageHPLabel;
     //IMAGES
     @FXML
     private ImageView hpBar;
@@ -168,7 +171,7 @@ public class Controller implements Initializable {
 
     private void initAnimations() {
         PlayerMovementAnimation.initAnimation(player, joueur, imageMap); // INITIALISE LES ANIMATIONS DE DEPLACEMENTS DU JOUEUR
-        PlayerHPAnimation.initAnimation(joueur, hpBar, imageMap); // INTIALISE LES ANIMATIONS DE VIE (Coeurs)
+        PlayerHPAnimation.initAnimation(joueur, hpBar, imageMap,pourcentageHPLabel); // INTIALISE LES ANIMATIONS DE VIE (Coeurs)
     }
 
     //initialise tous les listeners
@@ -366,7 +369,11 @@ public class Controller implements Initializable {
     }
     @FXML
     public void acheterArme (){
-        System.out.println("pas encore codé");
+        RadioButton radioSelected = (RadioButton) upgradeRadio.getSelectedToggle();
+        try {
+            Arme armechoisie = shopInventory.chercherArme(radioSelected.getId());
+            joueur.acheterArme(armechoisie);
+        }catch (Exception e) { joueur.getConsole().afficherErreurArmeNotSelected(); };
     }
     private static void parlerAvecActeur(){
         for(Acteur a : joueur.getZone().getListeActeurs()){

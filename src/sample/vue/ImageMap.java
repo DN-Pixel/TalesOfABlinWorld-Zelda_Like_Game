@@ -34,16 +34,6 @@ public class ImageMap {
         map.put("villageois4", new Image("sample/ressources/pnj/villageois4.png"));
         map.put("villageois5", new Image("sample/ressources/pnj/villageois5.png"));
 
-        map.put("10HP", new Image("sample/ressources/HUD/HPBAR/10HP.png"));
-        map.put("9HP", new Image("sample/ressources/HUD/HPBAR/9HP.png"));
-        map.put("8HP", new Image("sample/ressources/HUD/HPBAR/8HP.png"));
-        map.put("7HP", new Image("sample/ressources/HUD/HPBAR/7HP.png"));
-        map.put("6HP", new Image("sample/ressources/HUD/HPBAR/6HP.png"));
-        map.put("5HP", new Image("sample/ressources/HUD/HPBAR/5HP.png"));
-        map.put("4HP", new Image("sample/ressources/HUD/HPBAR/4HP.png"));
-        map.put("3HP", new Image("sample/ressources/HUD/HPBAR/3HP.png"));
-        map.put("2HP", new Image("sample/ressources/HUD/HPBAR/2HP.png"));
-        map.put("1HP", new Image("sample/ressources/HUD/HPBAR/1HP.png"));
 
         map.put("playerDOWN", new Image("sample/ressources/player/playerDOWN.png"));
         map.put("playerUP", new Image("sample/ressources/player/playerUP.png"));

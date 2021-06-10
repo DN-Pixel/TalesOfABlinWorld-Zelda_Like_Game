@@ -25,4 +25,15 @@ public class ShopInventory {
         }
         return "";
     }
+    public Arme chercherArme(String nom){
+        System.out.println("selected " +nom);
+        for (Arme a : inventoryShop){
+            System.out.println(a.getNom());
+        }
+        for (Arme a : inventoryShop){
+            if (a.getNom().equals(nom))
+                return a;
+        }
+        return null;
+    }
 }
