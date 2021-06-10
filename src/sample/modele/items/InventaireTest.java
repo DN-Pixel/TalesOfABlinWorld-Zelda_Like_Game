@@ -25,7 +25,6 @@ class InventaireTest {
 
     @org.junit.jupiter.api.Test
     void ajouterObjet() {
-//       0 Argent | 1 Bois | 2 Diamant | 3 Fer | 4 Miel | 5 MineraiBrut | 6 Nouilles | 7 Potion | 8 Viande
         int bois = this.inventaire.trouverObjet("Bois");
         this.inventaire.ajouterObjet("Bois", 2);
         Assertions.assertEquals(2, this.inventaire.getListObjet().get(bois).getQuantite());
@@ -43,7 +42,6 @@ class InventaireTest {
 
     @org.junit.jupiter.api.Test
     void enleverObjet() {
-//       0 Argent | 1 Bois | 2 Diamant | 3 Fer | 4 Miel | 5 MineraiBrut | 6 Nouilles | 7 Potion | 8 Viande
         int bois = this.inventaire.trouverObjet("Bois");
         this.inventaire.eneleverObjet("Bois", 2);
         Assertions.assertEquals(0, this.inventaire.getListObjet().get(bois).getQuantite());
