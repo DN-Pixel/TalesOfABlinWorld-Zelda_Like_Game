@@ -28,18 +28,22 @@ public class Inventaire {
     }
 
     public void ajouterObjet(String item, int quantite) {
-        for (Objet i : this.listObjet ) {
-            if (i.getClass().getSimpleName().equals(item))
-                i.setQuantite(i.getQuantite()+quantite);
+        if (quantite>=0) {
+            for (Objet i : this.listObjet) {
+                if (i.getClass().getSimpleName().equals(item))
+                    i.setQuantite(i.getQuantite() + quantite);
+            }
         }
     }
 
     public void eneleverObjet(String item, int quantite) {
-        for (Objet i : this.listObjet ) {
-            if (i.getClass().getSimpleName().equals(item)) {
-                i.setQuantite(i.getQuantite() - quantite);
-                if (i.getQuantite()<0)
-                    i.setQuantite(0);
+        if (quantite >= 0) {
+            for (Objet i : this.listObjet) {
+                if (i.getClass().getSimpleName().equals(item)) {
+                    i.setQuantite(i.getQuantite() - quantite);
+                    if (i.getQuantite() < 0)
+                        i.setQuantite(0);
+                }
             }
         }
     }
@@ -83,7 +87,7 @@ public class Inventaire {
        for (int i=0; i<getListObjet().size();i++) {
             if (nom.endsWith(listObjet.get(i).getClass().getSimpleName())) { return i; }
         }
-        return -1;
+        return 0;
     }
     public int getNbrOr() { return nbrOr.getValue(); }
     public IntegerProperty nbrOrProperty() { return nbrOr; }
