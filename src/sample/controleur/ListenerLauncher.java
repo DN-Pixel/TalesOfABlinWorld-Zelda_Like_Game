@@ -6,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import sample.modele.Joueur;
+import sample.modele.items.Armes.ShopInventory;
+import sample.vue.ArmeDescriptionSwitcher;
 import sample.vue.ItemDescriptionSwitcher;
 import sample.vue.modeleVue.TerrainVue;
 
@@ -96,8 +98,9 @@ public class ListenerLauncher {
     }
 
 
-    public void initInventaireListener(Label nbGoldLabel, ItemDescriptionSwitcher itemsDescriptionLoader){
+    public void initInventaireListener(Label nbGoldLabel, ItemDescriptionSwitcher itemsDescriptionLoader,Label nbMinerai){
         nbGoldLabel.textProperty().bind(joueur.getInventaire().nbrOrProperty().asString());
+        nbMinerai.textProperty().bind(joueur.getInventaire().getListObjet().get(5).quantiteProperty().asString());
         joueur.getInventaire().nbrOrProperty().addListener((observable, oldValue, newValue) ->{
             if(newValue.intValue()-oldValue.intValue()<0)
                 joueur.getConsole().afficherPerteArgent(oldValue.intValue()-newValue.intValue());

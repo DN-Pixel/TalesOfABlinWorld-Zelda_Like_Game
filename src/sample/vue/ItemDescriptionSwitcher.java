@@ -2,14 +2,13 @@ package sample.vue;
 
 import javafx.event.Event;
 import javafx.scene.control.Label;
+import sample.modele.items.Armes.ShopInventory;
 import sample.modele.items.Inventaire;
 
 public class ItemDescriptionSwitcher {
     private Label description;
-
     public ItemDescriptionSwitcher(Label description){ this.description=description; }
-
     public void switchDescription(String clicSource, Inventaire inventaire){
-        description.setText(inventaire.getListObjet().get(inventaire.trouverObjet(clicSource)).getDescription());
+            description.setText(inventaire.getListObjet().get(inventaire.trouverObjet(clicSource)).getDescription());
     }
 }
