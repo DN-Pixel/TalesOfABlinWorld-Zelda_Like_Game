@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -17,12 +18,14 @@ import javafx.util.Duration;
 import sample.modele.Console;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.Pnj;
+import sample.modele.items.Armes.Shuriken;
 import sample.modele.quetes.Quete;
 import sample.vue.*;
 import sample.modele.Joueur;
 import sample.modele.Terrain;
 import sample.vue.animations.PlayerHPAnimation;
 import sample.vue.animations.PlayerMovementAnimation;
+import sample.vue.animations.ShurikenAnimation;
 import sample.vue.modeleVue.ConsoleVue;
 import sample.vue.modeleVue.DialogueVue;
 import sample.vue.modeleVue.QueteVue;
@@ -168,6 +171,7 @@ public class Controller implements Initializable {
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.017),
                 (ev ->{
+                    manageShurikenAnimation();
                     if(!vendeurPane.isVisible()) // Si le joueur n'a pas de discussion en cours
                         movePlayer(); // gère le déplacement à chaque tour de la boucle temporelle
                     timeManager(); // gestion du temps
@@ -322,6 +326,15 @@ public class Controller implements Initializable {
         for(Acteur a : joueur.getZone().getListeActeurs()){
             if(a instanceof Pnj && joueur.isCollinding(a.getX(), a.getY()) && !(((Pnj) a).getNom().equals("vendeur")|| ((Pnj) a).getNom().equals("upgrader")))
                dialogueVueInterface.afficherDialogue(a);
+        }
+    }
+
+    public void manageShurikenAnimation(){
+        for(int i = gamePane.getChildren().size()-1;i>=0;i--){
+            Node n = gamePane.getChildren().get(i);
+            if(n.getId().startsWith("hero") && n instanceof ImageView){
+                ShurikenAnimation.animate(temps, (ImageView) n, imageMap);
+            }
         }
     }
 }

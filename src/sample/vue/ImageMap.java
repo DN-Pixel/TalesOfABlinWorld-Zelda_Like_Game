@@ -53,6 +53,15 @@ public class ImageMap {
         map.put("SourceBois", new Image("sample/ressources/ressourcesImg/bois.png"));
         map.put("SourceTresor", new Image("sample/ressources/ressourcesImg/coffre.png"));
         map.put("SourceMinerai", new Image("sample/ressources/ressourcesImg/minerai.png"));
+
+        map.put("shuriken", new Image("sample/ressources/armes/shuriken.png"));
+        map.put("shuriken2", new Image("sample/ressources/armes/shuriken2.png"));
+        map.put("shuriken3", new Image("sample/ressources/armes/shuriken3.png"));
+        map.put("shuriken4", new Image("sample/ressources/armes/shuriken4.png"));
+        map.put("shuriken5", new Image("sample/ressources/armes/shuriken5.png"));
+        map.put("shuriken6", new Image("sample/ressources/armes/shuriken6.png"));
+        map.put("shuriken7", new Image("sample/ressources/armes/shuriken7.png"));
+        map.put("shuriken8", new Image("sample/ressources/armes/shuriken8.png"));
     }
 
     public Map<String, Image> getMap() {
