@@ -1,14 +1,14 @@
-package sample.vue;
+package sample.vue.modeleVue;
 
 import javafx.scene.control.TextArea;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Console {
+public class ConsoleVue {
     private TextArea console;
     private static String star = "**";
 
-    public Console(TextArea console){
+    public ConsoleVue(TextArea console){
         this.console=console;
     }
 
@@ -66,7 +66,7 @@ public class Console {
     }
 
 
-//permet de différencier les messages identiques successifs dans la console.
+    //permet de différencier les messages identiques successifs dans la console.
     public static void setStar(){
         if (star.equals("**"))
             star="*";

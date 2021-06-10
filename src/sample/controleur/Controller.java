@@ -14,6 +14,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import sample.modele.Console;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.Pnj;
 import sample.modele.quetes.Quete;
@@ -22,6 +23,7 @@ import sample.modele.Joueur;
 import sample.modele.Terrain;
 import sample.vue.animations.PlayerHPAnimation;
 import sample.vue.animations.PlayerMovementAnimation;
+import sample.vue.modeleVue.ConsoleVue;
 import sample.vue.modeleVue.DialogueVue;
 import sample.vue.modeleVue.QueteVue;
 import sample.vue.modeleVue.TerrainVue;
@@ -137,7 +139,8 @@ public class Controller implements Initializable {
     }
 
     private void initConsole(){
-        Console cons = new Console(console);
+        Console cons = new Console();
+        cons.setConsoleVue(new ConsoleVue(console));
         joueur.setConsole(cons);
         zoneActuelle.setConsole(cons);
     }

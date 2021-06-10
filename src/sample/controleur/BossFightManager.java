@@ -2,7 +2,6 @@ package sample.controleur;
 
 import sample.modele.Projectile;
 import sample.modele.Terrain;
-import sample.vue.Console;
 
 public class BossFightManager {
     private Terrain terrain;

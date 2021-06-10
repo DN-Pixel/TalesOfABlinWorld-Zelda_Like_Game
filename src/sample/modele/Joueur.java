@@ -4,10 +4,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.Pnj;
 import sample.modele.acteurs.ennemis.Ennemi;
@@ -15,7 +12,6 @@ import sample.modele.items.Armes.*;
 import sample.modele.items.Inventaire;
 import sample.modele.quetes.QuestLine;
 import sample.modele.ressources.Ressource;
-import sample.vue.Console;
 
 public class Joueur {
 
@@ -348,10 +344,10 @@ public class Joueur {
     }
     public void mourrir() {
         zone.getProjectiles().clear();
-        console.afficherMort();
         setHp(maxHP);
         inventaire.clearInventaire();
         inventaire.ajouterObjet("Miel", 1);
+        console.afficherMort();
     }
 
     public void regenerer(int hp){

@@ -2,7 +2,6 @@ package sample.modele;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.layout.Pane;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.Pnj;
 import sample.modele.acteurs.SaveActeurs;
@@ -11,7 +10,6 @@ import sample.modele.ressources.Ressource;
 import sample.modele.ressources.SaveRessources;
 import sample.modele.ressources.SourceBois;
 import sample.modele.ressources.SourceMinerai;
-import sample.vue.Console;
 
 
 public class Terrain {

@@ -32,8 +32,8 @@ public class ListenerLauncher {
         player.translateYProperty().bind(joueur.getyProperty());
         joueur.getHp().addListener((obs, old, nouv) ->{
             if(nouv.intValue()<=0){
-                joueur.mourrir();
                 terrainVue.loadMap("1", 30*16, 6*16);
+                joueur.mourrir();
             }
         });
     }
