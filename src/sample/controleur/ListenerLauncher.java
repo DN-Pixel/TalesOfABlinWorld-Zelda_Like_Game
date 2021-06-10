@@ -68,7 +68,7 @@ public class ListenerLauncher {
                         if(joueur.isCollinding(0,7*16)) terrainVue.loadMap("7",45*16,7*16);
                         break;
                     case"6":
-                        if (joueur.getNiveau()>=6 && joueur.isCollinding(14*16,25*16)) terrainVue.loadMap("5",14*16,11*16);
+                        if (joueur.getNiveau()>=6 && joueur.isCollinding(14*16,25*16))terrainVue.loadMap("0", 9*16, 27*16); // charge la première map (cauchemar)
                         break;
                     case"7":
                         if (joueur.isCollinding(48*16,8*16)) terrainVue.loadMap("5",20,7*16);
