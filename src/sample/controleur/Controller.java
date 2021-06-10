@@ -69,7 +69,6 @@ public class Controller implements Initializable {
     @FXML
     private Pane upgraderPane;
     private static Pane upgraderPaneInterface;
-
     private static Pane dialogueGlobalInterface;
     @FXML
     private Pane descriptionPane;
@@ -118,13 +117,10 @@ public class Controller implements Initializable {
     // QUESTS
     @FXML
     private Label questTitle;
-
     @FXML
     private Text questDescription;
-
     @FXML
     private Label recompenseOr;
-
     @FXML
     private Label recompenseObjet;
     private DialogueVue dialogueVue;
@@ -182,7 +178,6 @@ public class Controller implements Initializable {
        listenerLauncher.initInventaireListener(nbGoldLabel, itemsDescriptionLoader,nbMineraiLabel);
     }
 
-
     // key initialisé aléatoirement pour éviter une erreur
     private static KeyEvent keyPressed = new KeyEvent(KeyEvent.KEY_PRESSED, "d", "D", KeyCode.Z,false, false, false, false);
     private Timeline gameLoop;
@@ -213,7 +208,6 @@ public class Controller implements Initializable {
         );
         gameLoop.getKeyFrames().add(kf);
     }
-
 
     //gestion du temps
     public void timeManager(){

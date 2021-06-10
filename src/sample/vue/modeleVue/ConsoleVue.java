@@ -53,7 +53,8 @@ public class ConsoleVue {
         setStar();
     }
     public void afficherArgentManquant(){
-        console.appendText("\nVous n'avez pas assez d'argent");
+        console.appendText("\n"+star+"Vous n'avez pas assez d'argent");
+        setStar();
     }
     public void afficherGainArgent(int gain){
         if (Math.random()<0.05)
@@ -79,5 +80,6 @@ public class ConsoleVue {
 
     public void afficherErreurArmeNotSelected() {
         console.appendText("\n"+star+"Veuillez selectionner une arme à acheter");
+        setStar();
     }
 }
