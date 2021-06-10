@@ -800,6 +800,297 @@
                   </HBox>
                </children>
             </Pane>
+            <Pane fx:id="upgraderPane" disable="true" layoutX="382.0" layoutY="459.0" prefHeight="153.0" prefWidth="552.0" visible="false">
+               <children>
+                  <ImageView fitHeight="185.0" fitWidth="468.0" layoutX="35.0" layoutY="-35.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../ressources/HUD/menu/WoodPane.png" />
+                     </image>
+                  </ImageView>
+                  <HBox alignment="CENTER" layoutX="88.0" layoutY="-4.0" prefHeight="26.0" prefWidth="339.0" spacing="40.0">
+                     <children>
+                        <ImageView fx:id="upgraderEpee" fitHeight="17.0" fitWidth="17.0" onMouseClicked="#setDescriptionArme" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/armes/Epee.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderEpeeLongue" fitHeight="17.0" fitWidth="17.0" onMouseClicked="#setDescriptionArme" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/armes/EpeeLongue.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-7.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderGourdin" fitHeight="17.0" fitWidth="17.0" onMouseClicked="#setDescriptionArme" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/armes/Gourdin.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="2.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderHache" fitHeight="19.0" fitWidth="19.0" onMouseClicked="#setDescriptionArme" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/armes/Hache.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-3.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderKatana" fitHeight="19.0" fitWidth="19.0" layoutX="108.0" layoutY="18.0" onMouseClicked="#setDescriptionArme" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/armes/Katana.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-4.0" right="-3.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderLance" fitHeight="19.0" fitWidth="14.0" layoutX="249.0" layoutY="14.0" onMouseClicked="#setDescriptionArme" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/armes/Lance.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="6.0" right="-8.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderMarteau" fitHeight="19.0" fitWidth="19.0" layoutX="270.0" layoutY="14.0" onMouseClicked="#setDescriptionArme" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/armes/Marteau.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="9.0" right="-17.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="97.0" layoutY="-15.0" prefHeight="49.0" prefWidth="327.0" spacing="10.0" style=": 20;">
+                     <children>
+                        <ImageView fx:id="upgraderEpee" fitHeight="65.0" fitWidth="65.0" focusTraversable="true" onMouseEntered="#setDescriptionArme" onMouseExited="#disableDescription" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/HUD/menu/checkboxEMPTY.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-15.0" right="-10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderEpeeLongue" fitHeight="65.0" fitWidth="65.0" focusTraversable="true" onMouseEntered="#setDescriptionArme" onMouseExited="#disableDescription" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/HUD/menu/checkboxEMPTY.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-15.0" right="-10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderGourdin" fitHeight="65.0" fitWidth="65.0" focusTraversable="true" onMouseEntered="#setDescriptionArme" onMouseExited="#disableDescription" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/HUD/menu/checkboxEMPTY.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-15.0" right="-10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderHache" fitHeight="65.0" fitWidth="65.0" focusTraversable="true" layoutX="83.0" layoutY="18.0" onMouseEntered="#setDescriptionArme" onMouseExited="#disableDescription" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/HUD/menu/checkboxEMPTY.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-15.0" right="-10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderKatana" fitHeight="65.0" fitWidth="65.0" focusTraversable="true" layoutX="108.0" layoutY="18.0" onMouseEntered="#setDescriptionArme" onMouseExited="#disableDescription" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/HUD/menu/checkboxEMPTY.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-15.0" right="-10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderLance" fitHeight="65.0" fitWidth="65.0" focusTraversable="true" layoutX="268.0" layoutY="2.0" onMouseEntered="#setDescriptionArme" onMouseExited="#disableDescription" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/HUD/menu/checkboxEMPTY.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-15.0" right="-10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderMarteau" fitHeight="65.0" fitWidth="65.0" focusTraversable="true" layoutX="288.0" layoutY="2.0" onMouseEntered="#setDescriptionArme" onMouseExited="#disableDescription" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/HUD/menu/checkboxEMPTY.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-15.0" right="-10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                     <padding>
+                        <Insets bottom="-10.0" top="-10.0" />
+                     </padding>
+                  </HBox>
+                  <Button fx:id="traiterButton" layoutX="153.0" layoutY="94.0" mnemonicParsing="false" onAction="#traiterMinerai" prefHeight="29.0" prefWidth="332.0" style="-fx-background-color: NONE; -fx-border-width: 2PX; -fx-border-color: #ddab71; -fx-border-radius: 5px;" text="TRAITER MINERAIS" textFill="#ddab71">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="acheterArmeButton" layoutX="55.0" layoutY="56.0" mnemonicParsing="false" onAction="#acheterArme" prefHeight="27.0" prefWidth="430.0" style="-fx-background-color: NONE; -fx-border-width: 2PX; -fx-border-color: #ddab71; -fx-border-radius: 5px;" text="ACHETER" textFill="#ddab71">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <HBox alignment="CENTER" layoutX="104.0" layoutY="31.0" prefHeight="18.0" prefWidth="313.0" spacing="27.0">
+                     <children>
+                        <RadioButton fx:id="Epee" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <SepiaTone />
+                           </effect>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="upgradeRadio" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="EpeeLongue" layoutX="98.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$upgradeRadio">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <SepiaTone />
+                           </effect>
+                        </RadioButton>
+                        <RadioButton fx:id="Gourdin" layoutX="121.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$upgradeRadio">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <SepiaTone />
+                           </effect>
+                        </RadioButton>
+                        <RadioButton fx:id="Hache" layoutX="145.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$upgradeRadio">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <SepiaTone />
+                           </effect>
+                        </RadioButton>
+                        <RadioButton fx:id="Katana" layoutX="168.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$upgradeRadio">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <SepiaTone />
+                           </effect>
+                        </RadioButton>
+                        <RadioButton fx:id="Lance" layoutX="170.0" layoutY="10.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$upgradeRadio">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <SepiaTone />
+                           </effect>
+                        </RadioButton>
+                        <RadioButton fx:id="Marteau" layoutX="210.0" layoutY="10.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$upgradeRadio">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <SepiaTone />
+                           </effect>
+                        </RadioButton>
+                     </children>
+                  </HBox>
+                  <ImageView disable="true" fitHeight="59.0" fitWidth="60.0" focusTraversable="true" layoutX="47.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <image>
+                        <Image url="@../ressources/HUD/menu/checkboxEMPTY.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="91.0" layoutY="102.0" prefHeight="15.0" prefWidth="16.0" text="x" textFill="#ddab71" />
+                  <Label fx:id="nbMineraiLabel" layoutX="112.0" layoutY="101.0" prefHeight="15.0" prefWidth="33.0" text="0" textFill="#ddab71" />
+                  <ImageView disable="true" fitHeight="18.0" fitWidth="18.0" focusTraversable="true" layoutX="68.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <image>
+                        <Image url="@../ressources/HUD/objet/mineraiBrut.png" />
+                     </image>
+                  </ImageView>
+                  <Pane fx:id="descriptionPane" layoutX="72.0" layoutY="-68.0" prefHeight="61.0" prefWidth="88.0" visible="false">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="111.0" layoutY="-9.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../ressources/HUD/menu/WoodPane.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="descriptionArmeLabel" layoutX="3.0" layoutY="-3.0" prefHeight="61.0" prefWidth="103.0" text="Nom:okedoekprenomm ffrfeprixjdiejrangedede" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
          </children>
       </Pane>
    </center>

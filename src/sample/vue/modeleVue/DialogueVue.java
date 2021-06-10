@@ -22,7 +22,7 @@ public class DialogueVue {
     }
     public void checkDialogueTimerOut(long tempsActuel){
         //si on reste 5 seconde la fenetre de dialogue disparait.
-        if (tempsActuel == tempsDebutDialogue+295)
+        if (tempsActuel == tempsDebutDialogue+200)
            pane.setVisible(false);
     }
 

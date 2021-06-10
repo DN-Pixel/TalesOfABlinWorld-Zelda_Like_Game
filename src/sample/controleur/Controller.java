@@ -18,7 +18,7 @@ import javafx.util.Duration;
 import sample.modele.Console;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.Pnj;
-import sample.modele.items.Armes.Shuriken;
+import sample.modele.items.Armes.ShopInventory;
 import sample.modele.quetes.Quete;
 import sample.vue.*;
 import sample.modele.Joueur;
@@ -41,6 +41,7 @@ public class Controller implements Initializable {
     private static CooldownManager  cdManager = new CooldownManager();
 
     private ItemDescriptionSwitcher itemsDescriptionLoader;
+    private ArmeDescriptionSwitcher armeDescriptionSwitcher;
     private ListenerLauncher listenerLauncher;
 
     private static int dx = 0;
@@ -48,7 +49,8 @@ public class Controller implements Initializable {
 
     private static Terrain zoneActuelle = new Terrain("zone");
     private static Joueur joueur = new Joueur(0, 0, zoneActuelle);
-    private  BossFightManager bossFightManager = new BossFightManager(zoneActuelle);
+    private BossFightManager bossFightManager = new BossFightManager(zoneActuelle);
+    private ShopInventory shopInventory = new ShopInventory();
     //PANES
     @FXML
     private Pane gamePane;
@@ -63,8 +65,16 @@ public class Controller implements Initializable {
     private TilePane tilePaneDeco;
     @FXML
     private Pane dialoguePane;
+    @FXML
+    private Pane upgraderPane;
+    private static Pane upgraderPaneInterface;
+
     private static Pane dialogueGlobalInterface;
+    @FXML
+    private Pane descriptionPane;
     //LABELS TEXTFIELDS
+    @FXML
+    private Label nbMineraiLabel;
     @FXML
     private TextArea console;
     @FXML
@@ -77,6 +87,8 @@ public class Controller implements Initializable {
     private Label nbGoldLabel;
     @FXML
     private Label dialogueLabel;
+    @FXML
+    private Label descriptionArmeLabel;
     private static Label dialogueInterface;
     //IMAGES
     @FXML
@@ -90,11 +102,15 @@ public class Controller implements Initializable {
     private Button acheterButton;
     @FXML
     private Button mangerButton;
+    @FXML
+    private Button traiterButton;
     //RADIO INVENTAIRE / SHOP
     @FXML
     private ToggleGroup Nourriture;
     @FXML
     private ToggleGroup shopRadio;
+    @FXML
+    private ToggleGroup upgradeRadio;
     //RADIO SHOP
     // QUESTS
     @FXML
@@ -118,9 +134,11 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         vendeurInterface = vendeurPane;
         dialogueInterface = dialogueLabel;
+        upgraderPaneInterface = upgraderPane;
         dialogueGlobalInterface=dialoguePane;
         initConsole(); // Charge la console
         itemsDescriptionLoader = new ItemDescriptionSwitcher(descriptionLabel);
+        armeDescriptionSwitcher= new ArmeDescriptionSwitcher(descriptionArmeLabel);
         player.setId("player");
         dialogueVue = new DialogueVue(dialogueLabel,dialoguePane,joueur);
         dialogueVueInterface=dialogueVue;
@@ -158,7 +176,7 @@ public class Controller implements Initializable {
        listenerLauncher.initPlayerListener();
        listenerLauncher.initPlayerTransitionsListener();
        listenerLauncher.initCameraListener(gamePane);
-       listenerLauncher.initInventaireListener(nbGoldLabel, itemsDescriptionLoader);
+       listenerLauncher.initInventaireListener(nbGoldLabel, itemsDescriptionLoader,nbMineraiLabel);
     }
 
 
@@ -172,7 +190,7 @@ public class Controller implements Initializable {
                 Duration.seconds(0.017),
                 (ev ->{
                     manageShurikenAnimation();
-                    if(!vendeurPane.isVisible()) // Si le joueur n'a pas de discussion en cours
+                    if(!(vendeurPane.isVisible()|| upgraderPane.isVisible())) // Si le joueur n'a pas de discussion en cours
                         movePlayer(); // gère le déplacement à chaque tour de la boucle temporelle
                     timeManager(); // gestion du temps
                     zoneActuelle.clean(); // lance le nettoyeur de map
@@ -262,6 +280,16 @@ public class Controller implements Initializable {
         listenerLauncher.setInventoryClicEventMemory(event.getPickResult().getIntersectedNode().getId());
         itemsDescriptionLoader.switchDescription(event.getPickResult().getIntersectedNode().getId(), joueur.getInventaire());
     }
+    @FXML
+    public void setDescriptionArme(MouseEvent event){
+        descriptionPane.setVisible(true);
+        armeDescriptionSwitcher.switchArmeDescription(event.getPickResult().getIntersectedNode().getId(),shopInventory);
+        descriptionPane.setLayoutX(event.getPickResult().getIntersectedNode().getLayoutX()+70);
+    }
+    @FXML
+    public void disableDescription(MouseEvent event){
+        descriptionPane.setVisible(false);
+    }
 
     public void movePlayer(){
         if(joueur.manageCollisions(keyPressed)){
@@ -321,6 +349,24 @@ public class Controller implements Initializable {
                 vendeurInterface.setDisable(false);
             }
         }
+        else if(a!=null && a.getNom().equals("upgrader")){
+            if(upgraderPaneInterface.isVisible()){
+                upgraderPaneInterface.setVisible(false);
+                upgraderPaneInterface.setDisable(true);
+            }
+            else{
+                upgraderPaneInterface.setVisible(true);
+                upgraderPaneInterface.setDisable(false);
+            }
+        }
+    }
+    @FXML
+    public void traiterMinerai (){
+        joueur.getInventaire().traiterMinerai();
+    }
+    @FXML
+    public void acheterArme (){
+        System.out.println("pas encore codé");
     }
     private static void parlerAvecActeur(){
         for(Acteur a : joueur.getZone().getListeActeurs()){
