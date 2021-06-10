@@ -24,7 +24,7 @@ public class Inventaire {
         listObjet.add(new Nouilles());
         listObjet.add(new Potion());
         listObjet.add(new Viande());
-        this.nbrOr.setValue(100);
+        this.nbrOr.setValue(10000);
     }
 
     public void ajouterObjet(String item, int quantite) {

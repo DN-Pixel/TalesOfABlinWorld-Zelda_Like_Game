@@ -76,4 +76,8 @@ public class ConsoleVue {
     public void afficherItemRecup(String item, int quantite){
         console.appendText("\nVous avez trouver "+quantite+" "+item+"(s) ! "+ getTime());
     }
+
+    public void afficherErreurArmeNotSelected() {
+        console.appendText("\n"+star+"Veuillez selectionner une arme à acheter");
+    }
 }

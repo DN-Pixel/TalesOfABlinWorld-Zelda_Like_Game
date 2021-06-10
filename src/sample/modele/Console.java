@@ -59,4 +59,8 @@ public class Console {
     public void afficherItemRecup(String item, int quantite){
         console.afficherItemRecup(item, quantite);
     }
+
+    public void afficherErreurArmeNotSelected() {
+        console.afficherErreurArmeNotSelected();
+    }
 }

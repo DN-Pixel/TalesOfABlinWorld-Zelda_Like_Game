@@ -50,4 +50,5 @@ public class Arme {
     public void setRange(int range) {
         this.range = range;
     }
+
 }

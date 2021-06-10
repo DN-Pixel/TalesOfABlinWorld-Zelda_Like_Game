@@ -431,18 +431,31 @@
                   </HBox>
                </children>
             </Pane>
-            <Pane fx:id="topHPPane" layoutX="431.0" layoutY="120.0" prefHeight="88.0" prefWidth="420.0">
+            <Pane fx:id="topHPPane" layoutX="431.0" layoutY="120.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="88.0" prefWidth="420.0">
                <children>
                   <TextArea fx:id="console" disable="true" editable="false" layoutX="7.0" layoutY="36.0" opacity="0.8" prefHeight="70.0" prefWidth="408.0" style="-fx-border-color: #ddab71; -fx-border-width: 5px; -fx-border-radius: 2px;" text="&#10;Console Logs&#10;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </TextArea>
-                  <ImageView fx:id="hpBar" fitHeight="45.0" fitWidth="207.0" layoutX="104.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5">
+                  <ImageView fitHeight="39.0" fitWidth="424.0" layoutX="-2.0" layoutY="2.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../ressources/HUD/HPBAR/10HP.png" />
+                        <Image url="@../ressources/HUD/HPBAR/0.png" />
                      </image>
                   </ImageView>
+                  <ImageView fx:id="hpBar" fitHeight="27.0" fitWidth="424.0" layoutX="-2.0" layoutY="9.0" pickOnBounds="true" scaleY="1.5">
+                     <image>
+                        <Image url="@../ressources/HUD/HPBAR/hpBar.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust brightness="-0.38" hue="0.67" saturation="-0.14" />
+                     </effect>
+                  </ImageView>
+                  <Label fx:id="pourcentageHPLabel" alignment="CENTER" layoutX="8.0" layoutY="7.0" prefHeight="29.0" prefWidth="406.0" text="100%" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <Pane fx:id="dialoguePane" layoutX="381.0" layoutY="500.0" prefHeight="102.0" prefWidth="543.0" visible="false">
