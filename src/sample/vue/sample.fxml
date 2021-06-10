@@ -1074,162 +1074,160 @@
                   </Pane>
                </children>
             </Pane>
-            <Pane layoutX="206.0" layoutY="93.0" prefHeight="511.0" prefWidth="864.0" style="-fx-background-color: black;">
+            <Pane fx:id="Start" layoutX="211.0" layoutY="120.0" prefHeight="483.0" prefWidth="856.0" style="-fx-background-color: black; -fx-border-color: orange; -fx-border-width: 10;">
                <children>
-                  <Pane fx:id="Menu" layoutX="5.0" layoutY="26.0" prefHeight="481.0" prefWidth="859.0" style="-fx-background-color: black; -fx-border-color: orange; -fx-border-width: 10;" visible="false">
+                  <Button layoutX="486.0" layoutY="241.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="117.0" style="-fx-background-color: none; -fx-border-color: gray; -fx-border-radius: 10;" text="Jouer" textFill="#d38b0d">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="413.0" layoutY="333.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ressources/player.png" />
+                     </image>
+                  </ImageView>
+                  <TextField alignment="CENTER" layoutX="229.0" layoutY="238.0" prefHeight="50.0" prefWidth="213.0" promptText="Nom du Joueur" style="-fx-background-color: none;">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </TextField>
+                  <ImageView fitHeight="40.0" fitWidth="44.0" layoutX="229.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ressources/ennemis/boss.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="CENTER" layoutX="7.0" layoutY="417.0" prefHeight="59.0" prefWidth="855.0" text="Created in 2021" textFill="#f8f2c5">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="27.0" layoutY="408.0" prefHeight="39.0" prefWidth="846.0" text="ISSA Anthony | NAZICAL David | SASIRAJAH Sashtiga" textFill="#f8f2c5">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Line endX="350.0" layoutX="310.0" layoutY="175.0" startX="-100.0" stroke="#ae7d4f" />
+                  <HBox layoutY="28.0" prefHeight="154.0" prefWidth="856.0">
                      <children>
-                        <Button layoutX="486.0" layoutY="241.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="117.0" style="-fx-background-color: none; -fx-border-color: gray; -fx-border-radius: 10;" text="Jouer" textFill="#d38b0d">
-                           <font>
-                              <Font size="19.0" />
-                           </font>
-                        </Button>
-                        <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="424.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="77.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../ressources/player.png" />
+                              <Image url="@../ressources/arbre.png" />
                            </image>
+                           <HBox.margin>
+                              <Insets left="50.0" right="10.0" top="30.0" />
+                           </HBox.margin>
                         </ImageView>
-                        <TextField alignment="CENTER" layoutX="229.0" layoutY="238.0" prefHeight="50.0" prefWidth="213.0" promptText="Nom du Joueur" style="-fx-background-color: none;">
-                           <font>
-                              <Font size="19.0" />
-                           </font>
-                        </TextField>
-                        <ImageView fitHeight="40.0" fitWidth="44.0" layoutX="229.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../ressources/ennemis/boss.png" />
-                           </image>
-                        </ImageView>
-                        <Label alignment="CENTER" layoutX="7.0" layoutY="417.0" prefHeight="59.0" prefWidth="855.0" text="Created in 2021" textFill="#f8f2c5">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" layoutX="27.0" layoutY="408.0" prefHeight="39.0" prefWidth="846.0" text="ISSA Anthony | NAZICAL David | SASIRAJAH Sashtiga" textFill="#f8f2c5">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <HBox layoutY="28.0" prefHeight="154.0" prefWidth="856.0">
+                        <VBox prefHeight="177.0" prefWidth="618.0">
                            <children>
-                              <ImageView fitHeight="77.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../ressources/arbre.png" />
-                                 </image>
-                                 <HBox.margin>
-                                    <Insets left="50.0" right="10.0" top="30.0" />
-                                 </HBox.margin>
-                              </ImageView>
-                              <VBox prefHeight="177.0" prefWidth="618.0">
-                                 <children>
-                                    <Label alignment="CENTER" prefHeight="105.0" prefWidth="886.0" text="Tales of a Blind World" textFill="#d38b0d">
-                                       <font>
-                                          <Font size="43.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets left="10.0" top="10.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label alignment="CENTER" prefHeight="55.0" prefWidth="896.0" text="&amp; Le livre de Momoku" textFill="#d38b0d">
-                                       <font>
-                                          <Font size="22.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets top="-40.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label alignment="CENTER" prefHeight="43.0" prefWidth="898.0" text="A creation of DAS Company" textFill="#c39d60">
-                                       <font>
-                                          <Font size="17.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets top="-25.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                 </children>
-                              </VBox>
-                              <ImageView fitHeight="73.0" fitWidth="78.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../ressources/arbre.png" />
-                                 </image>
-                                 <HBox.margin>
-                                    <Insets left="10.0" right="50.0" top="30.0" />
-                                 </HBox.margin>
-                              </ImageView>
+                              <Label alignment="CENTER" prefHeight="105.0" prefWidth="886.0" text="Tales of a Blind World" textFill="#d38b0d">
+                                 <font>
+                                    <Font size="43.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER" prefHeight="55.0" prefWidth="896.0" text="&amp; Le livre de Momoku" textFill="#d38b0d">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="-40.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER" prefHeight="43.0" prefWidth="898.0" text="A creation of DAS Company" textFill="#c39d60">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="-25.0" />
+                                 </VBox.margin>
+                              </Label>
                            </children>
-                        </HBox>
-                        <ImageView fitHeight="37.0" fitWidth="43.0" layoutX="593.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
+                        </VBox>
+                        <ImageView fitHeight="73.0" fitWidth="78.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../ressources/ennemis/boss.png" />
+                              <Image url="@../ressources/arbre.png" />
                            </image>
+                           <HBox.margin>
+                              <Insets left="10.0" right="50.0" top="30.0" />
+                           </HBox.margin>
                         </ImageView>
                      </children>
-                  </Pane>
-                  <Pane fx:id="Menu1" layoutY="16.0" prefHeight="465.0" prefWidth="859.0" style="-fx-background-color: black; -fx-border-color: orange; -fx-border-width: 10;">
+                  </HBox>
+                  <ImageView fitHeight="37.0" fitWidth="43.0" layoutX="593.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ressources/ennemis/boss.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="End" layoutX="212.0" layoutY="120.0" prefHeight="484.0" prefWidth="856.0" style="-fx-background-color: black; -fx-border-color: orange; -fx-border-width: 10;" visible="false">
+               <children>
+                  <ImageView fitHeight="38.0" fitWidth="38.0" layoutX="414.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ressources/player.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="CENTER" layoutX="7.0" layoutY="417.0" prefHeight="59.0" prefWidth="855.0" text="Created in 2021" textFill="#f8f2c5">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="27.0" layoutY="408.0" prefHeight="39.0" prefWidth="846.0" text="ISSA Anthony | NAZICAL David | SASIRAJAH Sashtiga" textFill="#f8f2c5">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <HBox layoutY="28.0" prefHeight="154.0" prefWidth="856.0">
                      <children>
-                        <ImageView fitHeight="38.0" fitWidth="38.0" layoutX="414.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="77.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../ressources/player.png" />
+                              <Image url="@../ressources/arbre.png" />
                            </image>
+                           <HBox.margin>
+                              <Insets left="50.0" right="10.0" top="30.0" />
+                           </HBox.margin>
                         </ImageView>
-                        <Label alignment="CENTER" layoutX="7.0" layoutY="417.0" prefHeight="59.0" prefWidth="855.0" text="Created in 2021" textFill="#f8f2c5">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" layoutX="27.0" layoutY="408.0" prefHeight="39.0" prefWidth="846.0" text="ISSA Anthony | NAZICAL David | SASIRAJAH Sashtiga" textFill="#f8f2c5">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <HBox layoutY="28.0" prefHeight="154.0" prefWidth="856.0">
+                        <VBox prefHeight="177.0" prefWidth="618.0">
                            <children>
-                              <ImageView fitHeight="77.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../ressources/arbre.png" />
-                                 </image>
-                                 <HBox.margin>
-                                    <Insets left="50.0" right="10.0" top="30.0" />
-                                 </HBox.margin>
-                              </ImageView>
-                              <VBox prefHeight="177.0" prefWidth="618.0">
-                                 <children>
-                                    <Label alignment="CENTER" prefHeight="105.0" prefWidth="886.0" text="Tales of a Blind World" textFill="#d38b0d">
-                                       <font>
-                                          <Font size="43.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets left="10.0" top="10.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label alignment="CENTER" prefHeight="55.0" prefWidth="896.0" text="&amp; Le livre de Momoku" textFill="#d38b0d">
-                                       <font>
-                                          <Font size="22.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets top="-40.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label alignment="CENTER" prefHeight="43.0" prefWidth="898.0" text="A creation of DAS Company" textFill="#c39d60">
-                                       <font>
-                                          <Font size="17.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets top="-25.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                 </children>
-                              </VBox>
-                              <ImageView fitHeight="73.0" fitWidth="78.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../ressources/arbre.png" />
-                                 </image>
-                                 <HBox.margin>
-                                    <Insets left="10.0" right="50.0" top="30.0" />
-                                 </HBox.margin>
-                              </ImageView>
+                              <Label alignment="CENTER" prefHeight="105.0" prefWidth="886.0" text="Tales of a Blind World" textFill="#d38b0d">
+                                 <font>
+                                    <Font size="43.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER" prefHeight="55.0" prefWidth="896.0" text="&amp; Le livre de Momoku" textFill="#d38b0d">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="-40.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER" prefHeight="43.0" prefWidth="898.0" text="A creation of DAS Company" textFill="#c39d60">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="-25.0" />
+                                 </VBox.margin>
+                              </Label>
                            </children>
-                        </HBox>
+                        </VBox>
+                        <ImageView fitHeight="73.0" fitWidth="78.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/arbre.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="10.0" right="50.0" top="30.0" />
+                           </HBox.margin>
+                        </ImageView>
                      </children>
-                  </Pane>
+                  </HBox>
+                  <Line endX="350.0" layoutX="310.0" layoutY="175.0" startX="-100.0" stroke="#ae7d4f" />
                </children>
             </Pane>
          </children>

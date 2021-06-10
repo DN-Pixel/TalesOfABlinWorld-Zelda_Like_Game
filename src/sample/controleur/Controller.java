@@ -389,4 +389,11 @@ public class Controller implements Initializable {
             }
         }
     }
+
+
+    @FXML
+    private Pane Start;
+
+    @FXML
+    private Pane End;
 }
