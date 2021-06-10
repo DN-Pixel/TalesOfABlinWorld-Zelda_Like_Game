@@ -23,9 +23,9 @@ class InventaireTest {
         Assertions.assertNotEquals(0, this.inventaire.trouverObjet("Bois") );
     }
 
-    /*@org.junit.jupiter.api.Test
+    @org.junit.jupiter.api.Test
     void ajouterObjet() {
-        //int bois = this.inventaire.trouverObjet("Bois");
+        int bois = this.inventaire.trouverObjet("Bois");
         this.inventaire.ajouterObjet("Bois", 2);
         Assertions.assertEquals(2, this.inventaire.getListObjet().get(bois).getQuantite());
         this.inventaire.ajouterObjet("Bois", 3);
@@ -40,7 +40,7 @@ class InventaireTest {
 
     }
 
-    /*@org.junit.jupiter.api.Test
+    @org.junit.jupiter.api.Test
     void enleverObjet() {
         int bois = this.inventaire.trouverObjet("Bois");
         this.inventaire.eneleverObjet("Bois", 2);
@@ -55,6 +55,6 @@ class InventaireTest {
         Assertions.assertEquals(0, this.inventaire.getListObjet().get(bois).getQuantite());
         this.inventaire.eneleverObjet("Bois", -4);
         Assertions.assertEquals(0, this.inventaire.getListObjet().get(bois).getQuantite());
-    }*/
+    }
 
 }

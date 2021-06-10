@@ -451,7 +451,7 @@
                         <ColorAdjust brightness="-0.38" hue="0.67" saturation="-0.14" />
                      </effect>
                   </ImageView>
-                  <Label fx:id="pourcentageHPLabel" alignment="CENTER" layoutX="8.0" layoutY="7.0" prefHeight="29.0" prefWidth="406.0" text="100%" textFill="WHITE">
+                  <Label fx:id="pourcentageHPLabel" alignment="CENTER" layoutX="8.0" layoutY="7.0" prefHeight="29.0" prefWidth="406.0" text="100%" textFill="#e1c3a1">
                      <font>
                         <Font name="System Bold" size="17.0" />
                      </font>

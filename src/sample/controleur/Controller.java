@@ -127,6 +127,7 @@ public class Controller implements Initializable {
     private static DialogueVue dialogueVueInterface;//classe permettant d'afficher les dialogues.
     private QueteVue queteVue;
     public TerrainVue terrainVue; // classe permettant de load la map et charger les textures
+    public static TerrainVue terrainVueInterface;
     private static long temps = 0 ;
 
     @Override
@@ -142,8 +143,10 @@ public class Controller implements Initializable {
         dialogueVue = new DialogueVue(dialogueLabel,dialoguePane,joueur);
         dialogueVueInterface=dialogueVue;
         terrainVue = new TerrainVue(zoneActuelle, joueur, gamePane, tilePane, tilePaneDeco, tilePaneSolid);
+        terrainVueInterface=terrainVue;
         terrainVue.loadMap("0", 9*16, 27*16); // charge la première map (cauchemar)
         player.toFront(); // met le joueur devant tout le monde
+        terrainVue.creerNuage();
         listenerLauncher = new ListenerLauncher(joueur, player, terrainVue);
         initListeners(); // initialise les listeners
         initBoucleTemporelle(); // initialise la boucle temporelle
@@ -193,8 +196,10 @@ public class Controller implements Initializable {
                     timeManager(); // gestion du temps
                     zoneActuelle.clean(); // lance le nettoyeur de map
                     spawnManager(); // manage le spawn des ennemis et des ressources
-                    if(temps%5==0)
+                    if(temps%5==0) {
+                        terrainVue.bougerNuages();
                         zoneActuelle.moveEnnemis();
+                    }
                     if(temps%177==0) {
                         zoneActuelle.lesEnnemisAttaquent(joueur); // fais attaquer les ennemis toutes les 3s
                         zoneActuelle.spawnProjectile(joueur); // attaques à distance

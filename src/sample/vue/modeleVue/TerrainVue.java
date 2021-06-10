@@ -3,6 +3,8 @@ package sample.vue.modeleVue;
 import javafx.beans.InvalidationListener;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -35,7 +37,6 @@ public class TerrainVue {
     private TilePane tilePane;
     private TilePane tilePaneDeco;
     private TilePane tilePaneSolid;
-
     public TerrainVue(Terrain zoneActuelle, Joueur joueur, Pane gamePane, TilePane tilePane, TilePane tilePaneDeco, TilePane tilePaneSolid){
         this.zoneActuelle = zoneActuelle;
         this.joueur = joueur;
@@ -167,6 +168,45 @@ public class TerrainVue {
                 }
                 else{
                     tilepane.getChildren().add(new ImageView(imageMap.getImage("empty")));
+                }
+            }
+        }
+    }
+    public void creerNuage(){
+        ImageView nuage = new ImageView(new Image("sample/ressources/cloud.png"));
+        nuage.setId("nuage"+Math.random());
+        nuage.setLayoutY(100);
+        nuage.setLayoutX(0);
+        nuage.setScaleX(.2);
+        nuage.setScaleY(.2);
+        nuage.setOpacity(0.12);
+        gamePane.getChildren().add(nuage);
+        ImageView nuage2 = new ImageView(new Image("sample/ressources/cloud.png"));
+        nuage2.setId("nuage"+Math.random());
+        nuage2.setLayoutY(0);
+        nuage2.setLayoutX(-170);
+        nuage2.setScaleX(.2);
+        nuage2.setScaleY(.2);
+        nuage2.setOpacity(0.17);
+        gamePane.getChildren().add(nuage2);
+    }
+    public void bougerNuages(){
+        for (int i=gamePane.getChildren().size()-1;i>=0;i--) {
+            Node nuage = gamePane.getChildren().get(i);
+            if(nuage.getId().startsWith("nuage")){
+                if(zoneActuelle.getNumeroCarte()==0||zoneActuelle.getNumeroCarte()==6)
+                    nuage.setVisible(false);
+                else
+                    nuage.setVisible(true);
+                nuage.setLayoutX(nuage.getLayoutX()+1);
+                if(Math.random()>=0.9) nuage.setLayoutY(nuage.getLayoutY()+1);
+                if(nuage.getLayoutX()>=zoneActuelle.limiteHorizMap()*12 || nuage.getLayoutY()>=zoneActuelle.limiteVertiMap()*12 ) {
+                    ImageView clone = (ImageView) nuage;
+                    clone.setLayoutX(-350);
+                    clone.setId("nuage"+Math.random());
+                    clone.setLayoutY(Math.random() * zoneActuelle.limiteVertiMap()*10);
+                    gamePane.getChildren().remove(nuage);
+                    gamePane.getChildren().add(clone);
                 }
             }
         }
