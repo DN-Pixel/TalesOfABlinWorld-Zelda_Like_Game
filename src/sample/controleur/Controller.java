@@ -97,6 +97,8 @@ public class Controller implements Initializable {
     private ImageView hpBar;
     @FXML
     private ImageView player;
+    @FXML
+    private ImageView rainImageView;
     //BUTTONS
     @FXML
     private Button vendreButton;
@@ -199,6 +201,7 @@ public class Controller implements Initializable {
                     if(temps%5==0) {
                         terrainVue.bougerNuages();
                         zoneActuelle.moveEnnemis();
+                        zouitch();
                     }
                     if(temps%177==0) {
                         zoneActuelle.lesEnnemisAttaquent(joueur); // fais attaquer les ennemis toutes les 3s
@@ -212,6 +215,21 @@ public class Controller implements Initializable {
                 })
         );
         gameLoop.getKeyFrames().add(kf);
+    }
+
+    private void zouitch() {
+        if(rainImageView.getLayoutX()==-100){ //-75y
+            rainImageView.setLayoutX(-85);
+            rainImageView.setLayoutY(-60);
+        }
+        else if (rainImageView.getLayoutX()==-85){
+            rainImageView.setLayoutX(-70);
+            rainImageView.setLayoutY(-45);
+        }
+        else {
+            rainImageView.setLayoutX(-100);
+            rainImageView.setLayoutY(-75);
+        }
     }
 
     //gestion du temps
