@@ -397,10 +397,24 @@ public class Controller implements Initializable {
 
     @FXML
     private Pane start;
-
+    private double opacity = 1;
     @FXML
     private void commencer (MouseEvent e) {
-        this.start.setVisible(false);
+        Timeline loadingMenu = new Timeline();
+        loadingMenu.setCycleCount(Timeline.INDEFINITE);
+        KeyFrame kf = new KeyFrame(
+                Duration.seconds(0.06),
+                (ev ->{
+                    opacity -= 0.1;
+                    start.setOpacity(opacity);
+                    if(opacity<=0){
+                        loadingMenu.stop();
+                        start.setVisible(false);
+                    }
+                })
+        );
+        loadingMenu.getKeyFrames().add(kf);
+        loadingMenu.play();
     }
 
 }
