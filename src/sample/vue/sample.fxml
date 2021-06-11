@@ -32,7 +32,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane style="-fx-background-size: 1300 800;" styleClass="fond" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controleur.Controller">
+<BorderPane style="-fx-background-size: 1300 800;" styleClass="fond" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controleur.Controller">
    <center>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" scaleX="1.5" scaleY="1.5">
          <children>
@@ -48,7 +48,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <Rectangle fx:id="cameraR" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="250.0" layoutX="465.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="300.0" width="350.0">
+            <Rectangle fx:id="cameraR" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="250.0" layoutX="465.0" layoutY="235.0" onMouseClicked="#commencer" strokeType="OUTSIDE" strokeWidth="300.0" width="350.0">
                <stroke>
                   <LinearGradient endX="1.0" endY="1.0" startX="0.038461538461538464" startY="0.19230769230769232">
                      <stops>
@@ -1074,23 +1074,21 @@
                   </Pane>
                </children>
             </Pane>
-            <Pane fx:id="Start" layoutX="211.0" layoutY="120.0" prefHeight="483.0" prefWidth="856.0" style="-fx-background-color: black; -fx-border-color: orange; -fx-border-width: 10;">
+            <Pane fx:id="start" layoutX="211.0" layoutY="120.0" prefHeight="483.0" prefWidth="856.0" style="-fx-background-color: black; -fx-border-color: orange; -fx-border-width: 10;">
                <children>
-                  <Button layoutX="486.0" layoutY="241.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="117.0" style="-fx-background-color: none; -fx-border-color: gray; -fx-border-radius: 10;" text="Jouer" textFill="#d38b0d">
+                  <Button layoutX="375.0" layoutY="221.0" mnemonicParsing="false" onMouseClicked="#commencer" prefHeight="32.0" prefWidth="117.0" style="-fx-background-color: none; -fx-border-color: gray; -fx-border-radius: 10;" text="Jouer" textFill="#d38b0d">
                      <font>
                         <Font size="19.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="413.0" layoutY="333.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../ressources/player.png" />
                      </image>
                   </ImageView>
-                  <TextField alignment="CENTER" layoutX="229.0" layoutY="238.0" prefHeight="50.0" prefWidth="213.0" promptText="Nom du Joueur" style="-fx-background-color: none;">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </TextField>
                   <ImageView fitHeight="40.0" fitWidth="44.0" layoutX="229.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../ressources/ennemis/boss.png" />
@@ -1160,74 +1158,6 @@
                         <Image url="@../ressources/ennemis/boss.png" />
                      </image>
                   </ImageView>
-               </children>
-            </Pane>
-            <Pane fx:id="End" layoutX="212.0" layoutY="120.0" prefHeight="484.0" prefWidth="856.0" style="-fx-background-color: black; -fx-border-color: orange; -fx-border-width: 10;" visible="false">
-               <children>
-                  <ImageView fitHeight="38.0" fitWidth="38.0" layoutX="414.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../ressources/player.png" />
-                     </image>
-                  </ImageView>
-                  <Label alignment="CENTER" layoutX="7.0" layoutY="417.0" prefHeight="59.0" prefWidth="855.0" text="Created in 2021" textFill="#f8f2c5">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" layoutX="27.0" layoutY="408.0" prefHeight="39.0" prefWidth="846.0" text="ISSA Anthony | NAZICAL David | SASIRAJAH Sashtiga" textFill="#f8f2c5">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <HBox layoutY="28.0" prefHeight="154.0" prefWidth="856.0">
-                     <children>
-                        <ImageView fitHeight="77.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../ressources/arbre.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets left="50.0" right="10.0" top="30.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <VBox prefHeight="177.0" prefWidth="618.0">
-                           <children>
-                              <Label alignment="CENTER" prefHeight="105.0" prefWidth="886.0" text="Tales of a Blind World" textFill="#d38b0d">
-                                 <font>
-                                    <Font size="43.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label alignment="CENTER" prefHeight="55.0" prefWidth="896.0" text="&amp; Le livre de Momoku" textFill="#d38b0d">
-                                 <font>
-                                    <Font size="22.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets top="-40.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label alignment="CENTER" prefHeight="43.0" prefWidth="898.0" text="A creation of DAS Company" textFill="#c39d60">
-                                 <font>
-                                    <Font size="17.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets top="-25.0" />
-                                 </VBox.margin>
-                              </Label>
-                           </children>
-                        </VBox>
-                        <ImageView fitHeight="73.0" fitWidth="78.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../ressources/arbre.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets left="10.0" right="50.0" top="30.0" />
-                           </HBox.margin>
-                        </ImageView>
-                     </children>
-                  </HBox>
-                  <Line endX="350.0" layoutX="310.0" layoutY="175.0" startX="-100.0" stroke="#ae7d4f" />
                </children>
             </Pane>
          </children>

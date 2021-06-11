@@ -392,8 +392,10 @@ public class Controller implements Initializable {
 
 
     @FXML
-    private Pane Start;
+    private Pane start;
 
     @FXML
-    private Pane End;
+    private void commencer (MouseEvent e) {
+        this.start.setVisible(false);
+    }
 }
