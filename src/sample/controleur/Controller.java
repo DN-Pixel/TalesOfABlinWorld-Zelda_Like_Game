@@ -97,6 +97,8 @@ public class Controller implements Initializable {
     private ImageView hpBar;
     @FXML
     private ImageView player;
+    @FXML
+    private ImageView rainImageView;
     //BUTTONS
     @FXML
     private Button vendreButton;
@@ -199,6 +201,7 @@ public class Controller implements Initializable {
                     if(temps%5==0) {
                         terrainVue.bougerNuages();
                         zoneActuelle.moveEnnemis();
+                        terrainVue.rainManager(rainImageView); // Affiche la pluie et son animation
                     }
                     if(temps%177==0) {
                         zoneActuelle.lesEnnemisAttaquent(joueur); // fais attaquer les ennemis toutes les 3s
@@ -213,6 +216,7 @@ public class Controller implements Initializable {
         );
         gameLoop.getKeyFrames().add(kf);
     }
+
 
     //gestion du temps
     public void timeManager(){

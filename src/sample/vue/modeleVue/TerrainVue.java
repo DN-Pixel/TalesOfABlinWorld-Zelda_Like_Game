@@ -223,4 +223,25 @@ public class TerrainVue {
         pane.setPrefWidth(zoneActuelle.limiteHorizMap()*16);
         pane.setPrefHeight(zoneActuelle.limiteVertiMap()*16);
     }
+
+
+    public void rainManager(ImageView rainImageView) {
+        if(zoneActuelle.getNumeroCarte()==2 || zoneActuelle.getNumeroCarte()==5){
+            rainImageView.setVisible(true);
+            if(rainImageView.getLayoutX()==-100){ //-75y
+                rainImageView.setLayoutX(-85);
+                rainImageView.setLayoutY(-60);
+            }
+            else if (rainImageView.getLayoutX()==-85){
+                rainImageView.setLayoutX(-70);
+                rainImageView.setLayoutY(-45);
+            }
+            else {
+                rainImageView.setLayoutX(-100);
+                rainImageView.setLayoutY(-75);
+            }
+        }
+        else
+            rainImageView.setVisible(false);
+    }
 }

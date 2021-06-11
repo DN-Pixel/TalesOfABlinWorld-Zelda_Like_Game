@@ -48,7 +48,18 @@
                   </ImageView>
                </children>
             </Pane>
-            <Rectangle fx:id="cameraR" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="250.0" layoutX="465.0" layoutY="235.0" onMouseClicked="#commencer" strokeType="OUTSIDE" strokeWidth="300.0" width="350.0">
+            <Pane fx:id="pluiePane" layoutX="428.0" layoutY="249.0" opacity="0.39" prefHeight="251.0" prefWidth="425.0">
+               <children>
+                  <ImageView fx:id="rainImageView" disable="true" fitHeight="330.0" fitWidth="550.0" layoutX="-85.0" layoutY="-60.0" pickOnBounds="true" visible="false">
+                     <image>
+                        <Image url="@../ressources/fulll.png" />
+                     </image>
+                     <effect>
+                        <GaussianBlur radius="4.0" />
+                     </effect>
+                  </ImageView>
+               </children></Pane>
+            <Rectangle fx:id="cameraR" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="250.0" layoutX="465.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="300.0" width="350.0">
                <stroke>
                   <LinearGradient endX="1.0" endY="1.0" startX="0.038461538461538464" startY="0.19230769230769232">
                      <stops>
