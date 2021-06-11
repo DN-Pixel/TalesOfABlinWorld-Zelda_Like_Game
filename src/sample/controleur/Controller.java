@@ -402,4 +402,5 @@ public class Controller implements Initializable {
     private void commencer (MouseEvent e) {
         this.start.setVisible(false);
     }
+
 }
