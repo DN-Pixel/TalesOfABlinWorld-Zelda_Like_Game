@@ -25,7 +25,7 @@ public class Joueur {
     private StringProperty direction = new SimpleStringProperty();
     private Terrain zone;
     private Inventaire inventaire;
-    private IntegerProperty maxHP;
+    private IntegerProperty maxHP = new SimpleIntegerProperty();
     private IntegerProperty niveau;
     private QuestLine listeQuetes;
 

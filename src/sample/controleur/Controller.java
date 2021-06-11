@@ -143,7 +143,6 @@ public class Controller implements Initializable {
     public TerrainVue terrainVue; // classe permettant de load la map et charger les textures
     public static TerrainVue terrainVueInterface;
     public StatsVue statsVue;
-    public static
     private static long temps = 0 ;
 
 

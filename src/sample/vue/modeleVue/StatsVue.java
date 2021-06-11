@@ -1,8 +1,9 @@
 package sample.vue.modeleVue;
 
+import javafx.scene.control.Label;
 import sample.modele.Joueur;
 
-import java.awt.*;
+
 
 public class StatsVue {
     private Label arme;
@@ -10,7 +11,7 @@ public class StatsVue {
     private Label atk;
     private Label armeDistance;
     private Joueur j1;
-    public StatsVue(Label arme, Label range, Label attaque, Label armeDistance,Joueur joueur){
+    public StatsVue(Label arme, Label range, Label attaque, Label armeDistance, Joueur joueur){
         this.arme=arme;
         this.range=range;
         this.atk=attaque;
