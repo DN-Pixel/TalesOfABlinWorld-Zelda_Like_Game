@@ -201,7 +201,7 @@ public class Controller implements Initializable {
                     if(temps%5==0) {
                         terrainVue.bougerNuages();
                         zoneActuelle.moveEnnemis();
-                        terrainVue.rainManager(rainImageView);
+                        terrainVue.rainManager(rainImageView); // Affiche la pluie et son animation
                     }
                     if(temps%177==0) {
                         zoneActuelle.lesEnnemisAttaquent(joueur); // fais attaquer les ennemis toutes les 3s
