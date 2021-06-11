@@ -25,8 +25,8 @@ public class Joueur {
     private StringProperty direction = new SimpleStringProperty();
     private Terrain zone;
     private Inventaire inventaire;
-    private int maxHP;
-    private int niveau;
+    private IntegerProperty maxHP;
+    private IntegerProperty niveau;
     private QuestLine listeQuetes;
 
     public Joueur(int x, int y, Terrain zone) {
@@ -36,9 +36,9 @@ public class Joueur {
         this.zone = zone;
         direction.setValue("down");
         hp.setValue(10);
-        maxHP = hp.getValue();
+        maxHP.setValue( hp.getValue());
         armeDistance = null;
-        niveau = 1;
+        niveau = new SimpleIntegerProperty(1);
         this.inventaire = new Inventaire();
         this.listeQuetes = new QuestLine(this);
     }
@@ -47,14 +47,18 @@ public class Joueur {
         return armeDistance;
     }
 
+    public Arme getArme() {
+        return arme;
+    }
+
     public int getNiveau() {
-        return niveau;
+        return niveau.getValue();
     }
 
     public void lvlUp(){
-        niveau++;
-        maxHP += 5;
-        hp.setValue(maxHP);
+        niveau.setValue(niveau.getValue()+1);
+        maxHP.setValue(maxHP.getValue()+5);
+        hp.setValue(maxHP.getValue());
     }
 
     public void setArmeDistance(ArmeDistance armeDistance) {
@@ -67,6 +71,14 @@ public class Joueur {
 
     public void setHp(int hp) {
         this.hp.setValue(hp);
+    }
+
+    public IntegerProperty hpProperty() {
+        return hp;
+    }
+
+    public IntegerProperty niveauProperty() {
+        return niveau;
     }
 
     public void setConsole(Console console ){
@@ -127,11 +139,15 @@ public class Joueur {
     public void setVitesseDeDeplacement(int vitesseDeDeplacement) { Joueur.vitesseDeDeplacement = vitesseDeDeplacement; }
 
     public int getMaxHP() {
-        return maxHP;
+        return maxHP.getValue();
     }
 
     public void setMaxHP(int maxHP) {
-        this.maxHP = maxHP;
+        this.maxHP.setValue(maxHP);
+    }
+
+    public IntegerProperty maxHPProperty() {
+        return maxHP;
     }
 
     public Inventaire getInventaire() { return this.inventaire; }
@@ -313,28 +329,28 @@ public class Joueur {
             case "noodleRadio":
                 if (getInventaire().estDisponible("Nouilles", 1)) {
                     getInventaire().eneleverObjet("Nouilles", 1);
-                    regenerer((int)(maxHP*0.75));
+                    regenerer((int)(maxHP.getValue()*0.75));
                 }
                 else console.afficherItemIndisponible("nouille");
                 break;
             case "mielRadio":
                 if (getInventaire().estDisponible("Miel", 1)) {
                     getInventaire().eneleverObjet("Miel", 1);
-                    regenerer((int)(maxHP*0.3));
+                    regenerer((int)(maxHP.getValue()*0.3));
                 }
                 else console.afficherItemIndisponible("miel");
                 break;
             case "meatRadio":
                 if (getInventaire().estDisponible("Viande", 1)) {
                     getInventaire().eneleverObjet("Viande", 1);
-                    regenerer((int)(maxHP/2));
+                    regenerer((int)(maxHP.getValue()/2));
                 }
                 else console.afficherItemIndisponible("viande");
                 break;
             case "Potion":
                 if (getInventaire().estDisponible("Potion", 1)) {
                     getInventaire().eneleverObjet("Potion", 1);
-                    regenerer((int)(maxHP));
+                    regenerer((int)(maxHP.getValue()));
                 }
                 else console.afficherItemIndisponible("potion");
                 break;
@@ -344,7 +360,7 @@ public class Joueur {
     }
     public void mourrir() {
         zone.getProjectiles().clear();
-        setHp(maxHP);
+        setHp(maxHP.getValue());
         inventaire.clearInventaire();
         inventaire.ajouterObjet("Miel", 1);
         console.afficherMort();
@@ -353,8 +369,8 @@ public class Joueur {
     public void regenerer(int hp){
         console.afficherHeal(hp);
         this.hp.setValue(this.hp.getValue()+hp);
-        if(this.hp.getValue()>maxHP){
-            this.hp.setValue(maxHP);
+        if(this.hp.getValue()>maxHP.getValue()){
+            this.hp.setValue(maxHP.getValue());
         }
     }
 

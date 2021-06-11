@@ -27,10 +27,7 @@ import sample.modele.Terrain;
 import sample.vue.animations.PlayerHPAnimation;
 import sample.vue.animations.PlayerMovementAnimation;
 import sample.vue.animations.ShurikenAnimation;
-import sample.vue.modeleVue.ConsoleVue;
-import sample.vue.modeleVue.DialogueVue;
-import sample.vue.modeleVue.QueteVue;
-import sample.vue.modeleVue.TerrainVue;
+import sample.vue.modeleVue.*;
 
 
 import java.net.URL;
@@ -92,6 +89,21 @@ public class Controller implements Initializable {
     private static Label dialogueInterface;
     @FXML
     private Label pourcentageHPLabel;
+
+    //labelstats
+    @FXML
+    private Label statLevelLabel;
+    @FXML
+    private Label statHPMAXLabel;
+    @FXML
+    private Label statArmeLabel;
+    @FXML
+    private Label statRangeLabel;
+    @FXML
+    private Label statAttaqueLabel;
+    @FXML
+    private Label statArmeDistanceLabel;
+
     //IMAGES
     @FXML
     private ImageView hpBar;
@@ -130,7 +142,10 @@ public class Controller implements Initializable {
     private QueteVue queteVue;
     public TerrainVue terrainVue; // classe permettant de load la map et charger les textures
     public static TerrainVue terrainVueInterface;
+    public StatsVue statsVue;
+    public static
     private static long temps = 0 ;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -138,6 +153,7 @@ public class Controller implements Initializable {
         dialogueInterface = dialogueLabel;
         upgraderPaneInterface = upgraderPane;
         dialogueGlobalInterface=dialoguePane;
+        statsVue = new StatsVue(statArmeLabel,statRangeLabel,statAttaqueLabel,statArmeDistanceLabel,joueur);
         initConsole(); // Charge la console
         itemsDescriptionLoader = new ItemDescriptionSwitcher(descriptionLabel);
         armeDescriptionSwitcher= new ArmeDescriptionSwitcher(descriptionArmeLabel);
@@ -181,6 +197,7 @@ public class Controller implements Initializable {
        listenerLauncher.initPlayerTransitionsListener();
        listenerLauncher.initCameraListener(gamePane);
        listenerLauncher.initInventaireListener(nbGoldLabel, itemsDescriptionLoader,nbMineraiLabel);
+       listenerLauncher.initStatsListener(statLevelLabel,statHPMAXLabel,joueur);
     }
 
     // key initialisé aléatoirement pour éviter une erreur

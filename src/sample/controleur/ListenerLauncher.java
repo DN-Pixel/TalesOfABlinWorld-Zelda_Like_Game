@@ -111,4 +111,10 @@ public class ListenerLauncher {
             joueur.getInventaire().getListObjet().get(i).quantiteProperty().addListener((e)-> itemsDescriptionLoader.switchDescription(inventoryClicEventMemory, joueur.getInventaire()));
         }
     }
+
+    public void initStatsListener(Label Level,Label statHP,Joueur j){
+        Level.textProperty().bind(j.niveauProperty().asString());
+        statHP.textProperty().bind(j.maxHPProperty().asString());
+
+    }
 }
