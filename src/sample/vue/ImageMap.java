@@ -33,7 +33,10 @@ public class ImageMap {
         map.put("villageois3", new Image("sample/ressources/pnj/villageois3.png"));
         map.put("villageois4", new Image("sample/ressources/pnj/villageois4.png"));
         map.put("villageois5", new Image("sample/ressources/pnj/villageois5.png"));
-
+        map.put("chocobo",new Image("sample/ressources/pnj/chocobo.png"));
+        map.put("luigi",new Image("sample/ressources/pnj/luigi.png"));
+        map.put("panneau",new Image("sample/ressources/pnj/panneau.png"));
+        map.put("cloud",new Image("sample/ressources/pnj/cloud.png"));
 
         map.put("playerDOWN", new Image("sample/ressources/player/playerDOWN.png"));
         map.put("playerUP", new Image("sample/ressources/player/playerUP.png"));

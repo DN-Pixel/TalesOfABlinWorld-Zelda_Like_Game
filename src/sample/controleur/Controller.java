@@ -390,7 +390,7 @@ public class Controller implements Initializable {
     }
     @FXML
     public void traiterMinerai (){
-        joueur.getInventaire().traiterMinerai();
+        joueur.getConsole().afficherMineraiCrafted(joueur.getInventaire().traiterMinerai());
     }
     @FXML
     public void acheterArme (){

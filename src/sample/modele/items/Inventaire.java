@@ -115,22 +115,26 @@ public class Inventaire {
         return listObjet;
     }
 
-    public void traiterMinerai(){
+    public String traiterMinerai(){
         if (estDisponible("MineraiBrut",1)) {
             double x = Math.random();
             //<>
             if (x < 0.05) {
                 eneleverObjet("MineraiBrut",1);
                 ajouterObjet("Diamant",1);
+                return "Diamant";
             }
             else if (x < 0.30) {
                 eneleverObjet("MineraiBrut",1);
                 ajouterObjet("Argent",1);
+                return  "Argent";
             }
             else {
                 eneleverObjet("MineraiBrut",1);
                 ajouterObjet("Fer",1);
+                return "Fer";
             }
         }
+        return "";
     }
 }

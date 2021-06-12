@@ -94,6 +94,26 @@ public class Pnj extends Acteur {
                 lines.add("J'ai déjà un copain... désolée...");
                 lines.add("Brando m'a dit que vous cherchiez un livre... hmm?");
                 break;
+            case "chocobo":
+                lines.add("Kweh? (Ca va ?)");
+                lines.add("Coo !? (Cloud?!)");
+                lines.add("CooKweh! (Salut!)");
+                break;
+            case "cloud":
+                lines.add("Mon épée? Elle n'est pas à vendre...");
+                lines.add("J'étais un soldat aussi avant, et j'ai pris une flèche dans le genoux.");
+                lines.add("Zack...");
+                break;
+            case "luigi":
+                lines.add("Ya! ");
+                lines.add("mon ami est à l'interieur! Yahoo! ");
+                lines.add("Il a oublié son chapeau! Ya! ");
+                break;
+            case "panneau":
+                lines.add("Trésor très précieux, ne pas toucher");
+                lines.add("Dur dur la vie de panneau...");
+                lines.add("Le 'Une pièce'... Il existe!");
+                break;
             default:
                 break;
         }
@@ -137,6 +157,18 @@ public class Pnj extends Acteur {
                 break;
             case "villageois5":
                 endGameLine.add("Kyahahaha! Vous plutot etes mignon quand on vous voit!");
+                break;
+            case "chocobo":
+                endGameLine.add("Woheeho (thank you!)");
+                break;
+            case "panneau":
+                endGameLine.add("LE ONE PIECE! IL EXISTE!");
+                break;
+            case "luigi":
+                endGameLine.add("Il n'est toujours pas sorti... est-ce que Bowser a...");
+                break;
+            case "cloud":
+                endGameLine.add("Mon chocobo... vous l'avez vu?");
                 break;
             default:
                 break;

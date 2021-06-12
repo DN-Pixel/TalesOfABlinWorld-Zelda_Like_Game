@@ -60,6 +60,8 @@ public class Console {
         console.afficherItemRecup(item, quantite);
     }
 
+    public void afficherMineraiCrafted(String item){ console.afficherItemCrafted(item);}
+
     public void afficherErreurArmeNotSelected() {
         console.afficherErreurArmeNotSelected();
     }

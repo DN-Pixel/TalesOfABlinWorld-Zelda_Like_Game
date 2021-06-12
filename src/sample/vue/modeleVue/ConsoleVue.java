@@ -77,7 +77,14 @@ public class ConsoleVue {
     public void afficherItemRecup(String item, int quantite){
         console.appendText("\nVous avez trouver "+quantite+" "+item+"(s) ! "+ getTime());
     }
-
+    //branchless programming
+    public void afficherItemCrafted(String item){
+        if(item.equals(""))
+            console.appendText("\n"+star+"Vous n'avez plus rien à traiter");
+        else
+            console.appendText("\n"+star+"Vous obtenez un bloc "+ ((item.equals("Argent"))? "d'" : "de ") + item);
+        setStar();
+    }
     public void afficherErreurArmeNotSelected() {
         console.appendText("\n"+star+"Veuillez selectionner une arme à acheter");
         setStar();

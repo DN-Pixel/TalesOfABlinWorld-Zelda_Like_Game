@@ -73,6 +73,7 @@ public class SaveActeurs {
         save.add(new Bambou(16*16, 16*10));
         save.add(new Reptile(16*33, 16*13));
         save.add(new Bambou(16*33, 16*5));
+        save.add(new Pnj(32*16,36*16,"cloud"));
         savesListesActeurs.put(3, save);
     }
 
@@ -101,6 +102,7 @@ public class SaveActeurs {
         save.add(new Bambou(16*16, 16*19));
         save.add(new Reptile(13*16,7*16));
         save.add(new Reptile(16*16,7*16));
+        save.add(new Pnj(23*16,21*16,"chocobo"));
         savesListesActeurs.put(5, save);
     }
 
@@ -111,6 +113,8 @@ public class SaveActeurs {
     }
     private void genererSaveZone7(){
         ObservableList<Acteur> save = FXCollections.observableArrayList();
+        save.add(new Pnj(16,8*16,"luigi"));
+        save.add(new Pnj(16,14*16,"panneau"));
         savesListesActeurs.put(7, save);
     }
 }
