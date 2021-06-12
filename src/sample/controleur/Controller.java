@@ -69,6 +69,9 @@ public class Controller implements Initializable {
     private static Pane dialogueGlobalInterface;
     @FXML
     private Pane descriptionPane;
+    @FXML
+    private Pane menuStatsPane;
+    private static Pane menuStatInterface;
     //LABELS TEXTFIELDS
     @FXML
     private Label nbMineraiLabel;
@@ -142,7 +145,7 @@ public class Controller implements Initializable {
     private QueteVue queteVue;
     public TerrainVue terrainVue; // classe permettant de load la map et charger les textures
     public static TerrainVue terrainVueInterface;
-    public StatsVue statsVue;
+    public static HUDVue hudVue;
     private static long temps = 0 ;
 
 
@@ -152,7 +155,8 @@ public class Controller implements Initializable {
         dialogueInterface = dialogueLabel;
         upgraderPaneInterface = upgraderPane;
         dialogueGlobalInterface=dialoguePane;
-        statsVue = new StatsVue(statArmeLabel,statRangeLabel,statAttaqueLabel,statArmeDistanceLabel,joueur);
+        menuStatInterface=menuStatsPane;
+        hudVue = new HUDVue(statArmeLabel,statRangeLabel,statAttaqueLabel,statArmeDistanceLabel,joueur);
         initConsole(); // Charge la console
         itemsDescriptionLoader = new ItemDescriptionSwitcher(descriptionLabel);
         armeDescriptionSwitcher= new ArmeDescriptionSwitcher(descriptionArmeLabel);
@@ -284,6 +288,8 @@ public class Controller implements Initializable {
         }
         else if(e.getCode()== KeyCode.DIGIT2 || e.getCode()==KeyCode.UNDEFINED)
             joueur.manger("Potion");
+        else if(e.getCode()==KeyCode.B)
+            hudVue.statMenuManager(menuStatInterface);
 
         switch (e.getCode()){
             //mouvement
@@ -413,24 +419,9 @@ public class Controller implements Initializable {
 
     @FXML
     private Pane start;
-    private double opacity = 1;
     @FXML
     private void commencer (MouseEvent e) {
-        Timeline loadingMenu = new Timeline();
-        loadingMenu.setCycleCount(Timeline.INDEFINITE);
-        KeyFrame kf = new KeyFrame(
-                Duration.seconds(0.06),
-                (ev ->{
-                    opacity -= 0.1;
-                    start.setOpacity(opacity);
-                    if(opacity<=0){
-                        loadingMenu.stop();
-                        start.setVisible(false);
-                    }
-                })
-        );
-        loadingMenu.getKeyFrames().add(kf);
-        loadingMenu.play();
+        hudVue.commencer(start);
     }
 
 }

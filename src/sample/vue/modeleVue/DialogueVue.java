@@ -33,13 +33,11 @@ public class DialogueVue {
         else
             this.pane.setVisible(true);
         //partie set text
-        double x = Math.random();
-        if (x<=0.33)
-            this.label.setText(((Pnj) a).getRepliques().get(0));
-        else if(x<=0.66)
-            this.label.setText(((Pnj) a).getRepliques().get(1));
-        else
-            this.label.setText(((Pnj) a).getRepliques().get(2));
+
+        if (!joueur.getListeQuetes().getQueteActuelle().getTitre().startsWith("Felicitation")) {
+            this.label.setText(((Pnj) a).getRepliques().get((int)(Math.random()*3)));
+        }
+        else{ this.label.setText(((Pnj) a).getRepliquesFinDuJeu().get(0)); }
     }
 }
 

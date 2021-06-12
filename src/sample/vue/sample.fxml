@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -26,7 +36,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane style="-fx-background-size: 1300 800;" styleClass="fond" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controleur.Controller">
+<BorderPane style="-fx-background-size: 1300 800;" styleClass="fond" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controleur.Controller">
    <center>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" scaleX="1.5" scaleY="1.5">
          <children>
@@ -42,9 +52,9 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="pluiePane" layoutX="428.0" layoutY="249.0" opacity="0.39" prefHeight="251.0" prefWidth="425.0" visible="false">
+            <Pane fx:id="pluiePane" disable="true" layoutX="428.0" layoutY="249.0" opacity="0.39" prefHeight="251.0" prefWidth="425.0">
                <children>
-                  <ImageView fx:id="rainImageView" disable="true" fitHeight="330.0" fitWidth="550.0" layoutX="-85.0" layoutY="-60.0" pickOnBounds="true" visible="false">
+                  <ImageView fx:id="rainImageView" disable="true" fitHeight="330.0" fitWidth="550.0" layoutX="-85.0" layoutY="-60.0" pickOnBounds="true">
                      <image>
                         <Image url="@../ressources/fulll.png" />
                      </image>
@@ -102,6 +112,11 @@
                      <effect>
                         <DropShadow blurType="ONE_PASS_BOX" spread="0.34" />
                      </effect>
+                  </ImageView>
+                  <ImageView fitHeight="33.0" fitWidth="25.0" layoutX="164.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ressources/HUD/touches/keyB.png" />
+                     </image>
                   </ImageView>
                   <Button fx:id="mangerButton" layoutX="43.0" layoutY="318.0" mnemonicParsing="false" onMouseClicked="#manger" prefHeight="27.0" prefWidth="140.0" style="-fx-background-color: NONE; -fx-border-width: 2PX; -fx-border-color: #ddab71; -fx-border-radius: 5px;" text="MANGER" textFill="#ddab71">
                      <font>
@@ -1079,7 +1094,86 @@
                   </Pane>
                </children>
             </Pane>
-            <Pane fx:id="start" layoutX="211.0" layoutY="120.0" prefHeight="483.0" prefWidth="856.0" style="-fx-background-color: black; -fx-border-color: orange; -fx-border-width: 10;" visible="false">
+            <Pane fx:id="menuStatsPane" layoutX="861.0" layoutY="130.0" prefHeight="481.0" prefWidth="216.0" visible="false">
+               <children>
+                  <ImageView fitHeight="297.0" fitWidth="186.0" layoutX="11.0" layoutY="62.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../ressources/HUD/menu/playerStats.png" />
+                     </image>
+                  </ImageView>
+                  <VBox layoutX="128.0" layoutY="136.0" prefHeight="69.0" prefWidth="55.0">
+                     <children>
+                        <Label fx:id="statLevelLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="55.0" text="1" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="statHPMAXLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="37.0" prefWidth="55.0" text="120" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="31.0" layoutY="205.0" prefHeight="125.0" prefWidth="72.0" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="83.0" text="Arme:" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="statArmeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="72.0" text="epee" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="8.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="24.0" prefWidth="72.0" text="Range :" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="statRangeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="56.0" prefHeight="24.0" prefWidth="72.0" text="12" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="109.0" layoutY="205.0" prefHeight="125.0" prefWidth="69.0" spacing="5.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="83.0" text="Attaque" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="statAttaqueLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="83.0" text="15" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="69.0" text="Arme Distance:" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="statArmeDistanceLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="56.0" prefHeight="28.0" prefWidth="69.0" text="12" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <ImageView fitHeight="46.0" fitWidth="35.0" layoutX="149.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ressources/HUD/touches/keyB2.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="start" layoutX="211.0" layoutY="120.0" prefHeight="483.0" prefWidth="856.0" style="-fx-background-color: black; -fx-border-color: orange; -fx-border-width: 10;">
                <children>
                   <ImageView fitHeight="465.0" fitWidth="837.0" layoutX="9.0" layoutY="10.0" opacity="0.44" pickOnBounds="true">
                      <image>
@@ -1171,80 +1265,6 @@
                         <Image url="@../ressources/ennemis/boss.png" />
                      </image>
                   </ImageView>
-               </children>
-            </Pane>
-            <Pane fx:id="RightInventoryPane1" layoutX="861.0" layoutY="130.0" prefHeight="481.0" prefWidth="216.0">
-               <children>
-                  <ImageView fitHeight="297.0" fitWidth="186.0" layoutX="11.0" layoutY="62.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@../ressources/HUD/menu/playerStats.png" />
-                     </image>
-                  </ImageView>
-                  <VBox layoutX="128.0" layoutY="136.0" prefHeight="69.0" prefWidth="55.0">
-                     <children>
-                        <Label fx:id="statLevelLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="55.0" text="1" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="statHPMAXLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="37.0" prefWidth="55.0" text="120" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <VBox layoutX="31.0" layoutY="205.0" prefHeight="125.0" prefWidth="72.0" spacing="10.0">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="83.0" text="Arme:" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="statArmeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="72.0" text="epee" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
-                           <font>
-                              <Font name="System Bold" size="8.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="24.0" prefWidth="72.0" text="Range :" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="statRangeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="56.0" prefHeight="24.0" prefWidth="72.0" text="12" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <VBox layoutX="109.0" layoutY="205.0" prefHeight="125.0" prefWidth="69.0" spacing="5.0">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="83.0" text="Attaque" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="statAttaqueLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="83.0" text="15" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="69.0" text="Arme Distance:" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="statArmeDistanceLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="56.0" prefHeight="28.0" prefWidth="69.0" text="12" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="5.0" />
-                           </VBox.margin>
-                        </Label>
-                     </children>
-                  </VBox>
                </children>
             </Pane>
          </children>
