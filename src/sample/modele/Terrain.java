@@ -2,6 +2,7 @@ package sample.modele;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import sample.controleur.soundPlayer;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.Pnj;
 import sample.modele.acteurs.SaveActeurs;
@@ -256,6 +257,7 @@ public class Terrain {
                             projectiles.remove(p);
                             ((Ennemi) a).subirDegat(joueur.getArmeDistance().getDegatsArme());
                             console.afficherDegatsInfliges(joueur.getArmeDistance().getDegatsArme());
+                            soundPlayer.playSpecificSound("shurikenHit.mp3");
                         }
                         //projectiles lancees par les ennemis
                         else if (p.getId().startsWith("Ennemi") &&

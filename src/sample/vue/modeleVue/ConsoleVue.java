@@ -65,6 +65,9 @@ public class ConsoleVue {
     public void afficherPerteArgent(int perte){
         console.appendText("\nVous voila deboursé de "+perte+" pièces d'or!");
     }
+    public void afficherLvlUp(){
+        console.appendText("\nVous avez gagné un niveau !");
+    }
 
 
     //permet de différencier les messages identiques successifs dans la console.

@@ -111,6 +111,7 @@ public class TerrainVue {
     public void loadMap(String numero, int spawnX, int spawnY){
         try {
             zoneActuelle.setNomDeCarte("zone"+numero);
+            soundPlayer.playMapMusic(numero);
             zoneActuelle.setMapObstacles(mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Obstacles"));
             zoneActuelle.setMapSpawn(mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Spawn"));
             //zoneActuelle.getListeActeurs().addListener(new ObsListActeurs(gamePane, joueur));

@@ -54,6 +54,9 @@ public class Console {
     public void afficherPerteArgent(int perte){
         console.afficherPerteArgent(perte);
     }
+    public void afficherLvlUp(){
+        console.afficherLvlUp();
+    }
 
 
     public void afficherItemRecup(String item, int quantite){

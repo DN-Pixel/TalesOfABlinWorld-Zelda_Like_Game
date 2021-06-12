@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import sample.controleur.soundPlayer;
 import sample.modele.Joueur;
 
 
@@ -25,8 +26,14 @@ public class HUDVue {
     }
 
     public void statMenuManager(Pane menuPane){
-        if(menuPane.isVisible()) menuPane.setVisible(false);
-        else menuPane.setVisible(true);
+        if(menuPane.isVisible()) {
+            menuPane.setVisible(false);
+            soundPlayer.playSpecificSound("statsClose.mp3");
+        }
+        else{
+            menuPane.setVisible(true);
+            soundPlayer.playSpecificSound("statsOpen.mp3");
+        }
         arme.setText(j1.getArme().getNom());
         range.setText(""+j1.getArme().getRange());
         atk.setText(""+j1.getArme().getDegatsArme());
