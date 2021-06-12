@@ -53,17 +53,17 @@ public class ConsoleVue {
         setStar();
     }
     public void afficherArgentManquant(){
-        console.appendText("\n"+star+"Vous n'avez pas assez d'argent");
+        console.appendText("\n"+star+"Vous n'avez pas assez de pièces d'or");
         setStar();
     }
     public void afficherGainArgent(int gain){
         if (Math.random()<0.05)
             console.appendText("\nVous empochez "+gain+" BITCOINS !?");
         else
-            console.appendText("\nVous empochez "+gain+" or!");
+            console.appendText("\nVous empochez "+gain+" pièces d'or!");
     }
     public void afficherPerteArgent(int perte){
-        console.appendText("\nVous voila deboursé de "+perte+" or!");
+        console.appendText("\nVous voila deboursé de "+perte+" pièces d'or!");
     }
 
 
