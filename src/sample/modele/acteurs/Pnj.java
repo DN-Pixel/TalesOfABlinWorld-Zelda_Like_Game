@@ -36,47 +36,47 @@ public class Pnj extends Acteur {
         switch (nom) {
             case "kid":
                 lines.add("Viens on joue au ballon ! ");
-                lines.add("Ma mere m'a que j'etais quelqu'un de special !!");
-                lines.add("Cache-cache est un jeu bien trop difficile, je ne sais pas qui a inventer ce jeu ?!");
+                lines.add("Ma mere m'a que j'étais quelqu'un de spécial !!");
+                lines.add("Cache-cache est un jeu bien trop difficile, je ne sais pas qui a inventé ce jeu ?!");
                 break;
             case "cavegirl":
                 lines.add("N'approchez pas trop...");
-                lines.add("Je vous sens d'ici... prenez donc une douche ?");
+                lines.add("Je vous sens d'ici... prenez une douche non ?");
                 lines.add("Vous avez l'air d'aimer ce parfum... pas moi.");
                 break;
             case "goldninja":
-                lines.add("momoku... ? vous ... ?");
+                lines.add("Momoku... ? vous ... ?");
                 lines.add("Vous en savez beaucoup... beaucoup trop.");
-                lines.add("Vous etes donc celui qu'il a choisit...");
+                lines.add("Vous êtes donc celui qu'il a choisit...");
                 break;
             case "master":
-                lines.add("Les tenebres et la lumieres sont les deux faces d'un meme monde... ils ne peuvent exister l'un sans l'autre...");
-                lines.add("La course du Temps est cruelle. Nul ne peut la modifier. Seule la memoire des jours anciens n'est pas alteree.");
+                lines.add("Les ténèbres et la lumière sont les deux faces d'un même monde... ils ne peuvent exister l'un sans l'autre...");
+                lines.add("La course du Temps est cruelle. Nul ne peut la modifier. Seule la mémoire des jours anciens n'est pas alterée.");
                 lines.add("hmmmmm.... ?");
                 break;
             case "moine":
-                lines.add("Maitre vous a parler de moi ? Interessant...");
+                lines.add("Maître vous a parlé de moi ? Interessant...");
                 lines.add("Vous cherchez quelque chose peut-etre ?");
-                lines.add("Maitre m'a parlé de vous, vous etes a la recherche de reponses ?");
+                lines.add("Maître m'a parlé de vous, vous êtes à la recherche de réponses ?");
                 break;
             case "spectre":
                 lines.add("Cherchez... Momoku... trouvez ... le livre ... ");
-                lines.add("Vous devez... pour ramener la lumiere...le livre... Momoku...");
-                lines.add("Vous etes le seul... trouvez-le... le livre de Momoku...");
+                lines.add("Vous devez... pour ramener la lumière...le livre... Momoku...");
+                lines.add("Vous êtes le seul... trouvez-le... le livre de Momoku...");
                 break;
             case "vieux":
-                lines.add("Mon tresor? vous le cherchez ?! Je l'ai laissé quelque part... vers l'Ouest");
+                lines.add("Mon trésor? vous le cherchez ?! Je l'ai laissé quelque part...");
                 lines.add("Ma femme me manque...");
                 lines.add("Vous avez entendu les dernieres nouvelles ? ");
                 break;
             case "villageois1":
-                lines.add("J'ai repris le vielle scierie de mon pere, chop chop!");
-                lines.add("Vous avez beaucoup de bois sur vous... Vous en avez de la place dans ses poches!");
-                lines.add("Hey un buisson qu parle ?!");
+                lines.add("J'ai repris le vielle scierie de mon père, chop chop!");
+                lines.add("Vous avez beaucoup de bois sur vous... Vous en avez de la place dans ces poches!");
+                lines.add("On vous entend à l'autre bout de la ville! Pourquoi tant d'empressement ?!");
                 break;
             case "villageois2":
                 lines.add("nieh nieh");
-                lines.add("Un probleme ?");
+                lines.add("Un problème ?");
                 lines.add("Quoi ?!");
                 break;
             case "villageois3":
@@ -90,8 +90,8 @@ public class Pnj extends Acteur {
                 lines.add("Momoku ? Jamais entendu parler.");
                 break;
             case "villageois5":
-                lines.add("J'ai entendu dire que boire des 'Potion' pouvait faire pousser les cheveux !");
-                lines.add("J'aime votre style... c'est tres... vert ! ");
+                lines.add("J'ai entendu dire que boire des 'Potion' pouvait faire pousser les cheveux!");
+                lines.add("J'ai déjà un copain... désolée...");
                 lines.add("Brando m'a dit que vous cherchiez un livre... hmm?");
                 break;
             default:
@@ -106,25 +106,25 @@ public class Pnj extends Acteur {
                 endGameLine.add("Cache-Cache est devenu bien plus facile, mais ca reste dur !");
                 break;
             case "cavegirl":
-                endGameLine.add("Vous etes... tres vert...");
+                endGameLine.add("Vous êtes... très vert...");
                 break;
             case "goldninja":
-                endGameLine.add("Vous avez reussi... vous l'avez fait");
+                endGameLine.add("Vous avez réussi... vous l'avez fait");
                 break;
             case "master":
                 endGameLine.add("Je suis fier de vous...");
                 break;
             case "moine":
-                endGameLine.add("Haha! J'aime beaucoup votre style! Feliciations!");
+                endGameLine.add("Haha! J'aime beaucoup votre style! Féliciations!");
                 break;
             case "spectre":
-                endGameLine.add("Mon instinct ne donc pas trompé");
+                endGameLine.add("Mon instinct ne m'a donc pas trompé");
                 break;
             case "vieux":
-                endGameLine.add("Je vois! Je vois! TENEZ DONC ! Mon trésor est a l'ouest du pont au nord-ouest de la ville!");
+                endGameLine.add("Je vois! Je vois! Tenez, prenez ça: Mon trésor est à l'ouest du pont au nord-ouest de la ville!");
                 break;
             case "villageois1":
-                endGameLine.add("Merci enormement... vous voulez du bois peut-etre ?");
+                endGameLine.add("Merci énormément... Vous voulez du bois peut-être?");
                 break;
             case "villageois2":
                 endGameLine.add("Je.. je... merci....");
@@ -133,10 +133,10 @@ public class Pnj extends Acteur {
                 endGameLine.add("Que m'arrive-t-il ? c'est... coloré...");
                 break;
             case "villageois4":
-                endGameLine.add("Je... je suis desole, je suis... merci, merci enormement.");
+                endGameLine.add("Je... je suis désolé, je suis... merci, merci énormément.");
                 break;
             case "villageois5":
-                endGameLine.add("Kyahahaha! Vous plutot etes mignon quand on vous voit! ");
+                endGameLine.add("Kyahahaha! Vous plutot etes mignon quand on vous voit!");
                 break;
             default:
                 break;
