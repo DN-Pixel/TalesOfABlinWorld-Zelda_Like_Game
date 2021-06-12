@@ -60,7 +60,7 @@ public class Inventaire {
         }
     }
 
-    public void acheterObjet(String item, int quantiteAchetee){
+    public void acheterObjet(String item, int quantiteAchetee) throws InventaireException{
         int valeurTotale = 999999999;
         for (Objet i : this.listObjet ) {
             if (i.getClass().getSimpleName().equals(item)) {
@@ -71,6 +71,9 @@ public class Inventaire {
         if(getNbrOr()>=valeurTotale){
             enleverOr(valeurTotale);
             ajouterObjet(item, quantiteAchetee);
+        }
+        else{
+            throw new InventaireException();
         }
     }
 
@@ -115,26 +118,24 @@ public class Inventaire {
         return listObjet;
     }
 
-    public String traiterMinerai(){
-        if (estDisponible("MineraiBrut",1)) {
-            double x = Math.random();
-            //<>
-            if (x < 0.05) {
-                eneleverObjet("MineraiBrut",1);
-                ajouterObjet("Diamant",1);
-                return "Diamant";
-            }
-            else if (x < 0.30) {
-                eneleverObjet("MineraiBrut",1);
-                ajouterObjet("Argent",1);
-                return  "Argent";
-            }
-            else {
-                eneleverObjet("MineraiBrut",1);
-                ajouterObjet("Fer",1);
-                return "Fer";
-            }
+    public String traiterMinerai()throws InventaireException {
+        if (!estDisponible("MineraiBrut",1)) throw new InventaireException();
+        double x = Math.random();
+        //<>
+        if (x < 0.05) {
+            eneleverObjet("MineraiBrut",1);
+            ajouterObjet("Diamant",1);
+            return "Diamant";
         }
-        return "";
+        else if (x < 0.30) {
+            eneleverObjet("MineraiBrut",1);
+            ajouterObjet("Argent",1);
+            return  "Argent";
+        }
+        else {
+            eneleverObjet("MineraiBrut",1);
+            ajouterObjet("Fer",1);
+            return "Fer";
+        }
     }
 }

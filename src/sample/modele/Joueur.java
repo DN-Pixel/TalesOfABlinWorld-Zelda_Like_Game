@@ -296,7 +296,6 @@ public class Joueur {
         SoundPlayer.playSpecificSound("throw.wav");
     }
     public void manger(String selecteRadio) {
-
         switch (selecteRadio) {
             case "noodleRadio":
                 if (getInventaire().estDisponible("Nouilles", 1)) {

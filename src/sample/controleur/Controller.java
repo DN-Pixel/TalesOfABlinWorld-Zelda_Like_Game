@@ -20,6 +20,7 @@ import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.Pnj;
 import sample.modele.items.Armes.Arme;
 import sample.modele.items.Armes.ShopInventory;
+import sample.modele.items.InventaireException;
 import sample.modele.quetes.Quete;
 import sample.vue.*;
 import sample.modele.Joueur;
@@ -364,7 +365,11 @@ public class Controller implements Initializable {
         }catch (Exception exception){ joueur.getConsole().afficherErreurDeSaisie(); }
 
         try { joueur.getInventaire().acheterObjet(shopRadioSelected.getId(), quantitéVoulue);
-        }catch (Exception e){ joueur.getConsole().afficherErreurShopNonSelected(); }
+        }catch (Exception e){
+            if (e instanceof InventaireException)
+                joueur.getConsole().afficherArgentManquant();
+            else
+                joueur.getConsole().afficherErreurShopNonSelected(); }
     }
 
 
@@ -395,7 +400,12 @@ public class Controller implements Initializable {
     }
     @FXML
     public void traiterMinerai (){
-        joueur.getConsole().afficherMineraiCrafted(joueur.getInventaire().traiterMinerai());
+        try {
+            joueur.getConsole().afficherMineraiCrafted(joueur.getInventaire().traiterMinerai());
+        }
+        catch (InventaireException e){
+            joueur.getConsole().afficherItemIndisponible("MineraiBrut");
+        }
     }
     @FXML
     public void acheterArme (){

@@ -1,6 +1,7 @@
 package sample.modele;
 
 import javafx.scene.control.TextArea;
+import sample.modele.items.InventaireException;
 import sample.vue.modeleVue.ConsoleVue;
 
 import java.text.SimpleDateFormat;
@@ -63,7 +64,9 @@ public class Console {
         console.afficherItemRecup(item, quantite);
     }
 
-    public void afficherMineraiCrafted(String item){ console.afficherItemCrafted(item);}
+    public void afficherMineraiCrafted(String item) {
+        console.afficherItemCrafted(item);
+    }
 
     public void afficherErreurArmeNotSelected() {
         console.afficherErreurArmeNotSelected();
