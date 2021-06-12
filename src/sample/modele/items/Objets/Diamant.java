@@ -3,6 +3,6 @@ package sample.modele.items.Objets;
 public class Diamant extends Objet{
 
     public Diamant () {
-        super("Diamant", 100);
+        super("Diamant", 200);
     }
 }

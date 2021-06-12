@@ -25,59 +25,25 @@ public class Quete {
         this.quantiteObjet = quantiteObjet;
     }
 
-    public String getTypeQuete() {
-        return typeQuete;
-    }
-
-    public void setTypeQuete(String typeQuete) {
-        this.typeQuete = typeQuete;
-    }
-
     public int getQuantiteObjet() {
         return quantiteObjet;
     }
-
-    public void setQuantiteObjet(int quantiteObjet) {
-        this.quantiteObjet = quantiteObjet;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getTitre() {
         return titre;
     }
 
-    public void setTitre(String titre) {
-        this.titre = titre;
-    }
-
-    public static int getIdQuete() {
-        return idQuete;
-    }
-
-    public static void setIdQuete(int idQuete) {
-        Quete.idQuete = idQuete;
-    }
 
     public int getRecompenseOr() {
         return recompenseOr;
     }
 
-    public void setRecompenseOr(int recompenseOr) {
-        this.recompenseOr = recompenseOr;
-    }
 
     public String getRecompenseObjet() {
         return recompenseObjet;
     }
 
-    public void setRecompenseObjet(String recompenseObjet) {
-        this.recompenseObjet = recompenseObjet;
-    }
 }

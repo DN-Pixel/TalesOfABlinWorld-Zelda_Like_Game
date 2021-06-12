@@ -1,10 +1,7 @@
 package sample.vue.modeleVue;
 
-import javafx.beans.InvalidationListener;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -19,7 +16,6 @@ import sample.modele.ressources.Ressource;
 import sample.vue.ImageMap;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class TerrainVue {
 
@@ -111,7 +107,7 @@ public class TerrainVue {
     public void loadMap(String numero, int spawnX, int spawnY){
         try {
             zoneActuelle.setNomDeCarte("zone"+numero);
-            soundPlayer.playMapMusic(numero);
+            SoundPlayer.playMapMusic(numero);
             zoneActuelle.setMapObstacles(mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Obstacles"));
             zoneActuelle.setMapSpawn(mapLoader.LoadTileMap("map"+numero+"/Map"+numero+"Spawn"));
             //zoneActuelle.getListeActeurs().addListener(new ObsListActeurs(gamePane, joueur));

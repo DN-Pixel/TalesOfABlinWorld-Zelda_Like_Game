@@ -13,7 +13,4 @@ public class TalkQuete extends Quete{
         return pnjName;
     }
 
-    public void setPnjName(String pnjName) {
-        this.pnjName = pnjName;
-    }
 }

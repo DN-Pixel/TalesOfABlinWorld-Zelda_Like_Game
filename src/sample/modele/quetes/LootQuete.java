@@ -17,10 +17,6 @@ public class LootQuete extends Quete{
         return ressourceToGet;
     }
 
-    public void setRessourceToGet(String ressourceToGet) {
-        this.ressourceToGet = ressourceToGet;
-    }
-
     public int getCount() {
         return count;
     }
@@ -29,15 +25,9 @@ public class LootQuete extends Quete{
         this.count += count;
     }
 
-    public void setCount(int count) {
-        this.count = count;
-    }
 
     public int getNbRessource() {
         return nbRessource;
     }
 
-    public void setNbRessource(int nbRessource) {
-        this.nbRessource = nbRessource;
-    }
 }

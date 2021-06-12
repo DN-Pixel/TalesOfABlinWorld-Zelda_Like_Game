@@ -24,20 +24,12 @@ public class Ressource {
         return x.get();
     }
 
-    public IntegerProperty xProperty() {
-        return x;
-    }
-
     public void setX(int x) {
         this.x.set(x);
     }
 
     public int getY() {
         return y.get();
-    }
-
-    public IntegerProperty yProperty() {
-        return y;
     }
 
     public void setY(int y) {

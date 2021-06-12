@@ -27,7 +27,10 @@ public class ConsoleVue {
         setStar();
     }
     public void afficherZoneActuelle(String numeroZone){
-        console.appendText("\nBienvenue en zone " + numeroZone +" ! "+ getTime());
+        if(numeroZone.equals("7"))
+            console.appendText("\nVous avez la sensation d'avoir trouver une zone spéciale... "+ getTime());
+        else
+            console.appendText("\nBienvenue en zone " + numeroZone +" ! "+ getTime());
     }
     public void afficherMort(){
         console.appendText("\nVous êtes mort(e) ! "+ getTime());

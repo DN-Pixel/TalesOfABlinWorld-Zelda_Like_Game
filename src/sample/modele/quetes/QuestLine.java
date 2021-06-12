@@ -2,8 +2,7 @@ package sample.modele.quetes;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import sample.controleur.Controller;
-import sample.controleur.soundPlayer;
+import sample.controleur.SoundPlayer;
 import sample.modele.Joueur;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.Pnj;
@@ -23,7 +22,7 @@ public class QuestLine {
         quetes.add(new LootQuete("Chapitre 1 - Souvenirs obscurs", "'Si tu veux acheter du nouveau matos c'est ici que ça se passe ! Tiens d'ailleurs, rend moi un service tu veux.'\nMiner une source de minerai à l'est.", 10, "Fer", 1, "SourceMinerai", 1));
         quetes.add(new TalkQuete("Chapitre 1 - Souvenirs obscurs", "'Il faudrait peut-etre que je me renseigne à propos de ce livre, une fois que j'aurai amener la marchandise biensur'\nAmener les minerais au forgeron.", 40, "Fer", 3, "upgrader"));
 
-        quetes.add(new TalkQuete("Chapitre 2 - Une recherche sans fin", "Intérroger l'habitant au nord-ouest de la ville concernant le livre de Momoku.", 10, "", 0, "villageois4"));
+        quetes.add(new TalkQuete("Chapitre 2 - Une recherche sans fin", "Intérroger l'habitant au centre de la ville concernant le livre de Momoku.", 10, "", 0, "villageois4"));
         quetes.add(new TalkQuete("Chapitre 2 - Une recherche sans fin", "Intérroger l'habitant au sud-ouest de la ville concernant le livre de Momoku", 10, "", 0, "villageois2"));
         quetes.add(new KillQuete("Chapitre 2 - Une recherche sans fin", "'Je crois bien que je peux t'aider, mais avant j'ai besoin de toi pour quelque chose !'\n Tuer 2 Slimes.", 5, "", 0, "Slime", 2));
         quetes.add(new KillQuete("Chapitre 2 - Une recherche sans fin", "Tuer 2 Hiboux.", 5, "", 0, "Hibou", 2));
@@ -75,7 +74,7 @@ public class QuestLine {
             joueur.getInventaire().ajouterObjet(getQueteActuelle().getRecompenseObjet(), getQueteActuelle().getQuantiteObjet());
         joueur.getInventaire().ajouterOr(getQueteActuelle().getRecompenseOr());
         quetes.remove(0);
-        soundPlayer.playSpecificSound("quest.wav");
+        SoundPlayer.playSpecificSound("quest.wav");
     }
 
     public Quete getQueteActuelle(){

@@ -19,36 +19,18 @@ public class Arme {
         return degatsArme;
     }
 
-    public String getDescription() {
-        return description;
-    }
     //purement esthetique
     public String getShopDescription(){
         return "Nom: " + this.getNom() + "\nDegats: "+ this.getDegatsArme() + "\nPortee: " + this.getRange() + "\nValeur: " + this.getValue();
     }
-    public void setDegatsArme(int degatsArme) {
-        this.degatsArme = degatsArme;
-    }
-    public void upgradeDegats(int degatArme) {
-        this.degatsArme += degatArme;
-    }
-
     public int getValue() { return value; }
 
     public String getNom() {
         return nom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
     public int getRange() {
         return range;
-    }
-
-    public void setRange(int range) {
-        this.range = range;
     }
 
 }

@@ -36,7 +36,7 @@ public class Pnj extends Acteur {
         switch (nom) {
             case "kid":
                 lines.add("Viens on joue au ballon ! ");
-                lines.add("Ma mere m'a que j'étais quelqu'un de spécial !!");
+                lines.add("Ma mere m'a dit que j'étais quelqu'un de spécial !!");
                 lines.add("Cache-cache est un jeu bien trop difficile, je ne sais pas qui a inventé ce jeu ?!");
                 break;
             case "cavegirl":
@@ -82,7 +82,7 @@ public class Pnj extends Acteur {
             case "villageois3":
                 lines.add("Momokoi ?!");
                 lines.add("J'ai pu gouter aux cuisses de hiboux avec maman! C'est délicieux !");
-                lines.add("");
+                lines.add("Comment ça les cuisses de hiboux n'existent pas !?");
                 break;
             case "villageois4":
                 lines.add("Laissez-moi tranquille...");
@@ -92,7 +92,7 @@ public class Pnj extends Acteur {
             case "villageois5":
                 lines.add("J'ai entendu dire que boire des 'Potion' pouvait faire pousser les cheveux!");
                 lines.add("J'ai déjà un copain... désolée...");
-                lines.add("Brando m'a dit que vous cherchiez un livre... hmm?");
+                lines.add("Brando m'a dit qu'il avait un nouveau stock de ramen");
                 break;
             case "chocobo":
                 lines.add("Kweh? (Ca va ?)");
@@ -113,6 +113,11 @@ public class Pnj extends Acteur {
                 lines.add("Trésor très précieux, ne pas toucher");
                 lines.add("Dur dur la vie de panneau...");
                 lines.add("Le 'Une pièce'... Il existe!");
+                break;
+            case "épouvantail":
+                lines.add("*Vous frappez l'épouvantail*\nPourquoi faites vous cela ?");
+                lines.add("*Vous donnez une pièce à l'épouvantail*\nIl vous l'a rend de suite");
+                lines.add("*Vous câlinez l'épouvantail*\nIl rougit.");
                 break;
             default:
                 break;
@@ -150,13 +155,13 @@ public class Pnj extends Acteur {
                 endGameLine.add("Je.. je... merci....");
                 break;
             case "villageois3":
-                endGameLine.add("Que m'arrive-t-il ? c'est... coloré...");
+                endGameLine.add("Que m'arrive-t-il ? c'est... intéressant...");
                 break;
             case "villageois4":
                 endGameLine.add("Je... je suis désolé, je suis... merci, merci énormément.");
                 break;
             case "villageois5":
-                endGameLine.add("Kyahahaha! Vous plutot etes mignon quand on vous voit!");
+                endGameLine.add("Kyahahaha! Vous plutot etes mignon quand on vous distingue!");
                 break;
             case "chocobo":
                 endGameLine.add("Woheeho (thank you!)");

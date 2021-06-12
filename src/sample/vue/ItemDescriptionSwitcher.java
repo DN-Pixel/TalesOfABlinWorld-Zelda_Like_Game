@@ -1,8 +1,6 @@
 package sample.vue;
 
-import javafx.event.Event;
 import javafx.scene.control.Label;
-import sample.modele.items.Armes.ShopInventory;
 import sample.modele.items.Inventaire;
 
 public class ItemDescriptionSwitcher {

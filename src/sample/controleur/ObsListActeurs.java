@@ -5,6 +5,7 @@ import javafx.scene.layout.Pane;
 import sample.modele.Joueur;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.ennemis.Ennemi;
+import sample.modele.acteurs.ennemis.EnnemiBoss;
 import sample.vue.modeleVue.ActeurVue;
 import sample.vue.ImageMap;
 
@@ -37,6 +38,8 @@ public class ObsListActeurs implements ListChangeListener<Acteur> {
                 if(a instanceof Ennemi){
                     acteurVue.removeSprite(a);
                     joueur.getListeQuetes().killTracker(a);
+                    if(a instanceof EnnemiBoss)
+                        SoundPlayer.playMusiqueDeFond("goodTime.wav");
                 }
             }
         }

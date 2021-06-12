@@ -30,7 +30,7 @@
    <center>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" scaleX="1.5" scaleY="1.5">
          <children>
-            <Pane fx:id="gamePane" centerShape="false" layoutX="505.0" layoutY="278.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="164.0" prefWidth="270.0" style="-fx-background-color: red;">
+            <Pane fx:id="gamePane" centerShape="false" layoutX="505.0" layoutY="278.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="164.0" prefWidth="270.0" style="-fx-background-color: #f5f6fa00;">
                <children>
                   <TilePane fx:id="tilePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="320.0" />
                   <TilePane fx:id="tilePaneSolid" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="320.0" />
@@ -149,7 +149,7 @@
                   </HBox>
                   <HBox alignment="CENTER" layoutX="30.0" layoutY="282.0" prefHeight="40.0" prefWidth="170.0" spacing="25.0">
                      <children>
-                        <RadioButton fx:id="mielRadio" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0">
+                        <RadioButton fx:id="mielRadio" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" translateX="-10.0">
                            <toggleGroup>
                               <ToggleGroup fx:id="Nourriture" />
                            </toggleGroup>
@@ -160,14 +160,14 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </RadioButton>
-                        <RadioButton fx:id="meatRadio" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$Nourriture">
+                        <RadioButton fx:id="meatRadio" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$Nourriture" translateX="-1.0">
                            <effect>
                               <SepiaTone />
                            </effect>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></RadioButton>
-                        <RadioButton fx:id="noodleRadio" mnemonicParsing="false" prefHeight="22.0" prefWidth="11.0" toggleGroup="$Nourriture">
+                        <RadioButton fx:id="noodleRadio" mnemonicParsing="false" prefHeight="22.0" prefWidth="11.0" toggleGroup="$Nourriture" translateX="3.0">
                            <effect>
                               <SepiaTone />
                            </effect>
@@ -472,13 +472,10 @@
                <children>
                   <ImageView fitHeight="117.0" fitWidth="576.0" layoutX="-24.0" layoutY="-15.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../ressources/HUD/menu/WoodPane.png" />
+                        <Image url="@../ressources/HUD/DialogueBoxSimple.png" />
                      </image>
-                     <effect>
-                        <ColorAdjust brightness="-0.1" hue="0.01" saturation="-1.0" />
-                     </effect>
                   </ImageView>
-                  <Label fx:id="dialogueLabel" layoutX="-5.0" layoutY="-3.0" prefHeight="93.0" prefWidth="536.0" text="jeune aventure reb jjhf sh fse bejhrf h vhg vysfkeyvf sjvfk hv hv hsfv ghwfv hsgegvesh sehGVhgv " textFill="WHITE" wrapText="true">
+                  <Label fx:id="dialogueLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-5.0" layoutY="-3.0" prefHeight="93.0" prefWidth="536.0" text="oui" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font size="15.0" />
                      </font>

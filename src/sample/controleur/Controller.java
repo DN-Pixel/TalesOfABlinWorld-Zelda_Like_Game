@@ -151,29 +151,32 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        vendeurInterface = vendeurPane;
-        dialogueInterface = dialogueLabel;
-        upgraderPaneInterface = upgraderPane;
-        dialogueGlobalInterface=dialoguePane;
-        menuStatInterface=menuStatsPane;
         hudVue = new HUDVue(statArmeLabel,statRangeLabel,statAttaqueLabel,statArmeDistanceLabel,joueur);
         initConsole(); // Charge la console
         itemsDescriptionLoader = new ItemDescriptionSwitcher(descriptionLabel);
         armeDescriptionSwitcher= new ArmeDescriptionSwitcher(descriptionArmeLabel);
         player.setId("player");
         dialogueVue = new DialogueVue(dialogueLabel,dialoguePane,joueur);
-        dialogueVueInterface=dialogueVue;
         terrainVue = new TerrainVue(zoneActuelle, joueur, gamePane, tilePane, tilePaneDeco, tilePaneSolid);
-        terrainVueInterface=terrainVue;
         terrainVue.loadMap("0", 9*16, 27*16); // charge la première map (cauchemar)
-        player.toFront(); // met le joueur devant tout le monde
         terrainVue.creerNuage();
         listenerLauncher = new ListenerLauncher(joueur, player, terrainVue);
-        initListeners(); // initialise les listeners
-        initBoucleTemporelle(); // initialise la boucle temporelle
-        initAnimations(); // lance les animations
+        initListeners();
+        initBoucleTemporelle();
+        initAnimations();
         loadQuests();
-        gameLoop.play(); // Lance la boucle temporelle
+        swapStatic();
+        gameLoop.play();
+    }
+    // Permet de contourner le problème des éléments statics du FXML
+    private void swapStatic() {
+        dialogueVueInterface=dialogueVue;
+        terrainVueInterface=terrainVue;
+        vendeurInterface = vendeurPane;
+        dialogueInterface = dialogueLabel;
+        upgraderPaneInterface = upgraderPane;
+        dialogueGlobalInterface=dialoguePane;
+        menuStatInterface=menuStatsPane;
     }
 
     public void loadQuests(){
@@ -373,7 +376,7 @@ public class Controller implements Initializable {
                 vendeurInterface.setDisable(true);
             }
             else{
-                soundPlayer.playSpecificSound("shop.wav");
+                SoundPlayer.playSpecificSound("shop.wav");
                 vendeurInterface.setVisible(true);
                 vendeurInterface.setDisable(false);
             }
@@ -384,7 +387,7 @@ public class Controller implements Initializable {
                 upgraderPaneInterface.setDisable(true);
             }
             else{
-                soundPlayer.playSpecificSound("forge.wav");
+                SoundPlayer.playSpecificSound("forge.wav");
                 upgraderPaneInterface.setVisible(true);
                 upgraderPaneInterface.setDisable(false);
             }

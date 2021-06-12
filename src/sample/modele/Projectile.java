@@ -30,16 +30,8 @@ public class Projectile {
         return origine;
     }
 
-    public void setOrigine(String origine) {
-        this.origine = origine;
-    }
-
     public String getId() {
         return id;
-    }
-
-    public static int getB() {
-        return b;
     }
 
     public int getX() { return x.getValue(); }
@@ -53,9 +45,6 @@ public class Projectile {
     public String getDirection() { return direction; }
     public int getTailleProjectile() {
         return tailleProjectile;
-    }
-    public void setTailleProjectile(int tailleProjectile) {
-        this.tailleProjectile = tailleProjectile;
     }
 
     public void moveProjectile() {

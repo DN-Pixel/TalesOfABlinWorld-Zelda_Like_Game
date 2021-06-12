@@ -3,10 +3,9 @@ package sample.vue.modeleVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import sample.controleur.soundPlayer;
+import sample.controleur.SoundPlayer;
 import sample.modele.Joueur;
 
 
@@ -28,11 +27,11 @@ public class HUDVue {
     public void statMenuManager(Pane menuPane){
         if(menuPane.isVisible()) {
             menuPane.setVisible(false);
-            soundPlayer.playSpecificSound("statsClose.wav");
+            SoundPlayer.playSpecificSound("statsClose.wav");
         }
         else{
             menuPane.setVisible(true);
-            soundPlayer.playSpecificSound("statsOpen.wav");
+            SoundPlayer.playSpecificSound("statsOpen.wav");
         }
         arme.setText(j1.getArme().getNom());
         range.setText(""+j1.getArme().getRange());

@@ -18,10 +18,6 @@ public class KillQuete extends Quete{
         return count;
     }
 
-    public void setCount(int count) {
-        this.count = count;
-    }
-
     public void addCount(int count) {
         this.count += count;
     }
@@ -30,15 +26,9 @@ public class KillQuete extends Quete{
         return ennemyToKill;
     }
 
-    public void setEnnemyToKill(String ennemyToKill) {
-        this.ennemyToKill = ennemyToKill;
-    }
 
     public int getNbKills() {
         return nbKills;
     }
 
-    public void setNbKills(int nbKills) {
-        this.nbKills = nbKills;
-    }
 }
