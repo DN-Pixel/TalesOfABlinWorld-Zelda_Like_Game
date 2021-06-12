@@ -1,6 +1,5 @@
 package sample.modele.ressources;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
 import sample.modele.items.Objets.Argent;
 import sample.modele.items.Objets.Diamant;
 import sample.modele.items.Objets.Fer;

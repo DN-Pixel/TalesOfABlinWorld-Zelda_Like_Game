@@ -17,10 +17,10 @@ public class ImageMap {
         map.put("Oeil", new Image("sample/ressources/ennemis/Oeil.png"));
         map.put("Hibou", new Image("sample/ressources/ennemis/Hibou.png"));
         map.put("Reptile", new Image("sample/ressources/ennemis/reptile.png"));
-        map.put("Boss", new Image("sample/ressources/ennemis/boss.png"));
+        map.put("EnnemiBoss", new Image("sample/ressources/ennemis/boss.png"));
 
-        map.put("Enfant", new Image("sample/ressources/pnj/kid.png"));
-        map.put("Cavegirl", new Image("sample/ressources/pnj/cavegirl.png"));
+        map.put("kid", new Image("sample/ressources/pnj/kid.png"));
+        map.put("cavegirl", new Image("sample/ressources/pnj/cavegirl.png"));
         map.put("goldninja", new Image("sample/ressources/pnj/goldninja.png"));
         map.put("master", new Image("sample/ressources/pnj/master.png"));
         map.put("moine", new Image("sample/ressources/pnj/moine.png"));
@@ -33,17 +33,11 @@ public class ImageMap {
         map.put("villageois3", new Image("sample/ressources/pnj/villageois3.png"));
         map.put("villageois4", new Image("sample/ressources/pnj/villageois4.png"));
         map.put("villageois5", new Image("sample/ressources/pnj/villageois5.png"));
-
-        map.put("10HP", new Image("sample/ressources/HUD/HPBAR/10HP.png"));
-        map.put("9HP", new Image("sample/ressources/HUD/HPBAR/9HP.png"));
-        map.put("8HP", new Image("sample/ressources/HUD/HPBAR/8HP.png"));
-        map.put("7HP", new Image("sample/ressources/HUD/HPBAR/7HP.png"));
-        map.put("6HP", new Image("sample/ressources/HUD/HPBAR/6HP.png"));
-        map.put("5HP", new Image("sample/ressources/HUD/HPBAR/5HP.png"));
-        map.put("4HP", new Image("sample/ressources/HUD/HPBAR/4HP.png"));
-        map.put("3HP", new Image("sample/ressources/HUD/HPBAR/3HP.png"));
-        map.put("2HP", new Image("sample/ressources/HUD/HPBAR/2HP.png"));
-        map.put("1HP", new Image("sample/ressources/HUD/HPBAR/1HP.png"));
+        map.put("chocobo",new Image("sample/ressources/pnj/chocobo.png"));
+        map.put("luigi",new Image("sample/ressources/pnj/luigi.png"));
+        map.put("panneau",new Image("sample/ressources/pnj/panneau.png"));
+        map.put("cloud",new Image("sample/ressources/pnj/cloud.png"));
+        map.put("épouvantail",new Image("sample/ressources/pnj/epouvantail.png"));
 
         map.put("playerDOWN", new Image("sample/ressources/player/playerDOWN.png"));
         map.put("playerUP", new Image("sample/ressources/player/playerUP.png"));
@@ -53,6 +47,15 @@ public class ImageMap {
         map.put("SourceBois", new Image("sample/ressources/ressourcesImg/bois.png"));
         map.put("SourceTresor", new Image("sample/ressources/ressourcesImg/coffre.png"));
         map.put("SourceMinerai", new Image("sample/ressources/ressourcesImg/minerai.png"));
+
+        map.put("shuriken", new Image("sample/ressources/armes/shuriken.png"));
+        map.put("shuriken2", new Image("sample/ressources/armes/shuriken2.png"));
+        map.put("shuriken3", new Image("sample/ressources/armes/shuriken3.png"));
+        map.put("shuriken4", new Image("sample/ressources/armes/shuriken4.png"));
+        map.put("shuriken5", new Image("sample/ressources/armes/shuriken5.png"));
+        map.put("shuriken6", new Image("sample/ressources/armes/shuriken6.png"));
+        map.put("shuriken7", new Image("sample/ressources/armes/shuriken7.png"));
+        map.put("shuriken8", new Image("sample/ressources/armes/shuriken8.png"));
     }
 
     public Map<String, Image> getMap() {

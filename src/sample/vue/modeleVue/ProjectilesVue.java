@@ -12,6 +12,11 @@ public class ProjectilesVue {
     private Image imageOeilBullet = new Image("sample/ressources/ennemis/oeilBullet.png");
     private Image imageShuriken = new Image("sample/ressources/armes/shuriken.png");
 
+    private Image imageBossBullet = new Image("sample/ressources/ennemis/bossBullet.png");
+    private Image imageBossBulletRight = new Image("sample/ressources/ennemis/bossBulletRight.png");
+    private Image imageBossBulletLeft = new Image("sample/ressources/ennemis/bossBulletLeft.png");
+    private Image imageBossBulletSpecial= new Image("sample/ressources/ennemis/bossBulletSpecial.png");
+
     public ProjectilesVue (Pane gamePane) {
         this.gamePane = gamePane;
     }
@@ -22,6 +27,19 @@ public class ProjectilesVue {
             i.setImage(imageBambouBullet);
         else if(p.getOrigine().equals("Oeil"))
             i.setImage(imageOeilBullet);
+        else if(p.getOrigine().startsWith("EnnemiBoss")){
+            if(p.getDirection().equals("RIGHT")){
+                i.setImage(imageBossBulletRight);
+            }
+            else if(p.getDirection().equals("LEFT")){
+                i.setImage(imageBossBulletLeft);
+            }
+            else if(p.getOrigine().equals("EnnemiBossSPE")){
+                i.setImage(imageBossBulletSpecial);
+            }
+            else
+                i.setImage(imageBossBullet);
+        }
         else
             i.setImage(imageShuriken);
         i.setId(p.getId());

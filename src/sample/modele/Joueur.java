@@ -2,14 +2,17 @@ package sample.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.control.RadioButton;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.input.KeyEvent;
+import sample.controleur.SoundPlayer;
 import sample.modele.acteurs.Acteur;
+import sample.modele.acteurs.Pnj;
 import sample.modele.acteurs.ennemis.Ennemi;
 import sample.modele.items.Armes.*;
 import sample.modele.items.Inventaire;
+import sample.modele.quetes.QuestLine;
 import sample.modele.ressources.Ressource;
-import sample.vue.Console;
 
 public class Joueur {
 
@@ -20,25 +23,45 @@ public class Joueur {
     private IntegerProperty xProperty = new SimpleIntegerProperty(0);
     private IntegerProperty yProperty = new SimpleIntegerProperty(0);
     private static int vitesseDeDeplacement = 2 ;
-    private String direction;
+    private StringProperty direction = new SimpleStringProperty();
     private Terrain zone;
     private Inventaire inventaire;
-    private int maxHP;
+    private IntegerProperty maxHP = new SimpleIntegerProperty();
+    private IntegerProperty niveau;
+    private QuestLine listeQuetes;
 
     public Joueur(int x, int y, Terrain zone) {
         arme = new Gourdin(); // Le joueur commence avec un gourdin
         this.xProperty.setValue(x);
         this.yProperty.setValue(y);
         this.zone = zone;
-        direction = "down";
+        direction.setValue("down");
         hp.setValue(10);
-        maxHP = hp.getValue();
+        maxHP.setValue( hp.getValue());
         armeDistance = null;
+        niveau = new SimpleIntegerProperty(1);
         this.inventaire = new Inventaire();
+        this.listeQuetes = new QuestLine(this);
     }
 
     public ArmeDistance getArmeDistance() {
         return armeDistance;
+    }
+
+    public Arme getArme() {
+        return arme;
+    }
+
+    public int getNiveau() {
+        return niveau.getValue();
+    }
+
+    public void lvlUp(){
+        SoundPlayer.playerLevelUp();
+        niveau.setValue(niveau.getValue()+1);
+        maxHP.setValue(maxHP.getValue()+5);
+        hp.setValue(maxHP.getValue());
+        console.afficherLvlUp();
     }
 
     public void setArmeDistance(ArmeDistance armeDistance) {
@@ -53,23 +76,22 @@ public class Joueur {
         this.hp.setValue(hp);
     }
 
+    public IntegerProperty niveauProperty() {
+        return niveau;
+    }
+
     public void setConsole(Console console ){
         this.console=console;
     }
     public Console getConsole(){
         return this.console;
     }
-    public int getPointAttaque() {
-        return arme.getDegatsArme();
-    }
 
     public String getDirection() {
-        return direction;
+        return direction.getValue();
     }
 
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
+    public StringProperty directionProperty(){return  this.direction;}
 
     public void setArme(Arme arme) {
         this.arme = arme;
@@ -82,6 +104,7 @@ public class Joueur {
     public void setZone(Terrain zone) {
         this.zone = zone;
     }
+
     public IntegerProperty getxProperty() {
         return this.xProperty;
     }
@@ -106,59 +129,44 @@ public class Joueur {
         this.yProperty.setValue(newY);
     }
 
-    public int getVitesseDeDeplacement() { return vitesseDeDeplacement; }
-    public void setVitesseDeDeplacement(int vitesseDeDeplacement) { Joueur.vitesseDeDeplacement = vitesseDeDeplacement; }
-
     public int getMaxHP() {
-        return maxHP;
+        return maxHP.getValue();
     }
 
-    public void setMaxHP(int maxHP) {
-        this.maxHP = maxHP;
+    public IntegerProperty maxHPProperty() {
+        return maxHP;
     }
 
     public Inventaire getInventaire() { return this.inventaire; }
 
     public void moveUp () {
         this.yProperty.setValue(this.yProperty.getValue()-vitesseDeDeplacement);
-        direction = "up";
+        direction.setValue("up");
     }
 
     public void moveDown () {
         this.yProperty.setValue(this.yProperty.getValue()+vitesseDeDeplacement);
-        direction = "down";
+        direction.setValue("down");
     }
 
     public void moveRight () {
         this.xProperty.setValue(this.xProperty.getValue()+vitesseDeDeplacement);
-        direction = "right";
+        direction.setValue("right");
     }
 
     public void moveLeft () {
         this.xProperty.setValue(this.xProperty.getValue()-vitesseDeDeplacement);
-        direction="left";
-    }
-    /*
-    private int oldTileValue;
-    private int oldPlayerX =getCentreJoueurX()/16;
-    private int oldPlayerY =getCentreJoueurY()/16;
-
-    public void setOldTileValue (int Value){
-        oldTileValue=Value;
+        direction.setValue("left");
     }
 
-    public void updatePosition(){
-        int newTile = this.zone.getMapSpawn()[getCentreJoueurY()/16][getCentreJoueurX()/16];
-        System.out.println(newTile);
-        if(newTile != oldTileValue){
-            this.zone.getMapSpawn()[oldPlayerY][oldPlayerX] = oldTileValue;
-            oldPlayerX =getCentreJoueurX()/16;
-            oldPlayerY =getCentreJoueurY()/16;
-            this.zone.getMapSpawn()[getCentreJoueurY()/16][getCentreJoueurX()/16]=99;
-            manageAggro();
-        }
+    public QuestLine getListeQuetes() {
+        return listeQuetes;
     }
-*/
+
+    public void setListeQuetes(QuestLine listeQuetes) {
+        this.listeQuetes = listeQuetes;
+    }
+
     public void manageAggro(){
         Acteur a;
         for(int i=getZone().getListeActeurs().size()-1; i>=0;i--){
@@ -177,6 +185,7 @@ public class Joueur {
     }
 
     public void subirDegats(int degats){
+        SoundPlayer.playerGotHit();
         hp.setValue(hp.getValue()-degats);
         console.afficherDegatsRecus(degats);
     }
@@ -242,12 +251,13 @@ public class Joueur {
     }
 
     public void attaquerCorpsACorps (Acteur a) {
-        switch (direction) {
+        switch (direction.getValue()) {
             case "right":
                 if (a.getCentreActeurX() <= this.getCentreJoueurX() + arme.getRange() && a.getCentreActeurX() >= this.getCentreJoueurX()
                         && a.getCentreActeurY() <= this.getCentreJoueurY() + 24 && a.getCentreActeurY() >= this.getCentreJoueurY() - 24) {
                     ((Ennemi) a).subirDegat(arme.getDegatsArme());
                     console.afficherDegatsInfliges(arme.getDegatsArme());
+                    SoundPlayer.playAttackSound();
                 }
                 break;
             case "left":
@@ -255,6 +265,7 @@ public class Joueur {
                         && a.getCentreActeurY() <= this.getCentreJoueurY() + 24 && a.getCentreActeurY() >= this.getCentreJoueurY() - 24) {
                     ((Ennemi) a).subirDegat(arme.getDegatsArme());
                     console.afficherDegatsInfliges(arme.getDegatsArme());
+                    SoundPlayer.playAttackSound();
                 }
                 break;
             case "up":
@@ -262,6 +273,7 @@ public class Joueur {
                         && a.getCentreActeurX() >= this.getCentreJoueurX() - 24 && a.getCentreActeurX() <= this.getCentreJoueurX() + 24) {
                     ((Ennemi) a).subirDegat(arme.getDegatsArme());
                     console.afficherDegatsInfliges(arme.getDegatsArme());
+                    SoundPlayer.playAttackSound();
                 }
                 break;
 
@@ -270,43 +282,50 @@ public class Joueur {
                         && a.getCentreActeurX() >= this.getCentreJoueurX() - 24 && a.getCentreActeurX() <= this.getCentreJoueurX() + 24) {
                     ((Ennemi) a).subirDegat(arme.getDegatsArme());
                     console.afficherDegatsInfliges(arme.getDegatsArme());
+                    SoundPlayer.playAttackSound();
                 }
                 break;
         }
     }
 
     public void attaquerEnDistance() {
-        Projectile p = new Projectile(this.getX(), this.getY(), direction.toUpperCase(), "hero", "Joueur");
+        if(armeDistance==null)
+            return;
+        Projectile p = new Projectile(this.getX(), this.getY(), direction.getValue().toUpperCase(), "hero", "Joueur", 8, 2);
         this.zone.getProjectiles().add(p);
+        SoundPlayer.playSpecificSound("throw.wav");
     }
     public void manger(String selecteRadio) {
-
         switch (selecteRadio) {
             case "noodleRadio":
                 if (getInventaire().estDisponible("Nouilles", 1)) {
                     getInventaire().eneleverObjet("Nouilles", 1);
-                    regenerer((int)(maxHP*0.75));
+                    regenerer((int)(maxHP.getValue()*0.75));
+                    SoundPlayer.playSpecificSound("eating.wav");
                 }
                 else console.afficherItemIndisponible("nouille");
                 break;
             case "mielRadio":
                 if (getInventaire().estDisponible("Miel", 1)) {
                     getInventaire().eneleverObjet("Miel", 1);
-                    regenerer((int)(maxHP*0.3));
+                    regenerer((int)(maxHP.getValue()*0.3));
+                    SoundPlayer.playSpecificSound("eating.wav");
                 }
                 else console.afficherItemIndisponible("miel");
                 break;
             case "meatRadio":
                 if (getInventaire().estDisponible("Viande", 1)) {
                     getInventaire().eneleverObjet("Viande", 1);
-                    regenerer((int)(maxHP/2));
+                    regenerer((int)(maxHP.getValue()/2));
+                    SoundPlayer.playSpecificSound("eating.wav");
                 }
                 else console.afficherItemIndisponible("viande");
                 break;
             case "Potion":
                 if (getInventaire().estDisponible("Potion", 1)) {
                     getInventaire().eneleverObjet("Potion", 1);
-                    regenerer((int)(maxHP));
+                    regenerer((int)(maxHP.getValue()));
+                    SoundPlayer.playSpecificSound("potion.wav");
                 }
                 else console.afficherItemIndisponible("potion");
                 break;
@@ -315,18 +334,19 @@ public class Joueur {
         }
     }
     public void mourrir() {
+        SoundPlayer.playerDied();
         zone.getProjectiles().clear();
-        console.afficherMort();
-        setHp(maxHP);
+        setHp(maxHP.getValue());
         inventaire.clearInventaire();
         inventaire.ajouterObjet("Miel", 1);
+        console.afficherMort();
     }
 
     public void regenerer(int hp){
         console.afficherHeal(hp);
         this.hp.setValue(this.hp.getValue()+hp);
-        if(this.hp.getValue()>maxHP){
-            this.hp.setValue(maxHP);
+        if(this.hp.getValue()>maxHP.getValue()){
+            this.hp.setValue(maxHP.getValue());
         }
     }
 
@@ -336,6 +356,10 @@ public class Joueur {
             r = zone.getListeRessource().get(i);
             if(r.getCentreRessourceX()<=getCentreJoueurX()+20 && r.getCentreRessourceX()>=getCentreJoueurX()-20
             && r.getCentreRessourceY()<=getCentreJoueurY()+20 && r.getCentreRessourceY()>=getCentreJoueurY()-20) {
+                if(r.getRecompense().equals("Bois"))
+                    SoundPlayer.playSpecificSound("wood.wav");
+                else if(r.getRecompense().equals("MineraiBrut"))
+                    SoundPlayer.playSpecificSound("mining.wav");
                 getInventaire().ajouterObjet(r.getRecompense(), r.getQuantite());
                 console.afficherItemRecup(r.getRecompense(), r.getQuantite());
                 zone.getMapObstacles()[r.getY()/16][r.getX()/16] = -1;
@@ -344,4 +368,23 @@ public class Joueur {
         }
     }
 
+    public Acteur parler(){
+        for(Acteur a : zone.getListeActeurs()){
+            if(a instanceof Pnj && isCollinding(a.getX(), a.getY())) {
+                listeQuetes.talkTracker(a);
+                return a;
+            }
+        }
+        return null;
+    }
+
+    public void acheterArme(Arme armechoisie) {
+        if(getInventaire().getNbrOr()>=armechoisie.getValue()) {
+            getInventaire().setNbrOr(getInventaire().getNbrOr() - armechoisie.getValue());
+            setArme(armechoisie);
+        }
+        else{
+            getConsole().afficherArgentManquant();
+        }
+    }
 }

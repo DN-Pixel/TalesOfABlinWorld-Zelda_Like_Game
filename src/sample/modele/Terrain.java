@@ -2,15 +2,15 @@ package sample.modele;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.layout.Pane;
+import sample.controleur.SoundPlayer;
 import sample.modele.acteurs.Acteur;
+import sample.modele.acteurs.Pnj;
 import sample.modele.acteurs.SaveActeurs;
 import sample.modele.acteurs.ennemis.*;
 import sample.modele.ressources.Ressource;
 import sample.modele.ressources.SaveRessources;
 import sample.modele.ressources.SourceBois;
 import sample.modele.ressources.SourceMinerai;
-import sample.vue.Console;
 
 
 public class Terrain {
@@ -23,6 +23,13 @@ public class Terrain {
     private int[][] mapSpawn; // ZONE DE SPAWN DES ENNEMIS
     private Console console;
 
+    public SaveActeurs getSaveActeurs() {
+        return saveActeurs;
+    }
+
+    public SaveRessources getSaveRessources() {
+        return saveRessources;
+    }
 
     public Terrain (String nomDeCarte) {
         this.nomDeCarte = nomDeCarte;
@@ -47,14 +54,12 @@ public class Terrain {
         return projectiles;
     }
 
-    public void loadSaveActeurs(){
-        int numero = Integer.parseInt(nomDeCarte.substring((nomDeCarte.length()-1))); // récupère le numéro de la carte
+    public void loadPnjHitboxes(){
+        int numero = getNumeroCarte(); // récupère le numéro de la carte
         Acteur a;
         for(int i=0;i<saveActeurs.getSave(numero).size();i++){
             a = saveActeurs.getSave(numero).get(i);
-            if(a instanceof Ennemi)
-                mapObstacles[a.getY()/16][a.getX()/16] = 6666; // 6666 -> ENNEMI
-            else
+            if(a instanceof Pnj)
                 mapObstacles[a.getY()/16][a.getX()/16] = 7777; // 7777 -> PNJ
         }
     }
@@ -120,18 +125,15 @@ public class Terrain {
         return false;
     }
 
-    public int[][] getMapSpawn() {
-        return mapSpawn;
-    }
 
     public void setMapSpawn(int[][] mapSpawn) {
         this.mapSpawn = mapSpawn;
     }
 
     public void EnemySpawn () {
-        //Si la limite d'ennemis est atteinte on ne fait rien spawn, si on est dans la ville (map1) non plus.
+        //Si la limite d'ennemis est atteinte on ne fait rien spawn, si on est dans la ville (map1) ou la map0 non plus.
         if (saveActeurs.getSave(getNumeroCarte()).size() >= 10 ||
-                getNumeroCarte()==1)
+                getNumeroCarte()==1 || getNumeroCarte()==0)
             return;
 
         //gestion du spawn des ennemis en fonction de la zone.
@@ -151,8 +153,15 @@ public class Terrain {
                             else saveActeurs.getSave(3).add(new Bambou(j  * 16, i * 16));
                             break;
                         case 4:
-                            if (x < .9) saveActeurs.getSave(4).add(new Bete(j  * 16, i * 16));
+                            if (x < .5) saveActeurs.getSave(4).add(new Bete(j  * 16, i * 16));
                             else saveActeurs.getSave(4).add(new Oeil(j * 16, i * 16));
+                            break;
+                        case 5 :
+                            if (x < .5) saveActeurs.getSave(5).add(new Bambou(j * 16, i * 16));
+                            else saveActeurs.getSave(5).add(new Hibou(j * 16, i * 16));
+                            break;
+                        case 6 :
+                            saveActeurs.getSave(6).add(new Oeil(j * 16, i * 16));
                             break;
                         default:
                             break;
@@ -165,12 +174,12 @@ public class Terrain {
     }
 
     public void ressourceSpawn(){
+        // si il y a deja 10 ressources ou nous sommes dans la zone 1, rien ne spawn
+        if(getListeRessource().size()>10 || getNumeroCarte()==1  || getNumeroCarte()==6 || getNumeroCarte()==0)
+            return;
         boolean spawned = false;
         int i = 0;
         int j = 0;
-        // si il y a deja 10 ressources ou nous sommes dans la zone 1, rien ne spawn
-        if(getListeRessource().size()>10 || getNumeroCarte()==1)
-            return;
         while(!spawned){
             i = (int)(Math.random()*mapObstacles.length);
             j = (int)(Math.random()*mapObstacles[0].length);
@@ -218,6 +227,7 @@ public class Terrain {
             }
         }
     }
+
     public void manageProjeciles(Joueur joueur){
         Projectile p;
         for (int i= projectiles.size()-1;i >=0 ;i--) {
@@ -237,19 +247,22 @@ public class Terrain {
                     Acteur a = this.getListeActeurs().get(j);
                     if(a instanceof Ennemi) {
                         //projectiles lancees par moi (joueur)
-                        if (p.getId().startsWith("hero") && p.getY()+8 >= a.getCentreActeurY() - 12 &&
-                                p.getY()+8 <= a.getCentreActeurY() + 12 &&
-                                p.getX()+8 <= a.getCentreActeurX() + 12 &&
-                                p.getX()+8 >= a.getCentreActeurX() - 12) {
+                        if (p.getId().startsWith("hero") && p.getY()+8 >= a.getCentreActeurY() - ((Ennemi) a).getLargeur() &&
+                                p.getY()+8 <= a.getCentreActeurY() + ((Ennemi) a).getLargeur() &&
+                                p.getX()+8 <= a.getCentreActeurX() + ((Ennemi) a).getLargeur() &&
+                                p.getX()+8 >= a.getCentreActeurX() - ((Ennemi) a).getLargeur()) {
                             projectiles.remove(p);
                             ((Ennemi) a).subirDegat(joueur.getArmeDistance().getDegatsArme());
                             console.afficherDegatsInfliges(joueur.getArmeDistance().getDegatsArme());
+                            SoundPlayer.playSpecificSound("shurikenHit.wav");
                         }
                         //projectiles lancees par les ennemis
-                        else if (p.getId().startsWith("Ennemi") && p.getY() >= joueur.getCentreJoueurY() - 8 &&
-                                p.getY() <= joueur.getCentreJoueurY() +8  &&
-                                p.getX() <= joueur.getCentreJoueurX()  +8  &&
-                                p.getX() >= joueur.getCentreJoueurX() -8 && a instanceof EnnemiDistance) {
+                        else if (p.getId().startsWith("Ennemi") &&
+                                joueur.getCentreJoueurX()<=p.getCentreX()+p.getTailleProjectile() &&
+                                joueur.getCentreJoueurX()>=p.getCentreX() - p.getTailleProjectile() &&
+                                joueur.getCentreJoueurY()<=p.getCentreY()+ p.getTailleProjectile() &&
+                                joueur.getCentreJoueurY()>=p.getCentreY() - p.getTailleProjectile()
+                                && a instanceof EnnemiDistance) {
                             projectiles.remove(p);
                             joueur.subirDegats(((Ennemi) a).getPointDegat());
                             break;

@@ -3,6 +3,7 @@ package sample.vue.modeleVue;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import sample.modele.acteurs.Acteur;
+import sample.modele.acteurs.Pnj;
 import sample.modele.acteurs.ennemis.Ennemi;
 import sample.vue.ImageMap;
 

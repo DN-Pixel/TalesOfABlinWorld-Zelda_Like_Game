@@ -16,8 +16,8 @@ public abstract class Ennemi extends Acteur {
     private int vitesse;
     private int niveau;
     private int moveDirection; //1 pour down; 2 pour up; 3 pour right; 4 pour left; 5 pour none
-
     private BFS bfs = new BFS();
+    private int largeur;
 
     private Stack<Integer> path = new Stack<Integer>(); // direction à prendre pour rejoindre le joueur (BFS PATHFINDING)
 
@@ -32,6 +32,11 @@ public abstract class Ennemi extends Acteur {
             this.aggroRange = 8*16;
         else
             this.aggroRange = 5 * 16;
+        if (this instanceof EnnemiBoss) {
+            this.largeur=24;
+            this.aggroRange = 10000;
+        }
+        else this.largeur=12;
     }
 
     //setters
@@ -44,7 +49,9 @@ public abstract class Ennemi extends Acteur {
     public int getPv() {return this.pv;}
     public int getPointDegat() {return this.pointDegat;}
     public int getNiveau() {return this.niveau;}
-
+    public int getLargeur() {
+        return largeur;
+    }
 
     //autres
 //    public void seSoigner(int gainPv) {

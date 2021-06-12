@@ -8,7 +8,9 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -16,16 +18,19 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.TilePane?>
-<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane style="-fx-background-size: 1300 800;" styleClass="fond" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controleur.Controller">
    <center>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" scaleX="1.5" scaleY="1.5">
          <children>
-            <Pane fx:id="gamePane" centerShape="false" layoutX="505.0" layoutY="278.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="164.0" prefWidth="270.0" style="-fx-background-color: red;">
+            <Pane fx:id="gamePane" centerShape="false" layoutX="505.0" layoutY="278.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="164.0" prefWidth="270.0" style="-fx-background-color: #f5f6fa00;">
                <children>
                   <TilePane fx:id="tilePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="320.0" />
                   <TilePane fx:id="tilePaneSolid" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="320.0" />
@@ -37,15 +42,26 @@
                   </ImageView>
                </children>
             </Pane>
+            <Pane fx:id="pluiePane" disable="true" layoutX="428.0" layoutY="249.0" opacity="0.39" prefHeight="251.0" prefWidth="425.0">
+               <children>
+                  <ImageView fx:id="rainImageView" disable="true" fitHeight="330.0" fitWidth="550.0" layoutX="-85.0" layoutY="-60.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../ressources/fulll.png" />
+                     </image>
+                     <effect>
+                        <GaussianBlur radius="4.0" />
+                     </effect>
+                  </ImageView>
+               </children></Pane>
             <Rectangle fx:id="cameraR" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="250.0" layoutX="465.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="300.0" width="350.0">
                <stroke>
-                  <LinearGradient endX="1.0" endY="1.0" startX="0.038461538461538464" startY="0.19230769230769232">
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                      <stops>
                         <Stop color="#282828" />
                         <Stop color="#282828" offset="0.007407407407407408" />
                         <Stop color="#1b1515" offset="1.0" />
                      </stops>
-                  </LinearGradient>
+                  </RadialGradient>
                </stroke>
             </Rectangle>
             <Pane fx:id="LeftQuestPane" layoutX="212.0" layoutY="120.0" prefHeight="481.0" prefWidth="220.0">
@@ -55,10 +71,14 @@
                         <Image url="@../ressources/HUD/menu/parchemin.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="questLabel" alignment="TOP_CENTER" layoutX="64.0" layoutY="118.0" prefHeight="215.0" prefWidth="125.0" text="frfrknfrifrdiu hghg dugiudg hiudgh idgh dugh kdnvd jkgh kjg dkjngdk g ndkjg" textAlignment="CENTER" wrapText="true">
+                  <Label fx:id="questTitle" alignment="TOP_CENTER" layoutX="62.0" layoutY="108.0" prefHeight="41.0" prefWidth="125.0" text="Titre" textAlignment="CENTER" wrapText="true" />
+                  <Text fx:id="questDescription" layoutX="68.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="content" textAlignment="CENTER" wrappingWidth="112.80337524414062">
                      <font>
-                        <Font size="9.0" />
-                     </font></Label>
+                        <Font name="Arial" size="10.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="recompenseOr" layoutX="71.0" layoutY="315.0" text="Or:" textAlignment="CENTER" />
+                  <Label fx:id="recompenseObjet" layoutX="133.0" layoutY="314.0" text="Objet:" textAlignment="CENTER" />
                </children></Pane>
             <Pane fx:id="RightInventoryPane" layoutX="851.0" layoutY="120.0" prefHeight="481.0" prefWidth="216.0">
                <children>
@@ -82,6 +102,11 @@
                      <effect>
                         <DropShadow blurType="ONE_PASS_BOX" spread="0.34" />
                      </effect>
+                  </ImageView>
+                  <ImageView fitHeight="33.0" fitWidth="25.0" layoutX="164.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ressources/HUD/touches/keyB.png" />
+                     </image>
                   </ImageView>
                   <Button fx:id="mangerButton" layoutX="43.0" layoutY="318.0" mnemonicParsing="false" onMouseClicked="#manger" prefHeight="27.0" prefWidth="140.0" style="-fx-background-color: NONE; -fx-border-width: 2PX; -fx-border-color: #ddab71; -fx-border-radius: 5px;" text="MANGER" textFill="#ddab71">
                      <font>
@@ -124,7 +149,7 @@
                   </HBox>
                   <HBox alignment="CENTER" layoutX="30.0" layoutY="282.0" prefHeight="40.0" prefWidth="170.0" spacing="25.0">
                      <children>
-                        <RadioButton fx:id="mielRadio" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0">
+                        <RadioButton fx:id="mielRadio" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" translateX="-10.0">
                            <toggleGroup>
                               <ToggleGroup fx:id="Nourriture" />
                            </toggleGroup>
@@ -135,14 +160,14 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </RadioButton>
-                        <RadioButton fx:id="meatRadio" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$Nourriture">
+                        <RadioButton fx:id="meatRadio" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$Nourriture" translateX="-1.0">
                            <effect>
                               <SepiaTone />
                            </effect>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></RadioButton>
-                        <RadioButton fx:id="noodleRadio" mnemonicParsing="false" prefHeight="22.0" prefWidth="11.0" toggleGroup="$Nourriture">
+                        <RadioButton fx:id="noodleRadio" mnemonicParsing="false" prefHeight="22.0" prefWidth="11.0" toggleGroup="$Nourriture" translateX="3.0">
                            <effect>
                               <SepiaTone />
                            </effect>
@@ -385,44 +410,76 @@
                         <Image url="@../ressources/HUD/touches/RIGHT.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="99.0" fitWidth="80.0" layoutX="214.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../ressources/HUD/touches/key1.png" />
-                     </image>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </ImageView>
-                  <ImageView fitHeight="99.0" fitWidth="80.0" layoutX="347.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../ressources/HUD/touches/key2.png" />
-                     </image>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </ImageView>
-                  <ImageView fitHeight="80.0" fitWidth="64.0" layoutX="448.0" layoutY="22.0" pickOnBounds="true">
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                     <image>
-                        <Image url="@../ressources/HUD/touches/keyE.png" />
-                     </image>
-                  </ImageView>
+                  <HBox alignment="CENTER" layoutX="151.0" prefHeight="111.0" prefWidth="432.0" spacing="25.0">
+                     <children>
+                        <ImageView fitHeight="103.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/HUD/touches/key1.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="103.0" fitWidth="59.0" layoutX="161.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/HUD/touches/key2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="103.0" fitWidth="59.0" layoutX="191.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/HUD/touches/key3.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="103.0" fitWidth="59.0" layoutX="220.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/HUD/touches/keyE.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="103.0" fitWidth="59.0" layoutX="250.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/HUD/touches/keyF.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
                </children>
             </Pane>
-            <Pane fx:id="topHPPane" layoutX="431.0" layoutY="120.0" prefHeight="88.0" prefWidth="420.0">
+            <Pane fx:id="topHPPane" layoutX="431.0" layoutY="120.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="88.0" prefWidth="420.0">
                <children>
                   <TextArea fx:id="console" disable="true" editable="false" layoutX="7.0" layoutY="36.0" opacity="0.8" prefHeight="70.0" prefWidth="408.0" style="-fx-border-color: #ddab71; -fx-border-width: 5px; -fx-border-radius: 2px;" text="&#10;Console Logs&#10;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </TextArea>
-                  <ImageView fx:id="hpBar" fitHeight="45.0" fitWidth="207.0" layoutX="104.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5">
+                  <ImageView fitHeight="39.0" fitWidth="424.0" layoutX="-2.0" layoutY="2.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../ressources/HUD/HPBAR/10HP.png" />
+                        <Image url="@../ressources/HUD/HPBAR/0.png" />
                      </image>
                   </ImageView>
+                  <ImageView fx:id="hpBar" fitHeight="27.0" fitWidth="424.0" layoutX="-2.0" layoutY="9.0" pickOnBounds="true" scaleY="1.5">
+                     <image>
+                        <Image url="@../ressources/HUD/HPBAR/hpBar.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust brightness="-0.38" hue="0.67" saturation="-0.14" />
+                     </effect>
+                  </ImageView>
+                  <Label fx:id="pourcentageHPLabel" alignment="CENTER" layoutX="8.0" layoutY="7.0" prefHeight="29.0" prefWidth="406.0" text="100%" textFill="#e1c3a1">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="dialoguePane" layoutX="381.0" layoutY="500.0" prefHeight="102.0" prefWidth="543.0" visible="false">
+               <children>
+                  <ImageView fitHeight="117.0" fitWidth="576.0" layoutX="-24.0" layoutY="-15.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../ressources/HUD/DialogueBoxSimple.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="dialogueLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-5.0" layoutY="-3.0" prefHeight="93.0" prefWidth="536.0" text="oui" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <Pane fx:id="vendeurPane" disable="true" layoutX="381.0" layoutY="500.0" prefHeight="102.0" prefWidth="543.0" visible="false">
@@ -467,17 +524,6 @@
                               <Insets left="-15.0" right="-10.0" />
                            </HBox.margin>
                         </ImageView>
-                        <ImageView disable="true" fitHeight="65.0" fitWidth="65.0" focusTraversable="true" layoutX="83.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <image>
-                              <Image url="@../ressources/HUD/menu/checkboxEMPTY.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets left="-15.0" right="-10.0" />
-                           </HBox.margin>
-                        </ImageView>
                         <ImageView disable="true" fitHeight="65.0" fitWidth="65.0" focusTraversable="true" layoutX="108.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                            <cursor>
                               <Cursor fx:constant="HAND" />
@@ -494,9 +540,9 @@
                         <Insets bottom="-10.0" top="-10.0" />
                      </padding>
                   </HBox>
-                  <HBox alignment="CENTER" disable="true" layoutX="50.0" layoutY="-4.0" prefHeight="26.0" prefWidth="221.0" spacing="23.0">
+                  <HBox alignment="CENTER" layoutX="50.0" layoutY="-4.0" prefHeight="26.0" prefWidth="221.0" spacing="23.0">
                      <children>
-                        <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="inventoryFer" fitHeight="17.0" fitWidth="17.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -507,18 +553,7 @@
                               <Insets />
                            </HBox.margin>
                         </ImageView>
-                        <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <image>
-                              <Image url="@../ressources/HUD/objet/diamant.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </ImageView>
-                        <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="inventoryArgent" fitHeight="17.0" fitWidth="17.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -529,18 +564,18 @@
                               <Insets />
                            </HBox.margin>
                         </ImageView>
-                        <ImageView fitHeight="19.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="inventoryDiamant" fitHeight="17.0" fitWidth="17.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <image>
-                              <Image url="@../ressources/HUD/objet/mineraiBrut.png" />
+                              <Image url="@../ressources/HUD/objet/diamant.png" />
                            </image>
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </ImageView>
-                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="108.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="inventoryBois" fitHeight="19.0" fitWidth="19.0" layoutX="108.0" layoutY="18.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -549,42 +584,6 @@
                            </image>
                            <HBox.margin>
                               <Insets left="-4.0" />
-                           </HBox.margin>
-                        </ImageView>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" layoutX="309.0" layoutY="-7.0" prefHeight="34.0" prefWidth="130.0" spacing="28.0">
-                     <children>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../ressources/HUD/objet/honey.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </ImageView>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="83.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../ressources/HUD/objet/beef.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="3.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="108.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../ressources/HUD/objet/noodle.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </ImageView>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="121.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../ressources/HUD/objet/potion.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets left="1.0" />
                            </HBox.margin>
                         </ImageView>
                      </children>
@@ -640,7 +639,55 @@
                         <Insets bottom="-10.0" top="-10.0" />
                      </padding>
                   </HBox>
-                  <Button fx:id="vendreButton" layoutX="65.0" layoutY="55.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="140.0" style="-fx-background-color: NONE; -fx-border-width: 2PX; -fx-border-color: #ddab71; -fx-border-radius: 5px;" text="VENDRE" textFill="#ddab71">
+                  <HBox alignment="CENTER" layoutX="309.0" layoutY="-7.0" prefHeight="34.0" prefWidth="130.0" spacing="28.0">
+                     <children>
+                        <ImageView fx:id="inventoryMiel" fitHeight="16.0" fitWidth="16.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/HUD/objet/honey.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fx:id="inventoryViande" fitHeight="16.0" fitWidth="16.0" layoutX="83.0" layoutY="18.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/HUD/objet/beef.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="3.0" />
+                           </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fx:id="inventoryNouilles" fitHeight="16.0" fitWidth="16.0" layoutX="108.0" layoutY="18.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/HUD/objet/noodle.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fx:id="inventoryPotion" fitHeight="16.0" fitWidth="16.0" layoutX="121.0" layoutY="19.0" onMouseClicked="#setDescription" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/HUD/objet/potion.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="1.0" />
+                           </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <Button fx:id="vendreButton" layoutX="65.0" layoutY="55.0" mnemonicParsing="false" onAction="#vendre" prefHeight="26.0" prefWidth="140.0" style="-fx-background-color: NONE; -fx-border-width: 2PX; -fx-border-color: #ddab71; -fx-border-radius: 5px;" text="VENDRE" textFill="#ddab71">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -651,7 +698,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="acheterButton" layoutX="337.0" layoutY="55.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="140.0" style="-fx-background-color: NONE; -fx-border-width: 2PX; -fx-border-color: #ddab71; -fx-border-radius: 5px;" text="ACHETER" textFill="#ddab71">
+                  <Button fx:id="acheterButton" layoutX="337.0" layoutY="55.0" mnemonicParsing="false" onAction="#acheter" prefHeight="26.0" prefWidth="140.0" style="-fx-background-color: NONE; -fx-border-width: 2PX; -fx-border-color: #ddab71; -fx-border-radius: 5px;" text="ACHETER" textFill="#ddab71">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -666,9 +713,9 @@
                      <padding>
                         <Insets bottom="-1.0" />
                      </padding></TextField>
-                  <HBox alignment="CENTER" layoutX="72.0" layoutY="31.0" prefHeight="18.0" prefWidth="168.0" spacing="16.0">
+                  <HBox alignment="CENTER" layoutX="80.0" layoutY="31.0" prefHeight="18.0" prefWidth="168.0" spacing="16.0">
                      <children>
-                        <RadioButton fx:id="shopFerRadio" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0">
+                        <RadioButton fx:id="Fer" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -679,7 +726,7 @@
                               <ToggleGroup fx:id="shopRadio" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="shopArgentRadio" layoutX="98.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
+                        <RadioButton fx:id="Argent" layoutX="98.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -687,7 +734,7 @@
                               <SepiaTone />
                            </effect>
                         </RadioButton>
-                        <RadioButton fx:id="shopDiamantRadio" layoutX="121.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
+                        <RadioButton fx:id="Diamant" layoutX="121.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -695,15 +742,7 @@
                               <SepiaTone />
                            </effect>
                         </RadioButton>
-                        <RadioButton fx:id="shopMineraiRadio" layoutX="145.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <effect>
-                              <SepiaTone />
-                           </effect>
-                        </RadioButton>
-                        <RadioButton fx:id="shopBoisRadio" layoutX="168.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
+                        <RadioButton fx:id="Bois" layoutX="168.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -715,7 +754,7 @@
                   </HBox>
                   <HBox alignment="CENTER" layoutX="307.0" layoutY="31.0" prefHeight="18.0" prefWidth="142.0" spacing="22.0">
                      <children>
-                        <RadioButton fx:id="shopMielRadio" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
+                        <RadioButton fx:id="Miel" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -723,7 +762,7 @@
                               <SepiaTone />
                            </effect>
                         </RadioButton>
-                        <RadioButton fx:id="shopViandeRadio" layoutX="98.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
+                        <RadioButton fx:id="Viande" layoutX="98.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -731,7 +770,7 @@
                               <SepiaTone />
                            </effect>
                         </RadioButton>
-                        <RadioButton fx:id="shopNoodleRadio" layoutX="145.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
+                        <RadioButton fx:id="Nouilles" layoutX="145.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -739,7 +778,7 @@
                               <SepiaTone />
                            </effect>
                         </RadioButton>
-                        <RadioButton fx:id="shopPotionRadio" layoutX="168.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
+                        <RadioButton fx:id="Potion" layoutX="168.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$shopRadio">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -749,6 +788,470 @@
                         </RadioButton>
                      </children>
                   </HBox>
+               </children>
+            </Pane>
+            <Pane fx:id="upgraderPane" disable="true" layoutX="382.0" layoutY="459.0" prefHeight="153.0" prefWidth="552.0" visible="false">
+               <children>
+                  <ImageView fitHeight="185.0" fitWidth="468.0" layoutX="35.0" layoutY="-35.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../ressources/HUD/menu/WoodPane.png" />
+                     </image>
+                  </ImageView>
+                  <HBox alignment="CENTER" layoutX="88.0" layoutY="-4.0" prefHeight="26.0" prefWidth="339.0" spacing="40.0">
+                     <children>
+                        <ImageView fx:id="upgraderEpee" fitHeight="17.0" fitWidth="17.0" onMouseClicked="#setDescriptionArme" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/armes/Epee.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderEpeeLongue" fitHeight="17.0" fitWidth="17.0" onMouseClicked="#setDescriptionArme" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/armes/EpeeLongue.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-7.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderGourdin" fitHeight="17.0" fitWidth="17.0" onMouseClicked="#setDescriptionArme" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/armes/Gourdin.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="2.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderHache" fitHeight="19.0" fitWidth="19.0" onMouseClicked="#setDescriptionArme" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/armes/Hache.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-3.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderKatana" fitHeight="19.0" fitWidth="19.0" layoutX="108.0" layoutY="18.0" onMouseClicked="#setDescriptionArme" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/armes/Katana.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-4.0" right="-3.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderLance" fitHeight="19.0" fitWidth="14.0" layoutX="249.0" layoutY="14.0" onMouseClicked="#setDescriptionArme" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/armes/Lance.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="6.0" right="-8.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderMarteau" fitHeight="19.0" fitWidth="19.0" layoutX="270.0" layoutY="14.0" onMouseClicked="#setDescriptionArme" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/armes/Marteau.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="9.0" right="-17.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="97.0" layoutY="-15.0" prefHeight="49.0" prefWidth="327.0" spacing="10.0" style=": 20;">
+                     <children>
+                        <ImageView fx:id="upgraderEpee" fitHeight="65.0" fitWidth="65.0" focusTraversable="true" onMouseEntered="#setDescriptionArme" onMouseExited="#disableDescription" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/HUD/menu/checkboxEMPTY.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-15.0" right="-10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderEpeeLongue" fitHeight="65.0" fitWidth="65.0" focusTraversable="true" onMouseEntered="#setDescriptionArme" onMouseExited="#disableDescription" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/HUD/menu/checkboxEMPTY.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-15.0" right="-10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderGourdin" fitHeight="65.0" fitWidth="65.0" focusTraversable="true" onMouseEntered="#setDescriptionArme" onMouseExited="#disableDescription" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/HUD/menu/checkboxEMPTY.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-15.0" right="-10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderHache" fitHeight="65.0" fitWidth="65.0" focusTraversable="true" layoutX="83.0" layoutY="18.0" onMouseEntered="#setDescriptionArme" onMouseExited="#disableDescription" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/HUD/menu/checkboxEMPTY.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-15.0" right="-10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderKatana" fitHeight="65.0" fitWidth="65.0" focusTraversable="true" layoutX="108.0" layoutY="18.0" onMouseEntered="#setDescriptionArme" onMouseExited="#disableDescription" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/HUD/menu/checkboxEMPTY.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-15.0" right="-10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderLance" fitHeight="65.0" fitWidth="65.0" focusTraversable="true" layoutX="268.0" layoutY="2.0" onMouseEntered="#setDescriptionArme" onMouseExited="#disableDescription" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/HUD/menu/checkboxEMPTY.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-15.0" right="-10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="upgraderMarteau" fitHeight="65.0" fitWidth="65.0" focusTraversable="true" layoutX="288.0" layoutY="2.0" onMouseEntered="#setDescriptionArme" onMouseExited="#disableDescription" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../ressources/HUD/menu/checkboxEMPTY.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="-15.0" right="-10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                     <padding>
+                        <Insets bottom="-10.0" top="-10.0" />
+                     </padding>
+                  </HBox>
+                  <Button fx:id="traiterButton" layoutX="153.0" layoutY="94.0" mnemonicParsing="false" onAction="#traiterMinerai" prefHeight="29.0" prefWidth="332.0" style="-fx-background-color: NONE; -fx-border-width: 2PX; -fx-border-color: #ddab71; -fx-border-radius: 5px;" text="TRAITER MINERAIS" textFill="#ddab71">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="acheterArmeButton" layoutX="55.0" layoutY="56.0" mnemonicParsing="false" onAction="#acheterArme" prefHeight="27.0" prefWidth="430.0" style="-fx-background-color: NONE; -fx-border-width: 2PX; -fx-border-color: #ddab71; -fx-border-radius: 5px;" text="ACHETER" textFill="#ddab71">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <HBox alignment="CENTER" layoutX="104.0" layoutY="31.0" prefHeight="18.0" prefWidth="313.0" spacing="27.0">
+                     <children>
+                        <RadioButton fx:id="Epee" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <SepiaTone />
+                           </effect>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="upgradeRadio" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="EpeeLongue" layoutX="98.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$upgradeRadio">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <SepiaTone />
+                           </effect>
+                        </RadioButton>
+                        <RadioButton fx:id="Gourdin" layoutX="121.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$upgradeRadio">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <SepiaTone />
+                           </effect>
+                        </RadioButton>
+                        <RadioButton fx:id="Hache" layoutX="145.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$upgradeRadio">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <SepiaTone />
+                           </effect>
+                        </RadioButton>
+                        <RadioButton fx:id="Katana" layoutX="168.0" layoutY="61.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$upgradeRadio">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <SepiaTone />
+                           </effect>
+                        </RadioButton>
+                        <RadioButton fx:id="Lance" layoutX="170.0" layoutY="10.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$upgradeRadio">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <SepiaTone />
+                           </effect>
+                        </RadioButton>
+                        <RadioButton fx:id="Marteau" layoutX="210.0" layoutY="10.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="17.0" toggleGroup="$upgradeRadio">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <SepiaTone />
+                           </effect>
+                        </RadioButton>
+                     </children>
+                  </HBox>
+                  <ImageView disable="true" fitHeight="59.0" fitWidth="60.0" focusTraversable="true" layoutX="47.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <image>
+                        <Image url="@../ressources/HUD/menu/checkboxEMPTY.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="91.0" layoutY="102.0" prefHeight="15.0" prefWidth="16.0" text="x" textFill="#ddab71" />
+                  <Label fx:id="nbMineraiLabel" layoutX="112.0" layoutY="101.0" prefHeight="15.0" prefWidth="33.0" text="0" textFill="#ddab71" />
+                  <ImageView disable="true" fitHeight="18.0" fitWidth="18.0" focusTraversable="true" layoutX="68.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <image>
+                        <Image url="@../ressources/HUD/objet/mineraiBrut.png" />
+                     </image>
+                  </ImageView>
+                  <Pane fx:id="descriptionPane" layoutX="72.0" layoutY="-68.0" prefHeight="61.0" prefWidth="88.0" visible="false">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="111.0" layoutY="-9.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../ressources/HUD/menu/WoodPane.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="descriptionArmeLabel" layoutX="3.0" layoutY="-3.0" prefHeight="61.0" prefWidth="103.0" text="Nom:okedoekprenomm ffrfeprixjdiejrangedede" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <Pane fx:id="menuStatsPane" layoutX="861.0" layoutY="130.0" prefHeight="481.0" prefWidth="216.0" visible="false">
+               <children>
+                  <ImageView fitHeight="297.0" fitWidth="186.0" layoutX="11.0" layoutY="62.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../ressources/HUD/menu/playerStats.png" />
+                     </image>
+                  </ImageView>
+                  <VBox layoutX="128.0" layoutY="136.0" prefHeight="69.0" prefWidth="55.0">
+                     <children>
+                        <Label fx:id="statLevelLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="55.0" text="1" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="statHPMAXLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="37.0" prefWidth="55.0" text="120" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="31.0" layoutY="205.0" prefHeight="125.0" prefWidth="72.0" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="83.0" text="Arme:" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="statArmeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="72.0" text="epee" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="8.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="24.0" prefWidth="72.0" text="Portée :" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="statRangeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="56.0" prefHeight="24.0" prefWidth="72.0" text="12" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="109.0" layoutY="205.0" prefHeight="125.0" prefWidth="69.0" spacing="5.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="83.0" text="Attaque" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="statAttaqueLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="83.0" text="15" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="69.0" text="Arme Distance:" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="statArmeDistanceLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="56.0" prefHeight="28.0" prefWidth="69.0" text="12" textAlignment="CENTER" textFill="#ddab71" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <ImageView fitHeight="46.0" fitWidth="35.0" layoutX="149.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ressources/HUD/touches/keyB2.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="start" layoutX="211.0" layoutY="120.0" prefHeight="483.0" prefWidth="856.0" style="-fx-background-color: black; -fx-border-color: orange; -fx-border-width: 10;">
+               <children>
+                  <ImageView fitHeight="465.0" fitWidth="837.0" layoutX="9.0" layoutY="10.0" opacity="0.44" pickOnBounds="true">
+                     <image>
+                        <Image url="@../ressources/background.jpg" />
+                     </image>
+                  </ImageView>
+                  <Button layoutX="375.0" layoutY="221.0" mnemonicParsing="false" onMouseClicked="#commencer" prefHeight="32.0" prefWidth="117.0" style="-fx-background-color: none; -fx-border-color: gray; -fx-border-radius: 10;" text="Jouer" textFill="#d38b0d">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <DropShadow radius="10.76" spread="0.8" width="24.04" />
+                     </effect>
+                  </Button>
+                  <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="413.0" layoutY="333.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ressources/player.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="40.0" fitWidth="44.0" layoutX="229.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ressources/ennemis/boss.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="CENTER" layoutX="7.0" layoutY="417.0" prefHeight="59.0" prefWidth="855.0" text="Created in 2021" textFill="#f8f2c5">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="27.0" layoutY="408.0" prefHeight="39.0" prefWidth="846.0" text="ISSA Anthony | NAZICAL David | SASIRAJAH Sashtiga" textFill="#f8f2c5">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Line endX="350.0" layoutX="310.0" layoutY="175.0" startX="-100.0" stroke="#ae7d4f" />
+                  <HBox layoutY="28.0" prefHeight="154.0" prefWidth="856.0">
+                     <children>
+                        <ImageView fitHeight="77.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/arbre.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="50.0" right="10.0" top="30.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <VBox prefHeight="177.0" prefWidth="618.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="105.0" prefWidth="886.0" text="Tales of a Blind World" textFill="#d38b0d">
+                                 <font>
+                                    <Font size="43.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER" prefHeight="55.0" prefWidth="896.0" text="&amp; Le livre de Momoku" textFill="#d38b0d">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="-40.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER" prefHeight="43.0" prefWidth="898.0" text="A creation of DAS Company" textFill="#c39d60">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="-25.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <ImageView fitHeight="73.0" fitWidth="78.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/arbre.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="10.0" right="50.0" top="30.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <ImageView fitHeight="37.0" fitWidth="43.0" layoutX="593.0" layoutY="330.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../ressources/ennemis/boss.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
          </children>
