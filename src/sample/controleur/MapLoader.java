@@ -21,7 +21,6 @@ public class MapLoader {
         int nombreDeColonne = 1;
         try {
             FileReader fr = new FileReader("src/sample/ressources/tilemaps/"+mapName+".csv");
-            //FileReader fr = new FileReader("/sample/tilemaps/" + folderName);
 
             BufferedReader csvReader = new BufferedReader(fr);
 
@@ -34,8 +33,6 @@ public class MapLoader {
             while (csvReader.readLine() != null) {
                 nombreDeLigne++;
             }
-            //test si nombre de ligne marche
-            //System.out.println(nombreDeLigne);
 
             csvReader.close();
 
@@ -45,9 +42,6 @@ public class MapLoader {
                 if (lignelue.charAt(i) == ',')
                     nombreDeColonne++;
             }
-            
-            //test si nombre de colonne marche
-            //System.out.println(nombreDeColonne);
 
             int[][] map = new int[nombreDeLigne][nombreDeColonne];
 
@@ -62,16 +56,6 @@ public class MapLoader {
                 numeroLigne++;
             }
 
-
-            //test d'affichage de l'array.
-            /*
-            for (int i = 0; i < map.length;i++){
-                for (int j = 0; j < map[i].length;j++){
-                    System.out.print(map[i][j]+ " ");
-                }
-                System.out.println();
-            }
-            */
             return map;
         } catch (Exception e) {
             System.out.println("fichier introuvable");

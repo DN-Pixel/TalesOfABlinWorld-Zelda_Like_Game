@@ -78,25 +78,29 @@ public class BFS {
         while (!found){
             if(actualI-1>=0 && mapBFS[actualI-1][actualJ]==cpt-1){
                 path.add(1);
-                actualI--;
+                if(actualI!=1)
+                    actualI--;
                 if(mapBFS[actualI-1][actualJ]==1)
                     found = true;
             }
             else if(actualI+1<mapBFS.length && mapBFS[actualI+1][actualJ]==cpt-1){
                 path.add(2);
-                actualI++;
+                if(actualI!=mapBFS.length-2)
+                    actualI++;
                 if(mapBFS[actualI+1][actualJ]==1)
                     found = true;
             }
             else if(actualJ-1>=0 && mapBFS[actualI][actualJ-1]==cpt-1){
                 path.add(3);
-                actualJ--;
+                if(actualJ!=1)
+                    actualJ--;
                 if(mapBFS[actualI][actualJ-1]==1)
                     found = true;
             }
             else if(actualJ+1<mapBFS[0].length && mapBFS[actualI][actualJ+1]==cpt-1){
                 path.add(4);
-                actualJ++;
+                if(actualJ!=mapBFS[0].length-2)
+                    actualJ++;
                 if(mapBFS[actualI][actualJ+1]==1)
                     found = true;
             }
