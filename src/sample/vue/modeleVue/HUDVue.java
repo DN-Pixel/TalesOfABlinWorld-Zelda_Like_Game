@@ -28,11 +28,11 @@ public class HUDVue {
     public void statMenuManager(Pane menuPane){
         if(menuPane.isVisible()) {
             menuPane.setVisible(false);
-            soundPlayer.playSpecificSound("statsClose.mp3");
+            soundPlayer.playSpecificSound("statsClose.wav");
         }
         else{
             menuPane.setVisible(true);
-            soundPlayer.playSpecificSound("statsOpen.mp3");
+            soundPlayer.playSpecificSound("statsOpen.wav");
         }
         arme.setText(j1.getArme().getNom());
         range.setText(""+j1.getArme().getRange());

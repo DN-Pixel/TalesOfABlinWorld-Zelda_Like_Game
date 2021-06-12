@@ -373,7 +373,7 @@ public class Controller implements Initializable {
                 vendeurInterface.setDisable(true);
             }
             else{
-                soundPlayer.playSpecificSound("shop.mp3");
+                soundPlayer.playSpecificSound("shop.wav");
                 vendeurInterface.setVisible(true);
                 vendeurInterface.setDisable(false);
             }
@@ -384,7 +384,7 @@ public class Controller implements Initializable {
                 upgraderPaneInterface.setDisable(true);
             }
             else{
-                soundPlayer.playSpecificSound("forge.mp3");
+                soundPlayer.playSpecificSound("forge.wav");
                 upgraderPaneInterface.setVisible(true);
                 upgraderPaneInterface.setDisable(false);
             }

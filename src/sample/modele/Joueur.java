@@ -330,7 +330,7 @@ public class Joueur {
             return;
         Projectile p = new Projectile(this.getX(), this.getY(), direction.getValue().toUpperCase(), "hero", "Joueur", 8, 2);
         this.zone.getProjectiles().add(p);
-        soundPlayer.playSpecificSound("throw.mp3");
+        soundPlayer.playSpecificSound("throw.wav");
     }
     public void manger(String selecteRadio) {
 
@@ -339,7 +339,7 @@ public class Joueur {
                 if (getInventaire().estDisponible("Nouilles", 1)) {
                     getInventaire().eneleverObjet("Nouilles", 1);
                     regenerer((int)(maxHP.getValue()*0.75));
-                    soundPlayer.playSpecificSound("eating.mp3");
+                    soundPlayer.playSpecificSound("eating.wav");
                 }
                 else console.afficherItemIndisponible("nouille");
                 break;
@@ -347,7 +347,7 @@ public class Joueur {
                 if (getInventaire().estDisponible("Miel", 1)) {
                     getInventaire().eneleverObjet("Miel", 1);
                     regenerer((int)(maxHP.getValue()*0.3));
-                    soundPlayer.playSpecificSound("eating.mp3");
+                    soundPlayer.playSpecificSound("eating.wav");
                 }
                 else console.afficherItemIndisponible("miel");
                 break;
@@ -355,7 +355,7 @@ public class Joueur {
                 if (getInventaire().estDisponible("Viande", 1)) {
                     getInventaire().eneleverObjet("Viande", 1);
                     regenerer((int)(maxHP.getValue()/2));
-                    soundPlayer.playSpecificSound("eating.mp3");
+                    soundPlayer.playSpecificSound("eating.wav");
                 }
                 else console.afficherItemIndisponible("viande");
                 break;
@@ -363,7 +363,7 @@ public class Joueur {
                 if (getInventaire().estDisponible("Potion", 1)) {
                     getInventaire().eneleverObjet("Potion", 1);
                     regenerer((int)(maxHP.getValue()));
-                    soundPlayer.playSpecificSound("potion.mp3");
+                    soundPlayer.playSpecificSound("potion.wav");
                 }
                 else console.afficherItemIndisponible("potion");
                 break;
@@ -395,9 +395,9 @@ public class Joueur {
             if(r.getCentreRessourceX()<=getCentreJoueurX()+20 && r.getCentreRessourceX()>=getCentreJoueurX()-20
             && r.getCentreRessourceY()<=getCentreJoueurY()+20 && r.getCentreRessourceY()>=getCentreJoueurY()-20) {
                 if(r.getRecompense().equals("Bois"))
-                    soundPlayer.playSpecificSound("wood.mp3");
+                    soundPlayer.playSpecificSound("wood.wav");
                 else if(r.getRecompense().equals("MineraiBrut"))
-                    soundPlayer.playSpecificSound("mining.mp3");
+                    soundPlayer.playSpecificSound("mining.wav");
                 getInventaire().ajouterObjet(r.getRecompense(), r.getQuantite());
                 console.afficherItemRecup(r.getRecompense(), r.getQuantite());
                 zone.getMapObstacles()[r.getY()/16][r.getX()/16] = -1;

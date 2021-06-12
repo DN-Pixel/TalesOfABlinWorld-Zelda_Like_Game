@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 
 public class soundPlayer {
 
-    private static MediaPlayer musiqueDeFond = new MediaPlayer(new Media(Paths.get("src/sample/ressources/sounds/music/village.mp3").toUri().toString()));
+    private static MediaPlayer musiqueDeFond = new MediaPlayer(new Media(Paths.get("src/sample/ressources/sounds/music/village.wav").toUri().toString()));
 
     public static void playMusiqueDeFond(String musicName) {
         stopMusiqueDeFond();
@@ -33,11 +33,11 @@ public class soundPlayer {
         switch (numero){
             case "0":
                 stopRain();
-                playMusiqueDeFond("mystical.mp3");
+                playMusiqueDeFond("mystical.wav");
                 break;
             case "6":
                 stopRain();
-                playMusiqueDeFond("boss.mp3");
+                playMusiqueDeFond("boss.wav");
                 break;
             case "2":
                 playRain();
@@ -47,16 +47,16 @@ public class soundPlayer {
                 break;
             case "1":
                 stopRain();
-                playMusiqueDeFond("village.mp3");
+                playMusiqueDeFond("village.wav");
                 break;
         }
 }
 
-    private static MediaPlayer rainSound = new MediaPlayer(new Media(Paths.get("src/sample/ressources/sounds/music/rain.mp3").toUri().toString()));
+    private static MediaPlayer rainSound = new MediaPlayer(new Media(Paths.get("src/sample/ressources/sounds/music/rain.wav").toUri().toString()));
 
     private static void playRain() {
         stopRain();
-        Media h = new Media(Paths.get("src/sample/ressources/sounds/music/rain.mp3").toUri().toString());
+        Media h = new Media(Paths.get("src/sample/ressources/sounds/music/rain.wav").toUri().toString());
         rainSound = new MediaPlayer(h);
         rainSound.setVolume(0.07);
         rainSound.setOnEndOfMedia(new Runnable() {
@@ -108,13 +108,13 @@ public class soundPlayer {
         String filename = "";
         double x = Math.random();
         if(x<0.25)
-            filename = "hitEnnemy.mp3";
+            filename = "hitEnnemy.wav";
         else if(x<0.5)
-            filename = "hitEnnemy2.mp3";
+            filename = "hitEnnemy2.wav";
         else if(x<0.75)
-            filename = "hitEnnemy3.mp3";
+            filename = "hitEnnemy3.wav";
         else
-            filename = "hitEnnemy4.mp3";
+            filename = "hitEnnemy4.wav";
         MediaPlayer sound;
         Media h = new Media(Paths.get("src/sample/ressources/sounds/"+filename).toUri().toString());
         sound = new MediaPlayer(h);

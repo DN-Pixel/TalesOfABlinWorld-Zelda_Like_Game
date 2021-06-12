@@ -75,7 +75,7 @@ public class QuestLine {
             joueur.getInventaire().ajouterObjet(getQueteActuelle().getRecompenseObjet(), getQueteActuelle().getQuantiteObjet());
         joueur.getInventaire().ajouterOr(getQueteActuelle().getRecompenseOr());
         quetes.remove(0);
-        soundPlayer.playSpecificSound("quest.mp3");
+        soundPlayer.playSpecificSound("quest.wav");
     }
 
     public Quete getQueteActuelle(){

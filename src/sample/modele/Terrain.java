@@ -257,7 +257,7 @@ public class Terrain {
                             projectiles.remove(p);
                             ((Ennemi) a).subirDegat(joueur.getArmeDistance().getDegatsArme());
                             console.afficherDegatsInfliges(joueur.getArmeDistance().getDegatsArme());
-                            soundPlayer.playSpecificSound("shurikenHit.mp3");
+                            soundPlayer.playSpecificSound("shurikenHit.wav");
                         }
                         //projectiles lancees par les ennemis
                         else if (p.getId().startsWith("Ennemi") &&
