@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.input.KeyEvent;
+import sample.controleur.soundPlayer;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.Pnj;
 import sample.modele.acteurs.ennemis.Ennemi;
@@ -56,9 +57,11 @@ public class Joueur {
     }
 
     public void lvlUp(){
+        soundPlayer.playerLevelUp();
         niveau.setValue(niveau.getValue()+1);
         maxHP.setValue(maxHP.getValue()+5);
         hp.setValue(maxHP.getValue());
+        console.afficherLvlUp();
     }
 
     public void setArmeDistance(ArmeDistance armeDistance) {
@@ -219,6 +222,7 @@ public class Joueur {
     }
 
     public void subirDegats(int degats){
+        soundPlayer.playerGotHit();
         hp.setValue(hp.getValue()-degats);
         console.afficherDegatsRecus(degats);
     }
@@ -290,6 +294,7 @@ public class Joueur {
                         && a.getCentreActeurY() <= this.getCentreJoueurY() + 24 && a.getCentreActeurY() >= this.getCentreJoueurY() - 24) {
                     ((Ennemi) a).subirDegat(arme.getDegatsArme());
                     console.afficherDegatsInfliges(arme.getDegatsArme());
+                    soundPlayer.playAttackSound();
                 }
                 break;
             case "left":
@@ -297,6 +302,7 @@ public class Joueur {
                         && a.getCentreActeurY() <= this.getCentreJoueurY() + 24 && a.getCentreActeurY() >= this.getCentreJoueurY() - 24) {
                     ((Ennemi) a).subirDegat(arme.getDegatsArme());
                     console.afficherDegatsInfliges(arme.getDegatsArme());
+                    soundPlayer.playAttackSound();
                 }
                 break;
             case "up":
@@ -304,6 +310,7 @@ public class Joueur {
                         && a.getCentreActeurX() >= this.getCentreJoueurX() - 24 && a.getCentreActeurX() <= this.getCentreJoueurX() + 24) {
                     ((Ennemi) a).subirDegat(arme.getDegatsArme());
                     console.afficherDegatsInfliges(arme.getDegatsArme());
+                    soundPlayer.playAttackSound();
                 }
                 break;
 
@@ -312,6 +319,7 @@ public class Joueur {
                         && a.getCentreActeurX() >= this.getCentreJoueurX() - 24 && a.getCentreActeurX() <= this.getCentreJoueurX() + 24) {
                     ((Ennemi) a).subirDegat(arme.getDegatsArme());
                     console.afficherDegatsInfliges(arme.getDegatsArme());
+                    soundPlayer.playAttackSound();
                 }
                 break;
         }
@@ -322,6 +330,7 @@ public class Joueur {
             return;
         Projectile p = new Projectile(this.getX(), this.getY(), direction.getValue().toUpperCase(), "hero", "Joueur", 8, 2);
         this.zone.getProjectiles().add(p);
+        soundPlayer.playSpecificSound("throw.mp3");
     }
     public void manger(String selecteRadio) {
 
@@ -330,6 +339,7 @@ public class Joueur {
                 if (getInventaire().estDisponible("Nouilles", 1)) {
                     getInventaire().eneleverObjet("Nouilles", 1);
                     regenerer((int)(maxHP.getValue()*0.75));
+                    soundPlayer.playSpecificSound("eating.mp3");
                 }
                 else console.afficherItemIndisponible("nouille");
                 break;
@@ -337,6 +347,7 @@ public class Joueur {
                 if (getInventaire().estDisponible("Miel", 1)) {
                     getInventaire().eneleverObjet("Miel", 1);
                     regenerer((int)(maxHP.getValue()*0.3));
+                    soundPlayer.playSpecificSound("eating.mp3");
                 }
                 else console.afficherItemIndisponible("miel");
                 break;
@@ -344,6 +355,7 @@ public class Joueur {
                 if (getInventaire().estDisponible("Viande", 1)) {
                     getInventaire().eneleverObjet("Viande", 1);
                     regenerer((int)(maxHP.getValue()/2));
+                    soundPlayer.playSpecificSound("eating.mp3");
                 }
                 else console.afficherItemIndisponible("viande");
                 break;
@@ -351,6 +363,7 @@ public class Joueur {
                 if (getInventaire().estDisponible("Potion", 1)) {
                     getInventaire().eneleverObjet("Potion", 1);
                     regenerer((int)(maxHP.getValue()));
+                    soundPlayer.playSpecificSound("potion.mp3");
                 }
                 else console.afficherItemIndisponible("potion");
                 break;
@@ -359,6 +372,7 @@ public class Joueur {
         }
     }
     public void mourrir() {
+        soundPlayer.playerDied();
         zone.getProjectiles().clear();
         setHp(maxHP.getValue());
         inventaire.clearInventaire();
@@ -380,6 +394,10 @@ public class Joueur {
             r = zone.getListeRessource().get(i);
             if(r.getCentreRessourceX()<=getCentreJoueurX()+20 && r.getCentreRessourceX()>=getCentreJoueurX()-20
             && r.getCentreRessourceY()<=getCentreJoueurY()+20 && r.getCentreRessourceY()>=getCentreJoueurY()-20) {
+                if(r.getRecompense().equals("Bois"))
+                    soundPlayer.playSpecificSound("wood.mp3");
+                else if(r.getRecompense().equals("MineraiBrut"))
+                    soundPlayer.playSpecificSound("mining.mp3");
                 getInventaire().ajouterObjet(r.getRecompense(), r.getQuantite());
                 console.afficherItemRecup(r.getRecompense(), r.getQuantite());
                 zone.getMapObstacles()[r.getY()/16][r.getX()/16] = -1;
