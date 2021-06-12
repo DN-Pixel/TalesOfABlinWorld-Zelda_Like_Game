@@ -3,6 +3,7 @@ package sample.modele.quetes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sample.controleur.Controller;
+import sample.controleur.soundPlayer;
 import sample.modele.Joueur;
 import sample.modele.acteurs.Acteur;
 import sample.modele.acteurs.Pnj;
@@ -74,6 +75,7 @@ public class QuestLine {
             joueur.getInventaire().ajouterObjet(getQueteActuelle().getRecompenseObjet(), getQueteActuelle().getQuantiteObjet());
         joueur.getInventaire().ajouterOr(getQueteActuelle().getRecompenseOr());
         quetes.remove(0);
+        soundPlayer.playSpecificSound("quest.mp3");
     }
 
     public Quete getQueteActuelle(){
